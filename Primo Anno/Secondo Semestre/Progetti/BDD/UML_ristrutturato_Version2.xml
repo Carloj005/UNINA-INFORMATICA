@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- UTENTE -->
+        <mxCell id="utente" value="Utente&#xa;----------------&#xa;idUtente: int [PK]&#xa;nome: String&#xa;cognome: String&#xa;email: String [UNIQUE]&#xa;password: String&#xa;dataRegistrazione: DateTime&#xa;ateneoAppartenenza: String&#xa;bio: String&#xa;valutazioneUtente: Float&#xa;statoAccount: StatoAccount&#xa;ruolo: RuoloUtente" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="180" as="geometry"/>
+        </mxCell>
+        
+        <!-- CATEGORIA -->
+        <mxCell id="categoria" value="Categoria&#xa;----------------&#xa;idCategoria: int [PK]&#xa;nomeCategoria: String&#xa;descrizione: String" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="320" y="40" width="200" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- ANNUNCIO -->
+        <mxCell id="annuncio" value="Annuncio&#xa;----------------&#xa;idAnnuncio: int [PK]&#xa;idUtente: int [FK]&#xa;idCategoria: int [FK]&#xa;tipoAnnuncio: TipoAnnuncio&#xa;statoAnnuncio: StatoAnnuncio&#xa;dataPubblicazione: DateTime&#xa;dataScadenza: DateTime&#xa;dataCompletamento: DateTime" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="60" y="260" width="250" height="140" as="geometry"/>
+        </mxCell>
+        
+        <!-- MESSAGGIO -->
+        <mxCell id="messaggio" value="Messaggio&#xa;----------------&#xa;idMessaggio: int [PK]&#xa;contenutoMessaggio: Text&#xa;dataInvio: DateTime&#xa;idUtenteMittente: int [FK]&#xa;idUtenteDestinatario: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="240" height="100" as="geometry"/>
+        </mxCell>
+        
+        <!-- NOTIFICA -->
+        <mxCell id="notifica" value="Notifica&#xa;----------------&#xa;idNotifica: int [PK]&#xa;tipoNotifica: String&#xa;contenutoNotifica: String&#xa;statoNotifica: StatoNotifica&#xa;dataInvio: DateTime&#xa;dataLettura: DateTime&#xa;idUtente: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="320" y="430" width="200" height="120" as="geometry"/>
+        </mxCell>
+        
+        <!-- RECENSIONE -->
+        <mxCell id="recensione" value="Recensione&#xa;----------------&#xa;idRecensione: int [PK]&#xa;testoRecensione: String&#xa;valoreRecensione: Integer&#xa;dataRecensione: DateTime&#xa;idUtenteRecensore: int [FK]&#xa;idUtenteRecensito: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="600" y="40" width="240" height="120" as="geometry"/>
+        </mxCell>
+        
+        <!-- OFFERTA VENDITA -->
+        <mxCell id="offertaVendita" value="OffertaVendita&#xa;----------------&#xa;idOffertaVendita: int [PK]&#xa;statoOfferta: StatoOfferta&#xa;importo: Float&#xa;dataOfferta: DateTime&#xa;dataAccettazione: DateTime&#xa;dataRifiuto: DateTime&#xa;idAnnuncio: int [FK]&#xa;idUtenteOfferente: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="600" y="220" width="240" height="140" as="geometry"/>
+        </mxCell>
+        
+        <!-- REGALO -->
+        <mxCell id="regalo" value="Regalo&#xa;----------------&#xa;idRegalo: int [PK]&#xa;statoOfferta: StatoOfferta&#xa;motivazione: String&#xa;dataOfferta: DateTime&#xa;dataAccettazione: DateTime&#xa;dataRifiuto: DateTime&#xa;idAnnuncio: int [FK]&#xa;idUtenteOfferente: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="600" y="380" width="240" height="120" as="geometry"/>
+        </mxCell>
+        
+        <!-- OFFERTA SCAMBIO -->
+        <mxCell id="offertaScambio" value="OffertaScambio&#xa;----------------&#xa;idOffertaScambio: int [PK]&#xa;statoOfferta: StatoOfferta&#xa;descrizioneOggetti: String&#xa;dataOfferta: DateTime&#xa;dataAccettazione: DateTime&#xa;dataRifiuto: DateTime&#xa;idAnnuncio: int [FK]&#xa;idUtenteOfferente: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="900" y="220" width="240" height="140" as="geometry"/>
+        </mxCell>
+        
+        <!-- TRANSAZIONE -->
+        <mxCell id="transazione" value="Transazione&#xa;----------------&#xa;idTransazione: int [PK]&#xa;dataInizio: DateTime&#xa;dataTermine: DateTime&#xa;statoTransazione: StatoTransazione&#xa;idAnnuncio: int [FK]&#xa;idUtenteAcquirente: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="900" y="40" width="240" height="120" as="geometry"/>
+        </mxCell>
+        
+        <!-- SPEDIZIONE -->
+        <mxCell id="spedizione" value="Spedizione&#xa;----------------&#xa;idSpedizione: int [PK]&#xa;tipoSpedizione: String&#xa;statoSpedizione: StatoSpedizione&#xa;dataPreparazione: DateTime&#xa;dataInViaggio: DateTime&#xa;dataConsegnata: DateTime&#xa;idTransazione: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="900" y="380" width="240" height="120" as="geometry"/>
+        </mxCell>
+        
+        <!-- AGGIUNGIOGGETTI -->
+        <mxCell id="aggiungiOggetti" value="AggiungiOggetti&#xa;----------------&#xa;idAggiunta: int [PK]&#xa;dataAggiunta: DateTime&#xa;oggettoProposto: String&#xa;idOffertaScambio: int [FK]" style="swimlane" vertex="1" parent="1">
+          <mxGeometry x="1200" y="220" width="240" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- RELAZIONI PRINCIPALI -->
+        <mxCell id="rel_utente_annuncio" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="utente" target="annuncio" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_annuncio_categoria" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="annuncio" target="categoria" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_annuncio_offertaVendita" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="annuncio" target="offertaVendita" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_annuncio_regalo" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="annuncio" target="regalo" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_annuncio_offertaScambio" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="annuncio" target="offertaScambio" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_offertaScambio_aggiungiOggetti" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="offertaScambio" target="aggiungiOggetti" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_annuncio_transazione" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="annuncio" target="transazione" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_transazione_spedizione" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="transazione" target="spedizione" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_utente_messaggio" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="utente" target="messaggio" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_utente_notifica" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="utente" target="notifica" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_utente_recensione" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;" edge="1" source="utente" target="recensione" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

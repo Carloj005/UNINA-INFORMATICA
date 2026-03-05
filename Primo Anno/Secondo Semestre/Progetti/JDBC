@@ -1,0 +1,536 @@
+
+-- ========================================
+-- UninaSwap - Database PostgreSQL
+-- Script di creazione e popolamento
+-- ========================================
+
+-- Pulizia database (opzionale - rimuovere se non necessario)
+DROP TABLE IF EXISTS PREFERITI CASCADE;
+DROP TABLE IF EXISTS TRANSAZIONE CASCADE;
+DROP TABLE IF EXISTS NOTIFICA CASCADE;
+DROP TABLE IF EXISTS MESSAGGIO CASCADE;
+DROP TABLE IF EXISTS CHAT CASCADE;
+DROP TABLE IF EXISTS RECENSIONE CASCADE;
+DROP TABLE IF EXISTS OGGETTO_PROPOSTO CASCADE;
+DROP TABLE IF EXISTS SCAMBIO_ACCETTATO CASCADE;
+DROP TABLE IF EXISTS OFFERTA_SCAMBIO CASCADE;
+DROP TABLE IF EXISTS REGALO_ACCETTATO CASCADE;
+DROP TABLE IF EXISTS REGALO CASCADE;
+DROP TABLE IF EXISTS OFFERTA_RIFIUTATA CASCADE;
+DROP TABLE IF EXISTS OFFERTA_ACCETTATA CASCADE;
+DROP TABLE IF EXISTS OFFERTA_VENDITA CASCADE;
+DROP TABLE IF EXISTS ANNUNCIO CASCADE;
+DROP TABLE IF EXISTS CATEGORIA CASCADE;
+DROP TABLE IF EXISTS UTENTE CASCADE;
+
+-- ========================================
+-- CREAZIONE TABELLE
+-- ========================================
+
+-- Tabella UTENTE
+CREATE TABLE UTENTE (
+    ID_Utente SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cognome VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL, -- Memorizzare in forma criptata in produzione
+    indirizzo VARCHAR(500),
+    dataRegistrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statusAccount VARCHAR(20) DEFAULT 'ATTIVO' CHECK (statusAccount IN ('ATTIVO', 'SOSPESO', 'RIPOSO', 'IN_VALIDAZIONE', 'CONGELATO'))
+);
+
+-- Tabella CATEGORIA
+CREATE TABLE CATEGORIA (
+    ID_Categoria SERIAL PRIMARY KEY,
+    nomeCategoria VARCHAR(100) NOT NULL UNIQUE,
+    descrizione TEXT
+);
+
+-- Tabella ANNUNCIO
+CREATE TABLE ANNUNCIO (
+    ID_Annuncio SERIAL PRIMARY KEY,
+    tipoAnnuncio VARCHAR(20) NOT NULL CHECK (tipoAnnuncio IN ('VENDITA', 'SCAMBIO', 'REGALO')),
+    descrizione TEXT NOT NULL,
+    prezzo DECIMAL(10, 2) CHECK (prezzo >= 0),
+    dataCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modalitaConsegna TEXT,
+    luogoConsegna VARCHAR(500),
+    statoAnnuncio VARCHAR(20) DEFAULT 'ATTIVO' CHECK (statoAnnuncio IN ('ATTIVO', 'SCADUTO', 'RIMOSSO', 'COMPLETATO')),
+    dataScadenza TIMESTAMP,
+    ID_Utente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    ID_Categoria_FK INTEGER NOT NULL REFERENCES CATEGORIA(ID_Categoria) ON DELETE RESTRICT,
+    CONSTRAINT check_data_scadenza CHECK (dataScadenza IS NULL OR dataScadenza > dataCreazione),
+    CONSTRAINT check_prezzo_vendita CHECK (
+        (tipoAnnuncio = 'VENDITA' AND prezzo > 0) OR
+        (tipoAnnuncio = 'REGALO' AND prezzo = 0) OR
+        (tipoAnnuncio = 'SCAMBIO' AND (prezzo IS NULL OR prezzo = 0))
+    )
+);
+
+-- Tabella OFFERTA_VENDITA
+CREATE TABLE OFFERTA_VENDITA (
+    ID_Offerta SERIAL PRIMARY KEY,
+    prezzo DECIMAL(10, 2) NOT NULL CHECK (prezzo > 0),
+    descrizione TEXT,
+    dataOfferta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statoOfferta VARCHAR(20) DEFAULT 'IN_ATTESA' CHECK (statoOfferta IN ('IN_ATTESA', 'ACCETTATA', 'RIFIUTATA', 'RITIRATA')),
+    ID_Annuncio_FK INTEGER NOT NULL REFERENCES ANNUNCIO(ID_Annuncio) ON DELETE CASCADE,
+    ID_Utente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE
+);
+
+-- Tabella OFFERTA_ACCETTATA
+CREATE TABLE OFFERTA_ACCETTATA (
+    ID_OffertaAccettata SERIAL PRIMARY KEY,
+    dataAccettazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID_Offerta_FK INTEGER NOT NULL UNIQUE REFERENCES OFFERTA_VENDITA(ID_Offerta) ON DELETE CASCADE
+);
+
+-- Tabella OFFERTA_RIFIUTATA
+CREATE TABLE OFFERTA_RIFIUTATA (
+    ID_OffertaRifiutata SERIAL PRIMARY KEY,
+    dataRifiuto TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    motivoRifiuto TEXT,
+    ID_Offerta_FK INTEGER NOT NULL UNIQUE REFERENCES OFFERTA_VENDITA(ID_Offerta) ON DELETE CASCADE
+);
+
+-- Tabella REGALO
+CREATE TABLE REGALO (
+    ID_Regalo SERIAL PRIMARY KEY,
+    descrizione TEXT NOT NULL,
+    dataOfferta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statoOfferta VARCHAR(20) DEFAULT 'IN_ATTESA' CHECK (statoOfferta IN ('IN_ATTESA', 'ACCETTATA', 'RIFIUTATA', 'RITIRATA')),
+    ID_Annuncio_FK INTEGER NOT NULL REFERENCES ANNUNCIO(ID_Annuncio) ON DELETE CASCADE,
+    ID_Utente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE
+);
+
+-- Tabella REGALO_ACCETTATO
+CREATE TABLE REGALO_ACCETTATO (
+    ID_RegaloAccettato SERIAL PRIMARY KEY,
+    dataAccettazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID_Regalo_FK INTEGER NOT NULL UNIQUE REFERENCES REGALO(ID_Regalo) ON DELETE CASCADE
+);
+
+-- Tabella OFFERTA_SCAMBIO
+CREATE TABLE OFFERTA_SCAMBIO (
+    ID_Scambio SERIAL PRIMARY KEY,
+    descrizione TEXT,
+    dataOfferta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statoOfferta VARCHAR(20) DEFAULT 'IN_ATTESA' CHECK (statoOfferta IN ('IN_ATTESA', 'ACCETTATA', 'RIFIUTATA', 'RITIRATA')),
+    ID_Annuncio_FK INTEGER NOT NULL REFERENCES ANNUNCIO(ID_Annuncio) ON DELETE CASCADE,
+    ID_Utente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE
+);
+
+-- Tabella SCAMBIO_ACCETTATO
+CREATE TABLE SCAMBIO_ACCETTATO (
+    ID_ScambioAccettato SERIAL PRIMARY KEY,
+    dataAccettazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID_Scambio_FK INTEGER NOT NULL UNIQUE REFERENCES OFFERTA_SCAMBIO(ID_Scambio) ON DELETE CASCADE
+);
+
+-- Tabella OGGETTO_PROPOSTO
+CREATE TABLE OGGETTO_PROPOSTO (
+    ID_OggettoProposto SERIAL PRIMARY KEY,
+    descrizione TEXT NOT NULL,
+    immagine VARCHAR(500),
+    ID_Scambio_FK INTEGER NOT NULL REFERENCES OFFERTA_SCAMBIO(ID_Scambio) ON DELETE CASCADE
+);
+
+-- Tabella RECENSIONE
+CREATE TABLE RECENSIONE (
+    ID_Recensione SERIAL PRIMARY KEY,
+    descrizione TEXT,
+    valutazione INTEGER NOT NULL CHECK (valutazione BETWEEN 1 AND 5),
+    commento TEXT,
+    dataCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID_Utente_Recensore_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    ID_Utente_Recensito_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    CONSTRAINT check_utente_diverso CHECK (ID_Utente_Recensore_FK != ID_Utente_Recensito_FK)
+);
+
+-- Tabella CHAT
+CREATE TABLE CHAT (
+    ID_Chat SERIAL PRIMARY KEY,
+    dataChatCreazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tipoChat VARCHAR(50),
+    ID_Utente1_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    ID_Utente2_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    CONSTRAINT check_utenti_chat_diversi CHECK (ID_Utente1_FK != ID_Utente2_FK)
+);
+
+-- Tabella MESSAGGIO
+CREATE TABLE MESSAGGIO (
+    ID_Messaggio SERIAL PRIMARY KEY,
+    contenutoMessaggio TEXT NOT NULL,
+    dataInvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID_Chat_FK INTEGER NOT NULL REFERENCES CHAT(ID_Chat) ON DELETE CASCADE
+);
+
+-- Tabella NOTIFICA
+CREATE TABLE NOTIFICA (
+    ID_Notifica SERIAL PRIMARY KEY,
+    tipoNotifica VARCHAR(50) NOT NULL,
+    contenuto TEXT NOT NULL,
+    isLetta BOOLEAN DEFAULT FALSE,
+    dataInvio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statoNotifica VARCHAR(20) DEFAULT 'ATTIVA',
+    ID_Utente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE
+);
+
+-- Tabella TRANSAZIONE
+CREATE TABLE TRANSAZIONE (
+    ID_Transazione SERIAL PRIMARY KEY,
+    dataInizio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    statoTransazione VARCHAR(20) DEFAULT 'IN_CORSO' CHECK (statoTransazione IN ('IN_CORSO', 'COMPLETATA', 'ANNULLATA')),
+    ID_Offerta_FK INTEGER REFERENCES OFFERTA_VENDITA(ID_Offerta) ON DELETE SET NULL,
+    ID_Utente_Acquirente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    ID_Utente_Venditore_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    CONSTRAINT check_utenti_transazione_diversi CHECK (ID_Utente_Acquirente_FK != ID_Utente_Venditore_FK)
+);
+
+-- Tabella PREFERITI
+CREATE TABLE PREFERITI (
+    ID_Preferiti SERIAL PRIMARY KEY,
+    dataAggiunta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ID_Utente_FK INTEGER NOT NULL REFERENCES UTENTE(ID_Utente) ON DELETE CASCADE,
+    ID_Annuncio_FK INTEGER NOT NULL REFERENCES ANNUNCIO(ID_Annuncio) ON DELETE CASCADE,
+    UNIQUE(ID_Utente_FK, ID_Annuncio_FK)
+);
+
+-- ========================================
+-- TRIGGER E FUNZIONI
+-- ========================================
+
+-- Funzione per verificare che un utente non faccia offerte sui propri annunci
+CREATE OR REPLACE FUNCTION check_offerta_proprio_annuncio()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM ANNUNCIO 
+        WHERE ID_Annuncio = NEW.ID_Annuncio_FK 
+        AND ID_Utente_FK = NEW.ID_Utente_FK
+    ) THEN
+        RAISE EXCEPTION 'Un utente non può fare offerte sui propri annunci';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger per OFFERTA_VENDITA
+CREATE TRIGGER trigger_check_offerta_vendita
+BEFORE INSERT OR UPDATE ON OFFERTA_VENDITA
+FOR EACH ROW EXECUTE FUNCTION check_offerta_proprio_annuncio();
+
+-- Trigger per REGALO
+CREATE TRIGGER trigger_check_regalo
+BEFORE INSERT OR UPDATE ON REGALO
+FOR EACH ROW EXECUTE FUNCTION check_offerta_proprio_annuncio();
+
+-- Trigger per OFFERTA_SCAMBIO
+CREATE TRIGGER trigger_check_scambio
+BEFORE INSERT OR UPDATE ON OFFERTA_SCAMBIO
+FOR EACH ROW EXECUTE FUNCTION check_offerta_proprio_annuncio();
+
+-- Funzione per aggiornare lo stato dell'annuncio quando un'offerta viene accettata
+CREATE OR REPLACE FUNCTION aggiorna_stato_annuncio_su_accettazione()
+RETURNS TRIGGER AS $$
+DECLARE
+    id_annuncio INTEGER;
+BEGIN
+    -- Recupera l'ID dell'annuncio dall'offerta
+    IF TG_TABLE_NAME = 'OFFERTA_ACCETTATA' THEN
+        SELECT ID_Annuncio_FK INTO id_annuncio
+        FROM OFFERTA_VENDITA
+        WHERE ID_Offerta = NEW.ID_Offerta_FK;
+    ELSIF TG_TABLE_NAME = 'REGALO_ACCETTATO' THEN
+        SELECT ID_Annuncio_FK INTO id_annuncio
+        FROM REGALO
+        WHERE ID_Regalo = NEW.ID_Regalo_FK;
+    ELSIF TG_TABLE_NAME = 'SCAMBIO_ACCETTATO' THEN
+        SELECT ID_Annuncio_FK INTO id_annuncio
+        FROM OFFERTA_SCAMBIO
+        WHERE ID_Scambio = NEW.ID_Scambio_FK;
+    END IF;
+    
+    -- Aggiorna lo stato dell'annuncio
+    UPDATE ANNUNCIO
+    SET statoAnnuncio = 'COMPLETATO'
+    WHERE ID_Annuncio = id_annuncio;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Trigger per aggiornare lo stato annuncio
+CREATE TRIGGER trigger_aggiorna_annuncio_offerta_accettata
+AFTER INSERT ON OFFERTA_ACCETTATA
+FOR EACH ROW EXECUTE FUNCTION aggiorna_stato_annuncio_su_accettazione();
+
+CREATE TRIGGER trigger_aggiorna_annuncio_regalo_accettato
+AFTER INSERT ON REGALO_ACCETTATO
+FOR EACH ROW EXECUTE FUNCTION aggiorna_stato_annuncio_su_accettazione();
+
+CREATE TRIGGER trigger_aggiorna_annuncio_scambio_accettato
+AFTER INSERT ON SCAMBIO_ACCETTATO
+FOR EACH ROW EXECUTE FUNCTION aggiorna_stato_annuncio_su_accettazione();
+
+-- ========================================
+-- POPOLAMENTO DATABASE
+-- ========================================
+
+-- Inserimento UTENTI
+INSERT INTO UTENTE (nome, cognome, email, password, indirizzo, statusAccount) VALUES
+('Mario', 'Rossi', 'mario.rossi@studenti.unina.it', 'hash_password_1', 'Via Toledo 123, Napoli', 'ATTIVO'),
+('Giulia', 'Bianchi', 'giulia.bianchi@studenti.unina.it', 'hash_password_2', 'Corso Umberto I 45, Napoli', 'ATTIVO'),
+('Luca', 'Verdi', 'luca.verdi@studenti.unina.it', 'hash_password_3', 'Via Mezzocannone 16, Napoli', 'ATTIVO'),
+('Anna', 'Neri', 'anna.neri@studenti.unina.it', 'hash_password_4', 'Piazza Dante 89, Napoli', 'ATTIVO'),
+('Francesco', 'Gialli', 'francesco.gialli@studenti.unina.it', 'hash_password_5', 'Via Foria 212, Napoli', 'ATTIVO'),
+('Sara', 'Blu', 'sara.blu@studenti.unina.it', 'hash_password_6', 'Via Duomo 34, Napoli', 'ATTIVO'),
+('Alessandro', 'Viola', 'alessandro.viola@studenti.unina.it', 'hash_password_7', 'Viale Augusto 67, Napoli', 'SOSPESO'),
+('Martina', 'Rosa', 'martina.rosa@studenti.unina.it', 'hash_password_8', 'Via Chiaia 145, Napoli', 'ATTIVO'),
+('Giuseppe', 'Marroni', 'giuseppe.marroni@studenti.unina.it', 'hash_password_9', 'Via Marina 290, Napoli', 'ATTIVO'),
+('Elena', 'Arancio', 'elena.arancio@studenti.unina.it', 'hash_password_10', 'Corso Vittorio Emanuele 78, Napoli', 'ATTIVO');
+
+-- Inserimento CATEGORIE
+INSERT INTO CATEGORIA (nomeCategoria, descrizione) VALUES
+('Libri di Testo', 'Libri universitari e materiale didattico'),
+('Materiale Informatico', 'Computer, tablet, accessori tecnologici'),
+('Abbigliamento', 'Vestiti, scarpe e accessori'),
+('Strumenti Musicali', 'Chitarre, pianoforti, accessori musicali'),
+('Arredamento', 'Mobili e complementi d''arredo per casa e studio'),
+('Elettronica', 'Dispositivi elettronici vari'),
+('Sport e Tempo Libero', 'Attrezzature sportive e hobby'),
+('Altro', 'Oggetti vari non categorizzabili');
+
+-- Inserimento ANNUNCI
+INSERT INTO ANNUNCIO (tipoAnnuncio, descrizione, prezzo, modalitaConsegna, luogoConsegna, statoAnnuncio, dataScadenza, ID_Utente_FK, ID_Categoria_FK) VALUES
+-- Annunci di VENDITA
+('VENDITA', 'Analisi Matematica I - Seconda Edizione, ottime condizioni', 45.00, 'Consegna a mano', 'Monte Sant''Angelo, fascia oraria 9-13', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '30 days', 1, 1),
+('VENDITA', 'MacBook Pro 13" 2020, 8GB RAM, 256GB SSD', 850.00, 'Incontro di persona', 'Fermata metro Università, orario da concordare', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '45 days', 2, 2),
+('VENDITA', 'Giacca North Face taglia M, usata pochissimo', 60.00, 'Spedizione o consegna a mano', 'Centro storico Napoli', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '20 days', 3, 3),
+('VENDITA', 'Chitarra acustica Yamaha con custodia', 150.00, 'Solo consegna a mano', 'Via Mezzocannone, orario flessibile', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '60 days', 4, 4),
+('VENDITA', 'Fisica I - Mazzoldi Nigro Voci, con esercizi svolti', 35.00, 'Consegna in sede universitaria', 'Monte Sant''Angelo o Città Universitaria', 'COMPLETATO', CURRENT_TIMESTAMP + INTERVAL '25 days', 5, 1),
+
+-- Annunci di REGALO
+('REGALO', 'Appunti completi corso Programmazione OO', 0.00, 'Invio digitale PDF', 'Online', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '15 days', 6, 1),
+('REGALO', 'Mouse wireless Logitech, funzionante ma con batterie scariche', 0.00, 'Consegna a mano', 'Qualsiasi sede universitaria', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '10 days', 7, 2),
+('REGALO', 'Zaino da trekking usato, capienza 40L', 0.00, 'Consegna a mano o punto di ritiro', 'Napoli centro', 'COMPLETATO', CURRENT_TIMESTAMP + INTERVAL '7 days', 8, 7),
+
+-- Annunci di SCAMBIO
+('SCAMBIO', 'Libro Sistemi Operativi - Silberschatz, cerco libro Reti di Calcolatori', 0.00, 'Scambio a mano', 'Monte Sant''Angelo o Fuorigrotta', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '40 days', 9, 1),
+('SCAMBIO', 'Tablet Samsung Tab A 10.1, cerco laptop funzionante', 0.00, 'Incontro di persona', 'Da concordare zona Napoli', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '50 days', 10, 2),
+('SCAMBIO', 'Scarpe running Nike n.42, cerco scarpe casual', 0.00, 'Consegna a mano', 'Centro città', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '30 days', 1, 3),
+('SCAMBIO', 'Tastiera MIDI USB, cerco cuffie studio', 0.00, 'Scambio diretto', 'Zona Vomero o centro', 'ATTIVO', CURRENT_TIMESTAMP + INTERVAL '35 days', 2, 4);
+
+-- Inserimento OFFERTE DI VENDITA
+INSERT INTO OFFERTA_VENDITA (prezzo, descrizione, statoOfferta, ID_Annuncio_FK, ID_Utente_FK) VALUES
+(45.00, 'Accetto il prezzo proposto, disponibile per ritiro domani', 'IN_ATTESA', 1, 3),
+(40.00, 'Offro 40€, posso ritirare subito', 'IN_ATTESA', 1, 4),
+(850.00, 'Prezzo accettato, posso incontrarti questa settimana', 'IN_ATTESA', 2, 5),
+(800.00, 'Offro 800€ se includi anche il caricatore originale', 'IN_ATTESA', 2, 6),
+(60.00, 'Va bene il prezzo, preferisco consegna a mano', 'IN_ATTESA', 3, 7),
+(150.00, 'Accetto, quando possiamo vederci?', 'IN_ATTESA', 4, 8),
+(35.00, 'Prezzo accettato, ritiro domani a Monte Sant''Angelo', 'ACCETTATA', 5, 9),
+(30.00, 'Offro 30€, sono uno studente del primo anno', 'RIFIUTATA', 5, 10);
+
+-- Inserimento OFFERTE ACCETTATE
+INSERT INTO OFFERTA_ACCETTATA (ID_Offerta_FK) VALUES (7);
+
+-- Inserimento OFFERTE RIFIUTATE
+INSERT INTO OFFERTA_RIFIUTATA (motivoRifiuto, ID_Offerta_FK) VALUES 
+('Prezzo troppo basso rispetto alle condizioni del libro', 8);
+
+-- Inserimento REGALI
+INSERT INTO REGALO (descrizione, statoOfferta, ID_Annuncio_FK, ID_Utente_FK) VALUES
+('Sono del primo anno e mi servirebbero molto gli appunti per preparare l''esame', 'IN_ATTESA', 6, 1),
+('Ho appena iniziato università e non ho ancora comprato il mouse, grazie mille!', 'IN_ATTESA', 6, 2),
+('Mi serve per un escursione il mese prossimo, sarei molto grato', 'ACCETTATA', 8, 3),
+('Lo zaino mi servirebbe per andare in montagna con gli amici', 'RIFIUTATA', 8, 4);
+
+-- Inserimento REGALI ACCETTATI
+INSERT INTO REGALO_ACCETTATO (ID_Regalo_FK) VALUES (3);
+
+-- Inserimento OFFERTE DI SCAMBIO
+INSERT INTO OFFERTA_SCAMBIO (descrizione, statoOfferta, ID_Annuncio_FK, ID_Utente_FK) VALUES
+('Ho il libro Reti di Calcolatori di Tanenbaum, edizione recente', 'IN_ATTESA', 9, 2),
+('Posso proporti libro Basi di Dati se interessa', 'IN_ATTESA', 9, 3),
+('Ho un laptop Dell funzionante, 4GB RAM, possiamo fare lo scambio', 'IN_ATTESA', 10, 4),
+('Ti propongo scarpe Adidas casual n.42, nuove', 'IN_ATTESA', 11, 5),
+('Ho cuffie Audio-Technica M40x, ottime per studio', 'IN_ATTESA', 12, 6);
+
+-- Inserimento OGGETTI PROPOSTI per gli scambi
+INSERT INTO OGGETTO_PROPOSTO (descrizione, immagine, ID_Scambio_FK) VALUES
+('Libro Reti di Calcolatori - Tanenbaum, 5a edizione', 'libro_reti.jpg', 1),
+('Libro Basi di Dati - Atzeni Ceri, con sottolineature', 'libro_db.jpg', 2),
+('Dell Latitude E6420, Intel i5, 4GB RAM, Windows 10', 'laptop_dell.jpg', 3),
+('Scarpe Adidas Stan Smith bianche, n.42, mai usate', 'scarpe_adidas.jpg', 4),
+('Cuffie Audio-Technica ATH-M40x, con custodia', 'cuffie_at.jpg', 5);
+
+-- Inserimento TRANSAZIONI
+INSERT INTO TRANSAZIONE (statoTransazione, ID_Offerta_FK, ID_Utente_Acquirente_FK, ID_Utente_Venditore_FK) VALUES
+('COMPLETATA', 7, 9, 5),
+('IN_CORSO', 1, 3, 1),
+('IN_CORSO', 3, 5, 2);
+
+-- Inserimento RECENSIONI
+INSERT INTO RECENSIONE (descrizione, valutazione, commento, ID_Utente_Recensore_FK, ID_Utente_Recensito_FK) VALUES
+('Ottimo venditore', 5, 'Libro in condizioni perfette, consegna puntuale e persona affidabile. Consigliatissimo!', 9, 5),
+('Buona esperienza', 4, 'Tutto ok, oggetto conforme alla descrizione', 3, 8),
+('Molto disponibile', 5, 'Persona gentile e flessibile sugli orari di consegna', 5, 2);
+
+-- Inserimento CHAT
+INSERT INTO CHAT (tipoChat, ID_Utente1_FK, ID_Utente2_FK) VALUES
+('trattativa', 1, 3),
+('trattativa', 2, 5),
+('trattativa', 5, 9),
+('info', 4, 8),
+('trattativa', 6, 1);
+
+-- Inserimento MESSAGGI
+INSERT INTO MESSAGGIO (contenutoMessaggio, ID_Chat_FK) VALUES
+('Ciao, sono interessato al libro di Analisi', 1),
+('Certo! Quando ti va bene per il ritiro?', 1),
+('Domani pomeriggio va bene?', 1),
+('Perfetto, ci vediamo alle 15 a Monte Sant''Angelo', 1),
+
+('Buongiorno, il MacBook è ancora disponibile?', 2),
+('Sì, è disponibile. Vuoi vederlo?', 2),
+('Sì, possiamo incontrarci venerdì?', 2),
+
+('Il libro è ancora in buone condizioni?', 3),
+('Sì, praticamente nuovo, solo qualche sottolineatura a matita', 3),
+('Perfetto, accetto i 35€', 3),
+
+('La chitarra include anche la custodia?', 4),
+('Sì, includo custodia e anche un set di corde nuove', 4);
+
+-- Inserimento NOTIFICHE
+INSERT INTO NOTIFICA (tipoNotifica, contenuto, isLetta, ID_Utente_FK) VALUES
+('NUOVA_OFFERTA', 'Hai ricevuto una nuova offerta per "Analisi Matematica I"', TRUE, 1),
+('NUOVA_OFFERTA', 'Hai ricevuto una nuova offerta per "Analisi Matematica I"', TRUE, 1),
+('OFFERTA_ACCETTATA', 'La tua offerta per "Fisica I" è stata accettata!', TRUE, 9),
+('OFFERTA_RIFIUTATA', 'La tua offerta per "Fisica I" è stata rifiutata', TRUE, 10),
+('NUOVO_MESSAGGIO', 'Hai ricevuto un nuovo messaggio', FALSE, 1),
+('NUOVO_MESSAGGIO', 'Hai ricevuto un nuovo messaggio', FALSE, 3),
+('NUOVA_RECENSIONE', 'Hai ricevuto una nuova recensione', FALSE, 5),
+('OFFERTA_ACCETTATA', 'La tua richiesta di regalo è stata accettata!', TRUE, 3);
+
+-- Inserimento PREFERITI
+INSERT INTO PREFERITI (ID_Utente_FK, ID_Annuncio_FK) VALUES
+(2, 1),
+(3, 2),
+(4, 4),
+(5, 9),
+(6, 6),
+(7, 3),
+(8, 10),
+(9, 1),
+(10, 2);
+
+-- ========================================
+-- VISTE UTILI PER REPORT
+-- ========================================
+
+-- Vista per statistiche offerte per utente
+CREATE OR REPLACE VIEW vista_statistiche_offerte_utente AS
+SELECT 
+    u.ID_Utente,
+    u.nome,
+    u.cognome,
+    COUNT(DISTINCT ov.ID_Offerta) as num_offerte_vendita,
+    COUNT(DISTINCT r.ID_Regalo) as num_offerte_regalo,
+    COUNT(DISTINCT os.ID_Scambio) as num_offerte_scambio,
+    COUNT(DISTINCT oa.ID_OffertaAccettata) as num_offerte_vendita_accettate,
+    COUNT(DISTINCT ra.ID_RegaloAccettato) as num_regali_accettati,
+    COUNT(DISTINCT sa.ID_ScambioAccettato) as num_scambi_accettati
+FROM UTENTE u
+LEFT JOIN OFFERTA_VENDITA ov ON u.ID_Utente = ov.ID_Utente_FK
+LEFT JOIN REGALO r ON u.ID_Utente = r.ID_Utente_FK
+LEFT JOIN OFFERTA_SCAMBIO os ON u.ID_Utente = os.ID_Utente_FK
+LEFT JOIN OFFERTA_ACCETTATA oa ON ov.ID_Offerta = oa.ID_Offerta_FK
+LEFT JOIN REGALO_ACCETTATO ra ON r.ID_Regalo = ra.ID_Regalo_FK
+LEFT JOIN SCAMBIO_ACCETTATO sa ON os.ID_Scambio = sa.ID_Scambio_FK
+GROUP BY u.ID_Utente, u.nome, u.cognome;
+
+-- Vista per statistiche prezzi offerte vendita accettate
+CREATE OR REPLACE VIEW vista_statistiche_prezzi_vendita AS
+SELECT 
+    u.ID_Utente,
+    u.nome,
+    u.cognome,
+    AVG(ov.prezzo) as prezzo_medio_offerte_accettate,
+    MIN(ov.prezzo) as prezzo_minimo_offerte_accettate,
+    MAX(ov.prezzo) as prezzo_massimo_offerte_accettate,
+    COUNT(oa.ID_OffertaAccettata) as numero_vendite_completate
+FROM UTENTE u
+JOIN OFFERTA_VENDITA ov ON u.ID_Utente = ov.ID_Utente_FK
+JOIN OFFERTA_ACCETTATA oa ON ov.ID_Offerta = oa.ID_Offerta_FK
+GROUP BY u.ID_Utente, u.nome, u.cognome;
+
+-- Vista per annunci con numero di offerte ricevute
+CREATE OR REPLACE VIEW vista_annunci_con_offerte AS
+SELECT 
+    a.ID_Annuncio,
+    a.tipoAnnuncio,
+    a.descrizione,
+    a.statoAnnuncio,
+    u.nome as nome_proprietario,
+    u.cognome as cognome_proprietario,
+    c.nomeCategoria,
+    COUNT(DISTINCT ov.ID_Offerta) + 
+    COUNT(DISTINCT r.ID_Regalo) + 
+    COUNT(DISTINCT os.ID_Scambio) as num_offerte_totali
+FROM ANNUNCIO a
+JOIN UTENTE u ON a.ID_Utente_FK = u.ID_Utente
+JOIN CATEGORIA c ON a.ID_Categoria_FK = c.ID_Categoria
+LEFT JOIN OFFERTA_VENDITA ov ON a.ID_Annuncio = ov.ID_Annuncio_FK
+LEFT JOIN REGALO r ON a.ID_Annuncio = r.ID_Annuncio_FK
+LEFT JOIN OFFERTA_SCAMBIO os ON a.ID_Annuncio = os.ID_Annuncio_FK
+GROUP BY a.ID_Annuncio, a.tipoAnnuncio, a.descrizione, a.statoAnnuncio, 
+         u.nome, u.cognome, c.nomeCategoria;
+
+-- ========================================
+-- QUERY DI VERIFICA
+-- ========================================
+
+-- Verifica popolamento tabelle
+SELECT 'UTENTE' as tabella, COUNT(*) as num_record FROM UTENTE
+UNION ALL
+SELECT 'CATEGORIA', COUNT(*) FROM CATEGORIA
+UNION ALL
+SELECT 'ANNUNCIO', COUNT(*) FROM ANNUNCIO
+UNION ALL
+SELECT 'OFFERTA_VENDITA', COUNT(*) FROM OFFERTA_VENDITA
+UNION ALL
+SELECT 'REGALO', COUNT(*) FROM REGALO
+UNION ALL
+SELECT 'OFFERTA_SCAMBIO', COUNT(*) FROM OFFERTA_SCAMBIO
+UNION ALL
+SELECT 'TRANSAZIONE', COUNT(*) FROM TRANSAZIONE
+UNION ALL
+SELECT 'RECENSIONE', COUNT(*) FROM RECENSIONE
+UNION ALL
+SELECT 'CHAT', COUNT(*) FROM CHAT
+UNION ALL
+SELECT 'MESSAGGIO', COUNT(*) FROM MESSAGGIO
+UNION ALL
+SELECT 'NOTIFICA', COUNT(*) FROM NOTIFICA
+UNION ALL
+SELECT 'PREFERITI', COUNT(*) FROM PREFERITI;
+
+-- Visualizza annunci attivi con relative informazioni
+SELECT 
+    a.ID_Annuncio,
+    a.tipoAnnuncio,
+    a.descrizione,
+    a.prezzo,
+    c.nomeCategoria,
+    u.nome || ' ' || u.cognome as proprietario,
+    a.statoAnnuncio
+FROM ANNUNCIO a
+JOIN CATEGORIA c ON a.ID_Categoria_FK = c.ID_Categoria
+JOIN UTENTE u ON a.ID_Utente_FK = u.ID_Utente
+WHERE a.statoAnnuncio = 'ATTIVO'
+ORDER BY a.dataCreazione DESC;
+
+-- Visualizza statistiche utenti
+SELECT * FROM vista_statistiche_offerte_utente;
