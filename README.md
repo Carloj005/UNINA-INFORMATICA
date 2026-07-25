@@ -93,7 +93,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | 1° | [Analisi Matematica I](./Primo%20Anno/Primo%20Semestre/Analisi%20Matematica%201) | R. Alicandro/C. Leone | D. Castorina | A.M. Barbagallo | ✅ |
 | 1° | [Programmazione 1](./Primo%20Anno/Primo%20Semestre/Programmazione%201) | R. Prevete | D. Riccio/L. Sauro | F. Isgrò | ✅ |
 | 2° | [Algebra](./Primo%20Anno/Secondo%20Semestre/Algebra) | M.R. Celentani | G. Cutolo | M. Brescia | ⏳ |
-| 2° | [Programmazione OO](./Primo%20Anno/Secondo%20Semestre/Programmazione%20Object%20Oriented) | S. Di Martino/M. Sangiovanni | P. Tramontana | B. Breve/R. Caccavale | ⏳ |
+| 2° | [Programmazione OO](./Primo%20Anno/Secondo%20Semestre/Programmazione%20Object%20Oriented) | S. Di Martino/M. Sangiovanni | P. Tramontana | B. Breve/R. Caccavale | ✅ |
 | 2° | [Basi di Dati](./Primo%20Anno/Secondo%20Semestre/Basi%20di%20Dati) | M. Sangiovanni | S. Barra | A. Calì | ⏳ |
 
 <a id="secondo-anno"></a>
@@ -124,20 +124,20 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 <a id="esami-a-scelta"></a>
 ### 🧩 Esami a Scelta
 
-| Materia | Docente (Riferimento) | Cartella |
-| :--- | :--- | :--- |
-| **Ricerca Operativa** | P. Festa | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Ricerca%20Operativa) |
-| **Economia e Org. Aziendale** | Piccirillo / Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Economia%20e%20Organizzazione%20Aziendale) |
-| **Algorithm Design** | M. Benerecetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Algorithm%20design) |
-| **Parallel & Distributed Computing** | G. Laccetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) |
-| **Multimedia Information Systems** | W. Balzano | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Multimedia%20Information%20Systems) |
-| **Calcolo Numerico** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Calcolo%20Numerico) |
-| **Computer Forensics** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Computer%20Forensics) |
-| **Diritto dell'Informatica** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Diritto%20dell’Informatica) |
-| **Istituzioni di Matematica II** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Istituzioni%20di%20Matematica%20II) |
-| **Logics for Computer Science** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Logics%20for%20computer%20science) |
-| **OS for Mobile, Cloud and IoT** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Operating%20systems%20for%20mobile,%20cloud%20and%20IoT) |
-| **Scientific Computing** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Scientific%20Computing) |
+| Materia | Docente (Riferimento) | Cartella | Stato |
+| :--- | :--- | :--- | :---: |
+| **Ricerca Operativa** | P. Festa | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Ricerca%20Operativa) | ⏳ |
+| **Economia e Org. Aziendale** | Piccirillo / Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Economia%20e%20Organizzazione%20Aziendale) | ✅ |
+| **Algorithm Design** | M. Benerecetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Algorithm%20design) | ⏳ |
+| **Parallel & Distributed Computing** | G. Laccetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) | ⏳ |
+| **Multimedia Information Systems** | W. Balzano | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Multimedia%20Information%20Systems) | ⏳ |
+| **Calcolo Numerico** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Calcolo%20Numerico) | ⏳ |
+| **Computer Forensics** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Computer%20Forensics) | ⏳ |
+| **Diritto dell'Informatica** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Diritto%20dell’Informatica) | ⏳ |
+| **Istituzioni di Matematica II** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Istituzioni%20di%20Matematica%20II) | ⏳ |
+| **Logics for Computer Science** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Logics%20for%20computer%20science) | ⏳ |
+| **OS for Mobile, Cloud and IoT** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Operating%20systems%20for%20mobile,%20cloud%20and%20IoT) | ⏳ |
+| **Scientific Computing** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Scientific%20Computing) | ⏳ |
 
 ---
 
