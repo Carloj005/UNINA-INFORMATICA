@@ -1,5 +1,0 @@
-********* SOLUTION
-********* Mode: out_copia
-********* Scoping: dynamic
-Compile time error:
-Illegal usage s=t*3 of out_copia parameter t of p4
