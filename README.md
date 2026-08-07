@@ -4,7 +4,7 @@
 ![Repo Size](https://img.shields.io/github/repo-size/Carloj005/UNINA-INFORMATICA?style=flat-square)
 ![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)
 
-Repository dedicata alla raccolta e organizzazione del materiale didattico per il Corso di Laurea Triennale in **Informatica** presso l'Università degli Studi di Napoli Federico II. Anno accademico di inizio 2024-2025.
+Repository dedicata alla raccolta e organizzazione del materiale didattico per il Corso di Laurea Triennale in **Informatica** presso l'Università degli Studi di Napoli Federico II. Anno accademico di inizio 2024-2025. [Pagina Ufficiale del corso di laurea](https://informatica.dieti.unina.it/index.php/it/)
 
 **NOTA**: Il materiale originale nasce per gli studenti del gruppo 1. Tuttavia, la repository è ora strutturata per contenere il materiale di **tutti i canali e docenti**. Potete trovare tutto il materiale necessario e tutti i gruppi telegram ufficiali [qui](https://t.me/+7HOZaOMbgSphNGM0) se vi dovesse servire altro.
 
