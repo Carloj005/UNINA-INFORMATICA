@@ -78,7 +78,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 
 ---
 
-## 📚 Dashboard Corsi (A.A. 2025/2026)
+## 📚 Dashboard Corsi (A.A. 2026/2027)
 
 **Legenda Stato:**
 *   ✅ = **Esame Superato** (Materiale consolidato e testato).
@@ -115,11 +115,11 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 
 | Semestre | Materia | Canale 1 | Canale 2 | Stato |
 | :--- | :--- | :--- | :--- | :---: |
-| 1° | [Reti e Programmazione Distribuita](./Terzo%20Anno/Primo%20Semestre/Reti%20e%20Programmazione%20Distribuita) | Da Definire | Da Definire | ⏳ |
-| 1° | [Tecnologie Web](./Terzo%20Anno/Primo%20Semestre/Tecnologie%20Web) | Da Definire | Da Definire | ⏳ |
-| 2° | [AI Technologies](./Terzo%20Anno/Secondo%20Semestre/AI%20Technologies) | Da Definire | Da Definire | ⏳ |
-| 2° | [Ingegneria del Software](./Terzo%20Anno/Secondo%20Semestre/Ingegneria%20del%20Software) | Da Definire | Da Definire | ⏳ |
-| 2° | [Tecniche di Programmazione Avanzata](./Terzo%20Anno/Secondo%20Semestre/Tecniche%20di%20Programmazione%20Avanzata) | Da Definire | Da Definire | ⏳ |
+| 1° | [Reti e Programmazione Distribuita](./Terzo%20Anno/Primo%20Semestre/Reti%20e%20Programmazione%20Distribuita) | A. Finzi | A. Calì | ⏳ |
+| 1° | [Ingegneria del Software](./Terzo%20Anno/Primo%20Semestre/Ingegneria%20del%20Software) | S. Di Martino | P. Tramontana | ⏳ |
+| 1° | [Tecniche di Programmazione Avanzata](./Terzo%20Anno/Primo%20Semestre/Tecniche%20di%20Programmazione%20Avanzata) | M. Faella | M. Faella | ⏳ |
+| 2° | [AI Technologies](./Terzo%20Anno/Secondo%20Semestre/AI%20Technologies) | A. Corazza | S. Rossi | ⏳ |
+| 2° | [Tecnologie Web](./Terzo%20Anno/Secondo%20Semestre/Tecnologie%20Web) | L.L.L. Starace | B. Breve | ⏳ |
 
 <a id="esami-a-scelta"></a>
 ### 🧩 Esami a Scelta
@@ -129,15 +129,15 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | **Ricerca Operativa** | P. Festa | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Ricerca%20Operativa) | ⏳ |
 | **Economia e Org. Aziendale** | Piccirillo / Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Economia%20e%20Organizzazione%20Aziendale) | ✅ |
 | **Algorithm Design** | M. Benerecetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Algorithm%20design) | ⏳ |
-| **Parallel & Distributed Computing** | G. Laccetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) | ⏳ |
+| **Parallel & Distributed Computing** | M. Lapegna | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) | ⏳ |
 | **Multimedia Information Systems** | W. Balzano | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Multimedia%20Information%20Systems) | ⏳ |
-| **Calcolo Numerico** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Calcolo%20Numerico) | ⏳ |
+| **Calcolo Numerico** | L. D'Amore | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Calcolo%20Numerico) | ⏳ |
 | **Computer Forensics** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Computer%20Forensics) | ⏳ |
 | **Diritto dell'Informatica** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Diritto%20dell’Informatica) | ⏳ |
 | **Istituzioni di Matematica II** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Istituzioni%20di%20Matematica%20II) | ⏳ |
-| **Logics for Computer Science** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Logics%20for%20computer%20science) | ⏳ |
+| **Logics for Computer Science** | M. Benerecetti | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Logics%20for%20computer%20science) | ⏳ |
 | **OS for Mobile, Cloud and IoT** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Operating%20systems%20for%20mobile,%20cloud%20and%20IoT) | ⏳ |
-| **Scientific Computing** | Da Definire | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Scientific%20Computing) | ⏳ |
+| **Scientific Computing** | E. Messina | [Link](./Secondo%20Anno/Secondo%20Semestre/Esami%20a%20Scelta/Scientific%20Computing) | ⏳ |
 
 ---
 
