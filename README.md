@@ -148,6 +148,10 @@ Nella cartella [**info-generali**](./info-generali) puoi trovare:
 - Guida dello Studente
 - Orario delle Lezioni
 - Script di automazione per la repo
+- Mappa di Monte Sant'Angelo
+
+### 🗺️ Mappa di Monte Sant'Angelo
+![Mappa Monte Sant'Angelo](./info-generali/MappaMSA.png)
 
 ---
 
