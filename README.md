@@ -145,7 +145,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 ## ℹ️ Informazioni Generali
 
 Nella cartella [**info-generali**](./info-generali) puoi trovare:
-- Guida dello Studente 25/26 e 24/25
+- Guida dello Studente
 - Orario delle Lezioni
 - Script di automazione per la repo
 
