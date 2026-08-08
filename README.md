@@ -204,7 +204,7 @@ Consultare il file [LICENSE](./LICENSE) per i dettagli.
 La tua opinione è fondamentale per migliorare la qualità del materiale condiviso! 
 Se hai utilizzato appunti, dispense o file presenti in questa repository, ti invitiamo a lasciare un feedback sul materiale per un dato **Corso e Professore**.
 
-👉 **[Compila il Form di Valutazione Anonimo](INSERISCI_QUI_IL_LINK_AL_GOOGLE_FORM_PUBBLICO)** 👈
+👉 **[Compila il Form di Valutazione Anonimo](https://forms.gle/KFHXPqoKNj1LyCk67)** 👈
 
 Nel modulo (che è **completamente anonimo**) potrai:
 1. Selezionare lo specifico Insegnamento e Professore.
