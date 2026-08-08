@@ -17,6 +17,20 @@ Compila il nostro [**Google Form di Valutazione**](https://forms.gle/seGUyzc2HiR
 *   Chiarezza, esposizione e disponibilità del docente.
 *   Qualità del materiale didattico e modalità d'esame.
 
+## 📝 Valutazione del Materiale Didattico
+
+La tua opinione è fondamentale per migliorare la qualità del materiale condiviso! 
+Se hai utilizzato appunti, dispense o file presenti in questa repository, ti invitiamo a lasciare un feedback sul materiale per un dato **Corso e Professore**.
+
+👉 **[Compila il Form di Valutazione Anonimo](https://forms.gle/KFHXPqoKNj1LyCk67)** 👈
+
+Nel modulo (che è **completamente anonimo**) potrai:
+1. Selezionare lo specifico Insegnamento e Professore.
+2. Lasciare una valutazione da 1 a 5 sulla qualità e completezza del materiale.
+3. Suggerire nei dettagli (campo a risposta libera) cosa migliorare, cosa manca o quali file hai trovato particolarmente utili.
+
+Grazie per il tuo contributo!
+
 ## 🎯 Obiettivo
 L'obiettivo di questa repository è fungere da cloud pubblico per centralizzare tutte le risorse universitarie, facilitandone l'accesso, l'organizzazione nel tempo e la fruizione del materiale didattico. La repository verrà aggiornata costantemente con l'avanzare del percorso accademico.
 
@@ -198,18 +212,3 @@ Se non sai usare Git, hai trovato un errore negli appunti, o vuoi semplicemente 
 
 Questo materiale è distribuito sotto licenza **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**.
 Consultare il file [LICENSE](./LICENSE) per i dettagli.
-
-## 📝 Valutazione del Materiale Didattico
-
-La tua opinione è fondamentale per migliorare la qualità del materiale condiviso! 
-Se hai utilizzato appunti, dispense o file presenti in questa repository, ti invitiamo a lasciare un feedback sul materiale per un dato **Corso e Professore**.
-
-👉 **[Compila il Form di Valutazione Anonimo](https://forms.gle/KFHXPqoKNj1LyCk67)** 👈
-
-Nel modulo (che è **completamente anonimo**) potrai:
-1. Selezionare lo specifico Insegnamento e Professore.
-2. Lasciare una valutazione da 1 a 5 sulla qualità e completezza del materiale.
-3. Suggerire nei dettagli (campo a risposta libera) cosa migliorare, cosa manca o quali file hai trovato particolarmente utili.
-
-Grazie per il tuo contributo!
-
