@@ -198,3 +198,18 @@ Se non sai usare Git, hai trovato un errore negli appunti, o vuoi semplicemente 
 
 Questo materiale è distribuito sotto licenza **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**.
 Consultare il file [LICENSE](./LICENSE) per i dettagli.
+
+## 📝 Valutazione del Materiale Didattico
+
+La tua opinione è fondamentale per migliorare la qualità del materiale condiviso! 
+Se hai utilizzato appunti, dispense o file presenti in questa repository, ti invitiamo a lasciare un feedback sul materiale per un dato **Corso e Professore**.
+
+👉 **[Compila il Form di Valutazione Anonimo](INSERISCI_QUI_IL_LINK_AL_GOOGLE_FORM_PUBBLICO)** 👈
+
+Nel modulo (che è **completamente anonimo**) potrai:
+1. Selezionare lo specifico Insegnamento e Professore.
+2. Lasciare una valutazione da 1 a 5 sulla qualità e completezza del materiale.
+3. Suggerire nei dettagli (campo a risposta libera) cosa migliorare, cosa manca o quali file hai trovato particolarmente utili.
+
+Grazie per il tuo contributo!
+
