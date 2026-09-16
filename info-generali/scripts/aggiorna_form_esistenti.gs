@@ -24,10 +24,10 @@
  */
 
 // ============================================================================
-// CONFIGURAZIONE: INSERISCI QUI I FORM ID (OPPURE LASCIA VUOTO PER RICERCA AUTOMATICA)
+// CONFIGURAZIONE: FORM ID CONFIGURATI
 // ============================================================================
-var ID_FORM_VALUTAZIONE_DOCENTI = ""; // Es: "1t1xsMvz1jvK8VKdzf_KsZAVbUtLZIn9CuKmYWoIBBBk"
-var ID_FORM_VALUTAZIONE_MATERIALE = ""; // Es: "1a2b3c4d5e..."
+var ID_FORM_VALUTAZIONE_DOCENTI = "1Ua9Rm44dlW5P-Gdu-icymQMKMVE_S6VNT5WmH7s8c2o";
+var ID_FORM_VALUTAZIONE_MATERIALE = "1xSu9zh6PgcoQcJ4rXtqaxyeiH-Z9rNw6ne9C8OL8INA";
 
 // Nome esatto dei file su Google Drive (usato solo se l'ID è vuoto)
 var NOME_FORM_DOCENTI = "Valutazione Corsi e Docenti - UNINA INFORMATICA";
@@ -203,10 +203,16 @@ var COURSES_DATA = [
 
 // ============================================================================
 // FUNZIONE HELPER: APRE IL FORM TRAMITE ID O RICERCA SU DRIVE
+// (L'underscore finale impedisce che compaia nel menu di esecuzione)
 // ============================================================================
-function ottieniForm(idConfigurato, nomeFallback) {
+function ottieniForm_(idConfigurato, nomeFallback) {
+  if (!idConfigurato && !nomeFallback) {
+    throw new Error(
+      "Non eseguire questa funzione ausiliaria da sola! Nel menu a tendina in alto seleziona 'aggiornaFormValutazioneDocenti' oppure 'aggiornaFormValutazioneMateriale' e poi clicca Esegui."
+    );
+  }
+
   if (idConfigurato && idConfigurato.trim() !== "") {
-    // Se l'utente ha inserito l'ID o un URL completo
     var id = idConfigurato.trim();
     if (id.indexOf("/d/") !== -1) {
       id = id.split("/d/")[1].split("/")[0];
@@ -214,11 +220,12 @@ function ottieniForm(idConfigurato, nomeFallback) {
     return FormApp.openById(id);
   }
 
-  // Fallback: cerca per nome nel Google Drive dell'utente
-  var files = DriveApp.getFilesByName(nomeFallback);
-  if (files.hasNext()) {
-    var file = files.next();
-    return FormApp.openById(file.getId());
+  if (nomeFallback && nomeFallback.trim() !== "") {
+    var files = DriveApp.getFilesByName(nomeFallback.trim());
+    if (files.hasNext()) {
+      var file = files.next();
+      return FormApp.openById(file.getId());
+    }
   }
 
   throw new Error(
@@ -230,7 +237,7 @@ function ottieniForm(idConfigurato, nomeFallback) {
 // 1. AGGIORNA: VALUTAZIONE CORSI E DOCENTI
 // ============================================================================
 function aggiornaFormValutazioneDocenti() {
-  var form = ottieniForm(ID_FORM_VALUTAZIONE_DOCENTI, NOME_FORM_DOCENTI);
+  var form = ottieniForm_(ID_FORM_VALUTAZIONE_DOCENTI, NOME_FORM_DOCENTI);
   Logger.log("Apro il form: " + form.getTitle() + " (ID: " + form.getId() + ")");
 
   // Rimuove i vecchi elementi per ricreare la struttura condizionale pulita
@@ -397,7 +404,7 @@ function aggiornaFormValutazioneDocenti() {
 // 2. AGGIORNA: VALUTAZIONE MATERIALE DIDATTICO
 // ============================================================================
 function aggiornaFormValutazioneMateriale() {
-  var form = ottieniForm(ID_FORM_VALUTAZIONE_MATERIALE, NOME_FORM_MATERIALE);
+  var form = ottieniForm_(ID_FORM_VALUTAZIONE_MATERIALE, NOME_FORM_MATERIALE);
   Logger.log("Apro il form: " + form.getTitle() + " (ID: " + form.getId() + ")");
 
   // Rimuove i vecchi elementi
