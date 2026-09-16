@@ -28,6 +28,7 @@ Le sottocartelle obbligatorie per ogni docente sono:
 Il `README.md` principale fa da Hub. Include:
 - Mappa di Monte Sant'Angelo.
 - Form di Valutazione Materiale: Abbiamo inserito un link a un Google Form (generato tramite Google Apps Script) che gli studenti usano per recensire anonimamente (da 1 a 5) il materiale per ogni specifica combinazione "Corso - Professore".
+- Form Raccolta Domande Esami Orali: Abbiamo creato un Google Form con logica di salto condizionale (generato da Apps Script in `info-generali/scripts/crea_form_domande_orali.gs`) per raccogliere le domande orali ricevute dagli studenti suddivise per corso e docente.
 - Dashboard dei Corsi: Usa le icone ✅ (Esame Superato/Materiale consolidato) e ⏳ (In Corso/Materiale in fase di studio).
 
 ## 5. Cronologia Recente e Lore
@@ -35,6 +36,7 @@ Il `README.md` principale fa da Hub. Include:
 - Abbiamo organizzato il corso di "Multimedia Information Systems" del prof. Walter Balzano, pulendo i nomi dei file ed eliminando copie esatte (verificate tramite hash SHA-1 dei blob di git).
 - Abbiamo gestito due Pull Request (una per Algebra e una per Geometria), verificando la correttezza, accettandole tramite command line e sistemando localmente eventuali sviste (spostando prove scritte/orali nelle sottocartelle corrette e aggiungendo i file `crediti.txt`).
 - Abbiamo gestito la Pull Request #15 (Linguaggi di Programmazione 1 - Bonatti, Guida Prolog di Giuseppe Cautiero), accettandola, commentandola, standardizzando il file dei crediti in `crediti.txt`, configurando `gh auth` e sincronizzando la repo.
+- Abbiamo creato tramite Google Apps Script e inserito nel `README.md` il Google Form per la "Raccolta Domande Esami Orali" con diramazioni per tutti i 31 corsi e docenti.
 
 ## Istruzioni per la prima esecuzione (Dopo il reset)
 1. Fai ricollegare all'utente l'account GitHub tramite `gh auth login`.

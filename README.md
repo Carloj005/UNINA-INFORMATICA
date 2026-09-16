@@ -31,6 +31,20 @@ Nel modulo (che è **completamente anonimo**) potrai:
 
 Grazie per il tuo contributo!
 
+## 🗣️ Raccolta Domande Esami Orali
+
+Hai sostenuto un esame orale? Condividi le domande ricevute per supportare gli altri studenti nella preparazione!  
+La raccolta delle domande reali permette a tutti di orientare lo studio sui concetti, teoremi e dimostrazioni più frequentemente richiesti da ciascun docente.
+
+👉 **[Compila il Modulo per le Domande Orali (Anonimo)](https://docs.google.com/forms/d/e/1FAIpQLSfvGQmwT_MQWKN01Ru08KnlvdL-S65TlTPMx-NLvd9kYmX_Xg/viewform)** 👈
+
+Nel modulo (totalmente **anonimo**):
+1. Selezioni il **Corso / Insegnamento**.
+2. Indichi il **Docente** specifico per quella materia.
+3. Scrivi liberamente le domande ricevute (ed eventuali impressioni o consigli sulla prova).
+
+Grazie per il tuo contributo!
+
 ## 🎯 Obiettivo
 L'obiettivo di questa repository è fungere da cloud pubblico per centralizzare tutte le risorse universitarie, facilitandone l'accesso, l'organizzazione nel tempo e la fruizione del materiale didattico. La repository verrà aggiornata costantemente con l'avanzare del percorso accademico.
 
