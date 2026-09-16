@@ -37,6 +37,7 @@ Il `README.md` principale fa da Hub. Include:
 - Abbiamo gestito due Pull Request (una per Algebra e una per Geometria), verificando la correttezza, accettandole tramite command line e sistemando localmente eventuali sviste (spostando prove scritte/orali nelle sottocartelle corrette e aggiungendo i file `crediti.txt`).
 - Abbiamo gestito la Pull Request #15 (Linguaggi di Programmazione 1 - Bonatti, Guida Prolog di Giuseppe Cautiero), accettandola, commentandola, standardizzando il file dei crediti in `crediti.txt`, configurando `gh auth` e sincronizzando la repo.
 - Abbiamo creato tramite Google Apps Script e inserito nel `README.md` il Google Form per la "Raccolta Domande Esami Orali" con diramazioni per tutti i 31 corsi e docenti.
+- Abbiamo aggiornato in-place tramite Google Apps Script (`info-generali/scripts/aggiorna_form_esistenti.gs`) i due form preesistenti di "Valutazione Corsi e Docenti" e "Valutazione Materiale Didattico", mantenendo invariati i link pubblici storici e uniformando la struttura condizionale Corso ➔ Docente specifico ➔ Valutazione per tutti i 31 insegnamenti.
 
 ## Istruzioni per la prima esecuzione (Dopo il reset)
 1. Fai ricollegare all'utente l'account GitHub tramite `gh auth login`.
