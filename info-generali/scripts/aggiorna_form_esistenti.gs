@@ -238,13 +238,17 @@ function ottieniForm_(idConfigurato, nomeFallback) {
 // ============================================================================
 function aggiornaFormValutazioneDocenti() {
   var form = ottieniForm_(ID_FORM_VALUTAZIONE_DOCENTI, NOME_FORM_DOCENTI);
+  form.setTitle("Valutazione Corsi e Docenti - UNINA INFORMATICA");
   Logger.log("Apro il form: " + form.getTitle() + " (ID: " + form.getId() + ")");
 
   // Rimuove i vecchi elementi per ricreare la struttura condizionale pulita
   var items = form.getItems();
+  Logger.log("Rimuovo " + items.length + " vecchi elementi...");
   for (var i = items.length - 1; i >= 0; i--) {
     form.deleteItem(items[i]);
   }
+  // Pausa di 1 secondo per permettere al server di Google di consolidare la rimozione
+  Utilities.sleep(1000);
 
   form.setDescription(
     "Questo form raccoglie recensioni anonime su corsi e docenti della Laurea Triennale in Informatica dell'Università degli Studi di Napoli Federico II.\n\n" +
@@ -270,8 +274,9 @@ function aggiornaFormValutazioneDocenti() {
             .setHelpText("Seleziona il corso che vuoi valutare.")
             .setRequired(true);
 
-  // Sezioni dei singoli corsi
+  // Sezioni dei singoli corsi (con piccola pausa per evitare rate limit del backend Google)
   var courseSections = [];
+  Logger.log("Generazione sezioni per i 31 corsi...");
   for (var j = 0; j < COURSES_DATA.length; j++) {
     var c = COURSES_DATA[j];
     var sec = form.addPageBreakItem();
@@ -294,6 +299,9 @@ function aggiornaFormValutazioneDocenti() {
       anno: c.anno,
       section: sec
     });
+
+    // Pausa di 150ms per evitare l'errore "Failed to retrieve form data" di Google Forms
+    Utilities.sleep(150);
   }
 
   // Sezione Finale: Domande di Valutazione
@@ -405,13 +413,17 @@ function aggiornaFormValutazioneDocenti() {
 // ============================================================================
 function aggiornaFormValutazioneMateriale() {
   var form = ottieniForm_(ID_FORM_VALUTAZIONE_MATERIALE, NOME_FORM_MATERIALE);
+  form.setTitle("Valutazione Materiale - UNINA INFORMATICA");
   Logger.log("Apro il form: " + form.getTitle() + " (ID: " + form.getId() + ")");
 
   // Rimuove i vecchi elementi
   var items = form.getItems();
+  Logger.log("Rimuovo " + items.length + " vecchi elementi...");
   for (var i = items.length - 1; i >= 0; i--) {
     form.deleteItem(items[i]);
   }
+  // Pausa di 1 secondo per permettere al server di Google di consolidare la rimozione
+  Utilities.sleep(1000);
 
   form.setDescription(
     "Questionario anonimo per raccogliere valutazioni, feedback e consigli sul materiale didattico (slide, appunti, dispense, prove d'esame) dei singoli corsi.\n\n" +
@@ -427,8 +439,9 @@ function aggiornaFormValutazioneMateriale() {
             .setHelpText("Scegli la materia di cui vuoi valutare il materiale didattico.")
             .setRequired(true);
 
-  // Sezioni dei singoli corsi
+  // Sezioni dei singoli corsi (con pausa anti-rate-limit)
   var courseSections = [];
+  Logger.log("Generazione sezioni per i 31 corsi...");
   for (var j = 0; j < COURSES_DATA.length; j++) {
     var c = COURSES_DATA[j];
     var sec = form.addPageBreakItem();
@@ -451,6 +464,9 @@ function aggiornaFormValutazioneMateriale() {
       anno: c.anno,
       section: sec
     });
+
+    // Pausa di 150ms per evitare l'errore di rate limit di Google Forms
+    Utilities.sleep(150);
   }
 
   // Sezione Finale: Voto e Feedback
