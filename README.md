@@ -174,8 +174,8 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 
 Nella cartella [**info-generali**](./info-generali) puoi trovare:
 - [**Guida Completa ai Vantaggi di GitHub Education & Student Pack**](./info-generali/guida-github-education.md) 🎓 *(Copilot, JetBrains, Azure, crediti cloud e guida passo-passo con mail `@studenti.unina.it`)*
-- Guida dello Studente
-- Orario delle Lezioni
+- Guida dello Studente (26/27, 25/26 e 24/25)
+- [**Orario delle Lezioni 2026/2027 (1°, 2° e 3° Anno)**](./info-generali/Orario%20Lezioni%202026-2027.pdf)
 - Script di automazione per la repo
 - Mappa di Monte Sant'Angelo
 
