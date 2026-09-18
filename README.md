@@ -184,6 +184,7 @@ Nella cartella [**info-generali**](./info-generali) puoi trovare:
 
 ---
 
+<a id="struttura-della-repository"></a>
 ## 🛠️ Struttura della Repository
 
 Ogni corso è organizzato rigorosamente seguendo questo schema:
@@ -209,7 +210,7 @@ Hai vecchie tracce, appunti ben scritti o correzioni da suggerire? Il contributo
 ### 🛠️ 1. Proporre modifiche con una Pull Request (PR)
 Se hai dei file da aggiungere o vuoi correggere qualcosa direttamente nel codice:
 1. **Fai un Fork**: Clicca sul tasto **Fork** in alto a destra su questa pagina per creare una copia della repository sul tuo account GitHub.
-2. **Carica i file**: Nella tua copia (fork), naviga nella cartella corretta rispettando la [struttura della repository](#-struttura-della-repository) e carica i file (tramite l'interfaccia web di GitHub cliccando su *Add file -> Upload files*, oppure via Git da terminale).
+2. **Carica i file**: Nella tua copia (fork), naviga nella cartella corretta rispettando la [struttura della repository](#struttura-della-repository) e carica i file (tramite l'interfaccia web di GitHub cliccando su *Add file -> Upload files*, oppure via Git da terminale).
    - *Nota*: Se il materiale non è tuo, inseriscilo nella cartella `contenuto-non-proprio` del relativo corso e aggiungi un piccolo file `crediti.txt` per ringraziare l'autore originale.
 3. **Fai il Commit**: Salva le modifiche inserendo un messaggio chiaro (es. `Aggiunti appunti di Analisi 1`).
 4. **Apri la Pull Request**: Torna sulla repository principale `Carloj005/UNINA-INFORMATICA`, clicca sulla scheda **Pull Requests** e poi su **New Pull Request**. Seleziona il tuo fork e invia la richiesta. Verrà esaminata e unita al progetto principale!
