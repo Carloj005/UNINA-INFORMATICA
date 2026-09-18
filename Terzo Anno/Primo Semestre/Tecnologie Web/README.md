@@ -6,5 +6,5 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. L.L.L.Starace
-- Prof. Bernardo Breve
+- [Prof. Bernardo Breve](./Prof-Bernardo%20Breve)
+- [Prof. L.L.L.Starace](./Prof-L.L.L.Starace)

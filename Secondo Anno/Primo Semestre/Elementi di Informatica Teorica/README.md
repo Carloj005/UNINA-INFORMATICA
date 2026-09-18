@@ -6,4 +6,4 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. AlessandroDeLuca
+- [Prof. Alessandro De Luca](./Prof-AlessandroDeLuca)

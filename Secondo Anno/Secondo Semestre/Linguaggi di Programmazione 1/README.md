@@ -6,4 +6,5 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. PieroAndreaBonatti
+- [Prof. Marco Faella](./Prof-MarcoFaella)
+- [Prof. Piero Andrea Bonatti](./Prof-PieroAndreaBonatti)

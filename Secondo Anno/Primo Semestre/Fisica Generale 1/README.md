@@ -6,4 +6,6 @@
 - **Stato:** ✅ Completato
 
 ## Professori
-- Prof. GoffredoChirco
+- [Prof. Giampiero Esposito](./Prof-GiampieroEsposito)
+- [Prof. Gianfranca De Rosa](./Prof-GianfrancaDeRosa)
+- [Prof. Goffredo Chirco](./Prof-GoffredoChirco)

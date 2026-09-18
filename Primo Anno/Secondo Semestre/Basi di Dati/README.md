@@ -6,4 +6,6 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. MaraSangiovanni
+- [Prof. Andrea Cali](./Prof-AndreaCali)
+- [Prof. Mara Sangiovanni](./Prof-MaraSangiovanni)
+- [Prof. Silvio Barra](./Prof-SilvioBarra)

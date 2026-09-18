@@ -6,4 +6,6 @@
 - **Stato:** ✅ Completato
 
 ## Professori
-- Prof. LuigiSauro
+- [Canale Da Definire](./Prof-DaDefinire)
+- [Prof. Luigi Sauro](./Prof-LuigiSauro)
+- [Prof. Silvia Rossi](./Prof-SilviaRossi)

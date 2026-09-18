@@ -160,11 +160,11 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | **Parallel & Distributed Computing** | M. Lapegna / G. Laccetti | [Link](./Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) | ⏳ |
 | **Multimedia Information Systems** | W. Balzano | [Link](./Esami%20a%20Scelta/Multimedia%20Information%20Systems) | ⏳ |
 | **Calcolo Numerico** | L. D'Amore | [Link](./Esami%20a%20Scelta/Calcolo%20Numerico) | ⏳ |
-| **Computer Forensics** | Da Definire | [Link](./Esami%20a%20Scelta/Computer%20Forensics) | ⏳ |
-| **Diritto dell'Informatica** | Da Definire | [Link](./Esami%20a%20Scelta/Diritto%20dell'Informatica) | ⏳ |
+| **Computer Forensics** | L. Laurato | [Link](./Esami%20a%20Scelta/Computer%20Forensics) | ⏳ |
+| **Diritto dell'Informatica** | L. Franzese | [Link](./Esami%20a%20Scelta/Diritto%20dell'Informatica) | ⏳ |
 | **Istituzioni di Matematica II** | Da Definire | [Link](./Esami%20a%20Scelta/Istituzioni%20di%20Matematica%20II) | ⏳ |
 | **Logics for Computer Science** | M. Benerecetti | [Link](./Esami%20a%20Scelta/Logics%20for%20computer%20science) | ⏳ |
-| **OS for Mobile, Cloud and IoT** | Da Definire | [Link](./Esami%20a%20Scelta/Operating%20systems%20for%20mobile,%20cloud%20and%20IoT) | ⏳ |
+| **OS for Mobile, Cloud and IoT** | P. Tramontana | [Link](./Esami%20a%20Scelta/Operating%20systems%20for%20mobile,%20cloud%20and%20IoT) | ⏳ |
 | **Scientific Computing** | E. Messina | [Link](./Esami%20a%20Scelta/Scientific%20Computing) | ⏳ |
 
 ---
@@ -174,7 +174,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 
 Nella cartella [**info-generali**](./info-generali) puoi trovare:
 - [**Guida Completa ai Vantaggi di GitHub Education & Student Pack**](./info-generali/guida-github-education.md) 🎓 *(Copilot, JetBrains, Azure, crediti cloud e guida passo-passo con mail `@studenti.unina.it`)*
-- Guida dello Studente (26/27, 25/26 e 24/25)
+- **Guide dello Studente:** [A.A. 2026/2027](./info-generali/GuidaTriennaleInformatica-26-27.pdf) • [A.A. 2025/2026](./info-generali/GuidaTriennaleInformatica-25-26.pdf) • [A.A. 2024/2025](./info-generali/GuidaTriennaleInformatica-24-25.pdf)
 - [**Orario delle Lezioni 2026/2027 (1°, 2° e 3° Anno)**](./info-generali/Orario%20Lezioni%202026-2027.pdf)
 - Script di automazione per la repo
 - Mappa di Monte Sant'Angelo

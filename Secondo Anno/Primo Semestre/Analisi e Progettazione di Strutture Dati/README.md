@@ -1,4 +1,4 @@
-# Algoritmi e Strutture Dati
+# Analisi e Progettazione di Strutture Dati
 
 ## Informazioni Corso
 - **Anno:** 2
@@ -6,4 +6,5 @@
 - **Stato:** ✅ Completato
 
 ## Professori
-- Prof. MassimoBenerecetti
+- [Prof. Fabio Mogavero](./Prof-FabioMogavero)
+- [Prof. Massimo Benerecetti](./Prof-MassimoBenerecetti)

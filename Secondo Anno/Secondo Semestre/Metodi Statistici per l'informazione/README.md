@@ -6,4 +6,6 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. MarcoLops
+- [Canale Da Definire](./Prof-DaDefinire)
+- [Prof. Marco Lops](./Prof-MarcoLops)
+- [Prof. Mario Tanda](./Prof-MarioTanda)

@@ -6,4 +6,6 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. MariaRosariaCelentani
+- [Prof. Giovanni Cutolo](./Prof-GiovanniCutolo)
+- [Prof. Maria Rosaria Celentani](./Prof-MariaRosariaCelentani)
+- [Prof. Mattia Brescia](./Prof-MattiaBrescia)

@@ -6,4 +6,6 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. DaDefinire
+- [Prof. Anna Corazza](./Prof-Anna%20Corazza)
+- [Canale Da Definire](./Prof-DaDefinire)
+- [Prof. Silvia Rossi](./Prof-Silvia%20Rossi)

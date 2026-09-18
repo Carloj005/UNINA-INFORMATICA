@@ -2,8 +2,9 @@
 
 ## Informazioni Corso
 - **Anno:** 2
-- **Semestre:** 1
+- **Semestre:** 2
 - **Stato:** ✅ Completato
 
 ## Professori
-- Prof. AlbertoFinzi
+- [Prof. Alberto Finzi](./Prof-AlbertoFinzi)
+- [Prof. Walter Balzano](./Prof-WalterBalzano)

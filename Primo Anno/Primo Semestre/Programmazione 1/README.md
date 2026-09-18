@@ -6,4 +6,8 @@
 - **Stato:** ✅ Completato
 
 ## Professori
-- Prof. RobertoPrevete
+- [Prof. Daniel Riccio](./Prof-DanielRiccio)
+- [Prof. Francesco Isgro](./Prof-FrancescoIsgro)
+- [Prof. Giuliano Laccetti](./Prof-GiulianoLaccetti)
+- [Prof. Luigi Sauro](./Prof-LuigiSauro)
+- [Prof. Roberto Prevete](./Prof-RobertoPrevete)

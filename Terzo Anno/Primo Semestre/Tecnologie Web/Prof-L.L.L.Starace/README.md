@@ -1,18 +1,29 @@
 # Tecnologie Web
 
-INFO CORSO 2026-2027:
-No libro di testo (slide del corso, con materiali di riferimento)
-ci saranno spesso degli esercizi
+## Informazioni Corso
 
+* **Docente:** Prof. Luigi Lucio Libero Starace
+* **Anno:** 3
+* **Semestre:** 1
+* **Stato:** ⏳ In Corso
 
-cosa serviranno: web browser (raccomandato firefox), ide, node.js runtime, docker
+Codice Teams 2026/2027: `hdxhvv9`
 
+---
 
-modalità di esame: 2 prove (scritto e progetto e discussione), scritto risposte a domanda multipla ed aperta
+## 📌 Informazioni Corso (A.A. 2026/2027)
 
-2 prove intercorso: una fine ottobre 2026, dicembre 2026 
+* **Materiale di studio:** Nessun libro di testo obbligatorio (slide del corso fornite dal docente con relativi materiali di riferimento ed esercizi frequenti).
+* **Strumenti software raccomandati:** 
+  * Web browser (raccomandato Firefox)
+  * IDE / Code Editor
+  * Node.js runtime
+  * Docker
+* **Modalità di Esame:** 
+  * 2 prove complessive: Scritto + Progetto con discussione orale
+  * Prova scritta: domande a risposta multipla e a risposta aperta
+* **Prove Intercorso:** 
+  * 2 prove previste: la prima a fine ottobre 2026, la seconda a dicembre 2026
 
-Teams-code: hdxhvv9
-
-## Risorse aggiuntive
-- [The Concise TypeScript Book](https://gibbok.github.io/typescript-book/it-it/) — guida gratuita e open source in italiano per approfondire TypeScript.
+## 📚 Risorse aggiuntive
+* [The Concise TypeScript Book](https://gibbok.github.io/typescript-book/it-it/) — guida gratuita e open source in italiano per approfondire TypeScript.

@@ -6,5 +6,5 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. Marco Faella
-- Da Definire
+- [Canale Da Definire](./Prof-DaDefinire)
+- [Prof. Marco Faella](./Prof-Marco%20Faella)
