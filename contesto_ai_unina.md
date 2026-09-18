@@ -2,6 +2,9 @@
 
 Questo documento contiene tutto il contesto, le regole, gli standard consolidati e la cronologia completa delle attività per ripristinare la massima operatività su qualsiasi macchina dopo un reset. Il tuo compito è assistere l'utente nella gestione della repository GitHub **UNINA-INFORMATICA**.
 
+> 🔄 **REGOLA DI AGGIORNAMENTO CONTINUO DEL CONTESTO (FONDAMENTALE):**  
+> **Ogni volta che ci sono cambiamenti alla repository** (modifiche strutturali, aggiunta/spostamento di corsi o docenti, nuove risorse, aggiornamenti a script, crediti o standard di naming), **aggiorna sempre questo file (`contesto_ai_unina.md`) se lo reputi necessario**. In questo modo la memoria operativa, la lore e le istruzioni dell'assistente AI resteranno costantemente allineate ed efficaci nel tempo.
+
 ---
 
 ## 1. Informazioni sulla Repository
@@ -87,3 +90,4 @@ Il [README.md](file:///D:/UNINA-INFORMATICA/README.md) funge da hub centrale del
 3. Se aggiungi materiale non originale, inseriscilo in `contenuto-non-proprio/` e crea/aggiorna il file `crediti.txt`.
 4. Per ogni nuovo corso o docente, aggiorna sia il rispettivo `README.md` sia la tabella di riepilogo in `README.md`.
 5. Se generi o modifichi percorsi file, usa sempre link markdown cliccabili e verificabili su disco.
+6. **Aggiornamento Continuo del Contesto:** Ogni volta che ci sono dei cambiamenti nella repository, aggiorna il file `contesto_ai_unina.md` se lo reputi necessario, registrando la nuova lore, le decisioni tecniche o le variazioni strutturali per mantenere la memoria dell'assistente costantemente aggiornata.
