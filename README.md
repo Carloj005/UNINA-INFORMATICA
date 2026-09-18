@@ -173,6 +173,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 ## ℹ️ Informazioni Generali
 
 Nella cartella [**info-generali**](./info-generali) puoi trovare:
+- [**Guida Completa ai Vantaggi di GitHub Education & Student Pack**](./info-generali/guida-github-education.md) 🎓 *(Copilot, JetBrains, Azure, crediti cloud e guida passo-passo con mail `@studenti.unina.it`)*
 - Guida dello Studente
 - Orario delle Lezioni
 - Script di automazione per la repo
