@@ -118,8 +118,8 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | Semestre | Materia | Canale 1 | Canale 2 | Canale 3 | Stato |
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | 1° | [Architettura Elaboratori](./Primo%20Anno/Primo%20Semestre/Architettura%20degli%20Elaboratori) | L. Sauro | S. Rossi | Da Definire | ✅ |
-| 1° | [Analisi Matematica I](./Primo%20Anno/Primo%20Semestre/Analisi%20Matematica%201) | R. Alicandro/C. Leone | D. Castorina | A.M. Barbagallo | ✅ |
-| 1° | [Programmazione 1](./Primo%20Anno/Primo%20Semestre/Programmazione%201) | R. Prevete | D. Riccio/L. Sauro | F. Isgrò | ✅ |
+| 1° | [Analisi Matematica I](./Primo%20Anno/Primo%20Semestre/Analisi%20Matematica%201) | R. Alicandro/C. Leone | D. Castorina | A.M. Barbagallo/F. Oliva | ✅ |
+| 1° | [Programmazione 1](./Primo%20Anno/Primo%20Semestre/Programmazione%201) | R. Prevete | D. Riccio/L. Sauro | F. Isgrò/G. Laccetti | ✅ |
 | 2° | [Algebra](./Primo%20Anno/Secondo%20Semestre/Algebra) | M.R. Celentani | G. Cutolo | M. Brescia | ⏳ |
 | 2° | [Programmazione OO](./Primo%20Anno/Secondo%20Semestre/Programmazione%20Object%20Oriented) | S. Di Martino/M. Sangiovanni | P. Tramontana | B. Breve/R. Caccavale | ✅ |
 | 2° | [Basi di Dati](./Primo%20Anno/Secondo%20Semestre/Basi%20di%20Dati) | M. Sangiovanni | S. Barra | A. Calì | ⏳ |
