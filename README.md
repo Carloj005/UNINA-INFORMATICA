@@ -129,7 +129,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 
 | Semestre | Materia | Canale 1 | Canale 2 | Stato |
 | :--- | :--- | :--- | :--- | :---: |
-| 1° | [Algoritmi e Strutture Dati](./Secondo%20Anno/Primo%20Semestre/Algoritmi%20e%20Strutture%20Dati) | M. Benerecetti | F. Mogavero | ✅ |
+| 1° | [Analisi e Progettazione di Strutture Dati](./Secondo%20Anno/Primo%20Semestre/Analisi%20e%20Progettazione%20di%20Strutture%20Dati) | M. Benerecetti | F. Mogavero | ✅ |
 | 1° | [Informatica Teorica](./Secondo%20Anno/Primo%20Semestre/Elementi%20di%20Informatica%20Teorica) | A. De Luca | A. De Luca | ⏳ |
 | 1° | [Fisica Generale I](./Secondo%20Anno/Primo%20Semestre/Fisica%20Generale%201) | G. Chirco/G. De Rosa | G. Esposito | ✅ |
 | 1° | [Geometria](./Secondo%20Anno/Primo%20Semestre/Geometria) | F. Cioffi | M. Trombetti | ⏳ |
@@ -145,9 +145,9 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | :--- | :--- | :--- | :--- | :---: |
 | 1° | [Reti e Programmazione Distribuita](./Terzo%20Anno/Primo%20Semestre/Reti%20e%20Programmazione%20Distribuita) | A. Finzi | A. Calì | ⏳ |
 | 1° | [Ingegneria del Software](./Terzo%20Anno/Primo%20Semestre/Ingegneria%20del%20Software) | S. Di Martino | P. Tramontana | ⏳ |
-| 1° | [Tecniche di Programmazione Avanzata](./Terzo%20Anno/Primo%20Semestre/Tecniche%20di%20Programmazione%20Avanzata) | M. Faella | M. Faella | ⏳ |
+| 1° | [Tecnologie Web](./Terzo%20Anno/Primo%20Semestre/Tecnologie%20Web) | L.L.L. Starace | B. Breve | ⏳ |
 | 2° | [AI Technologies](./Terzo%20Anno/Secondo%20Semestre/AI%20Technologies) | A. Corazza | S. Rossi | ⏳ |
-| 2° | [Tecnologie Web](./Terzo%20Anno/Secondo%20Semestre/Tecnologie%20Web) | L.L.L. Starace | B. Breve | ⏳ |
+| 2° | [Tecniche di Programmazione Avanzata](./Terzo%20Anno/Secondo%20Semestre/Tecniche%20di%20Programmazione%20Avanzata) | M. Faella | Da Definire | ⏳ |
 
 <a id="esami-a-scelta"></a>
 ### 🧩 Esami a Scelta
@@ -157,11 +157,11 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | **Ricerca Operativa** | P. Festa | [Link](./Esami%20a%20Scelta/Ricerca%20Operativa) | ⏳ |
 | **Economia e Org. Aziendale** | Piccirillo / Da Definire | [Link](./Esami%20a%20Scelta/Economia%20e%20Organizzazione%20Aziendale) | ✅ |
 | **Algorithm Design** | M. Benerecetti | [Link](./Esami%20a%20Scelta/Algorithm%20design) | ⏳ |
-| **Parallel & Distributed Computing** | M. Lapegna | [Link](./Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) | ⏳ |
+| **Parallel & Distributed Computing** | M. Lapegna / G. Laccetti | [Link](./Esami%20a%20Scelta/Parallel%20and%20Distributed%20Computing) | ⏳ |
 | **Multimedia Information Systems** | W. Balzano | [Link](./Esami%20a%20Scelta/Multimedia%20Information%20Systems) | ⏳ |
 | **Calcolo Numerico** | L. D'Amore | [Link](./Esami%20a%20Scelta/Calcolo%20Numerico) | ⏳ |
 | **Computer Forensics** | Da Definire | [Link](./Esami%20a%20Scelta/Computer%20Forensics) | ⏳ |
-| **Diritto dell'Informatica** | Da Definire | [Link](./Esami%20a%20Scelta/Diritto%20dell’Informatica) | ⏳ |
+| **Diritto dell'Informatica** | Da Definire | [Link](./Esami%20a%20Scelta/Diritto%20dell'Informatica) | ⏳ |
 | **Istituzioni di Matematica II** | Da Definire | [Link](./Esami%20a%20Scelta/Istituzioni%20di%20Matematica%20II) | ⏳ |
 | **Logics for Computer Science** | M. Benerecetti | [Link](./Esami%20a%20Scelta/Logics%20for%20computer%20science) | ⏳ |
 | **OS for Mobile, Cloud and IoT** | Da Definire | [Link](./Esami%20a%20Scelta/Operating%20systems%20for%20mobile,%20cloud%20and%20IoT) | ⏳ |

@@ -1,8 +1,8 @@
-﻿# Tecniche di Programmazione Avanzata
+# Tecnologie Web
 
 ## Informazioni Corso
 
-* **Docente:** Prof. Marco Faella
+* **Docente:** Prof. Bernardo Breve
 * **Anno:** 3
 * **Semestre:** 1
 * **Stato:** ⏳ In Corso

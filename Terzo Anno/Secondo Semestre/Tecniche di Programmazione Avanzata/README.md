@@ -6,4 +6,5 @@
 - **Stato:** ⏳ In Corso
 
 ## Professori
-- Prof. DaDefinire
+- Prof. Marco Faella
+- Da Definire
