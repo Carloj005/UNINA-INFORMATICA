@@ -1,0 +1,10 @@
+﻿# Analisi Matematica 1
+
+## Informazioni Corso
+
+* **Docente:** Prof. Chiara Leone
+* **Anno:** 1
+* **Semestre:** 1
+* **Stato:** ✅ Completato
+
+Codice Teams 2026/2027: 
