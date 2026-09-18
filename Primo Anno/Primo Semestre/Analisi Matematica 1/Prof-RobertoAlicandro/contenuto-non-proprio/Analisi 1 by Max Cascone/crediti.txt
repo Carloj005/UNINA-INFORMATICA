@@ -1,0 +1,3 @@
+Gli appunti delle lezioni (A.A. 2024/2025) e le dispense teoriche di approfondimento (Funzioni Continue, Funzioni Elementari, Integrali, Limiti di Funzione, Serie Numeriche, Successioni) contenute in questa cartella sono stati redatti e condivisi dallo studente Max Cascone per il corso di Analisi Matematica 1 (Prof. Roberto Alicandro).
+
+Ringraziamo sentitamente Max per l'eccellente lavoro e per la preziosa condivisione con l'intera comunità studentesca!
