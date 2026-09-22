@@ -79,8 +79,10 @@ Il [README.md](file:///D:/UNINA-INFORMATICA/README.md) funge da hub centrale del
 - **Integrazione Nuove Risorse Didattiche:**
   - Aggiunto il pacchetto completo di appunti di Analisi 1 (24 lezioni A.A. 2024/2025 e 6 dispense tematiche di teoria) redatto da Max Cascone in `Primo Anno/Primo Semestre/Analisi Matematica 1/Prof-RobertoAlicandro/contenuto-non-proprio/Analisi 1 by Max Cascone/`.
   - Organizzata la cartella dedicata a Danilo Amalfitano in `Primo Anno/Primo Semestre/Analisi Matematica 1/Prof-RobertoAlicandro/contenuto-non-proprio/Danilo Amalfitano/` con la dispensa teorica completa e il relativo `crediti.txt`.
+  - Aggiunta la slide introduttiva "Lezione 0 Introduzione al corso.pdf" per Ingegneria del Software in `Terzo Anno/Primo Semestre/Ingegneria del Software/Prof-Sergio Di Martino/slides/`.
   - Creata la guida completa e dettagliata ai vantaggi e iscrizione a GitHub Education per studenti Unina (`info-generali/guida-github-education.md`).
   - Aggiornato l'Orario delle Lezioni unificato 2026/2027 per 1°, 2° e 3° anno (`info-generali/Orario Lezioni 2026-2027.pdf`).
+- **Google Forms Condizionali (3 Step):** Implementata e distribuita l'architettura dinamica per i form di community (*Valutazione Corsi e Docenti*, *Valutazione Materiale Didattico*, *Raccolta Domande Orale*): Scelta corso (31 corsi A.A. 2026/2027) -> Scelta docente del corso specifico -> Compilazione/Valutazione mirata.
 - **Aggiornamento Script di Automazione (`info-generali/scripts/new_course.py`):** Completamente riscritto e modernizzato per creare automaticamente tutte le 8 sottocartelle standard (`esami/scritto` ed `esami/orale` inclusi), i file `.gitkeep`, il `README.md` del docente con la voce Teams e il supporto agli esami a scelta (`--scelta`).
 - **Suite di Audit e Validazione:** Eseguita scansione automatica completa con script dedicati verificando: 0 link markdown rotti (su 134 testati), tutti i 24 URL esterni operativi con HTTP 200 OK, 100% dei file README presenti e conformi, alberature prive di cartelle o file orfani.
 
