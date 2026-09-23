@@ -82,6 +82,7 @@ Il [README.md](file:///D:/UNINA-INFORMATICA/README.md) funge da hub centrale del
   - Aggiunta la slide introduttiva "Lezione 0 Introduzione al corso.pdf" per Ingegneria del Software in `Terzo Anno/Primo Semestre/Ingegneria del Software/Prof-Sergio Di Martino/slides/`.
   - Aggiunte risorse per *Reti e Programmazione Distribuita* (Prof. Alberto Finzi): libro di testo *Computer Networking: A Top-Down Approach* (7th Ed.) in `libri/`, mappa concettuale in `appunti/` e aggiornato `README.md` con codice Teams 2026/2027 (`rpmzm7k`), modalità d'esame (Scritto + Orale, Preappello disponibile) e testi consigliati.
   - Aggiunta slide "Lezione 01 DNS.pdf" per *Tecnologie Web* in `Terzo Anno/Primo Semestre/Tecnologie Web/Prof-L.L.L.Starace/slides/`.
+  - Aggiunta dispensa ufficiale "UNINA Official Docs Elementi di Informatica Teorica De Luca 2025-2026.pdf" in `Secondo Anno/Primo Semestre/Elementi di Informatica Teorica/Prof-AlessandroDeLuca/appunti/`.
   - Creata la guida completa e dettagliata ai vantaggi e iscrizione a GitHub Education per studenti Unina (`info-generali/guida-github-education.md`).
   - Aggiornato l'Orario delle Lezioni unificato 2026/2027 per 1°, 2° e 3° anno (`info-generali/Orario Lezioni 2026-2027.pdf`).
 - **Google Forms Condizionali (3 Step):** Implementata e distribuita l'architettura dinamica per i form di community (*Valutazione Corsi e Docenti*, *Valutazione Materiale Didattico*, *Raccolta Domande Orale*): Scelta corso (31 corsi A.A. 2026/2027) -> Scelta docente del corso specifico -> Compilazione/Valutazione mirata.
