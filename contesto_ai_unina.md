@@ -54,7 +54,7 @@ Ogni corso *deve* seguire rigorosamente questa alberatura standard:
 ---
 
 ## 4. Struttura del README.md Principale
-Il [README.md](file:///D:/UNINA-INFORMATICA/README.md) funge da hub centrale della community e include:
+Il [README.md](./README.md) funge da hub centrale della community e include:
 - **Badge di stato:** Licenza CC BY-NC-SA 4.0, Ultimo Commit, Dimensione Repository.
 - **Link Rapidi:** Canale/Gruppo Telegram studenti, Google Form per Valutazione Materiale Didattico e Form per Raccolta Domande Esami Orali.
 - **Tabelle Triennio:** 
