@@ -81,7 +81,7 @@ Il [README.md](./README.md) funge da hub centrale della community e include:
   - Organizzata la cartella dedicata a Danilo Amalfitano in `Primo Anno/Primo Semestre/Analisi Matematica 1/Prof-RobertoAlicandro/contenuto-non-proprio/Danilo Amalfitano/` con la dispensa teorica completa e il relativo `crediti.txt`.
   - Aggiunta la slide introduttiva "Lezione 0 Introduzione al corso.pdf" per Ingegneria del Software in `Terzo Anno/Primo Semestre/Ingegneria del Software/Prof-Sergio Di Martino/slides/`.
   - Aggiunte risorse per *Reti e Programmazione Distribuita* (Prof. Alberto Finzi): libro di testo *Computer Networking: A Top-Down Approach* (7th Ed.) in `libri/`, mappa concettuale in `appunti/` e aggiornato `README.md` con codice Teams 2026/2027 (`rpmzm7k`), modalità d'esame (Scritto + Orale, Preappello disponibile) e testi consigliati.
-  - Aggiunta slide "Lezione 01 DNS.pdf" per *Tecnologie Web* in `Terzo Anno/Primo Semestre/Tecnologie Web/Prof-L.L.L.Starace/slides/`.
+  - Aggiunte e normalizzate le slide per *Tecnologie Web* (Prof. Starace) in `Terzo Anno/Primo Semestre/Tecnologie Web/Prof-L.L.L.Starace/slides/`: "Lezione 00 - Introduzione.pdf", "Lezione 01 - DNS.pdf" e "Lezione 02 - HTTP.pdf".
   - Aggiunta dispensa ufficiale "UNINA Official Docs Elementi di Informatica Teorica De Luca 2025-2026.pdf" in `Secondo Anno/Primo Semestre/Elementi di Informatica Teorica/Prof-AlessandroDeLuca/appunti/`.
   - Creata la guida completa e dettagliata ai vantaggi e iscrizione a GitHub Education per studenti Unina (`info-generali/guida-github-education.md`).
   - Aggiornato l'Orario delle Lezioni unificato 2026/2027 per 1°, 2° e 3° anno (`info-generali/Orario Lezioni 2026-2027.pdf`).
