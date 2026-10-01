@@ -1,4 +1,4 @@
-﻿# Analisi e Progettazione di Strutture Dati
+# Analisi e Progettazione di Strutture Dati
 
 ## Informazioni Corso
 
@@ -7,4 +7,4 @@
 * **Semestre:** 1
 * **Stato:** ✅ Completato
 
-Codice Teams 2026/2027: 
+Codice Teams 2026/2027: bx1dij8
