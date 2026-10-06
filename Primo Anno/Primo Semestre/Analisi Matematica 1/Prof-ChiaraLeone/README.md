@@ -1,4 +1,4 @@
-﻿# Analisi Matematica 1
+# Analisi Matematica 1
 
 ## Informazioni Corso
 
@@ -7,4 +7,4 @@
 * **Semestre:** 1
 * **Stato:** ✅ Completato
 
-Codice Teams 2026/2027: 
+Codice Teams 2026/2027: viaa0by
