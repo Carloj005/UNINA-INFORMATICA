@@ -63,7 +63,7 @@ Il [README.md](./README.md) funge da hub centrale della community e include:
   - 3° Anno con i 3 corsi del 1° semestre (Reti, Ing. Software, Tecnologie Web) e i corsi del 2° semestre (AI Technologies, Tecniche di Prog. Avanzata, esami a scelta).
   - Tabella Esami a Scelta con docenti ufficiali di riferimento.
   - Icone di avanzamento: ✅ (Completato / Materiale solido) e ⏳ (In Corso / Da sostenere).
-- **Informazioni Generali:** Link alla Guida GitHub Education, alle Guide dello Studente (2026/27, 2025/26, 2024/25), all'Orario delle Lezioni 2026/2027 e alla Mappa del Complesso Universitario di Monte Sant'Angelo.
+- **Informazioni Generali:** Link alla Guida GitHub Education, alle Guide dello Studente (2026/27, 2025/26, 2024/25), all'Orario delle Lezioni 2026/2027 e alle Mappe dei Complessi Universitari di Monte Sant'Angelo e Via Claudio.
 - **Guida per la Contribuzione:** Istruzioni passo-passo sia per le Pull Request che per le Issues di GitHub.
 
 ---
@@ -88,6 +88,7 @@ Il [README.md](./README.md) funge da hub centrale della community e include:
   - Integrati tramite Pull Request (#21 di `valenty29`) gli appunti delle lezioni 1 e 2 di Geometria A.A. 2026/2027 redatti da Annunziata, collocati secondo gli standard in `Secondo Anno/Primo Semestre/Geometria/Prof-FrancescaCioffi/contenuto-non-proprio/Appunti-Lezione-Annunziata/` con rispettivo `crediti.txt`.
   - Creata la guida completa e dettagliata ai vantaggi e iscrizione a GitHub Education per studenti Unina (`info-generali/guida-github-education.md`).
   - Aggiornato l'Orario delle Lezioni unificato 2026/2027 per 1°, 2° e 3° anno (`info-generali/Orario Lezioni 2026-2027.pdf`).
+  - Aggiunta la mappa ad alta risoluzione del Complesso Universitario di Via Claudio (`info-generali/MappaViaClaudio.jpg`) accanto a quella di Monte Sant'Angelo (`info-generali/MappaMSA.png`), rendendola visibile nella home (`README.md`) e chiudendo la relativa Issue #19.
 - **Google Forms Condizionali (3 Step):** Implementata e distribuita l'architettura dinamica per i form di community (*Valutazione Corsi e Docenti*, *Valutazione Materiale Didattico*, *Raccolta Domande Orale*): Scelta corso (31 corsi A.A. 2026/2027) -> Scelta docente del corso specifico -> Compilazione/Valutazione mirata.
 - **Aggiornamento Script di Automazione (`info-generali/scripts/new_course.py`):** Completamente riscritto e modernizzato per creare automaticamente tutte le 8 sottocartelle standard (`esami/scritto` ed `esami/orale` inclusi), i file `.gitkeep`, il `README.md` del docente con la voce Teams e il supporto agli esami a scelta (`--scelta`).
 - **Suite di Audit e Validazione:** Eseguita scansione automatica completa con script dedicati verificando: 0 link markdown rotti (su 134 testati), tutti i 24 URL esterni operativi con HTTP 200 OK, 100% dei file README presenti e conformi, alberature prive di cartelle o file orfani.

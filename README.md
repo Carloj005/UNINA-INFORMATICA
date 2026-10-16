@@ -177,10 +177,13 @@ Nella cartella [**info-generali**](./info-generali) puoi trovare:
 - **Guide dello Studente:** [A.A. 2026/2027](./info-generali/GuidaTriennaleInformatica-26-27.pdf) • [A.A. 2025/2026](./info-generali/GuidaTriennaleInformatica-25-26.pdf) • [A.A. 2024/2025](./info-generali/GuidaTriennaleInformatica-24-25.pdf)
 - [**Orario delle Lezioni 2026/2027 (1°, 2° e 3° Anno)**](./info-generali/Orario%20Lezioni%202026-2027.pdf)
 - Script di automazione per la repo
-- Mappa di Monte Sant'Angelo
+- Mappe dei Complessi Universitari (Monte Sant'Angelo e Via Claudio)
 
 ### 🗺️ Mappa di Monte Sant'Angelo
 ![Mappa Monte Sant'Angelo](./info-generali/MappaMSA.png)
+
+### 🗺️ Mappa di Via Claudio
+![Mappa Via Claudio](./info-generali/MappaViaClaudio.jpg)
 
 ---
 
