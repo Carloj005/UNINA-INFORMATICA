@@ -3,7 +3,7 @@
 ## Informazioni Corso
 - **Anno:** 2
 - **Semestre:** 2
-- **Stato:** ⏳ In Corso
+- **Stato:** ✅ Completato
 
 ## Professori
 - [Prof. Marco Faella](./Prof-MarcoFaella)

@@ -135,7 +135,7 @@ Quando vengono aggiunti nuovi appunti o modifiche su GitHub, basta aggiornare la
 | 1° | [Geometria](./Secondo%20Anno/Primo%20Semestre/Geometria) | F. Cioffi | M. Trombetti | ⏳ |
 | 2° | [Sistemi Operativi](./Secondo%20Anno/Secondo%20Semestre/Sistemi%20Operativi) | A. Finzi | W. Balzano | ✅ |
 | 2° | [Analisi e Progettazione Algoritmi](./Secondo%20Anno/Secondo%20Semestre/Analisi%20e%20Progettazione%20di%20Algoritmi) | M. Benerecetti | F. Mogavero | ⏳ |
-| 2° | [Linguaggi Programmazione 1](./Secondo%20Anno/Secondo%20Semestre/Linguaggi%20di%20Programmazione%201) | P.A. Bonatti | M. Faella | ⏳ |
+| 2° | [Linguaggi Programmazione 1](./Secondo%20Anno/Secondo%20Semestre/Linguaggi%20di%20Programmazione%201) | P.A. Bonatti | M. Faella | ✅ |
 | 2° | [Metodi Statistici](./Secondo%20Anno/Secondo%20Semestre/Metodi%20Statistici%20per%20l'informazione) | M. Lops | M. Tanda | ⏳ |
 
 <a id="terzo-anno"></a>
