@@ -1,0 +1,41 @@
+name: "📚 Richiedi o Condividi Materiale / Traccia d'Esame"
+description: "Richiedi appunti/tracce mancanti oppure allega nuovi file se non sai aprire una Pull Request."
+title: "[Materiale] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo di segnalazione
+      options:
+        - Condivisione nuovo materiale (allego i file o un link qui sotto)
+        - Richiesta materiale mancante
+    validations:
+      required: true
+  - type: input
+    id: corso_docente
+    attributes:
+      label: Corso e Docente
+      placeholder: "Es. Sistemi Operativi — Prof. Alberto Finzi"
+    validations:
+      required: true
+  - type: dropdown
+    id: categoria
+    attributes:
+      label: Categoria
+      options:
+        - slides (Presentazioni ufficiali)
+        - appunti (Sbobine, riassunti)
+        - esami/scritto (Traccia scritta o prova intercorso)
+        - esami/orale (Domande orali)
+        - esercizi (Esercitazioni / Laboratorio)
+        - progetti (Prove pratiche / Progetti)
+    validations:
+      required: true
+  - type: textarea
+    id: dettagli
+    attributes:
+      label: Dettagli, file allegati e crediti autore
+      description: "Trascina qui i file (oppure incolla un link Drive/Mega/GitHub). Se il materiale è stato realizzato da uno studente specifico, indica nome/nickname per inserirlo correttamente in `crediti.txt`!"
+    validations:
+      required: true

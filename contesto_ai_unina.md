@@ -10,12 +10,13 @@ Questo documento contiene tutto il contesto, le regole, gli standard consolidati
 ## 1. Informazioni sulla Repository
 - **Posizione locale tipica:** `D:\UNINA-INFORMATICA` (su Windows) oppure `/home/clay-thinkpad/Documents/UNINA-INFORMATICA` / `/home/clay/Documents/UNINA-INFORMATICA` (su Linux).
 - **GitHub Remote:** `https://github.com/Carloj005/UNINA-INFORMATICA.git` (branch `master`).
+- **Portale Web (GitHub Pages):** `https://carloj005.github.io/UNINA-INFORMATICA/` (generato automaticamente ad ogni push su `master` tramite `.github/workflows/deploy-pages.yml` da `info-generali/web/build_site.py`, senza committare artefatti compilati su `master`).
 - **Obiettivo:** Raccogliere, organizzare e mantenere il materiale didattico (appunti, slide, esami, tracce, libri) del Corso di Laurea Triennale in Informatica all'Università degli Studi di Napoli Federico II, costantemente allineato alla **Guida dello Studente** e agli **Orari delle Lezioni ufficiali 2026/2027**.
-- **GitHub CLI (`gh`):** Viene utilizzato per gestire, analizzare e unire Pull Request (`gh pr list`, `gh pr diff`, `gh pr comment`, `gh pr merge`) e per monitorare le issue.
+- **GitHub CLI (`gh`):** Viene utilizzato per gestire, analizzare e unire Pull Request (`gh pr list`, `gh pr diff`, `gh pr comment`, `gh pr merge`), monitorare le issue, le GitHub Discussions e i workflow GitHub Actions.
 
 ---
 
-## 2. Regole di Struttura (FONDAMENTALI)
+## 2. Regole di Struttura e Naming (FONDAMENTALI)
 
 Ogni corso *deve* seguire rigorosamente questa alberatura standard:
 ```text
@@ -32,78 +33,70 @@ Ogni corso *deve* seguire rigorosamente questa alberatura standard:
 ```
 
 ### Regole per i file e le cartelle:
-1. **Sottocartelle Obbligatorie:** Ciascuna cartella docente *deve* contenere tutte e 8 le sottocartelle standard sopra elencate. Se una cartella è momentaneamente vuota, deve contenere un file `.gitkeep` per garantirne il tracciamento in Git.
-2. **Standard Cartella Esami:** La cartella `esami` *deve sempre* essere suddivisa in `esami/scritto/` ed `esami/orale/` (tutto minuscolo e singolare). Non usare mai denominazioni alternative come `Scritti`, `Orale`, `Scritto` o cartelle non standard.
-3. **Regola d'Oro per `contenuto-non-proprio`:** In ogni cartella `contenuto-non-proprio` che ospita file, *deve SEMPRE esserci* un file `crediti.txt` per ringraziare e citare esplicitamente l'autore originale o la fonte (es. canale YouTube, repository GitHub o studente).
-4. **README di Canale Docente (`Prof-*/README.md`):** Ogni docente ha una scheda informativa contenente:
+1. **Sottocartelle Obbligatorie (Nessuna Cartella Extra):** Ciascuna cartella docente *deve* contenere esattamente le 8 sottocartelle standard sopra elencate (`slides`, `appunti`, `esercizi`, `progetti`, `esami/scritto`, `esami/orale`, `libri`, `contenuto-non-proprio`) più il `README.md`. Se una cartella è momentaneamente vuota, deve contenere un file `.gitkeep` per garantirne il tracciamento in Git. Non creare sottocartelle extra fuori standard (es. `robe-utili`, `dettagli`).
+2. **Standard Naming `Prof-[NomeCognome]` (ASCII CamelCase):** Tutte le cartelle docente — inclusi 1°, 2°, 3° Anno ed Esami a Scelta — devono usare rigorosamente il formato `Prof-NomeCognome` in **CamelCase ASCII senza spazi, punti, apostrofi o lettere accentate** (es. `Prof-SergioDiMartino`, `Prof-AndreaCali`, `Prof-LuigiLiberoLucioStarace`, `Prof-AnnaCorazza`). Lo script `info-generali/scripts/new_course.py` applica automaticamente questa sanitizzazione. Usare `Prof-DaDefinire` *esclusivamente* se un corso non ha ancora alcun docente ufficiale assegnato su disco.
+3. **Title Case per i Corsi:** I nomi delle cartelle corso devono seguire il Title Case coerente (es. `Algorithm Design`, `Logics for Computer Science`, `Operating Systems for Mobile, Cloud and IoT`, `Metodi Statistici per l'Informazione`).
+4. **Standard Cartella Esami:** La cartella `esami` *deve sempre* essere suddivisa in `esami/scritto/` ed `esami/orale/` (tutto minuscolo e singolare). Non usare mai denominazioni alternative come `Scritti`, `Orale`, `Scritto` o cartelle non standard.
+5. **Regola d'Oro per `contenuto-non-proprio`:** In ogni cartella `contenuto-non-proprio` che ospita file (oltre a `.gitkeep`), *deve SEMPRE esserci* un file `crediti.txt` per ringraziare e citare esplicitamente l'autore originale o la fonte (es. canale YouTube, repository GitHub o studente).
+6. **README di Canale Docente (`Prof-*/README.md`):** Ogni docente ha una scheda informativa contenente:
    - Titolo `# Nome Insegnamento`
    - `## Informazioni Corso` (Docente, Anno, Semestre, Stato)
    - `Codice Teams 2026/2027:` (con codice alfanumerico o vuoto se non ancora disponibile)
-   - Eventuali dettagli d'esame e link a risorse aggiuntive.
-5. **README di Corso (`[Corso]/README.md`):** Ogni insegnamento (compresi tutti gli *Esami a Scelta*) possiede un file `README.md` a livello di cartella di corso con Anno, Semestre, CFU, Stato e l'elenco cliccabile di **tutti** i canali docenti attivi su disco.
-6. **Esami a Scelta:** Risiedono tutti nella cartella radice `Esami a Scelta/[NomeCorso]/Prof-[NomeCognome]/` (totale 12 insegnamenti ufficiali coerenti con la Tabella B della Guida dello Studente 2026/2027).
-7. **Nomi File ed Encoding:** Evitare assolutamente apostrofi tipografici curvi (`’`, U+2019) o caratteri speciali nei nomi delle cartelle (usare sempre l'apice ASCII standard `'`, es. `Diritto dell'Informatica`).
+   - Eventuali dettagli d'esame, note operative e strumenti consigliati.
+7. **README di Corso (`[Corso]/README.md`):** Tutti i 31 insegnamenti possiedono un file `README.md` arricchito con i metadati ufficiali della Guida dello Studente 2026/2027: titolo italiano/inglese, Anno, Semestre, CFU, SSD, Propedeuticità cliccabili, Modalità d'Esame, Copertura Materiale (`🟢`/`🟡`/`⚪`), Stato Esame personale, Obiettivi Formativi ed elenco cliccabile di **tutti** i canali `Prof-*` attivi su disco.
+8. **Esami a Scelta:** Risiedono tutti nella cartella radice `Esami a Scelta/[NomeCorso]/Prof-[NomeCognome]/` (totale 12 insegnamenti ufficiali coerenti con la Tabella B della Guida dello Studente 2026/2027).
+9. **Nomi File, Encoding e Binari Compilati:** Evitare apostrofi tipografici curvi (`’`, U+2019) nei nomi delle cartelle (usare sempre l'apice ASCII `'`, es. `Diritto dell'Informatica`). Non committare mai eseguibili compilati (ELF Linux, `.exe`, `.out`), librerie `.jar` o file temporanei LaTeX (`*.aux`, `*.synctex.gz`, ecc.).
 
 ---
 
-## 3. Gestione Git e Git LFS
-- **Git LFS:** Traccia tutti i formati multimediali pesanti e documenti: `*.pdf`, `*.pptx`, `*.jpg`, `*.png`, `*.zip`, `*.docx` (configurato in `.gitattributes`).
-- **Flusso di Lavoro:** Verificare sempre lo stato con `git status`, testare la coerenza dei link e committare regolarmente con messaggi chiari e convenzionali (`feat:`, `fix:`, `docs:`, `chore:`), eseguendo il push su `origin master`.
-- **Gestione PR:** Quando viene aperta una Pull Request, va analizzata verificando che i file rispettino l'alberatura, accettata, commentata con ringraziamenti, integrata localmente (`git pull`) e perfezionata con eventuali `.gitkeep` e `crediti.txt` mancanti.
+## 3. Gestione Git, Git LFS, CI e Automazione
+- **Git LFS & Strategia Salva-Banda (10 GiB/mese):** `.gitattributes` traccia in modo case-insensitive tutti i documenti e archivi binari (`*.pdf`, `*.pptx`, `*.ppt`, `*.docx`, `*.doc`, `*.xlsx`, `*.xls`, `*.odt`, `*.odp`, `*.ods`, `*.epub`, `*.jpg`, `*.jpeg`, `*.png`, `*.webp`, `*.gif`, `*.zip`, `*.rar`, `*.7z`, `*.tar.gz`). Per proteggere la quota mensile Git LFS da 10 GiB/mese:
+  1. Il `README.md` istruisce gli studenti a clonare con `GIT_LFS_SKIP_SMUDGE=1 git clone ...` e scaricare selettivamente solo i corsi desiderati (`git lfs pull --include="..."`), oppure a usare il Portale Web per il download dei singoli file.
+  2. Le GitHub Actions (`.github/workflows/audit-pr.yml` e `deploy-pages.yml`) usano `lfs: false` (scaricando al massimo le 2 mappe campus `~1.1 MB` per Pages) così le build CI consumano **0 byte** di banda LFS sui PDF/archivi dei corsi.
+- **Validazione Automatica (`info-generali/scripts/audit_repo.py`):** Prima di ogni commit/push importante (ed eseguito automaticamente sulle PR da `audit-pr.yml`), lanciare `python3 info-generali/scripts/audit_repo.py`. Verifica: 8 sottocartelle standard, assenza di cartelle extra o `Prof-DaDefinire` ridondanti, naming `Prof-NomeCognome` CamelCase, presenza di `crediti.txt`, zero link Markdown rotti, zero eseguibili ELF/PE/Mach-O e zero binari pesanti sfuggiti a Git LFS.
+- **Google Apps Script (`info-generali/scripts/aggiorna_form_esistenti.gs`):** Gli `EDIT_ID` dei Google Form non vanno mai hardcoded nel codice sorgente pubblico; lo script li legge da `PropertiesService.getScriptProperties()` con fallback automatico tramite ricerca per nome su Google Drive del proprietario.
+- **Flusso di Lavoro:** Verificare sempre lo stato con `git status` e `audit_repo.py`, committare regolarmente con messaggi convenzionali (`feat:`, `fix:`, `docs:`, `chore:`) ed eseguire il push su `origin master` (mai riscrivere la storia Git con `--force`).
 
 ---
 
-## 4. Struttura del README.md Principale
+## 4. Struttura del README.md Principale e Portale Web
 Il [README.md](./README.md) funge da hub centrale della community e include:
-- **Badge di stato:** Licenza CC BY-NC-SA 4.0, Ultimo Commit, Dimensione Repository.
-- **Link Rapidi:** Canale/Gruppo Telegram studenti, Google Form per Valutazione Materiale Didattico e Form per Raccolta Domande Esami Orali.
-- **Tabelle Triennio:** 
-  - 1° Anno suddiviso per canali alfabetici (A-DE, DF-M, N-Z) con tutti i docenti censiti.
-  - 2° Anno suddiviso per canali (A-G, H-Z).
-  - 3° Anno con i 3 corsi del 1° semestre (Reti, Ing. Software, Tecnologie Web) e i corsi del 2° semestre (AI Technologies, Tecniche di Prog. Avanzata, esami a scelta).
-  - Tabella Esami a Scelta con docenti ufficiali di riferimento.
-  - Icone di avanzamento: ✅ (Completato / Materiale solido) e ⏳ (In Corso / Da sostenere).
-- **Informazioni Generali:** Link alla Guida GitHub Education, alle Guide dello Studente (2026/27, 2025/26, 2024/25), all'Orario delle Lezioni 2026/2027 e alle Mappe dei Complessi Universitari di Monte Sant'Angelo e Via Claudio.
-- **Guida per la Contribuzione:** Istruzioni passo-passo sia per le Pull Request che per le Issues di GitHub.
+- **Banner Portale Web:** Link in evidenza a `https://carloj005.github.io/UNINA-INFORMATICA/` per ricerca istantanea su oltre 1.300 file, filtri per Anno/Corso/Categoria, copia 1-click dei codici Teams, mappe zoomabili e generatore di comandi `git lfs pull` selettivi.
+- **Guida Clone Salva-Banda:** Istruzioni `GIT_LFS_SKIP_SMUDGE=1` e `git lfs pull --include`.
+- **Dashboard a Doppia Colonna (`Materiale` + `Esame`):**
+  - Colonna **Materiale** (per tutti gli studenti): `🟢 Ricco`, `🟡 Parziale`, `⚪ Da popolare`.
+  - Colonna **Esame** (tracker personale dell'autore): `✅ Superato`, `⏳ Da sostenere`.
+  - Tutti i nomi dei docenti nelle tabelle puntano direttamente con link cliccabili alle rispettive cartelle `./.../Prof-NomeCognome`.
+- **Issue & PR Templates (`.github/`):** Moduli strutturati per segnalare codici Teams 2026/2027 (`codice_teams.yml`), inviare/richiedere materiale (`richiesta_o_materiale.yml`), segnalare errori (`segnalazione_errore.yml`), oltre a GitHub Discussions attivo.
 
 ---
 
 ## 5. Cronologia Recente e Lore del Progetto
-- **Riordino Radicale Esami a Scelta:** Spostati tutti gli esami a scelta nella cartella di primo livello `Esami a Scelta/`, con docenti ufficiali assegnati da Guida dello Studente 2026/2027 (Laurato per *Computer Forensics*, Franzese per *Diritto dell'Informatica*, Benerecetti per *Logics*, Tramontana per *OS for Mobile*, D'Amore per *Calcolo Numerico*, Messina per *Scientific Computing*, Festa per *Ricerca Operativa*).
+- **Riordino Radicale Esami a Scelta:** Spostati tutti gli esami a scelta nella cartella di primo livello `Esami a Scelta/`, con docenti ufficiali assegnati da Guida dello Studente 2026/2027 (Laurato per *Computer Forensics*, Franzese per *Diritto dell'Informatica*, Benerecetti per *Logics for Computer Science*, Tramontana per *Operating Systems for Mobile, Cloud and IoT*, D'Amore per *Calcolo Numerico*, Messina per *Scientific Computing*, Festa per *Ricerca Operativa*).
 - **Allineamento Ufficiale 3° Anno (A.A. 2026/2027):** Consolidati i semestri in accordo al piano di studi:
-  - Spostato *Tecnologie Web* (Starace / Breve) e *Ingegneria del Software* (Di Martino / Tramontana) unicamente al 1° semestre (9 CFU cad.).
-  - Spostato *Tecniche di Programmazione Avanzata* (Faella) e *AI Technologies* (Corazza / Rossi) al 2° semestre (6 CFU cad.).
-  - Eliminata la cartella duplicata fantasma `Terzo Anno/Primo Semestre/Operation Research` (in quanto materia a scelta già presente in `Esami a Scelta/Ricerca Operativa`).
-- **Standardizzazione Integrale Cartelle Esami:** Normalizzate tutte le cartelle in `esami/scritto/` ed `esami/orale/` per tutti i 67 docenti della repository.
-- **Applicazione Regola `crediti.txt`:** Creati i file `crediti.txt` in tutte le cartelle `contenuto-non-proprio` (riconoscendo il contributo di Danilo Amalfitano e Max Cascone per Analisi 1, Edoardo Capasso per Architettura, Hicortab/'L'informatica che appassiona' per Basi di Dati e POO, Armando Fiorillo per Sistemi Operativi e Linguaggi di Programmazione 1, Giuseppe Cautiero per Geometria e Prolog).
-- **Integrazione Nuove Risorse Didattiche:**
-  - Aggiunto il pacchetto completo di appunti di Analisi 1 (24 lezioni A.A. 2024/2025 e 6 dispense tematiche di teoria) redatto da Max Cascone in `Primo Anno/Primo Semestre/Analisi Matematica 1/Prof-RobertoAlicandro/contenuto-non-proprio/Analisi 1 by Max Cascone/`.
-  - Organizzata la cartella dedicata a Danilo Amalfitano in `Primo Anno/Primo Semestre/Analisi Matematica 1/Prof-RobertoAlicandro/contenuto-non-proprio/Danilo Amalfitano/` con la dispensa teorica completa e il relativo `crediti.txt`.
-  - Aggiunte e normalizzate le slide per *Ingegneria del Software* (Prof. Sergio Di Martino) in `Terzo Anno/Primo Semestre/Ingegneria del Software/Prof-Sergio Di Martino/slides/`: "Lezione 00 Introduzione al corso.pdf", "Lezione 01 Software Process And Quality.pdf", "Lezione 02 Requirement Engineering - Elicitation and Analysis.pdf" e "Lezione 03 Requirement Engineering - Specification.pdf".
-  - Aggiunte e ampliate le risorse per *Reti e Programmazione Distribuita* (Prof. Alberto Finzi): organizzate e titolate 24 slide del corso (Lezioni 01-26 con argomenti specifici) in `slides/`, generata la versione tradotta integrale in lingua italiana (formato Marp Markdown e PDF) in `slides/italiano/` (Lezioni 00-26), integrato il testo di riferimento italiano *Reti di calcolatori e Internet. Un approccio top-down* (Kurose-Ross) in `libri/` assieme al testo inglese *Computer Networking: A Top-Down Approach* (7th Ed.), mappa concettuale in `appunti/` e aggiornato `README.md` con codice Teams 2026/2027 (`rpmzm7k`), modalità d'esame (Scritto + Orale, Preappello disponibile) e testi consigliati.
-  - Aggiunte e normalizzate le slide per *Tecnologie Web* (Prof. Starace) in `Terzo Anno/Primo Semestre/Tecnologie Web/Prof-L.L.L.Starace/slides/`: "Lezione 00 - Introduzione.pdf", "Lezione 01 - DNS.pdf", "Lezione 02 - HTTP.pdf", "Lezione 03 - HTTP (2).pdf", "Lezione 04 - HTML.pdf", "Lezione 05 - CSS.pdf", "Lezione 06 - CSS (2).pdf", "Lezione 07 - CSS (3).pdf", "Lezione 08 - JavaScript.pdf", "Lezione 09 - JavaScript (2).pdf" e "Lezione 10 - JavaScript Browser.pdf".
-  - Scaricate e normalizzate per data (in maniera analoga a Chiara Leone) 42 prove scritte con soluzioni e varianti stagionali per *Analisi Matematica 1* (Prof. Roberto Alicandro) in `Primo Anno/Primo Semestre/Analisi Matematica 1/Prof-RobertoAlicandro/esami/scritto/`, incluse le prove del 10-06-2025 e 02-07-2025.
-  - Aggiornati i codici Teams 2026/2027 nei rispettivi `README.md`: Analisi Matematica 1 (Prof.ssa Chiara Leone: `viaa0by`), Programmazione 1 (Prof. Roberto Prevete: `3hlysq8`) e Analisi e Progettazione di Strutture Dati (Prof. Massimo Benerecetti: `bx1dij8`).
-  - Aggiunta dispensa ufficiale "UNINA Official Docs Elementi di Informatica Teorica De Luca 2025-2026.pdf" in `Secondo Anno/Primo Semestre/Elementi di Informatica Teorica/Prof-AlessandroDeLuca/appunti/`.
-  - Integrati tramite Pull Request (#21 di `valenty29`) gli appunti delle lezioni 1 e 2 di Geometria A.A. 2026/2027 redatti da Annunziata, collocati secondo gli standard in `Secondo Anno/Primo Semestre/Geometria/Prof-FrancescaCioffi/contenuto-non-proprio/Appunti-Lezione-Annunziata/` con rispettivo `crediti.txt`.
-  - Creata la guida completa e dettagliata ai vantaggi e iscrizione a GitHub Education per studenti Unina (`info-generali/guida-github-education.md`).
-  - Aggiornato l'Orario delle Lezioni unificato 2026/2027 per 1°, 2° e 3° anno (`info-generali/Orario Lezioni 2026-2027.pdf`).
-  - Aggiunta la mappa ad alta risoluzione del Complesso Universitario di Via Claudio (`info-generali/MappaViaClaudio.jpg`) accanto a quella di Monte Sant'Angelo (`info-generali/MappaMSA.png`), rendendola visibile nella home (`README.md`) e chiudendo la relativa Issue #19.
-  - Aggiornato lo stato dell'insegnamento *Linguaggi di Programmazione 1* (2° Anno, 2° Semestre) a "✅ Completato / Superato" nella dashboard principale e nei README di corso e docenti (Bonatti, Faella).
-  - Aggiornati i materiali del 3° Anno (1° Semestre) per *Tecnologie Web* (Prof. Starace) e *Ingegneria del Software* (Prof. Di Martino):
-    - *Tecnologie Web*: integrate slide Lezioni 11-17 (`Lezione 11 - JavaScript Asynchronism.pdf`, `Lezione 12 - Static and Dynamic Web.pdf`, `Lezione 13 - Node.pdf`, `Lezione 14 - Esercitazione e Presentazione Progetto.md`, `Lezione 15 - Web App with Node.pdf`, `Lezione 16 - Node Web Apps Session.pdf`, `Lezione 17 - Web Frameworks Express.pdf`), archivi `.zip` del codice d'esempio in `esercizi/` (lezioni 15, 16 cookies/session, 17 Express).
-    - *Ingegneria del Software*: integrate slide Lezioni 04-06 (`Lezione 04 Statecharts.pdf`, `Lezione 05 System Design + DesignPractices.pdf`, `Lezione 06 (Parte 1) - Standard Software Architectures.pdf`, `Lezione 06 (Parte 2) - Virtualizzazione e Cloud.pdf`, `Lezione 06 (Parte 3) - Modern Software Architectures.pdf`, `Lezione 06 (Parte 4) - Containerization.pdf`).
-    - *Progetto Integrato SideQuest 2026-2027*: inserita la specifica ufficiale comune `SideQuest_Progetto_Integrato_2026-2027.pdf` nella sottocartella `progetti/Progetto 2026-2027/` di entrambi i docenti.
-- **Google Forms Condizionali (3 Step):** Implementata e distribuita l'architettura dinamica per i form di community (*Valutazione Corsi e Docenti*, *Valutazione Materiale Didattico*, *Raccolta Domande Orale*): Scelta corso (31 corsi A.A. 2026/2027) -> Scelta docente del corso specifico -> Compilazione/Valutazione mirata.
-- **Aggiornamento Script di Automazione (`info-generali/scripts/new_course.py`):** Completamente riscritto e modernizzato per creare automaticamente tutte le 8 sottocartelle standard (`esami/scritto` ed `esami/orale` inclusi), i file `.gitkeep`, il `README.md` del docente con la voce Teams e il supporto agli esami a scelta (`--scelta`).
-- **Suite di Audit e Validazione:** Eseguita scansione automatica completa con script dedicati verificando: 0 link markdown rotti (su 134 testati), tutti i 24 URL esterni operativi con HTTP 200 OK, 100% dei file README presenti e conformi, alberature prive di cartelle o file orfani.
+  - *Tecnologie Web* (Starace / Breve) e *Ingegneria del Software* (Di Martino / Tramontana) al 1° semestre (9 CFU cad.).
+  - *Tecniche di Programmazione Avanzata* (Faella) e *AI Technologies* (Corazza / Rossi) al 2° semestre (6 CFU cad.).
+  - Eliminata la cartella duplicata fantasma `Terzo Anno/Primo Semestre/Operation Research` (materia a scelta già presente in `Esami a Scelta/Ricerca Operativa`).
+- **Standardizzazione Integrale Cartelle Esami & `crediti.txt`:** Normalizzate tutte le cartelle in `esami/scritto/` ed `esami/orale/` per tutti i docenti e creati i file `crediti.txt` in tutte le cartelle `contenuto-non-proprio` popolate (Danilo Amalfitano e Max Cascone per Analisi 1, Edoardo Capasso per Architettura, Hicortab/'L'informatica che appassiona' per Basi di Dati e POO, Armando Fiorillo per Sistemi Operativi e Linguaggi di Programmazione 1, Giuseppe Cautiero per Geometria e Prolog, Annunziata per Geometria).
+- **Integrazione Risorse Didattiche Principali:**
+  - *Analisi Matematica 1* (`Prof-RobertoAlicandro`): appunti completi Max Cascone (24 lezioni + 6 dispense), dispensa Danilo Amalfitano e 42 prove scritte normalizzate per data in `esami/scritto/`.
+  - *Reti e Programmazione Distribuita* (`Prof-AlbertoFinzi`): 24 slide ufficiali in `slides/`, traduzione integrale italiana (Marp + PDF) in `slides/italiano/`, testi Kurose-Ross (IT + EN) in `libri/`, mappa concettuale e codice Teams `rpmzm7k`.
+  - *Ingegneria del Software* (`Prof-SergioDiMartino`): slide Lezioni 00-06 (inclusa Lezione 06 Parti 1-4 su architetture, cloud e container) e specifica `SideQuest_Progetto_Integrato_2026-2027.pdf`.
+  - *Tecnologie Web* (`Prof-LuigiLiberoLucioStarace`): slide Lezioni 00-17 (DNS, HTTP, HTML, CSS, JS, Asynchronism, Node, Session, Express), esercizi `.zip` Lezioni 15-17 e specifica `SideQuest_Progetto_Integrato_2026-2027.pdf`.
+  - *Elementi di Informatica Teorica* (`Prof-AlessandroDeLuca`): dispensa ufficiale 2025-2026; *Geometria* (`Prof-FrancescaCioffi`): appunti Annunziata (PR #21); *Linguaggi di Programmazione 1*: contrassegnato come esame superato (`✅`, voto 26).
+  - *Guide & Mappe*: `info-generali/guida-github-education.md`, `Orario Lezioni 2026-2027.pdf`, `MappaMSA.png` e `MappaViaClaudio.jpg` (Issue #19).
+- **Modernizzazione Completa Struttura, LFS, CI e Portale Web (Ottobre 2026):**
+  - **Uniformazione Naming:** Convertite tutte le 9 cartelle docenti del 3° Anno allo standard CamelCase ASCII (`Prof-PorfirioTramontana`, `Prof-SergioDiMartino`, `Prof-AlbertoFinzi`, `Prof-AndreaCali`, `Prof-BernardoBreve`, `Prof-LuigiLiberoLucioStarace`, `Prof-AnnaCorazza`, `Prof-SilviaRossi`, `Prof-MarcoFaella`), uniformato il Title Case di 4 corsi (*Algorithm Design*, *Logics for Computer Science*, *Operating Systems for Mobile, Cloud and IoT*, *Metodi Statistici per l'Informazione*) e rimosse le 5 cartelle `Prof-DaDefinire` superflue (*Geometria*, *Metodi Statistici*, *Reti*, *AI Technologies*, *Economia*).
+  - **Bonifica Alberatura e Binari:** Eliminata `robe-utili/` in *Basi di Dati* (preservando il riferimento StarUML nel `README.md` di `Prof-MaraSangiovanni` insieme a una guida agli strumenti gratuiti senza watermark aggiunta anche ai README di *Basi di Dati*, *POO* e *Ingegneria del Software*), integrato `dettagli` nel `README.md` di `Prof-Piccirillo` (*Economia*), rimossi i 9 `.jar` JUnit in `APSD/.../cartella senza nome/`, rimossi i 19 eseguibili ELF Linux compilati in `Sistemi Operativi/.../Esercitazione2/` sostituendoli con un `Makefile` + `.gitignore` locale, e rinominati i file generici (`Diagramma_UML_Cinema.pdf`, `Esercizio_1.mdj`, `Lezioni_APSD.zip`).
+  - **Ottimizzazione Git LFS & Compressione Lossless-Readable (-418 MiB working tree):** Esteso `.gitattributes` a tutte le estensioni binarie mancanti (`.jpeg`, `.epub`, `.rar`, `.odt`, `.odp`, `.doc`, case-insensitive), blindato `aggiorna_form_esistenti.gs` con `PropertiesService`, e ottimizzati i 4 file giganti >90 MiB mantenendo intatta la nitidezza visiva (`SIM - Appunti.docx` 116.6 -> 10.5 MiB, `Domande Orale AdE 2023.pdf` 111.5 -> 2.1 MiB, `ESERCIZI ADE.pdf` 94.1 -> 71.3 MiB, `ADE.pdf` 90.3 -> 42.7 MiB).
+  - **Schede Corso 2026/2027, CI & GitHub Pages:** Arricchiti tutti i 31 `README.md` di corso con CFU, SSD, Propedeuticità cliccabili, Modalità d'esame e Obiettivi Formativi estratti da `GuidaTriennaleInformatica-26-27.pdf`; introdotta la doppia colonna `Materiale` + `Esame` nel `README.md` principale; attivati `.github/workflows/audit-pr.yml`, `.github/workflows/deploy-pages.yml`, Issue/PR templates, GitHub Discussions e il Portale Web statico ricercabile (`info-generali/web/`).
 
 ---
 
 ## Istruzioni Operative per l'Assistente AI (Dopo un reset)
 1. Esegui sempre `git status` per verificare la pulizia della working tree e la sincronizzazione con `origin master`.
-2. Mantieni inalterate le 8 sottocartelle standard per ogni nuovo docente aggiunto.
+2. Mantieni rigorosamente le 8 sottocartelle standard e il naming `Prof-NomeCognome` (ASCII CamelCase, senza spazi/punti/accenti) per ogni docente.
 3. Se aggiungi materiale non originale, inseriscilo in `contenuto-non-proprio/` e crea/aggiorna il file `crediti.txt`.
-4. Per ogni nuovo corso o docente, aggiorna sia il rispettivo `README.md` sia la tabella di riepilogo in `README.md`.
+4. Per ogni nuovo corso o docente, aggiorna il rispettivo `README.md`, la dashboard in `README.md` ed esegui `python3 info-generali/scripts/audit_repo.py` per validare struttura, LFS e link prima del push (il portale GitHub Pages si aggiornerà automaticamente via GitHub Actions).
 5. Se generi o modifichi percorsi file, usa sempre link markdown cliccabili e verificabili su disco.
 6. **Aggiornamento Continuo del Contesto:** Ogni volta che ci sono dei cambiamenti nella repository, aggiorna il file `contesto_ai_unina.md` se lo reputi necessario, registrando la nuova lore, le decisioni tecniche o le variazioni strutturali per mantenere la memoria dell'assistente costantemente aggiornata.

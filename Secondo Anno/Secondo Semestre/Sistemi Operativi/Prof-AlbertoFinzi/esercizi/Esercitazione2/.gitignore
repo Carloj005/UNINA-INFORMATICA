@@ -1,0 +1,20 @@
+# Ignora gli eseguibili compilati localmente con `make`
+barriera
+barriera-TODO
+deadlock1
+deadlock2
+es-thread-exit
+filosofi
+lettori-scrittori
+pong
+pong-TODO
+pong-sem
+pong-sem-TODO
+produttore-consumatore-cond-var
+produttore-consumatore-sem
+stampante
+stampante-TODO
+thread-no-race
+thread-no-race-TODO
+thread-race
+thread-sem-no-race

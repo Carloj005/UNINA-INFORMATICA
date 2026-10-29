@@ -1,0 +1,19 @@
+name: "🐛 Segnala un Errore negli Appunti o nella Repository"
+description: "Segnala un refuso in una dispensa, un file corrotto o un'informazione da aggiornare."
+title: "[Fix] "
+labels: ["documentation"]
+body:
+  - type: input
+    id: percorso
+    attributes:
+      label: Corso, Docente e Nome del File
+      placeholder: "Es. Geometria / Prof-FrancescaCioffi / appunti lezione 2 (pag. 4)"
+    validations:
+      required: true
+  - type: textarea
+    id: descrizione
+    attributes:
+      label: Descrizione dell'errore e correzione suggerita
+      placeholder: "Descrivi chiaramente cosa c'è di errato e come andrebbe corretto."
+    validations:
+      required: true

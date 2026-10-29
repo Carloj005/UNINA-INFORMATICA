@@ -1,3 +1,0 @@
-Una roba per tutti coloro che vogliono starUML aumma aumma capite come....
-
-[StarUML graggato scrivo così perchè non so se potrebbe darmi problemi quindi...](https://github.com/rodyuzuriaga/Get-full-version-of-StarUML-7.0.0-Pro-Remove-Watermark)

@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🌐 Portale Web Ricercabile (UNINA-INFORMATICA)
+    url: https://carloj005.github.io/UNINA-INFORMATICA/
+    about: Cerca istantaneamente slide, tracce d'esame, propedeuticità e Codici Teams senza clonare la repo.
+  - name: 💬 Discussioni & Domande sui Corsi (GitHub Discussions)
+    url: https://github.com/Carloj005/UNINA-INFORMATICA/discussions
+    about: Confrontati con altri studenti su esami, progetti e studio senza aprire una Issue tecnica.
+  - name: 📢 Hub Gruppi Telegram Studenti Informatica Unina
+    url: https://t.me/+7HOZaOMbgSphNGM0
+    about: Link diretto ai gruppi Telegram divisi per anno e insegnamento.
+  - name: 📊 Form Anonimo Valutazione Corsi e Docenti
+    url: https://forms.gle/seGUyzc2HiRxmpDs9
+    about: Lascia una recensione anonima su difficoltà ed esperienza d'esame.

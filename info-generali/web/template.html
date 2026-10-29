@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>try{document.querySelector('meta[name="color-scheme"]').content=localStorage.getItem("color-scheme")??"light dark";}catch{}</script>
+  <title>UNINA-INFORMATICA — Portale Ricerca Materiale, Corsi &amp; Codici Teams</title>
+  <meta name="description" content="Motore di ricerca istantaneo per slide, appunti, tracce d'esame, propedeuticità e Codici Teams del CdL Triennale in Informatica — Università Federico II di Napoli.">
+  <style>
+    :root {
+      color-scheme: light dark;
+
+      &:has(> head > meta[name="color-scheme"][content="dark"]) {
+        color-scheme: dark;
+      }
+      &:has(> head > meta[name="color-scheme"][content="light"]) {
+        color-scheme: light;
+      }
+
+      --bg-light: #f4f7fb;
+      --bg-dark: #0b111a;
+      --surface-light: #ffffff;
+      --surface-dark: #131c2a;
+      --surface-2-light: #eef3f9;
+      --surface-2-dark: #1b2738;
+      --border-light: #d5e0ee;
+      --border-dark: #28374d;
+      --text-light: #0f1c2e;
+      --text-dark: #e8eef7;
+      --muted-light: #4f627d;
+      --muted-dark: #97aac4;
+      --brand-light: #004b87;
+      --brand-dark: #58a6ff;
+      --brand-hover-light: #003968;
+      --brand-hover-dark: #79b8ff;
+      --accent-gold-light: #b7791f;
+      --accent-gold-dark: #f6ad55;
+      --ok-light: #157347;
+      --ok-dark: #4ade80;
+
+      --bg: light-dark(var(--bg-light), var(--bg-dark));
+      --surface: light-dark(var(--surface-light), var(--surface-dark));
+      --surface-2: light-dark(var(--surface-2-light), var(--surface-2-dark));
+      --border: light-dark(var(--border-light), var(--border-dark));
+      --text: light-dark(var(--text-light), var(--text-dark));
+      --muted: light-dark(var(--muted-light), var(--muted-dark));
+      --brand: light-dark(var(--brand-light), var(--brand-dark));
+      --brand-hover: light-dark(var(--brand-hover-light), var(--brand-hover-dark));
+      --gold: light-dark(var(--accent-gold-light), var(--accent-gold-dark));
+      --ok: light-dark(var(--ok-light), var(--ok-dark));
+      --shadow: light-dark(0 2px 10px rgb(0 40 90 / 0.06), 0 4px 16px rgb(0 0 0 / 0.35));
+    }
+
+    html {
+      accent-color: var(--brand);
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+    body { margin: 0; padding: 0; min-height: 100dvh; display: flex; flex-direction: column; }
+
+    /* Top Header */
+    .topbar {
+      background: light-dark(#003b6d, #0f1826);
+      color: #ffffff;
+      border-bottom: 1px solid light-dark(#002c52, var(--border));
+      padding: 1rem 1.25rem;
+    }
+    .topbar-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-badge {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 0.65rem;
+      background: rgb(255 255 255 / 0.14);
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .brand-title h1 {
+      margin: 0;
+      font-size: 1.18rem;
+      letter-spacing: -0.01em;
+    }
+    .brand-sub {
+      font-size: 0.8rem;
+      opacity: 0.84;
+      display: block;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+    }
+    .btn-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgb(255 255 255 / 0.24);
+      background: rgb(255 255 255 / 0.1);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-top:hover { background: rgb(255 255 255 / 0.2); }
+
+    /* Stats Strip */
+    .stats-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 1.25rem;
+    }
+    .stats-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .stats-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+    .stat-item strong { color: var(--text); font-weight: 700; }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      max-width: 1220px;
+      width: 100%;
+      margin: 1.1rem auto 0;
+      padding: 0 1.25rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.05rem;
+      border-radius: 0.6rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover { color: var(--text); border-color: var(--brand); }
+    .tab-btn[aria-selected="true"] {
+      background: var(--brand);
+      color: light-dark(#ffffff, #08101c);
+      border-color: var(--brand);
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1220px;
+      width: 100%;
+      margin: 0.9rem auto 2.5rem;
+      padding: 0 1.25rem;
+      flex: 1;
+    }
+    .tab-panel[hidden] { display: none; }
+
+    /* Search & Filters Card */
+    .filter-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+    }
+    .search-row {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+    .search-input-wrap {
+      flex: 1 1 280px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.72rem 2.5rem 0.72rem 0.95rem;
+      border-radius: 0.6rem;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 0.96rem;
+    }
+    .search-input:focus {
+      outline: 2px solid var(--brand);
+      outline-offset: 1px;
+      background: var(--surface);
+    }
+    .kbd-hint {
+      position: absolute;
+      right: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      padding: 0.12rem 0.42rem;
+      border-radius: 0.3rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface);
+      pointer-events: none;
+    }
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+    }
+    select.filter-select {
+      width: 100%;
+      padding: 0.58rem 0.75rem;
+      border-radius: 0.55rem;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 0.88rem;
+    }
+    .chip-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .chip {
+      padding: 0.32rem 0.68rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .chip[aria-pressed="true"] {
+      background: var(--brand);
+      color: light-dark(#ffffff, #08101c);
+      border-color: var(--brand);
+    }
+
+    /* Results Header */
+    .results-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0.75rem 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .btn-link-reset {
+      background: none;
+      border: none;
+      color: var(--brand);
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    /* File List */
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+    .file-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.7rem;
+      padding: 0.75rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      transition: border-color 0.14s ease;
+    }
+    .file-row:hover { border-color: var(--brand); }
+    .deferred-card {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 76px;
+    }
+    .file-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      min-width: 240px;
+      flex: 1;
+    }
+    .file-icon {
+      font-size: 1.4rem;
+      line-height: 1.2;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .file-name {
+      font-weight: 650;
+      font-size: 0.95rem;
+      color: var(--text);
+      word-break: break-word;
+    }
+    .file-crumbs {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.18rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.1rem 0.48rem;
+      border-radius: 0.35rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .file-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
+    }
+    .size-tag {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-right: 0.3rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.42rem 0.72rem;
+      border-radius: 0.48rem;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover { border-color: var(--brand); color: var(--brand); }
+    .btn-primary {
+      background: var(--brand);
+      color: light-dark(#ffffff, #08101c);
+      border-color: var(--brand);
+    }
+    .btn-primary:hover {
+      background: var(--brand-hover);
+      color: light-dark(#ffffff, #08101c);
+    }
+
+    .load-more-wrap {
+      text-align: center;
+      margin-top: 1.1rem;
+    }
+
+    /* Courses Grid */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 0.9rem;
+    }
+    .course-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.8rem;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+    .course-card.deferred-course {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 240px;
+    }
+    .course-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .course-title {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.3;
+    }
+    .course-title a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    .course-title a:hover { color: var(--brand); text-decoration: underline; }
+    .course-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.38rem;
+      margin-top: 0.45rem;
+    }
+    .course-prop {
+      font-size: 0.81rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .prof-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.65rem;
+    }
+    .prof-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+    }
+    .prof-link {
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .prof-link:hover { text-decoration: underline; }
+    .teams-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.18rem 0.52rem;
+      border-radius: 0.4rem;
+      font-size: 0.76rem;
+      font-weight: 650;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .teams-chip.has-code {
+      border-color: var(--ok);
+      color: var(--ok);
+    }
+    .teams-chip.missing-code {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Hub & Maps Grid */
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1rem;
+    }
+    .hub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      padding: 1.1rem;
+      box-shadow: var(--shadow);
+    }
+    .hub-card h3 { margin: 0 0 0.45rem; font-size: 1.05rem; }
+    .hub-card p { margin: 0 0 0.85rem; font-size: 0.88rem; color: var(--muted); }
+    .map-thumb {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 0.55rem;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      display: block;
+      margin-bottom: 0.65rem;
+    }
+    .code-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 0.55rem;
+      padding: 0.7rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      overflow-x: auto;
+      white-space: pre;
+      margin: 0.6rem 0;
+    }
+
+    /* Native Modal Dialogs (following modern-web-guidance) */
+    dialog {
+      border: 1px solid var(--border);
+      border-radius: 0.9rem;
+      background: var(--surface);
+      color: var(--text);
+      padding: 0;
+      max-width: min(740px, 94vw);
+      width: 100%;
+      box-shadow: 0 20px 50px rgb(0 0 0 / 0.4);
+    }
+    dialog.map-dialog {
+      max-width: min(1150px, 96vw);
+    }
+    dialog:modal {
+      overscroll-behavior: contain;
+    }
+    dialog::backdrop {
+      overflow: hidden;
+      overscroll-behavior: contain;
+      background: rgb(0 0 0 / 0.65);
+      backdrop-filter: blur(3px);
+    }
+    .dialog-inner {
+      padding: 1.25rem;
+      max-height: 88dvh;
+      overflow-y: auto;
+    }
+    .dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+    .dialog-header h2 { margin: 0; font-size: 1.15rem; }
+    .map-full {
+      width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      display: block;
+    }
+
+    /* Toast feedback */
+    .toast {
+      position: fixed;
+      bottom: 1.2rem;
+      right: 1.2rem;
+      background: var(--brand);
+      color: light-dark(#ffffff, #08101c);
+      padding: 0.6rem 1rem;
+      border-radius: 0.55rem;
+      font-size: 0.86rem;
+      font-weight: 650;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 50;
+    }
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 1rem 1.25rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--brand); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand-title" href="./">
+        <span class="brand-badge" aria-hidden="true">🎓</span>
+        <span>
+          <h1>UNINA-INFORMATICA</h1>
+          <span class="brand-sub">CdL Triennale in Informatica — Università degli Studi di Napoli Federico II</span>
+        </span>
+      </a>
+      <div class="header-actions">
+        <a class="btn-top" href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">📦 Repository GitHub</a>
+        <a class="btn-top" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">🔑 Segnala Codice Teams</a>
+        <a class="btn-top" href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">📢 Gruppi Telegram</a>
+        <button type="button" class="btn-top" id="theme-toggle" aria-label="Cambia tema chiaro o scuro">🌓 Tema</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-bar" aria-label="Statistiche archivio">
+    <div class="stats-inner">
+      <div class="stats-pills">
+        <span class="stat-item">📄 <strong id="stat-files">0</strong> documenti indicizzati</span>
+        <span class="stat-item">📚 <strong id="stat-courses">0</strong> corsi (A.A. 2026/2027)</span>
+        <span class="stat-item">🔑 <strong id="stat-teams">0</strong> Codici Teams attivi</span>
+        <span class="stat-item">💾 <strong id="stat-size">0 GB</strong> archivio totale</span>
+      </div>
+      <span>Ultimo aggiornamento: <strong id="stat-updated">—</strong></span>
+    </div>
+  </section>
+
+  <nav class="nav-tabs" role="tablist" aria-label="Sezioni del portale">
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="true">🔎 Ricerca File &amp; Esami</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false">🎓 Corsi, Propedeuticità &amp; Teams</button>
+    <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false">🗺️ Mappe, Clone Selettivo &amp; Form</button>
+  </nav>
+
+  <main>
+    <!-- TAB 1: FILE SEARCH -->
+    <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files">
+      <div class="filter-card">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, traccia per data (es. 10-06-2025), argomento (es. DNS, Statecharts, Thread), docente..." aria-label="Cerca tra tutti i file">
+            <span class="kbd-hint" aria-hidden="true">/</span>
+          </div>
+        </div>
+        <div class="filters-grid">
+          <select id="filter-year" class="filter-select" aria-label="Filtra per Anno">
+            <option value="">Tutti gli Anni</option>
+            <option value="Primo Anno">🟢 Primo Anno</option>
+            <option value="Secondo Anno">🟡 Secondo Anno</option>
+            <option value="Terzo Anno">🔴 Terzo Anno</option>
+            <option value="Esami a Scelta">🧩 Esami a Scelta</option>
+            <option value="Info Generali">ℹ️ Info Generali &amp; Guide</option>
+          </select>
+          <select id="filter-course" class="filter-select" aria-label="Filtra per Corso">
+            <option value="">Tutti i Corsi</option>
+          </select>
+          <select id="filter-cat" class="filter-select" aria-label="Filtra per Categoria">
+            <option value="">Tutte le Categorie</option>
+            <option value="slides">📊 Slides</option>
+            <option value="appunti">📝 Appunti &amp; Dispense</option>
+            <option value="esami/scritto">✍️ Esami Scritti &amp; Intercorso</option>
+            <option value="esami/orale">🗣️ Esami Orali</option>
+            <option value="esercizi">💻 Esercizi &amp; Lab</option>
+            <option value="progetti">🚀 Progetti</option>
+            <option value="libri">📚 Libri</option>
+            <option value="contenuto-non-proprio">🤝 Contributi Studenti</option>
+          </select>
+        </div>
+        <div class="chip-bar" aria-label="Filtri rapidi">
+          <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">📊 Solo Slides</button>
+          <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">✍️ Solo Tracce Scritte</button>
+          <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">📝 Solo Appunti</button>
+          <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">🚀 Solo Progetti</button>
+        </div>
+      </div>
+
+      <div class="results-meta">
+        <span id="results-count">Caricamento...</span>
+        <button type="button" class="btn-link-reset" id="reset-filters" hidden>Azzera filtri</button>
+      </div>
+
+      <div id="file-list" class="file-list"></div>
+      <div class="load-more-wrap">
+        <button type="button" class="btn" id="load-more-btn" hidden>Mostra altri risultati</button>
+      </div>
+    </section>
+
+    <!-- TAB 2: COURSES & TEAMS -->
+    <section id="panel-courses" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-courses" hidden>
+      <div class="filter-card">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, docente, SSD o propedeuticità..." aria-label="Cerca corso o docente">
+          </div>
+          <select id="course-year-filter" class="filter-select" style="max-width:240px" aria-label="Filtra corsi per anno">
+            <option value="">Tutti i 31 Insegnamenti</option>
+            <option value="Primo Anno">🟢 Primo Anno (6)</option>
+            <option value="Secondo Anno">🟡 Secondo Anno (8)</option>
+            <option value="Terzo Anno">🔴 Terzo Anno (5)</option>
+            <option value="Esami a Scelta">🧩 Esami a Scelta (12)</option>
+          </select>
+        </div>
+      </div>
+      <div id="courses-grid" class="courses-grid"></div>
+    </section>
+
+    <!-- TAB 3: MAPS, SELECTIVE CLONE & FORMS -->
+    <section id="panel-hub" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-hub" hidden>
+      <div class="hub-grid">
+        <article class="hub-card">
+          <h3>🗺️ Mappa Complesso Monte Sant'Angelo</h3>
+          <p>Aule, edifici (Centri Comuni, Edificio 7 DIETI) e servizi del campus di Monte Sant'Angelo.</p>
+          <img src="./assets/MappaMSA.png" alt="Mappa del Complesso Universitario di Monte Sant'Angelo" class="map-thumb" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa Complesso Universitario di Monte Sant'Angelo" loading="lazy">
+          <button type="button" class="btn btn-primary" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa Complesso Universitario di Monte Sant'Angelo">🔍 Ingrandisci Mappa MSA</button>
+        </article>
+
+        <article class="hub-card">
+          <h3>🗺️ Mappa Complesso di Via Claudio</h3>
+          <p>Planimetria delle aule e strutture del Complesso Universitario di Via Claudio.</p>
+          <img src="./assets/MappaViaClaudio.jpg" alt="Mappa del Complesso Universitario di Via Claudio" class="map-thumb" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa Complesso Universitario di Via Claudio" loading="lazy">
+          <button type="button" class="btn btn-primary" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa Complesso Universitario di Via Claudio">🔍 Ingrandisci Mappa Via Claudio</button>
+        </article>
+
+        <article class="hub-card">
+          <h3>⚡ Generatore Comando Clone Selettivo (Salva-Banda)</h3>
+          <p>Vuoi scaricare sul PC con Git <strong>solo un singolo corso</strong> senza clonare oltre 2,3 GB di PDF?</p>
+          <select id="clone-course-select" class="filter-select" aria-label="Scegli il corso da clonare"></select>
+          <div class="code-box" id="clone-cmd-box"></div>
+          <button type="button" class="btn btn-primary" id="copy-clone-cmd">📋 Copia Comandi Git</button>
+        </article>
+
+        <article class="hub-card">
+          <h3>📝 Moduli Anonimi della Community</h3>
+          <p>Aiuta i prossimi studenti lasciando una valutazione anonima o condividendo le domande ricevute all'orale!</p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a class="btn btn-primary" href="https://forms.gle/seGUyzc2HiRxmpDs9" target="_blank" rel="noopener">📊 Valutazione Corsi e Docenti</a>
+            <a class="btn" href="https://forms.gle/KFHXPqoKNj1LyCk67" target="_blank" rel="noopener">📝 Valutazione Qualità Materiale</a>
+            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfvGQmwT_MQWKN01Ru08KnlvdL-S65TlTPMx-NLvd9kYmX_Xg/viewform" target="_blank" rel="noopener">🗣️ Raccolta Domande Esami Orali</a>
+          </div>
+        </article>
+
+        <article class="hub-card">
+          <h3>🎓 Guide Ufficiali &amp; GitHub Student Pack</h3>
+          <p>Orario lezioni, Manifesto degli Studi 2026/2027 e guida ai vantaggi gratuiti con mail <code>@studenti.unina.it</code>.</p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/info-generali/guida-github-education.md" target="_blank" rel="noopener">💻 Guida GitHub Education (Copilot &amp; JetBrains Gratis)</a>
+            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">🕒 Scarica Orario Lezioni 2026/2027 (PDF)</a>
+            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/GuidaTriennaleInformatica-26-27.pdf" target="_blank" rel="noopener">📘 Scarica Guida dello Studente 2026/2027 (PDF)</a>
+          </div>
+        </article>
+
+        <article class="hub-card">
+          <h3>🤝 Contribuisci &amp; Partecipa</h3>
+          <p>Manca una traccia scritta, un Codice Teams o hai trovato un errore negli appunti?</p>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">📤 Invia / Richiedi una Traccia o Appunti</a>
+            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/discussions" target="_blank" rel="noopener">💬 Apri GitHub Discussions</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Native Modal Dialog for Course Details -->
+  <dialog id="course-modal" aria-labelledby="course-modal-title" closedby="any">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <div>
+          <h2 id="course-modal-title">Dettagli Corso</h2>
+          <span id="course-modal-sub" style="font-size:0.85rem;color:var(--muted);"></span>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="btn" value="close" autofocus>✕ Chiudi</button>
+        </form>
+      </div>
+      <div id="course-modal-body"></div>
+    </div>
+  </dialog>
+
+  <!-- Native Modal Dialog for Campus Maps -->
+  <dialog id="map-modal" class="map-dialog" aria-labelledby="map-modal-title" closedby="any">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <h2 id="map-modal-title">Mappa Campus</h2>
+        <form method="dialog">
+          <button type="submit" class="btn" value="close" autofocus>✕ Chiudi</button>
+        </form>
+      </div>
+      <img id="map-modal-img" class="map-full" src="" alt="">
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <footer>
+    Progetto open-source della community studenti <strong>UNINA-INFORMATICA</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a>
+  </footer>
+
+  <script id="unina-catalog-data" type="application/json">__UNINA_JSON_PAYLOAD__</script>
+  <script>
+    (() => {
+      const DATA = JSON.parse(document.getElementById('unina-catalog-data').textContent);
+      const REPO_URL = 'https://github.com/Carloj005/UNINA-INFORMATICA';
+
+      // Stats
+      const fmtBytes = (b) => {
+        if (!b || b <= 0) return '—';
+        if (b >= 1073741824) return (b / 1073741824).toFixed(2) + ' GB';
+        if (b >= 1048576) return (b / 1048576).toFixed(1) + ' MB';
+        if (b >= 1024) return Math.round(b / 1024) + ' KB';
+        return b + ' B';
+      };
+
+      document.getElementById('stat-files').textContent = DATA.files.length.toLocaleString('it-IT');
+      document.getElementById('stat-courses').textContent = DATA.courses.length;
+      document.getElementById('stat-teams').textContent = DATA.stats.teamsCount;
+      document.getElementById('stat-size').textContent = fmtBytes(DATA.stats.totalBytes);
+      document.getElementById('stat-updated').textContent = DATA.stats.generatedAt;
+
+      const toastEl = document.getElementById('toast');
+      let toastTimer = null;
+      const showToast = (msg) => {
+        toastEl.textContent = msg;
+        toastEl.classList.add('visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove('visible'), 2200);
+      };
+
+      const copyText = async (txt, label) => {
+        try {
+          await navigator.clipboard.writeText(txt);
+          showToast(label || 'Copiato negli appunti!');
+        } catch {
+          showToast('Impossibile copiare automaticamente');
+        }
+      };
+
+      // Two-state system-aware color-scheme toggle (following modern-web-guidance)
+      const metaScheme = document.querySelector('meta[name="color-scheme"]');
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const sysScheme = sysDark ? 'dark' : 'light';
+        let stored = null;
+        try { stored = localStorage.getItem('color-scheme'); } catch {}
+        const current = (stored === 'dark' || stored === 'light') ? stored : sysScheme;
+        const target = current === 'dark' ? 'light' : 'dark';
+        if (target === sysScheme) {
+          try { localStorage.removeItem('color-scheme'); } catch {}
+          metaScheme.content = 'light dark';
+          showToast('Tema: automatico di sistema');
+        } else {
+          try { localStorage.setItem('color-scheme', target); } catch {}
+          metaScheme.content = target;
+          showToast(target === 'dark' ? 'Tema scuro attivato' : 'Tema chiaro attivato');
+        }
+      });
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'color-scheme') {
+          metaScheme.content = e.newValue ?? 'light dark';
+        }
+      });
+
+      // Fallback for <dialog closedby="any"> on Safari
+      if (!('closedBy' in HTMLDialogElement.prototype)) {
+        const outside = (e, dialog) => {
+          const r = dialog.getBoundingClientRect();
+          return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        };
+        for (const dialog of document.querySelectorAll('dialog[closedby="any"]')) {
+          let pressedOutside = false;
+          dialog.addEventListener('pointerdown', (e) => { pressedOutside = outside(e, dialog); });
+          dialog.addEventListener('pointerup', (e) => { if (pressedOutside && outside(e, dialog)) dialog.close(); });
+        }
+      }
+      for (const dialog of document.querySelectorAll('dialog')) {
+        dialog.addEventListener('close', () => { dialog.returnValue = ''; });
+      }
+
+      // Tabs
+      const tabs = document.querySelectorAll('[role="tab"]');
+      const panels = document.querySelectorAll('[role="tabpanel"]');
+      const activateTab = (tabId) => {
+        tabs.forEach((t) => {
+          const sel = t.id === tabId;
+          t.setAttribute('aria-selected', sel ? 'true' : 'false');
+        });
+        panels.forEach((p) => {
+          p.hidden = p.getAttribute('aria-labelledby') !== tabId;
+        });
+      };
+      tabs.forEach((t) => t.addEventListener('click', () => activateTab(t.id)));
+
+      // Populate course dropdowns
+      const filterYear = document.getElementById('filter-year');
+      const filterCourse = document.getElementById('filter-course');
+      const filterCat = document.getElementById('filter-cat');
+      const searchInput = document.getElementById('file-search');
+      const quickChips = document.querySelectorAll('[data-quick-cat]');
+      const resetBtn = document.getElementById('reset-filters');
+
+      const updateCourseOptions = () => {
+        const yr = filterYear.value;
+        const prev = filterCourse.value;
+        filterCourse.innerHTML = '<option value="">Tutti i Corsi</option>';
+        DATA.courses
+          .filter((c) => !yr || c.yearGroup === yr)
+          .forEach((c) => {
+            const opt = document.createElement('option');
+            opt.value = c.name;
+            opt.textContent = `${c.matIcon} ${c.name} (${c.fileCount})`;
+            filterCourse.appendChild(opt);
+          });
+        if ([...filterCourse.options].some((o) => o.value === prev)) {
+          filterCourse.value = prev;
+        }
+      };
+      updateCourseOptions();
+
+      // Keyboard shortcut '/' for search
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
+          e.preventDefault();
+          if (document.getElementById('panel-files').hidden) activateTab('tab-btn-files');
+          searchInput.focus();
+        }
+      });
+
+      const ICON_BY_EXT = {
+        '.pdf': '📕', '.pptx': '📊', '.ppt': '📊', '.odp': '📊',
+        '.docx': '📘', '.doc': '📘', '.odt': '📘', '.epub': '📗',
+        '.zip': '🗜️', '.rar': '🗜️', '.7z': '🗜️',
+        '.jpg': '🖼️', '.jpeg': '🖼️', '.png': '🖼️', '.svg': '🖼️',
+        '.md': '📄', '.txt': '📄', '.c': '💻', '.java': '☕', '.py': '🐍',
+        '.mdj': '📐', '.tex': '📐'
+      };
+
+      const CAT_LABELS = {
+        'slides': 'Slides',
+        'appunti': 'Appunti',
+        'esami/scritto': 'Esame Scritto',
+        'esami/orale': 'Esame Orale',
+        'esercizi': 'Esercizi',
+        'progetti': 'Progetti',
+        'libri': 'Libri',
+        'contenuto-non-proprio': 'Community',
+        'info-generali': 'Info Generali'
+      };
+
+      let filteredFiles = [];
+      let shownCount = 0;
+      const PAGE_SIZE = 60;
+      const fileListEl = document.getElementById('file-list');
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      const resultsCountEl = document.getElementById('results-count');
+
+      const escapeHtml = (s) => String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+
+      const renderFileBatch = (reset) => {
+        if (reset) {
+          fileListEl.innerHTML = '';
+          shownCount = 0;
+        }
+        const slice = filteredFiles.slice(shownCount, shownCount + PAGE_SIZE);
+        const frag = document.createDocumentFragment();
+        slice.forEach((f, idx) => {
+          const globalIdx = shownCount + idx;
+          const row = document.createElement('div');
+          row.className = globalIdx >= 14 ? 'file-row deferred-card' : 'file-row';
+          const icon = ICON_BY_EXT[f.ext] || '📄';
+          const catLbl = CAT_LABELS[f.cat] || f.cat;
+          const viewHref = `${REPO_URL}/blob/master/${f.urlPath}`;
+          const rawHref = `${REPO_URL}/raw/master/${f.urlPath}`;
+          row.innerHTML = `
+            <div class="file-info">
+              <span class="file-icon" aria-hidden="true">${icon}</span>
+              <div>
+                <div class="file-name">${escapeHtml(f.name)}</div>
+                <div class="file-crumbs">
+                  <span class="pill">${escapeHtml(catLbl)}</span>
+                  <span>${escapeHtml(f.yearGroup)}</span>
+                  ${f.course ? `<span>› <strong>${escapeHtml(f.course)}</strong></span>` : ''}
+                  ${f.prof ? `<span>› ${escapeHtml(f.prof)}</span>` : ''}
+                  ${f.subpath ? `<span>› ${escapeHtml(f.subpath)}</span>` : ''}
+                </div>
+              </div>
+            </div>
+            <div class="file-actions">
+              <span class="size-tag">${fmtBytes(f.size)}</span>
+              <a class="btn" href="${viewHref}" target="_blank" rel="noopener">👁️ Apri</a>
+              <a class="btn btn-primary" href="${rawHref}" target="_blank" rel="noopener">⬇ Scarica</a>
+            </div>
+          `;
+          frag.appendChild(row);
+        });
+        fileListEl.appendChild(frag);
+        shownCount += slice.length;
+        loadMoreBtn.hidden = shownCount >= filteredFiles.length;
+        if (shownCount < filteredFiles.length) {
+          loadMoreBtn.textContent = `Mostra altri risultati (${shownCount} di ${filteredFiles.length})`;
+        }
+      };
+
+      const applyFileFilters = () => {
+        const q = searchInput.value.trim().toLowerCase();
+        const tokens = q ? q.split(/\s+/) : [];
+        const yr = filterYear.value;
+        const cr = filterCourse.value;
+        const ct = filterCat.value;
+
+        quickChips.forEach((ch) => {
+          ch.setAttribute('aria-pressed', ch.dataset.quickCat === ct ? 'true' : 'false');
+        });
+
+        const hasFilter = Boolean(q || yr || cr || ct);
+        resetBtn.hidden = !hasFilter;
+
+        filteredFiles = DATA.files.filter((f) => {
+          if (yr && f.yearGroup !== yr) return false;
+          if (cr && f.course !== cr) return false;
+          if (ct && f.cat !== ct) return false;
+          if (tokens.length > 0) {
+            for (const tk of tokens) {
+              if (!f.searchBlob.includes(tk)) return false;
+            }
+          }
+          return true;
+        });
+
+        resultsCountEl.textContent = filteredFiles.length === 0
+          ? 'Nessun documento trovato con questi filtri.'
+          : `${filteredFiles.length.toLocaleString('it-IT')} documenti trovati`;
+        renderFileBatch(true);
+      };
+
+      searchInput.addEventListener('input', applyFileFilters);
+      filterYear.addEventListener('change', () => { updateCourseOptions(); applyFileFilters(); });
+      filterCourse.addEventListener('change', applyFileFilters);
+      filterCat.addEventListener('change', applyFileFilters);
+      loadMoreBtn.addEventListener('click', () => renderFileBatch(false));
+      quickChips.forEach((ch) => {
+        ch.addEventListener('click', () => {
+          const val = ch.dataset.quickCat;
+          filterCat.value = filterCat.value === val ? '' : val;
+          applyFileFilters();
+        });
+      });
+      resetBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        filterYear.value = '';
+        updateCourseOptions();
+        filterCourse.value = '';
+        filterCat.value = '';
+        applyFileFilters();
+      });
+
+      // Render Courses Grid
+      const coursesGrid = document.getElementById('courses-grid');
+      const courseSearch = document.getElementById('course-search');
+      const courseYearFilter = document.getElementById('course-year-filter');
+      const courseModal = document.getElementById('course-modal');
+
+      const openCourseModal = (c) => {
+        document.getElementById('course-modal-title').textContent = `${c.matIcon} ${c.name}`;
+        document.getElementById('course-modal-sub').textContent = `${c.titleEn} • ${c.yearGroup} (${c.semester} Semestre) • ${c.cfu} CFU • SSD ${c.ssd}`;
+        const cloneCmd = `GIT_LFS_SKIP_SMUDGE=1 git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${c.relPath}/**"`;
+        document.getElementById('course-modal-body').innerHTML = `
+          <p style="margin:0 0 0.6rem;"><strong>Propedeuticità:</strong> ${escapeHtml(c.propedeuticita)}</p>
+          <p style="margin:0 0 0.6rem;"><strong>Modalità d'Esame:</strong> ${escapeHtml(c.modalita)}</p>
+          <p style="margin:0 0 0.9rem;"><strong>Obiettivi Formativi:</strong><br><span style="color:var(--muted);font-size:0.9rem;">${escapeHtml(c.obiettivi)}</span></p>
+          <h3 style="font-size:0.96rem;margin:0 0 0.4rem;">⚡ Clone Selettivo solo per questo corso</h3>
+          <div class="code-box">${escapeHtml(cloneCmd)}</div>
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem;">
+            <button type="button" class="btn btn-primary" id="modal-copy-clone">📋 Copia Comandi Git</button>
+            <button type="button" class="btn" id="modal-filter-files">🔎 Cerca tra i ${c.fileCount} file del corso</button>
+            <a class="btn" href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">📂 Apri Cartella su GitHub</a>
+          </div>
+        `;
+        document.getElementById('modal-copy-clone').onclick = () => copyText(cloneCmd, 'Comandi Git copiati!');
+        document.getElementById('modal-filter-files').onclick = () => {
+          courseModal.close();
+          activateTab('tab-btn-files');
+          filterYear.value = c.yearGroup;
+          updateCourseOptions();
+          filterCourse.value = c.name;
+          applyFileFilters();
+        };
+        courseModal.showModal();
+      };
+
+      const renderCourses = () => {
+        const q = courseSearch.value.trim().toLowerCase();
+        const yr = courseYearFilter.value;
+        coursesGrid.innerHTML = '';
+        const list = DATA.courses.filter((c) => {
+          if (yr && c.yearGroup !== yr) return false;
+          if (q && !c.searchBlob.includes(q)) return false;
+          return true;
+        });
+
+        list.forEach((c, idx) => {
+          const card = document.createElement('article');
+          card.className = idx >= 9 ? 'course-card deferred-course' : 'course-card';
+          const profHtml = c.profs.map((p) => {
+            let teamsEl = '';
+            if (p.teamsUrl) {
+              teamsEl = `<a class="teams-chip has-code" href="${escapeHtml(p.teamsUrl)}" target="_blank" rel="noopener">🔗 Link Teams</a>`;
+            } else if (p.teamsCode) {
+              teamsEl = `<button type="button" class="teams-chip has-code" data-copy-teams="${escapeHtml(p.teamsCode)}">📋 Teams: ${escapeHtml(p.teamsCode)}</button>`;
+            } else {
+              const issueHref = `${REPO_URL}/issues/new?template=codice_teams.yml&title=${encodeURIComponent('[Teams 26/27] ' + c.name + ' - ' + p.display)}`;
+              teamsEl = `<a class="teams-chip missing-code" href="${issueHref}" target="_blank" rel="noopener" title="Segnala il codice Teams di questo canale">+ Codice Teams</a>`;
+            }
+            return `
+              <div class="prof-item">
+                <a class="prof-link" href="${REPO_URL}/tree/master/${p.urlPath}" target="_blank" rel="noopener">${escapeHtml(p.display)} (${p.fileCount})</a>
+                ${teamsEl}
+              </div>
+            `;
+          }).join('');
+
+          card.innerHTML = `
+            <div>
+              <div class="course-head">
+                <h3 class="course-title"><a href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a></h3>
+                <span title="Copertura materiale">${c.matIcon}</span>
+              </div>
+              <div class="course-meta-row">
+                <span class="pill">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} Sem</span>
+                <span class="pill">${escapeHtml(c.cfu)} CFU</span>
+                <span class="pill">${escapeHtml(c.ssd)}</span>
+                <span class="pill">${c.fileCount} file</span>
+              </div>
+              <div class="course-prop"><strong>Propedeuticità:</strong> ${escapeHtml(c.propedeuticita)}</div>
+            </div>
+            <div class="prof-list">${profHtml}</div>
+            <div style="display:flex;gap:0.45rem;flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary" data-open-course="${idx}">📖 Scheda &amp; Obiettivi</button>
+              <button type="button" class="btn" data-jump-files="${escapeHtml(c.name)}" data-jump-year="${escapeHtml(c.yearGroup)}">🔎 Vedi File (${c.fileCount})</button>
+            </div>
+          `;
+          card.querySelector('[data-open-course]').addEventListener('click', () => openCourseModal(c));
+          card.querySelector('[data-jump-files]').addEventListener('click', () => {
+            activateTab('tab-btn-files');
+            filterYear.value = c.yearGroup;
+            updateCourseOptions();
+            filterCourse.value = c.name;
+            applyFileFilters();
+          });
+          card.querySelectorAll('[data-copy-teams]').forEach((btn) => {
+            btn.addEventListener('click', () => copyText(btn.dataset.copyTeams, `Codice Teams "${btn.dataset.copyTeams}" copiato!`));
+          });
+          coursesGrid.appendChild(card);
+        });
+      };
+      courseSearch.addEventListener('input', renderCourses);
+      courseYearFilter.addEventListener('change', renderCourses);
+
+      // Selective Clone Generator in Tab 3
+      const cloneSelect = document.getElementById('clone-course-select');
+      const cloneCmdBox = document.getElementById('clone-cmd-box');
+      DATA.courses.forEach((c) => {
+        const opt = document.createElement('option');
+        opt.value = c.relPath;
+        opt.textContent = `${c.yearGroup} — ${c.name}`;
+        cloneSelect.appendChild(opt);
+      });
+      const updateCloneBox = () => {
+        const p = cloneSelect.value;
+        cloneCmdBox.textContent = `git lfs install\nGIT_LFS_SKIP_SMUDGE=1 git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${p}/**"`;
+      };
+      cloneSelect.addEventListener('change', updateCloneBox);
+      updateCloneBox();
+      document.getElementById('copy-clone-cmd').addEventListener('click', () => copyText(cloneCmdBox.textContent, 'Comandi Git copiati!'));
+
+      // Campus Maps Zoom Dialog
+      const mapModal = document.getElementById('map-modal');
+      const mapModalImg = document.getElementById('map-modal-img');
+      const mapModalTitle = document.getElementById('map-modal-title');
+      document.querySelectorAll('[data-map-src]').forEach((el) => {
+        el.addEventListener('click', () => {
+          mapModalTitle.textContent = el.dataset.mapTitle;
+          mapModalImg.src = el.dataset.mapSrc;
+          mapModalImg.alt = el.dataset.mapTitle;
+          mapModal.showModal();
+        });
+      });
+
+      // Initial render
+      applyFileFilters();
+      renderCourses();
+    })();
+  </script>
+</body>
+</html>

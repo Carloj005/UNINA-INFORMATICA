@@ -14,20 +14,31 @@
  * COME UTILIZZARLO:
  * 1. Vai su https://script.google.com/
  * 2. Incolla questo script nel tuo progetto
- * 3. Inserisci il FORM_ID dei tuoi due form nelle costanti qui sotto:
- *    (Lo trovi nell'URL quando apri il form in modifica su Drive:
- *     https://docs.google.com/forms/d/QUESTO_E_IL_FORM_ID/edit)
- *    Se lasci la stringa vuota, lo script cercherà automaticamente il form per nome nel tuo Google Drive!
+ * 3. Opzionale (Sicurezza): se vuoi specificare gli ID privati di modifica dei form
+ *    senza esporli nel codice sorgente, salvali in Google Apps Script sotto:
+ *    Impostazioni progetto (⚙️) -> Proprietà script:
+ *      - ID_FORM_VALUTAZIONE_DOCENTI
+ *      - ID_FORM_VALUTAZIONE_MATERIALE
+ *    Se non imposti le Proprietà script, lo script cercherà automaticamente i form
+ *    per nome esatto nel tuo Google Drive!
  * 4. Seleziona ed esegui la funzione:
  *    - 'aggiornaFormValutazioneDocenti' per il Form 1
  *    - 'aggiornaFormValutazioneMateriale' per il Form 2
  */
 
 // ============================================================================
-// CONFIGURAZIONE: FORM ID CONFIGURATI
+// CONFIGURAZIONE SICURA (Nessun EDIT_ID hardcoded nel codice pubblico)
 // ============================================================================
-var ID_FORM_VALUTAZIONE_DOCENTI = "1Ua9Rm44dlW5P-Gdu-icymQMKMVE_S6VNT5WmH7s8c2o";
-var ID_FORM_VALUTAZIONE_MATERIALE = "1xSu9zh6PgcoQcJ4rXtqaxyeiH-Z9rNw6ne9C8OL8INA";
+function getScriptProp_(key) {
+  try {
+    return PropertiesService.getScriptProperties().getProperty(key) || "";
+  } catch (e) {
+    return "";
+  }
+}
+
+var ID_FORM_VALUTAZIONE_DOCENTI = getScriptProp_("ID_FORM_VALUTAZIONE_DOCENTI");
+var ID_FORM_VALUTAZIONE_MATERIALE = getScriptProp_("ID_FORM_VALUTAZIONE_MATERIALE");
 
 // Nome esatto dei file su Google Drive (usato solo se l'ID è vuoto)
 var NOME_FORM_DOCENTI = "Valutazione Corsi e Docenti - UNINA INFORMATICA";

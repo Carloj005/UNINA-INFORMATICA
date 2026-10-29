@@ -1,0 +1,47 @@
+name: "🔑 Segnala Codice Teams (A.A. 2026/2027)"
+description: "Condividi il codice o il link Microsoft Teams ufficiale di un docente per aggiungerlo alla repository e al Portale Web."
+title: "[Teams 26/27] "
+labels: ["documentation", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Grazie per aiutare a completare la lista dei **Codici Microsoft Teams 2026/2027**! 🙌
+  - type: dropdown
+    id: anno
+    attributes:
+      label: Anno di riferimento
+      options:
+        - Primo Anno
+        - Secondo Anno
+        - Terzo Anno
+        - Esame a Scelta (Tabella B)
+    validations:
+      required: true
+  - type: input
+    id: corso
+    attributes:
+      label: Insegnamento
+      placeholder: "Es. Basi di Dati, Algebra, Fisica Generale 1..."
+    validations:
+      required: true
+  - type: input
+    id: docente
+    attributes:
+      label: Docente / Canale
+      placeholder: "Es. Prof.ssa Mara Sangiovanni (Canale 1)"
+    validations:
+      required: true
+  - type: input
+    id: codice_teams
+    attributes:
+      label: Codice Teams o Link al Team
+      description: "Inserisci il codice alfanumerico (es. rpmzm7k) oppure l'URL diretto al canale Microsoft Teams."
+      placeholder: "Es. rpmzm7k"
+    validations:
+      required: true
+  - type: textarea
+    id: note
+    attributes:
+      label: Informazioni aggiuntive sul corso (opzionale)
+      description: "Eventuali info utili comunicate dal docente a lezione (modalità d'esame, date prove intercorso, sito web)."
