@@ -1,0 +1,58 @@
+name: Deploy Portale Web (GitHub Pages)
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Genera Indice Ricercabile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout leggero (senza scaricare i 2.3 GB di LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Scarica via LFS solo le 2 mappe dei plessi (~1.1 MB)
+        run: |
+          git lfs install
+          git lfs pull --include="info-generali/Mappa*"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build statica Portale Web
+        run: python3 info-generali/web/build_site.py --out _site
+
+      - name: Configura GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Carica artefatto Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Pubblica su GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,29 @@
+name: Audit Struttura & Link
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Verifica Standard Repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout leggero (senza consumare banda Git LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Esegui Suite di Audit UNINA-INFORMATICA
+        run: python3 info-generali/scripts/audit_repo.py
