@@ -1,0 +1,19 @@
+TCP Concurrent Server - Client Exercise
+
+The provided server (server-fork.c) accepts multiple TCP connections.
+For each client, it creates a separate child process using fork().
+
+Write client-fork.c in C with the following behavior:
+
+1. Connect to 127.0.0.1 on TCP port 5202.
+2. Read two unsigned 32-bit integers from the keyboard.
+3. Convert both integers using htonl() and send 8 bytes.
+4. Receive 4 bytes and convert the result using ntohl().
+5. Display the sum and allow the user to enter another pair.
+6. Close the socket when the user finishes.
+
+Use send_all() and recv_all() as in example 04-sum-safe.
+Run the server and two clients in three terminals. Verify that each
+client is handled by a different child process (the server prints its PID).
+
+Do not start multiple servers on the same port.
