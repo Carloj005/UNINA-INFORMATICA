@@ -111,6 +111,9 @@
       width: 24px;
       height: 24px;
     }
+    .icon-filled {
+      fill: currentColor;
+    }
 
     /* Top Header */
     .topbar {
@@ -196,6 +199,11 @@
       background: var(--primary-hover);
       color: #ffffff;
       border-color: var(--primary-hover);
+    }
+    .btn-active {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      border-color: var(--primary);
     }
     .btn-lg {
       padding: var(--sp-2) var(--sp-3);
@@ -292,8 +300,103 @@
       color: var(--text);
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+    .section-heading-left {
+      display: inline-flex;
+      align-items: center;
       gap: var(--sp-1);
     }
+    .section-sub {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    /* Pinned Courses & Recent Updates on Home */
+    .home-pinned-section {
+      margin-bottom: var(--sp-4);
+    }
+    .home-pinned-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--sp-2);
+    }
+    .pinned-card {
+      background: var(--surface);
+      border: 1px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--sp-2);
+    }
+    .pinned-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-1);
+    }
+    .pinned-card h4 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .pinned-meta {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: var(--sp-1);
+    }
+
+    .home-recent-section {
+      margin-bottom: var(--sp-4);
+    }
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: var(--sp-2);
+    }
+    .recent-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--sp-1);
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .recent-card:hover {
+      border-color: var(--primary);
+      background: var(--surface-2);
+    }
+    .recent-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-1);
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .recent-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text);
+      word-break: break-word;
+    }
+    .recent-sub {
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
     .home-years-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
@@ -487,7 +590,7 @@
     }
     .filters-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(184px, 1fr));
       gap: var(--sp-2);
       margin-top: var(--sp-2);
     }
@@ -507,11 +610,18 @@
       outline: 2px solid var(--primary);
       outline-offset: 0;
     }
+    .chip-bar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+      margin-top: var(--sp-2);
+    }
     .chip-bar {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sp-1);
-      margin-top: var(--sp-2);
     }
     .chip {
       display: inline-flex;
@@ -537,6 +647,28 @@
       border-color: var(--primary);
     }
 
+    /* Active Folder / Path Filter Bar */
+    .active-path-bar {
+      background: var(--primary-soft);
+      border: 1px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-1) var(--sp-2);
+      margin-bottom: var(--sp-2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+    .active-path-crumbs {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      flex-wrap: wrap;
+    }
+
     /* Results Header */
     .results-meta {
       display: flex;
@@ -546,10 +678,16 @@
       font-size: 0.9375rem;
       color: var(--muted);
       flex-wrap: wrap;
-      gap: var(--sp-1);
+      gap: var(--sp-2);
       font-variant-numeric: tabular-nums;
     }
-    .btn-link-reset {
+    .results-meta-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+    .btn-link-action {
       background: none;
       border: none;
       color: var(--primary-text);
@@ -557,14 +695,38 @@
       font-size: 0.875rem;
       font-weight: 600;
       padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
       text-decoration: underline;
     }
 
-    /* File List */
+    /* File List & Folder Grouping */
     .file-list {
       display: flex;
       flex-direction: column;
       gap: var(--sp-1);
+    }
+    .folder-group-header {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-1) var(--sp-2);
+      margin-top: var(--sp-1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+    .folder-group-title {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text);
     }
     .file-row {
       background: var(--surface);
@@ -602,11 +764,26 @@
       place-items: center;
       flex-shrink: 0;
     }
+    .file-name-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+      flex-wrap: wrap;
+    }
     .file-name {
       font-weight: 600;
       font-size: 1rem;
       color: var(--text);
       word-break: break-word;
+    }
+    .date-badge {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      padding: 0 var(--sp-1);
+      border-radius: var(--sp-1);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }
     .file-crumbs {
       font-size: 0.875rem;
@@ -617,6 +794,19 @@
       gap: var(--sp-1);
       align-items: center;
     }
+    .crumb-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      text-align: left;
+    }
+    .crumb-btn:hover {
+      color: var(--primary-text);
+      text-decoration: underline;
+    }
     .cat-tag {
       background: var(--surface-2);
       border: 1px solid var(--border);
@@ -625,12 +815,17 @@
       color: var(--primary-text);
       font-weight: 600;
       font-size: 0.8125rem;
+      cursor: pointer;
+    }
+    .cat-tag:hover {
+      border-color: var(--primary);
     }
     .file-actions {
       display: flex;
       align-items: center;
       gap: var(--sp-1);
       flex-shrink: 0;
+      flex-wrap: wrap;
     }
     .size-tag {
       font-size: 0.875rem;
@@ -688,6 +883,32 @@
     .course-title a:hover {
       color: var(--primary-text);
       text-decoration: underline;
+    }
+    .course-head-right {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      flex-shrink: 0;
+    }
+    .pin-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      padding: var(--sp-1);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pin-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-text);
+    }
+    .pin-btn[aria-pressed="true"] {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary-text);
     }
     .course-status {
       display: inline-flex;
@@ -834,7 +1055,7 @@
       background: var(--surface);
       color: var(--text);
       padding: 0;
-      max-width: min(736px, 94vw);
+      max-width: min(768px, 94vw);
       width: 100%;
       box-shadow: none;
     }
@@ -862,17 +1083,41 @@
       border-bottom: 1px solid var(--border);
       padding-bottom: var(--sp-2);
       margin-bottom: var(--sp-2);
+      flex-wrap: wrap;
     }
     .dialog-header h2 {
       margin: 0;
       font-size: 1.125rem;
       font-weight: 600;
+      word-break: break-word;
     }
     .map-full {
       width: 100%;
       height: auto;
       border-radius: var(--sp-1);
       display: block;
+    }
+    .preview-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+      margin-bottom: var(--sp-2);
+      flex-wrap: wrap;
+    }
+    .preview-code {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.8125rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 64dvh;
+      overflow-y: auto;
+      margin: 0;
     }
 
     /* Toast feedback */
@@ -1018,9 +1263,24 @@
         </div>
       </section>
 
+      <!-- Pinned Courses Section (shown when student pins courses) -->
+      <section id="home-pinned-section" class="home-pinned-section" hidden>
+        <h3 class="section-heading">
+          <span class="section-heading-left">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            I miei corsi fissati
+          </span>
+          <span class="section-sub">Salvati automaticamente su questo browser</span>
+        </h3>
+        <div id="home-pinned-grid" class="home-pinned-grid"></div>
+      </section>
+
       <h3 class="section-heading">
-        <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Accesso rapido per anno di corso
+        <span class="section-heading-left">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Accesso rapido per anno di corso
+        </span>
+        <span class="section-sub">Puoi fissare i tuoi corsi preferiti cliccando la stellina nella sezione Corsi</span>
       </h3>
       <div class="home-years-grid">
         <article class="year-card">
@@ -1092,9 +1352,23 @@
         </article>
       </div>
 
+      <!-- Recent Updates Section -->
+      <section id="home-recent-section" class="home-recent-section" hidden>
+        <h3 class="section-heading">
+          <span class="section-heading-left">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Ultimi materiali aggiunti
+          </span>
+          <span class="section-sub">Clicca su un elemento per aprirlo nel catalogo</span>
+        </h3>
+        <div id="home-recent-grid" class="recent-grid"></div>
+      </section>
+
       <h3 class="section-heading">
-        <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Scorciatoie e contributi rapidi
+        <span class="section-heading-left">
+          <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Scorciatoie e contributi rapidi
+        </span>
       </h3>
       <div class="home-shortcuts-grid">
         <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
@@ -1186,6 +1460,9 @@
             <select id="filter-course" class="filter-select" aria-label="Filtra per corso">
               <option value="">Tutti i corsi</option>
             </select>
+            <select id="filter-prof" class="filter-select" aria-label="Filtra per docente">
+              <option value="">Tutti i docenti</option>
+            </select>
             <select id="filter-cat" class="filter-select" aria-label="Filtra per categoria">
               <option value="">Tutte le categorie</option>
               <option value="slides">Slides</option>
@@ -1197,34 +1474,62 @@
               <option value="libri">Libri</option>
               <option value="contenuto-non-proprio">Contributi studenti</option>
             </select>
+            <select id="sort-select" class="filter-select" aria-label="Ordina risultati">
+              <option value="relevance">Ordina: rilevanza e percorso</option>
+              <option value="date-desc">Ordina: data (dal più recente)</option>
+              <option value="name-asc">Ordina: nome file (a-z)</option>
+              <option value="size-asc">Ordina: dimensione (crescente)</option>
+              <option value="size-desc">Ordina: dimensione (decrescente)</option>
+            </select>
           </div>
-          <div class="chip-bar" aria-label="Filtri rapidi">
-            <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
-              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-              Solo slides
-            </button>
-            <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-              Solo tracce scritte
-            </button>
-            <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-              Solo appunti
-            </button>
-            <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
+          <div class="chip-bar-row">
+            <div class="chip-bar" aria-label="Filtri rapidi">
+              <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                Solo slides
+              </button>
+              <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                Solo tracce scritte
+              </button>
+              <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                Solo appunti
+              </button>
+              <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Solo progetti
+              </button>
+              <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Solo esercizi
+              </button>
+            </div>
+            <button type="button" class="chip" id="toggle-group-folders" aria-pressed="false" title="Raggruppa i file per sottocartella">
               <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              Solo progetti
-            </button>
-            <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
-              <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              Solo esercizi
+              Raggruppa per cartella
             </button>
           </div>
         </div>
 
+        <!-- Active Subfolder Breadcrumb Banner -->
+        <div id="active-path-bar" class="active-path-bar" hidden>
+          <div class="active-path-crumbs" id="active-path-text"></div>
+          <button type="button" class="btn" id="clear-subpath-btn">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            Esci dalla sottocartella
+          </button>
+        </div>
+
         <div class="results-meta">
           <span id="results-count">Caricamento...</span>
-          <button type="button" class="btn-link-reset" id="reset-filters" hidden>Azzera filtri</button>
+          <div class="results-meta-actions">
+            <button type="button" class="btn-link-action" id="copy-search-link-btn">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              Copia link a questa ricerca
+            </button>
+            <button type="button" class="btn-link-action" id="reset-filters" hidden>Azzera filtri</button>
+          </div>
         </div>
 
         <div id="file-list" class="file-list"></div>
@@ -1423,6 +1728,26 @@
     </div>
   </dialog>
 
+  <!-- Native Modal Dialog for In-Portal File Preview (Images Gallery & Code/Markdown) -->
+  <dialog id="preview-modal" class="map-dialog" aria-labelledby="preview-modal-title" closedby="any">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <div>
+          <h2 id="preview-modal-title">Anteprima file</h2>
+          <span id="preview-modal-sub" style="font-size:0.875rem;color:var(--muted);"></span>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="btn" value="close" autofocus>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            Chiudi
+          </button>
+        </form>
+      </div>
+      <div class="preview-toolbar" id="preview-toolbar"></div>
+      <div id="preview-modal-body"></div>
+    </div>
+  </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <footer>
@@ -1434,6 +1759,7 @@
     (() => {
       const DATA = JSON.parse(document.getElementById('unina-catalog-data').textContent);
       const REPO_URL = 'https://github.com/Carloj005/UNINA-INFORMATICA';
+      const RAW_BASE = 'https://raw.githubusercontent.com/Carloj005/UNINA-INFORMATICA/master';
 
       // Consistent Lucide SVG line icons
       const SVG_ICONS = {
@@ -1452,8 +1778,15 @@
         folder: '<svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
         checkCircle: '<svg class="icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
         clock: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-        circle: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>'
+        circle: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>',
+        star: '<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+        starFilled: '<svg class="icon icon-filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+        chevLeft: '<svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>',
+        chevRight: '<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>'
       };
+
+      const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
+      const TEXT_EXTS = new Set(['.md', '.txt', '.c', '.h', '.java', '.py', '.sh', '.ps1', '.sql', '.js', '.ts', '.html', '.css', '.json', '.yml', '.yaml', '.tex']);
 
       const fmtBytes = (b) => {
         if (!b || b <= 0) return '—';
@@ -1462,6 +1795,12 @@
         if (b >= 1024) return Math.round(b / 1024) + ' kb';
         return b + ' b';
       };
+
+      const escapeHtml = (s) => String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
 
       document.getElementById('home-stat-files').textContent = DATA.files.length.toLocaleString('it-IT');
       document.getElementById('home-stat-courses').textContent = DATA.courses.length;
@@ -1528,6 +1867,31 @@
         dialog.addEventListener('close', () => { dialog.returnValue = ''; });
       }
 
+      // Pinned Courses in localStorage ("I miei corsi fissati")
+      const PIN_KEY = 'unina_pinned_courses';
+      let pinnedCourses = new Set();
+      try {
+        const rawPins = JSON.parse(localStorage.getItem(PIN_KEY) || '[]');
+        if (Array.isArray(rawPins)) pinnedCourses = new Set(rawPins);
+      } catch {}
+
+      const savePins = () => {
+        try { localStorage.setItem(PIN_KEY, JSON.stringify([...pinnedCourses])); } catch {}
+      };
+
+      const togglePinCourse = (courseName) => {
+        if (pinnedCourses.has(courseName)) {
+          pinnedCourses.delete(courseName);
+          showToast(`"${courseName}" rimosso dai corsi fissati`);
+        } else {
+          pinnedCourses.add(courseName);
+          showToast(`"${courseName}" fissato in Home`);
+        }
+        savePins();
+        renderPinnedHome();
+        renderCourses();
+      };
+
       // View Switching: Standalone Home (#home-screen) <-> Full Catalog (#catalog-screen)
       const homeScreen = document.getElementById('home-screen');
       const catalogScreen = document.getElementById('catalog-screen');
@@ -1546,27 +1910,64 @@
         });
       };
 
-      const openCatalog = (tabId = 'tab-btn-files', pushHash = true) => {
+      // Filter DOM references
+      const filterYear = document.getElementById('filter-year');
+      const filterCourse = document.getElementById('filter-course');
+      const filterProf = document.getElementById('filter-prof');
+      const filterCat = document.getElementById('filter-cat');
+      const sortSelect = document.getElementById('sort-select');
+      const searchInput = document.getElementById('file-search');
+      const quickChips = document.querySelectorAll('[data-quick-cat]');
+      const toggleGroupBtn = document.getElementById('toggle-group-folders');
+      const activePathBar = document.getElementById('active-path-bar');
+      const activePathText = document.getElementById('active-path-text');
+      const clearSubpathBtn = document.getElementById('clear-subpath-btn');
+      const resetBtn = document.getElementById('reset-filters');
+
+      let activeSubpath = '';
+      let groupByFolder = false;
+
+      // Sync current filters to URL query parameters for shareable deep links
+      const syncUrlState = (tabId) => {
+        const currentTab = tabId || [...tabs].find((t) => t.getAttribute('aria-selected') === 'true')?.id || 'tab-btn-files';
+        if (homeScreen && !homeScreen.hidden) return;
+        const params = new URLSearchParams();
+        if (currentTab === 'tab-btn-files') {
+          if (searchInput.value.trim()) params.set('q', searchInput.value.trim());
+          if (filterYear.value) params.set('year', filterYear.value);
+          if (filterCourse.value) params.set('course', filterCourse.value);
+          if (filterProf.value) params.set('prof', filterProf.value);
+          if (filterCat.value) params.set('cat', filterCat.value);
+          if (activeSubpath) params.set('sub', activeSubpath);
+          if (sortSelect.value !== 'relevance') params.set('sort', sortSelect.value);
+          if (groupByFolder) params.set('group', '1');
+        }
+        const hash = currentTab === 'tab-btn-courses' ? '#corsi' : (currentTab === 'tab-btn-hub' ? '#mappe' : '#catalogo');
+        const qs = params.toString();
+        const nextUrl = `${location.pathname}${qs ? '?' + qs : ''}${hash}`;
+        try { history.replaceState({ view: 'catalog', tabId: currentTab }, '', nextUrl); } catch {}
+      };
+
+      const openCatalog = (tabId = 'tab-btn-files', pushHistory = true) => {
         homeScreen.hidden = true;
         catalogScreen.hidden = false;
         headerBackHomeBtn.hidden = false;
         activateCatalogTab(tabId);
         window.scrollTo({ top: 0, behavior: 'instant' });
-        if (pushHash) {
+        if (pushHistory) {
           const hash = tabId === 'tab-btn-courses' ? '#corsi' : (tabId === 'tab-btn-hub' ? '#mappe' : '#catalogo');
-          if (location.hash !== hash) {
-            try { history.pushState({ view: 'catalog', tabId }, '', hash); } catch {}
-          }
+          try { history.pushState({ view: 'catalog', tabId }, '', `${location.pathname}${location.search}${hash}`); } catch {}
+          syncUrlState(tabId);
         }
       };
 
-      const openHome = (pushHash = true) => {
+      const openHome = (pushHistory = true) => {
         catalogScreen.hidden = true;
         homeScreen.hidden = false;
         headerBackHomeBtn.hidden = true;
         window.scrollTo({ top: 0, behavior: 'instant' });
-        if (pushHash && location.hash) {
-          try { history.pushState({ view: 'home' }, '', location.pathname + location.search); } catch {}
+        if (pushHistory && (location.hash || location.search)) {
+          try { history.pushState({ view: 'home' }, '', location.pathname); } catch {}
         }
       };
 
@@ -1577,22 +1978,6 @@
         e.preventDefault();
         openHome();
       });
-
-      window.addEventListener('popstate', () => {
-        const h = location.hash;
-        if (h === '#catalogo') openCatalog('tab-btn-files', false);
-        else if (h === '#corsi') openCatalog('tab-btn-courses', false);
-        else if (h === '#mappe') openCatalog('tab-btn-hub', false);
-        else openHome(false);
-      });
-
-      // Populate course dropdowns
-      const filterYear = document.getElementById('filter-year');
-      const filterCourse = document.getElementById('filter-course');
-      const filterCat = document.getElementById('filter-cat');
-      const searchInput = document.getElementById('file-search');
-      const quickChips = document.querySelectorAll('[data-quick-cat]');
-      const resetBtn = document.getElementById('reset-filters');
 
       const updateCourseOptions = () => {
         const yr = filterYear.value;
@@ -1610,7 +1995,37 @@
           filterCourse.value = prev;
         }
       };
+
+      const updateProfOptions = () => {
+        const yr = filterYear.value;
+        const cr = filterCourse.value;
+        const prev = filterProf.value;
+        filterProf.innerHTML = '<option value="">Tutti i docenti</option>';
+        const profSet = new Map();
+        DATA.courses
+          .filter((c) => (!yr || c.yearGroup === yr) && (!cr || c.name === cr))
+          .forEach((c) => {
+            c.profs.forEach((p) => {
+              if (p.fileCount > 0 || cr) {
+                profSet.set(p.display, (profSet.get(p.display) || 0) + p.fileCount);
+              }
+            });
+          });
+        [...profSet.entries()]
+          .sort((a, b) => a[0].localeCompare(b[0], 'it'))
+          .forEach(([disp, cnt]) => {
+            const opt = document.createElement('option');
+            opt.value = disp;
+            opt.textContent = `${disp} (${cnt})`;
+            filterProf.appendChild(opt);
+          });
+        if ([...filterProf.options].some((o) => o.value === prev)) {
+          filterProf.value = prev;
+        }
+      };
+
       updateCourseOptions();
+      updateProfOptions();
 
       // Keyboard shortcut '/' for search
       document.addEventListener('keydown', (e) => {
@@ -1669,11 +2084,80 @@
       const loadMoreBtn = document.getElementById('load-more-btn');
       const resultsCountEl = document.getElementById('results-count');
 
-      const escapeHtml = (s) => String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+      // In-Portal File Preview Modal (Images with Gallery <- / -> & Code/Markdown)
+      const previewModal = document.getElementById('preview-modal');
+      const previewTitle = document.getElementById('preview-modal-title');
+      const previewSub = document.getElementById('preview-modal-sub');
+      const previewToolbar = document.getElementById('preview-toolbar');
+      const previewBody = document.getElementById('preview-modal-body');
+      let currentImageGallery = [];
+      let currentGalleryIdx = -1;
+
+      const openFilePreview = async (f) => {
+        const rawHref = `${RAW_BASE}/${f.urlPath}`;
+        const ghHref = `${REPO_URL}/blob/master/${f.urlPath}`;
+        previewTitle.textContent = f.name;
+        previewSub.textContent = [f.course, f.prof, f.subpath, fmtBytes(f.size)].filter(Boolean).join(' • ');
+
+        if (IMAGE_EXTS.has(f.ext)) {
+          currentImageGallery = filteredFiles.filter((item) => IMAGE_EXTS.has(item.ext));
+          currentGalleryIdx = currentImageGallery.findIndex((item) => item.urlPath === f.urlPath);
+          const hasGallery = currentImageGallery.length > 1;
+          previewToolbar.innerHTML = `
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              ${hasGallery ? `
+                <button type="button" class="btn" id="prev-img-btn" ${currentGalleryIdx <= 0 ? 'disabled' : ''}>${SVG_ICONS.chevLeft} Precedente</button>
+                <span style="font-size:0.875rem;color:var(--muted);">${currentGalleryIdx + 1} di ${currentImageGallery.length}</span>
+                <button type="button" class="btn" id="next-img-btn" ${currentGalleryIdx >= currentImageGallery.length - 1 ? 'disabled' : ''}>Successiva ${SVG_ICONS.chevRight}</button>
+              ` : ''}
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Vedi su GitHub</a>
+              <a class="btn btn-primary" href="${rawHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica originale</a>
+            </div>
+          `;
+          previewBody.innerHTML = `<img class="map-full" src="${rawHref}" alt="${escapeHtml(f.name)}">`;
+          if (hasGallery) {
+            const prevBtn = document.getElementById('prev-img-btn');
+            const nextBtn = document.getElementById('next-img-btn');
+            if (prevBtn) prevBtn.onclick = () => { if (currentGalleryIdx > 0) openFilePreview(currentImageGallery[currentGalleryIdx - 1]); };
+            if (nextBtn) nextBtn.onclick = () => { if (currentGalleryIdx < currentImageGallery.length - 1) openFilePreview(currentImageGallery[currentGalleryIdx + 1]); };
+          }
+          if (!previewModal.open) previewModal.showModal();
+          return;
+        }
+
+        currentImageGallery = [];
+        currentGalleryIdx = -1;
+        previewToolbar.innerHTML = `
+          <div>
+            <button type="button" class="btn btn-primary" id="preview-copy-code-btn">${SVG_ICONS.copy} Copia contenuto</button>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Apri su GitHub</a>
+            <a class="btn" href="${rawHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica file</a>
+          </div>
+        `;
+        previewBody.innerHTML = '<div class="preview-code">Caricamento anteprima in corso...</div>';
+        if (!previewModal.open) previewModal.showModal();
+        try {
+          const resp = await fetch(rawHref);
+          const text = await resp.text();
+          previewBody.innerHTML = `<pre class="preview-code">${escapeHtml(text)}</pre>`;
+          document.getElementById('preview-copy-code-btn').onclick = () => copyText(text, 'Contenuto copiato negli appunti');
+        } catch {
+          previewBody.innerHTML = '<div class="preview-code">Impossibile caricare l\'anteprima diretta. Usa il pulsante "Apri su GitHub".</div>';
+        }
+      };
+
+      document.addEventListener('keydown', (e) => {
+        if (!previewModal.open || currentImageGallery.length <= 1) return;
+        if (e.key === 'ArrowLeft' && currentGalleryIdx > 0) {
+          openFilePreview(currentImageGallery[currentGalleryIdx - 1]);
+        } else if (e.key === 'ArrowRight' && currentGalleryIdx < currentImageGallery.length - 1) {
+          openFilePreview(currentImageGallery[currentGalleryIdx + 1]);
+        }
+      });
 
       const renderFileBatch = (reset) => {
         if (reset) {
@@ -1682,34 +2166,108 @@
         }
         const slice = filteredFiles.slice(shownCount, shownCount + PAGE_SIZE);
         const frag = document.createDocumentFragment();
+        let lastGroupKey = shownCount > 0 && filteredFiles[shownCount - 1]
+          ? `${filteredFiles[shownCount - 1].course} / ${filteredFiles[shownCount - 1].prof} / ${filteredFiles[shownCount - 1].subpath || CAT_LABELS[filteredFiles[shownCount - 1].cat]}`
+          : '';
+
         slice.forEach((f, idx) => {
           const globalIdx = shownCount + idx;
+          if (groupByFolder) {
+            const folderLabel = f.subpath || (CAT_LABELS[f.cat] || f.cat);
+            const gKey = `${f.course} / ${f.prof} / ${folderLabel}`;
+            if (gKey !== lastGroupKey) {
+              lastGroupKey = gKey;
+              const hdr = document.createElement('div');
+              hdr.className = 'folder-group-header';
+              hdr.innerHTML = `
+                <span class="folder-group-title">
+                  ${SVG_ICONS.folder}
+                  <span>${escapeHtml(f.course)}</span>
+                  ${f.prof ? `<span style="color:var(--muted);font-weight:400;">› ${escapeHtml(f.prof)}</span>` : ''}
+                  <span>› ${escapeHtml(folderLabel)}</span>
+                </span>
+                ${f.subpath ? `<button type="button" class="btn" data-filter-sub="${escapeHtml(f.subpath)}" data-filter-course="${escapeHtml(f.course)}">Filtra solo questa cartella</button>` : ''}
+              `;
+              const subBtn = hdr.querySelector('[data-filter-sub]');
+              if (subBtn) {
+                subBtn.addEventListener('click', () => {
+                  filterCourse.value = subBtn.dataset.filterCourse;
+                  updateProfOptions();
+                  activeSubpath = subBtn.dataset.filterSub;
+                  applyFileFilters();
+                });
+              }
+              frag.appendChild(hdr);
+            }
+          }
+
           const row = document.createElement('div');
           row.className = globalIdx >= 14 ? 'file-row deferred-card' : 'file-row';
           const iconSvg = ICON_BY_EXT[f.ext] || SVG_ICONS.fileText;
           const catLbl = CAT_LABELS[f.cat] || f.cat;
           const viewHref = `${REPO_URL}/blob/master/${f.urlPath}`;
           const rawHref = `${REPO_URL}/raw/master/${f.urlPath}`;
+          const canPreviewInPortal = IMAGE_EXTS.has(f.ext) || TEXT_EXTS.has(f.ext);
+
           row.innerHTML = `
             <div class="file-info">
               <span class="file-icon" aria-hidden="true">${iconSvg}</span>
               <div>
-                <div class="file-name">${escapeHtml(f.name)}</div>
+                <div class="file-name-row">
+                  <span class="file-name">${escapeHtml(f.name)}</span>
+                  ${f.dateDisplay ? `<span class="date-badge" title="Data di riferimento">${escapeHtml(f.dateDisplay)}</span>` : ''}
+                </div>
                 <div class="file-crumbs">
-                  <span class="cat-tag">${escapeHtml(catLbl)}</span>
-                  <span>${escapeHtml(f.yearGroup)}</span>
-                  ${f.course ? `<span>› <strong>${escapeHtml(f.course)}</strong></span>` : ''}
-                  ${f.prof ? `<span>› ${escapeHtml(f.prof)}</span>` : ''}
-                  ${f.subpath ? `<span>› ${escapeHtml(f.subpath)}</span>` : ''}
+                  <button type="button" class="cat-tag" data-crumb-cat="${escapeHtml(f.cat)}" title="Filtra per categoria">${escapeHtml(catLbl)}</button>
+                  <button type="button" class="crumb-btn" data-crumb-year="${escapeHtml(f.yearGroup)}" title="Filtra per anno">${escapeHtml(f.yearGroup)}</button>
+                  ${f.course ? `<span>›</span> <button type="button" class="crumb-btn" data-crumb-course="${escapeHtml(f.course)}" title="Filtra per questo corso"><strong>${escapeHtml(f.course)}</strong></button>` : ''}
+                  ${f.prof ? `<span>›</span> <button type="button" class="crumb-btn" data-crumb-prof="${escapeHtml(f.prof)}" title="Filtra per questo docente">${escapeHtml(f.prof)}</button>` : ''}
+                  ${f.subpath ? `<span>›</span> <button type="button" class="crumb-btn" data-crumb-sub="${escapeHtml(f.subpath)}" data-crumb-course="${escapeHtml(f.course)}" title="Filtra questa sottocartella">${escapeHtml(f.subpath)}</button>` : ''}
                 </div>
               </div>
             </div>
             <div class="file-actions">
               <span class="size-tag">${fmtBytes(f.size)}</span>
-              <a class="btn" href="${viewHref}" target="_blank" rel="noopener">${SVG_ICONS.eye} Apri</a>
+              ${canPreviewInPortal
+                ? `<button type="button" class="btn" data-preview-idx="${globalIdx}">${SVG_ICONS.eye} Anteprima</button>`
+                : `<a class="btn" href="${viewHref}" target="_blank" rel="noopener">${SVG_ICONS.eye} Apri</a>`
+              }
               <a class="btn btn-primary" href="${rawHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica</a>
             </div>
           `;
+
+          // Interactive breadcrumb clicks
+          row.querySelector('[data-crumb-cat]')?.addEventListener('click', () => {
+            filterCat.value = f.cat;
+            applyFileFilters();
+          });
+          row.querySelector('[data-crumb-year]')?.addEventListener('click', () => {
+            filterYear.value = f.yearGroup;
+            updateCourseOptions();
+            updateProfOptions();
+            applyFileFilters();
+          });
+          row.querySelector('[data-crumb-course]')?.addEventListener('click', () => {
+            filterYear.value = f.yearGroup;
+            updateCourseOptions();
+            filterCourse.value = f.course;
+            updateProfOptions();
+            applyFileFilters();
+          });
+          row.querySelector('[data-crumb-prof]')?.addEventListener('click', () => {
+            filterProf.value = f.prof;
+            applyFileFilters();
+          });
+          row.querySelector('[data-crumb-sub]')?.addEventListener('click', () => {
+            filterYear.value = f.yearGroup;
+            updateCourseOptions();
+            filterCourse.value = f.course;
+            updateProfOptions();
+            activeSubpath = f.subpath;
+            applyFileFilters();
+          });
+          row.querySelector('[data-preview-idx]')?.addEventListener('click', () => openFilePreview(f));
+
           frag.appendChild(row);
         });
         fileListEl.appendChild(frag);
@@ -1723,24 +2281,35 @@
         }
       };
 
-      const applyFileFilters = () => {
+      const applyFileFilters = (syncUrl = true) => {
         const q = searchInput.value.trim().toLowerCase();
         const tokens = q ? q.split(/\s+/) : [];
         const yr = filterYear.value;
         const cr = filterCourse.value;
+        const pr = filterProf.value;
         const ct = filterCat.value;
+        const srt = sortSelect.value;
 
         quickChips.forEach((ch) => {
           ch.setAttribute('aria-pressed', ch.dataset.quickCat === ct ? 'true' : 'false');
         });
 
-        const hasFilter = Boolean(q || yr || cr || ct);
+        if (activeSubpath) {
+          activePathBar.hidden = false;
+          activePathText.innerHTML = `${SVG_ICONS.folder} <span>Sottocartella attiva:</span> <strong>${escapeHtml(activeSubpath)}</strong>`;
+        } else {
+          activePathBar.hidden = true;
+        }
+
+        const hasFilter = Boolean(q || yr || cr || pr || ct || activeSubpath || srt !== 'relevance');
         resetBtn.hidden = !hasFilter;
 
         filteredFiles = DATA.files.filter((f) => {
           if (yr && f.yearGroup !== yr) return false;
           if (cr && f.course !== cr) return false;
+          if (pr && f.prof !== pr) return false;
           if (ct && f.cat !== ct) return false;
+          if (activeSubpath && f.subpath !== activeSubpath && !f.subpath.startsWith(activeSubpath + '/')) return false;
           if (tokens.length > 0) {
             for (const tk of tokens) {
               if (!f.searchBlob.includes(tk)) return false;
@@ -1749,17 +2318,67 @@
           return true;
         });
 
+        // Sorting
+        if (srt === 'date-desc') {
+          filteredFiles.sort((a, b) => {
+            if (a.dateIso && b.dateIso) return b.dateIso.localeCompare(a.dateIso);
+            if (a.dateIso) return -1;
+            if (b.dateIso) return 1;
+            return a.name.localeCompare(b.name, 'it');
+          });
+        } else if (srt === 'name-asc') {
+          filteredFiles.sort((a, b) => a.name.localeCompare(b.name, 'it'));
+        } else if (srt === 'size-asc') {
+          filteredFiles.sort((a, b) => (a.size || 0) - (b.size || 0));
+        } else if (srt === 'size-desc') {
+          filteredFiles.sort((a, b) => (b.size || 0) - (a.size || 0));
+        } else if (tokens.length > 0) {
+          // Relevance boost when searching: filename match > subpath match > course match
+          filteredFiles.sort((a, b) => {
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+            const aScore = tokens.reduce((acc, tk) => acc + (aName.includes(tk) ? 2 : (a.subpath.toLowerCase().includes(tk) ? 1 : 0)), 0);
+            const bScore = tokens.reduce((acc, tk) => acc + (bName.includes(tk) ? 2 : (b.subpath.toLowerCase().includes(tk) ? 1 : 0)), 0);
+            return bScore - aScore;
+          });
+        }
+
         resultsCountEl.textContent = filteredFiles.length === 0
           ? 'Nessun documento trovato con questi filtri.'
           : `${filteredFiles.length.toLocaleString('it-IT')} documenti trovati`;
         renderFileBatch(true);
+        if (syncUrl) syncUrlState('tab-btn-files');
       };
 
-      searchInput.addEventListener('input', applyFileFilters);
-      filterYear.addEventListener('change', () => { updateCourseOptions(); applyFileFilters(); });
-      filterCourse.addEventListener('change', applyFileFilters);
-      filterCat.addEventListener('change', applyFileFilters);
+      searchInput.addEventListener('input', () => applyFileFilters());
+      filterYear.addEventListener('change', () => {
+        activeSubpath = '';
+        updateCourseOptions();
+        updateProfOptions();
+        applyFileFilters();
+      });
+      filterCourse.addEventListener('change', () => {
+        activeSubpath = '';
+        updateProfOptions();
+        applyFileFilters();
+      });
+      filterProf.addEventListener('change', () => applyFileFilters());
+      filterCat.addEventListener('change', () => applyFileFilters());
+      sortSelect.addEventListener('change', () => applyFileFilters());
       loadMoreBtn.addEventListener('click', () => renderFileBatch(false));
+
+      toggleGroupBtn.addEventListener('click', () => {
+        groupByFolder = !groupByFolder;
+        toggleGroupBtn.setAttribute('aria-pressed', groupByFolder ? 'true' : 'false');
+        renderFileBatch(true);
+        syncUrlState('tab-btn-files');
+      });
+
+      clearSubpathBtn.addEventListener('click', () => {
+        activeSubpath = '';
+        applyFileFilters();
+      });
+
       quickChips.forEach((ch) => {
         ch.addEventListener('click', () => {
           const val = ch.dataset.quickCat;
@@ -1767,14 +2386,100 @@
           applyFileFilters();
         });
       });
+
       resetBtn.addEventListener('click', () => {
         searchInput.value = '';
         filterYear.value = '';
         updateCourseOptions();
         filterCourse.value = '';
+        updateProfOptions();
+        filterProf.value = '';
         filterCat.value = '';
+        sortSelect.value = 'relevance';
+        activeSubpath = '';
         applyFileFilters();
       });
+
+      document.getElementById('copy-search-link-btn').addEventListener('click', () => {
+        syncUrlState('tab-btn-files');
+        copyText(location.href, 'Link diretto a questa ricerca copiato');
+      });
+
+      // Render Pinned Courses on Home
+      const homePinnedSection = document.getElementById('home-pinned-section');
+      const homePinnedGrid = document.getElementById('home-pinned-grid');
+      const renderPinnedHome = () => {
+        const list = DATA.courses.filter((c) => pinnedCourses.has(c.name));
+        if (list.length === 0) {
+          homePinnedSection.hidden = true;
+          homePinnedGrid.innerHTML = '';
+          return;
+        }
+        homePinnedSection.hidden = false;
+        homePinnedGrid.innerHTML = '';
+        list.forEach((c) => {
+          const card = document.createElement('article');
+          card.className = 'pinned-card';
+          card.innerHTML = `
+            <div>
+              <div class="pinned-card-head">
+                <h4>${escapeHtml(c.name)}</h4>
+                <button type="button" class="pin-btn" aria-pressed="true" title="Rimuovi dai corsi fissati">${SVG_ICONS.starFilled}</button>
+              </div>
+              <div class="pinned-meta">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem • ${c.fileCount} file</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary" data-pin-files>Apri ${c.fileCount} file</button>
+              <button type="button" class="btn" data-pin-info>Scheda e Teams</button>
+            </div>
+          `;
+          card.querySelector('.pin-btn').addEventListener('click', () => togglePinCourse(c.name));
+          card.querySelector('[data-pin-files]').addEventListener('click', () => {
+            openCatalog('tab-btn-files');
+            filterYear.value = c.yearGroup;
+            updateCourseOptions();
+            filterCourse.value = c.name;
+            updateProfOptions();
+            applyFileFilters();
+          });
+          card.querySelector('[data-pin-info]').addEventListener('click', () => openCourseModal(c));
+          homePinnedGrid.appendChild(card);
+        });
+      };
+
+      // Render Recent Updates on Home
+      const homeRecentSection = document.getElementById('home-recent-section');
+      const homeRecentGrid = document.getElementById('home-recent-grid');
+      if (Array.isArray(DATA.recentUpdates) && DATA.recentUpdates.length > 0) {
+        homeRecentSection.hidden = false;
+        DATA.recentUpdates.forEach((u) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'recent-card';
+          const catLbl = CAT_LABELS[u.cat] || u.cat;
+          btn.innerHTML = `
+            <div class="recent-top">
+              <span class="cat-tag">${escapeHtml(catLbl)}</span>
+              <span>${escapeHtml(u.date)}</span>
+            </div>
+            <div class="recent-title">${escapeHtml(u.label)}</div>
+            <div class="recent-sub">${escapeHtml(u.course)} • ${escapeHtml(u.prof)}</div>
+          `;
+          btn.addEventListener('click', () => {
+            openCatalog('tab-btn-files');
+            searchInput.value = '';
+            filterYear.value = u.yearGroup;
+            updateCourseOptions();
+            filterCourse.value = u.course;
+            updateProfOptions();
+            filterProf.value = u.prof;
+            filterCat.value = u.cat;
+            activeSubpath = u.subpath || '';
+            applyFileFilters();
+          });
+          homeRecentGrid.appendChild(btn);
+        });
+      }
 
       // Home actions
       const homeSearchForm = document.getElementById('home-search-form');
@@ -1786,7 +2491,10 @@
         filterYear.value = '';
         updateCourseOptions();
         filterCourse.value = '';
+        updateProfOptions();
+        filterProf.value = '';
         filterCat.value = '';
+        activeSubpath = '';
         applyFileFilters();
         searchInput.focus();
       });
@@ -1805,6 +2513,9 @@
           filterYear.value = btn.dataset.homeYearFiles;
           updateCourseOptions();
           filterCourse.value = '';
+          updateProfOptions();
+          filterProf.value = '';
+          activeSubpath = '';
           applyFileFilters();
         });
       });
@@ -1852,6 +2563,7 @@
           filterYear.value = c.yearGroup;
           updateCourseOptions();
           filterCourse.value = c.name;
+          updateProfOptions();
           applyFileFilters();
         };
         courseModal.showModal();
@@ -1870,6 +2582,7 @@
         list.forEach((c, idx) => {
           const card = document.createElement('article');
           card.className = idx >= 9 ? 'course-card deferred-course' : 'course-card';
+          const isPinned = pinnedCourses.has(c.name);
           const profHtml = c.profs.map((p) => {
             let teamsEl = '';
             if (p.teamsUrl) {
@@ -1892,7 +2605,12 @@
             <div>
               <div class="course-head">
                 <h3 class="course-title"><a href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a></h3>
-                <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
+                <div class="course-head-right">
+                  <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
+                  <button type="button" class="pin-btn" aria-pressed="${isPinned ? 'true' : 'false'}" title="${isPinned ? 'Rimuovi dai corsi fissati in Home' : 'Fissa questo corso in Home'}">
+                    ${isPinned ? SVG_ICONS.starFilled : SVG_ICONS.star}
+                  </button>
+                </div>
               </div>
               <div class="course-meta-row">
                 <span class="meta-tag">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem</span>
@@ -1908,12 +2626,14 @@
               <button type="button" class="btn" data-jump-files="${escapeHtml(c.name)}" data-jump-year="${escapeHtml(c.yearGroup)}">${SVG_ICONS.search} Vedi file (${c.fileCount})</button>
             </div>
           `;
+          card.querySelector('.pin-btn').addEventListener('click', () => togglePinCourse(c.name));
           card.querySelector('[data-open-course]').addEventListener('click', () => openCourseModal(c));
           card.querySelector('[data-jump-files]').addEventListener('click', () => {
             openCatalog('tab-btn-files');
             filterYear.value = c.yearGroup;
             updateCourseOptions();
             filterCourse.value = c.name;
+            updateProfOptions();
             applyFileFilters();
           });
           card.querySelectorAll('[data-copy-teams]').forEach((btn) => {
@@ -1955,12 +2675,37 @@
         });
       });
 
-      // Initial render & deep-link support
-      applyFileFilters();
+      // Hydrate filters from URL query string & hash on load / popstate
+      const hydrateFromUrl = () => {
+        const params = new URLSearchParams(location.search);
+        const hasQueryFilters = ['q', 'year', 'course', 'prof', 'cat', 'sub', 'sort', 'group'].some((k) => params.has(k));
+        if (params.has('q')) searchInput.value = params.get('q');
+        if (params.has('year')) filterYear.value = params.get('year');
+        updateCourseOptions();
+        if (params.has('course')) filterCourse.value = params.get('course');
+        updateProfOptions();
+        if (params.has('prof')) filterProf.value = params.get('prof');
+        if (params.has('cat')) filterCat.value = params.get('cat');
+        if (params.has('sub')) activeSubpath = params.get('sub');
+        if (params.has('sort')) sortSelect.value = params.get('sort');
+        if (params.get('group') === '1') {
+          groupByFolder = true;
+          toggleGroupBtn.setAttribute('aria-pressed', 'true');
+        }
+        applyFileFilters(false);
+
+        const h = location.hash;
+        if (h === '#catalogo' || hasQueryFilters) openCatalog('tab-btn-files', false);
+        else if (h === '#corsi') openCatalog('tab-btn-courses', false);
+        else if (h === '#mappe') openCatalog('tab-btn-hub', false);
+        else openHome(false);
+      };
+
+      window.addEventListener('popstate', hydrateFromUrl);
+
+      renderPinnedHome();
       renderCourses();
-      if (location.hash === '#catalogo') openCatalog('tab-btn-files', false);
-      else if (location.hash === '#corsi') openCatalog('tab-btn-courses', false);
-      else if (location.hash === '#mappe') openCatalog('tab-btn-hub', false);
+      hydrateFromUrl();
     })();
   </script>
 </body>

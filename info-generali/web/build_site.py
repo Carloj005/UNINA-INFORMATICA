@@ -11,6 +11,7 @@ import re
 import json
 import shutil
 import argparse
+import subprocess
 from datetime import datetime, timezone
 from urllib.parse import quote
 
@@ -20,9 +21,40 @@ TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template.html")
 LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
 LFS_SIZE_RE = re.compile(rb"^size\s+(\d+)", re.MULTILINE)
 
+# Regex patterns for extracting exam/material dates
+RE_DMY = re.compile(r"(?<!\d)(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20[12]\d)(?!\d)")
+RE_YMD = re.compile(r"(?<!\d)(20[12]\d)[-_.](0[1-9]|1[0-2])[-_.](0[1-9]|[12]\d|3[01])(?!\d)")
+RE_AA = re.compile(r"(?<!\d)(20[12]\d)[-_/](20[12]\d|\d{2})(?!\d)")
+RE_YEAR = re.compile(r"(?<!\d)(20[12]\d)(?!\d)")
+
 
 def url_encode_path(rel_path: str) -> str:
     return "/".join(quote(part) for part in rel_path.replace(os.sep, "/").split("/"))
+
+
+def extract_date_info(name: str, subpath: str):
+    """Restituisce (dateIso, dateDisplay) estratti da subpath o nome file."""
+    combined = f"{subpath} {name}"
+    m = RE_DMY.search(combined)
+    if m:
+        d, mo, y = m.group(1), m.group(2), m.group(3)
+        return f"{y}-{mo}-{d}", f"{d}/{mo}/{y}"
+    m = RE_YMD.search(combined)
+    if m:
+        y, mo, d = m.group(1), m.group(2), m.group(3)
+        return f"{y}-{mo}-{d}", f"{d}/{mo}/{y}"
+    m = RE_AA.search(combined)
+    if m:
+        y1, y2 = m.group(1), m.group(2)
+        if len(y2) == 2:
+            y2 = y1[:2] + y2
+        if int(y2) == int(y1) + 1:
+            return f"{y1}-10-01", f"{y1}/{y2}"
+    m = RE_YEAR.search(combined)
+    if m:
+        y = m.group(1)
+        return f"{y}-01-01", y
+    return "", ""
 
 
 def real_file_size(full_path: str) -> int:
@@ -45,7 +77,6 @@ def extract_md_field(text: str, label: str, default: str = "") -> str:
     if not m:
         return default
     val = m.group(1).strip()
-    # Strip markdown links [label](url) -> label and backticks
     val = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", val)
     return val.strip("` ")
 
@@ -65,11 +96,103 @@ def parse_teams_info(prof_readme_text: str):
     return raw.strip("`*_ "), ""
 
 
+def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
+    """Estrae gli ultimi aggiornamenti didattici reali dalla cronologia Git."""
+    updates = []
+    seen_keys = set()
+    try:
+        out = subprocess.check_output(
+            ["git", "-c", "core.quotePath=false", "log", "-n", "15", "--date=format:%d/%m/%Y", "--pretty=format:COMMIT|%ad|%s", "--name-status"],
+            cwd=repo,
+            text=True,
+            errors="replace",
+        )
+    except Exception:
+        return updates
+
+    cur_date = ""
+    for line in out.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("COMMIT|"):
+            parts = line.split("|", 2)
+            cur_date = parts[1] if len(parts) > 1 else ""
+            continue
+
+        cols = line.split("\t")
+        if len(cols) < 2:
+            continue
+        status = cols[0]
+        # Prefer added (A) or renamed (R) files so pure compression commits don't pollute recent additions
+        if not (status.startswith("A") or status.startswith("R")):
+            continue
+        rel_path = cols[-1].replace("\\", "/")
+        if any(rel_path.endswith(ign) for ign in (".gitkeep", "README.md", ".gitignore", "crediti.txt")):
+            continue
+
+        segs = rel_path.split("/")
+        year_group = ""
+        course = ""
+        prof_folder = ""
+        rest = []
+        if segs[0] in ("Primo Anno", "Secondo Anno", "Terzo Anno") and len(segs) >= 5:
+            year_group = segs[0]
+            course = segs[2]
+            prof_folder = segs[3]
+            rest = segs[4:]
+        elif segs[0] == "Esami a Scelta" and len(segs) >= 4:
+            year_group = "Esami a Scelta"
+            course = segs[1]
+            prof_folder = segs[2]
+            rest = segs[3:]
+        else:
+            continue
+
+        if not prof_folder.startswith("Prof-") or not rest:
+            continue
+
+        full_check = os.path.join(repo, rel_path)
+        if not os.path.exists(full_check):
+            continue
+
+        if rest[0] == "esami" and len(rest) >= 2:
+            cat = f"esami/{rest[1]}"
+            sub_segs = rest[2:-1]
+        else:
+            cat = rest[0]
+            sub_segs = rest[1:-1]
+
+        top_sub = sub_segs[0] if sub_segs else ""
+        fname = rest[-1]
+        label = top_sub if top_sub else fname
+        dedup_key = (course, prof_folder, cat, top_sub if top_sub else fname[:18])
+        if dedup_key in seen_keys:
+            continue
+        seen_keys.add(dedup_key)
+
+        prof_disp = prof_display_map.get(f"{course}/{prof_folder}", prof_folder.replace("Prof-", "Prof. "))
+        updates.append({
+            "date": cur_date,
+            "yearGroup": year_group,
+            "course": course,
+            "prof": prof_disp,
+            "cat": cat,
+            "subpath": top_sub,
+            "label": label,
+        })
+        if len(updates) >= 8:
+            break
+
+    return updates
+
+
 def build_catalog(repo: str):
     courses = []
     files_index = []
     total_bytes = 0
     teams_count = 0
+    prof_display_map = {}
 
     # Discover all 31 courses
     course_dirs = []
@@ -121,6 +244,7 @@ def build_catalog(repo: str):
             preadme_p = os.path.join(pp, "README.md")
             preadme = open(preadme_p, encoding="utf-8", errors="replace").read() if os.path.exists(preadme_p) else ""
             doc_disp = extract_md_field(preadme, "Docente", entry.replace("Prof-", "Prof. "))
+            prof_display_map[f"{cname}/{entry}"] = doc_disp
             t_code, t_url = parse_teams_info(preadme)
             if t_code or t_url:
                 teams_count += 1
@@ -146,7 +270,8 @@ def build_catalog(repo: str):
                     p_file_count += 1
                     course_file_count += 1
                     ext = os.path.splitext(fn)[1].lower()
-                    search_blob = f"{fn} {cname} {doc_disp} {year_group} {cat} {subpath}".lower()
+                    date_iso, date_disp = extract_date_info(fn, subpath)
+                    search_blob = f"{fn} {cname} {doc_disp} {year_group} {cat} {subpath} {date_disp}".lower()
                     files_index.append({
                         "name": fn,
                         "ext": ext,
@@ -156,6 +281,8 @@ def build_catalog(repo: str):
                         "prof": doc_disp,
                         "cat": cat,
                         "subpath": subpath,
+                        "dateIso": date_iso,
+                        "dateDisplay": date_disp,
                         "urlPath": url_encode_path(rel_f),
                         "searchBlob": search_blob,
                     })
@@ -200,6 +327,7 @@ def build_catalog(repo: str):
                 fsize = real_file_size(fp_full)
                 total_bytes += fsize
                 ext = os.path.splitext(fn)[1].lower()
+                date_iso, date_disp = extract_date_info(fn, "")
                 files_index.append({
                     "name": fn,
                     "ext": ext,
@@ -209,10 +337,13 @@ def build_catalog(repo: str):
                     "prof": "",
                     "cat": "info-generali",
                     "subpath": "",
+                    "dateIso": date_iso,
+                    "dateDisplay": date_disp,
                     "urlPath": url_encode_path(rel_f),
                     "searchBlob": f"{fn} info generali guida mappa orario lezioni".lower(),
                 })
 
+    recent_updates = extract_recent_updates(repo, prof_display_map)
     now_str = datetime.now(timezone.utc).strftime("%d/%m/%Y")
     return {
         "stats": {
@@ -220,6 +351,7 @@ def build_catalog(repo: str):
             "teamsCount": teams_count,
             "generatedAt": now_str,
         },
+        "recentUpdates": recent_updates,
         "courses": courses,
         "files": files_index,
     }
@@ -236,7 +368,6 @@ def main():
 
     catalog = build_catalog(REPO_ROOT)
     template = open(TEMPLATE_PATH, encoding="utf-8").read()
-    # Escape </script> safely inside JSON
     json_payload = json.dumps(catalog, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     html = template.replace("__UNINA_JSON_PAYLOAD__", json_payload)
 
@@ -246,7 +377,6 @@ def main():
     with open(os.path.join(out_dir, ".nojekyll"), "w", encoding="utf-8"):
         pass
 
-    # Copy Campus Maps into assets/
     for map_name in ("MappaMSA.png", "MappaViaClaudio.jpg"):
         src = os.path.join(REPO_ROOT, "info-generali", map_name)
         if os.path.exists(src):
@@ -255,7 +385,8 @@ def main():
     print(
         f"✅ Portale Web generato in '{out_dir}': "
         f"{len(catalog['courses'])} corsi, {len(catalog['files'])} file indicizzati, "
-        f"{catalog['stats']['teamsCount']} codici Teams."
+        f"{catalog['stats']['teamsCount']} codici Teams, "
+        f"{len(catalog['recentUpdates'])} aggiornamenti recenti."
     )
 
 
