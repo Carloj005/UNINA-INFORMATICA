@@ -224,13 +224,15 @@ Hai vecchie tracce, un **Codice Teams 2026/2027** mancante, appunti ben scritti 
 ### 🛠️ 1. Proporre file o modifiche con una Pull Request (PR)
 1. **Fai un Fork**: Clicca sul tasto **Fork** in alto a destra su GitHub.
 2. **Carica i file**: Naviga nella cartella corretta rispettando la [struttura della repository](#struttura-della-repository) (usa `Prof-NomeCognome` in CamelCase senza spazi).
+   - *Tracce Progetti APSD*: Inserisci le specifiche e i template dei progetti di *Analisi e Progettazione di Strutture Dati* in sottocartelle cronologiche dentro [`progetti/`](./Secondo%20Anno/Primo%20Semestre/Analisi%20e%20Progettazione%20di%20Strutture%20Dati/Prof-MassimoBenerecetti/progetti) (es. `A.A. 2026-2027/`).
    - *Nota*: Se il materiale non è tuo, inseriscilo in `contenuto-non-proprio/` e aggiungi/aggiorna il file `crediti.txt` per ringraziare l'autore originale.
 3. **Apri la Pull Request**: Un controllo automatico verificherà struttura e link prima dell'approvazione!
 
-### 💬 2. Segnalare Codici Teams, errori o richiedere materiale con le Issues & Discussions
+### 💬 2. Segnalare Codici Teams, Tracce Progetti APSD, errori o richiedere materiale con le Issues & Discussions
 - [**Segnala un Codice Teams 2026/2027**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml)
+- [**Invia una Traccia di Progetto APSD**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto_apsd.yml) *(specificando sessione/A.A., canale docente, PDF/template della traccia ed eventuali note)*
 - [**Richiedi o condividi tracce/materiale**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml)
-- [**Segnala un errore negli appunti**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml)
+- [**Segnala un errore o bug**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml)
 - [**Partecipa alle GitHub Discussions**](https://github.com/Carloj005/UNINA-INFORMATICA/discussions) per domande generali sui corsi o confronto tra colleghi!
 
 ---

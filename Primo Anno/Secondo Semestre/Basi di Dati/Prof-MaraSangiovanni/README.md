@@ -8,7 +8,7 @@
 * **CFU:** 9
 * **Stato:** ⏳ In Corso
 
-Codice Teams 2026/2027: 
+Codice Teams 2026/2027: `uk067er`
 
 ---
 

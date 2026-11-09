@@ -1,4 +1,4 @@
-﻿# Algebra
+# Algebra
 
 ## Informazioni Corso
 
@@ -7,4 +7,4 @@
 * **Semestre:** 2
 * **Stato:** ⏳ In Corso
 
-Codice Teams 2026/2027: 
+Codice Teams 2026/2027: `rqgcagj`

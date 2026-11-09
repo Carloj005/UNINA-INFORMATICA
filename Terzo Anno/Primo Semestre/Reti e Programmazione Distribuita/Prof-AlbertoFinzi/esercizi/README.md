@@ -10,7 +10,14 @@ Per chi desidera scaricare l'intero archivio in un unico pacchetto compresso, è
 
 ## 📂 Struttura delle Esercitazioni di Laboratorio
 
-Le esercitazioni sono suddivise in 5 moduli tematici progressivi:
+Le esercitazioni sono suddivise in 6 moduli tematici progressivi:
+
+1. **[01-dns-http-whois](./01-dns-http-whois/)** — Risoluzione DNS e client applicativi TCP (`getaddrinfo()`, HTTP GET, WHOIS)
+2. **[02-tcp-client-server-basic](./02-tcp-client-server-basic/)** — Fondamenti di programmazione Client/Server TCP (echo, interi, endianness, `fork()`)
+3. **[03-tcp-echo-concurrency](./03-tcp-echo-concurrency/)** — Architetture server concorrenti e avanzate (`select()` vs `pthread`)
+4. **[04-udp-client-server](./04-udp-client-server/)** — Comunicazione non orientata alla connessione UDP (`sendto`/`recvfrom`, `SO_RCVTIMEO`, multi-client)
+5. **[05-broadcast-multicast](./05-broadcast-multicast/)** — Comunicazione di gruppo a livello di trasporto (`SO_BROADCAST`, `IP_ADD_MEMBERSHIP`)
+6. **[06-simulazione-prova-pratica](./06-simulazione-prova-pratica/)** — Simulazione di prova pratica svolta (Client HTTP/TCP, Server/Client concorrente con `select`, Server/Client UDP con statistiche e risposte teoriche Wireshark/DNS/TCP), comprensiva di risposte in [`domande-risposte.md`](./06-simulazione-prova-pratica/domande-risposte.md) e archivio completo [`esercitazione_reti_svolta.zip`](./06-simulazione-prova-pratica/esercitazione_reti_svolta.zip)
 
 ```text
 esercizi/
@@ -41,12 +48,19 @@ esercizi/
 │   ├── 05-keyboard-echo/           # Echo bidirezionale su datagrammi UDP
 │   ├── 06-multi-client-echo/       # Gestione simultanea di client multipli nominati
 │   └── README.txt                  # Istruzioni passo-passo
-└── 05-broadcast-multicast/         # Comunicazione di gruppo a livello di trasporto
-    ├── broadcast_sender.c          # Invio datagrammi broadcast con SO_BROADCAST
-    ├── broadcast_receiver.c        # Ricevitore su indirizzo limitato o subnet
-    ├── multicast_chat.c            # Chat P2P di gruppo multicast con select() e IP_ADD_MEMBERSHIP
-    ├── Makefile                    # Script di compilazione
-    └── README.md                   # Note teoriche sulle opzioni socket IPv4
+├── 05-broadcast-multicast/         # Comunicazione di gruppo a livello di trasporto
+│   ├── broadcast_sender.c          # Invio datagrammi broadcast con SO_BROADCAST
+│   ├── broadcast_receiver.c        # Ricevitore su indirizzo limitato o subnet
+│   ├── multicast_chat.c            # Chat P2P di gruppo multicast con select() e IP_ADD_MEMBERSHIP
+│   ├── Makefile                    # Script di compilazione
+│   └── README.md                   # Note teoriche sulle opzioni socket IPv4
+└── 06-simulazione-prova-pratica/   # Simulazione di prova pratica svolta
+    ├── http/client.c               # Esercizio 1: Client HTTP/1.1 GET via socket TCP
+    ├── select/                     # Esercizio 2: Server TCP concorrente con select() e client
+    ├── udp/                        # Esercizio 3: Server/Client UDP con calcolo su interi 32-bit
+    ├── domande-risposte.md         # Esercizi 4-6: Risposte su DNS, Go-Back-N/SR e TCP SEQ/ACK
+    ├── esercitazione_reti_svolta.zip # Archivio completo della simulazione svolta
+    └── README.md                   # Traccia e istruzioni di compilazione ed esecuzione
 ```
 
 ---

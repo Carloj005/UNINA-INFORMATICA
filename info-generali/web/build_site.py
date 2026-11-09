@@ -169,7 +169,7 @@ def build_catalog(repo: str):
                 "urlPath": url_encode_path(rel_p),
             })
 
-        mat_icon = "🟢" if course_file_count >= 15 else ("🟡" if course_file_count >= 1 else "⚪")
+        mat_level = "high" if course_file_count >= 15 else ("medium" if course_file_count >= 1 else "empty")
         c_blob = f"{cname} {title_en} {ssd} {prop} {' '.join(p['display'] for p in profs_data)}".lower()
         courses.append({
             "name": cname,
@@ -181,7 +181,8 @@ def build_catalog(repo: str):
             "propedeuticita": prop,
             "modalita": modalita,
             "obiettivi": obiettivi,
-            "matIcon": mat_icon,
+            "matIcon": mat_level,
+            "matLevel": mat_level,
             "fileCount": course_file_count,
             "relPath": rel_c,
             "urlPath": url_encode_path(rel_c),
