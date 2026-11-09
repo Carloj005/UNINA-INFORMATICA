@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light dark">
   <script>try{document.querySelector('meta[name="color-scheme"]').content=localStorage.getItem("color-scheme")??"light dark";}catch{}</script>
   <title>Unina Informatica — Portale ricerca materiale, corsi e codici Teams</title>
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="icon" id="site-favicon" type="image/svg+xml" href="./favicon.svg">
   <meta name="description" content="Motore di ricerca istantaneo per slide, appunti, tracce d'esame, propedeuticità e codici Teams del corso di laurea triennale in Informatica — Università Federico II di Napoli.">
   <style>
     :root {
@@ -65,6 +65,8 @@
       --primary-hover: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
       --primary-soft: light-dark(var(--primary-soft-light), var(--primary-soft-dark));
       --primary-text: light-dark(var(--primary-text-light), var(--primary-text-dark));
+      --brand-icon-fg: light-dark(#0f4c81, #ffffff);
+      --brand-icon-acc: light-dark(#0284c7, #93c5fd);
     }
 
     [hidden] {
@@ -1195,6 +1197,309 @@
       font-weight: 600;
       text-decoration: underline;
     }
+
+    /* ==========================================
+       MOBILE & TABLET RESPONSIVE OPTIMIZATION
+       ========================================== */
+    @media (max-width: 768px) {
+      .topbar {
+        padding: 10px 12px;
+      }
+      .topbar-inner {
+        gap: 10px;
+      }
+      .brand-title {
+        gap: 10px;
+        min-width: 0;
+        flex: 1 1 auto;
+      }
+      .brand-badge {
+        width: 36px;
+        height: 36px;
+      }
+      .brand-title h1 {
+        font-size: 1.05rem;
+      }
+      .brand-sub {
+        font-size: 0.75rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 68vw;
+      }
+      .header-actions {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 6px;
+        padding-bottom: 2px;
+      }
+      .header-actions::-webkit-scrollbar {
+        display: none;
+      }
+      .header-actions .btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 6px 10px;
+        font-size: 0.8125rem;
+        min-height: 36px;
+      }
+
+      main {
+        margin: var(--sp-2) auto var(--sp-4);
+        padding: 0 12px;
+      }
+
+      /* Home Hero Mobile */
+      .home-hero {
+        padding: var(--sp-2);
+        margin-bottom: var(--sp-3);
+        gap: var(--sp-2);
+      }
+      .home-hero h2 {
+        font-size: 1.35rem;
+        line-height: 1.3;
+      }
+      .home-hero p {
+        font-size: 0.9375rem;
+      }
+      .home-stats-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 12px;
+        font-size: 0.8125rem;
+      }
+      .home-stats-row .home-stat-item:last-child {
+        grid-column: 1 / -1;
+      }
+      .home-search-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--sp-1);
+      }
+      .home-search-bar .search-input-wrap {
+        flex: none;
+        width: 100%;
+      }
+      .home-search-bar .btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+      }
+      .home-cta-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--sp-1);
+      }
+      .home-cta-row .btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 42px;
+      }
+
+      /* Prevent iOS/Android auto-zoom on input focus & hide desktop '/' hint */
+      .kbd-hint {
+        display: none;
+      }
+      .search-input {
+        font-size: 1rem;
+        padding: 8px 12px 8px 38px;
+        min-height: 44px;
+      }
+      select.filter-select {
+        font-size: 1rem;
+        min-height: 44px;
+        max-width: none !important;
+      }
+
+      /* Catalog Top Navigation Tabs */
+      .catalog-top-bar {
+        padding: 10px;
+        gap: 8px;
+      }
+      .nav-tabs {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 6px;
+      }
+      .nav-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .tab-btn {
+        flex: 1 0 auto;
+        justify-content: center;
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 0.8125rem;
+        min-height: 38px;
+      }
+      #catalog-back-home-btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 38px;
+      }
+
+      /* Filters & Swipeable Quick Chips */
+      .filter-card {
+        padding: 12px;
+      }
+      .filters-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .filters-grid select:last-child {
+        grid-column: 1 / -1;
+      }
+      .chip-bar-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 6px;
+        margin-top: 10px;
+        padding-bottom: 2px;
+      }
+      .chip-bar-row::-webkit-scrollbar {
+        display: none;
+      }
+      .chip-bar {
+        flex-wrap: nowrap;
+        gap: 6px;
+      }
+      .chip {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 6px 10px;
+        font-size: 0.8125rem;
+        min-height: 36px;
+      }
+
+      /* Grids Single-Column on Mobile */
+      .courses-grid,
+      .hub-grid,
+      .home-pinned-grid,
+      .recent-grid,
+      .home-years-grid,
+      .home-shortcuts-grid {
+        grid-template-columns: 1fr;
+      }
+      .year-card {
+        padding: var(--sp-2);
+        gap: var(--sp-2);
+      }
+      .year-card-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--sp-1);
+      }
+      .year-card-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* File Row Mobile Card Layout */
+      .file-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+      }
+      .file-info {
+        min-width: 0;
+        width: 100%;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .file-icon {
+        width: 36px;
+        height: 36px;
+      }
+      .file-name {
+        font-size: 0.9375rem;
+      }
+      .file-crumbs {
+        font-size: 0.8125rem;
+      }
+      .file-actions {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid var(--border);
+        padding-top: 10px;
+      }
+      .size-tag {
+        margin-right: auto;
+        font-size: 0.8125rem;
+      }
+      .file-actions .btn {
+        min-height: 36px;
+        padding: 6px 12px;
+        font-size: 0.8125rem;
+      }
+
+      /* Folder Group Header Mobile */
+      .folder-group-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .folder-group-header .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Modals & Toast on Mobile */
+      dialog {
+        max-width: 96vw;
+        width: 96vw;
+      }
+      .modal-head {
+        padding: 12px 14px;
+      }
+      .modal-body {
+        padding: 14px;
+      }
+      .preview-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .preview-toolbar > div {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .preview-toolbar .btn {
+        flex: 1;
+        justify-content: center;
+      }
+      .toast {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-sub {
+        display: none;
+      }
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+      .course-card {
+        padding: 16px;
+      }
+      .course-actions {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1203,12 +1508,12 @@
       <a class="brand-title" href="./" id="brand-home-link" title="Torna alla pagina iniziale">
         <span class="brand-badge" aria-hidden="true">
           <svg width="26" height="26" viewBox="0 0 64 64" fill="none">
-            <path d="M32 8L52 17L32 26L12 17L32 8Z" fill="#ffffff"/>
-            <path d="M47 19V29" stroke="#93c5fd" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="47" cy="31" r="2.5" fill="#93c5fd"/>
-            <path d="M22 35L13 43L22 51" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M42 35L51 43L42 51" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M36 33L28 53" stroke="#93c5fd" stroke-width="5" stroke-linecap="round"/>
+            <path d="M32 8L52 17L32 26L12 17L32 8Z" fill="var(--brand-icon-fg)"/>
+            <path d="M47 19V29" stroke="var(--brand-icon-acc)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="47" cy="31" r="2.5" fill="var(--brand-icon-acc)"/>
+            <path d="M22 35L13 43L22 51" stroke="var(--brand-icon-fg)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M42 35L51 43L42 51" stroke="var(--brand-icon-fg)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M36 33L28 53" stroke="var(--brand-icon-acc)" stroke-width="5" stroke-linecap="round"/>
           </svg>
         </span>
         <span>
@@ -1873,8 +2178,24 @@
         }
       };
 
-      // System-aware color-scheme toggle
+      // System-aware color-scheme toggle + dynamic SVG favicon sync
       const metaScheme = document.querySelector('meta[name="color-scheme"]');
+      const faviconEl = document.getElementById('site-favicon');
+      const syncFaviconTheme = () => {
+        if (!faviconEl) return;
+        const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        let stored = null;
+        try { stored = localStorage.getItem('color-scheme'); } catch {}
+        const isDark = (stored === 'dark' || stored === 'light') ? (stored === 'dark') : sysDark;
+        const bg = isDark ? '%231e3a8a' : '%23e0f2fe';
+        const bdr = isDark ? '%233b82f6' : '%230f4c81';
+        const fg = isDark ? '%23ffffff' : '%230f4c81';
+        const acc = isDark ? '%2393c5fd' : '%230284c7';
+        faviconEl.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="14" fill="${bg}" stroke="${bdr}" stroke-width="3"/><path d="M32 10L50 18L32 26L14 18L32 10Z" fill="${fg}"/><path d="M46 20V29" stroke="${acc}" stroke-width="3.5" stroke-linecap="round"/><circle cx="46" cy="30.5" r="2.2" fill="${acc}"/><path d="M23 34L14 42L23 50" stroke="${fg}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M41 34L50 42L41 50" stroke="${fg}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M35.5 32L28.5 52" stroke="${acc}" stroke-width="4.5" stroke-linecap="round"/></svg>`;
+      };
+      syncFaviconTheme();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncFaviconTheme);
+
       document.getElementById('theme-toggle').addEventListener('click', () => {
         const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const sysScheme = sysDark ? 'dark' : 'light';
@@ -1891,10 +2212,12 @@
           metaScheme.content = target;
           showToast(target === 'dark' ? 'Tema scuro attivato' : 'Tema chiaro attivato');
         }
+        syncFaviconTheme();
       });
       window.addEventListener('storage', (e) => {
         if (e.key === 'color-scheme') {
           metaScheme.content = e.newValue ?? 'light dark';
+          syncFaviconTheme();
         }
       });
 

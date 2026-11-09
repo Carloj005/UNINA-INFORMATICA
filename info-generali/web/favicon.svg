@@ -1,12 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#1e40af"/>
-  <rect x="2" y="2" width="60" height="60" rx="12" stroke="#3b82f6" stroke-width="2" stroke-opacity="0.45"/>
+  <style>
+    .bg { fill: #e0f2fe; stroke: #0f4c81; }
+    .fg { stroke: #0f4c81; }
+    .fg-fill { fill: #0f4c81; }
+    .acc { stroke: #0284c7; }
+    .acc-fill { fill: #0284c7; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1e3a8a; stroke: #3b82f6; }
+      .fg { stroke: #ffffff; }
+      .fg-fill { fill: #ffffff; }
+      .acc { stroke: #93c5fd; }
+      .acc-fill { fill: #93c5fd; }
+    }
+  </style>
+  <rect class="bg" x="2" y="2" width="60" height="60" rx="14" stroke-width="3"/>
   <!-- Tocco accademico Federico II -->
-  <path d="M32 10L50 18L32 26L14 18L32 10Z" fill="#ffffff"/>
-  <path d="M46 20V29" stroke="#93c5fd" stroke-width="3.5" stroke-linecap="round"/>
-  <circle cx="46" cy="30.5" r="2.2" fill="#93c5fd"/>
+  <path class="fg-fill" d="M32 10L50 18L32 26L14 18L32 10Z"/>
+  <path class="acc" d="M46 20V29" stroke-width="3.5" stroke-linecap="round"/>
+  <circle class="acc-fill" cx="46" cy="30.5" r="2.2"/>
   <!-- Simbolo Informatica </> ad alto contrasto -->
-  <path d="M23 34L14 42L23 50" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M41 34L50 42L41 50" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M35.5 32L28.5 52" stroke="#93c5fd" stroke-width="4.5" stroke-linecap="round"/>
+  <path class="fg" d="M23 34L14 42L23 50" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="fg" d="M41 34L50 42L41 50" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="acc" d="M35.5 32L28.5 52" stroke-width="4.5" stroke-linecap="round"/>
 </svg>
