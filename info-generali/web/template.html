@@ -1798,6 +1798,7 @@
       const DATA = JSON.parse(document.getElementById('unina-catalog-data').textContent);
       const REPO_URL = 'https://github.com/Carloj005/UNINA-INFORMATICA';
       const RAW_BASE = 'https://raw.githubusercontent.com/Carloj005/UNINA-INFORMATICA/master';
+      const MEDIA_BASE = 'https://media.githubusercontent.com/media/Carloj005/UNINA-INFORMATICA/master';
 
       // Consistent Lucide SVG line icons
       const SVG_ICONS = {
@@ -2133,12 +2134,23 @@
 
       const openFilePreview = async (f) => {
         const rawHref = `${RAW_BASE}/${f.urlPath}`;
+        const dlHref = `${REPO_URL}/raw/master/${f.urlPath}`;
         const ghHref = `${REPO_URL}/blob/master/${f.urlPath}`;
         previewTitle.textContent = f.name;
         previewSub.textContent = [f.course, f.prof, f.subpath, fmtBytes(f.size)].filter(Boolean).join(' • ');
 
         if (IMAGE_EXTS.has(f.ext)) {
-          currentImageGallery = filteredFiles.filter((item) => IMAGE_EXTS.has(item.ext));
+          const imgSrc = f.ext === '.svg' ? rawHref : `${MEDIA_BASE}/${f.urlPath}`;
+          currentImageGallery = DATA.files
+            .filter(
+              (item) =>
+                IMAGE_EXTS.has(item.ext) &&
+                item.course === f.course &&
+                item.prof === f.prof &&
+                item.cat === f.cat &&
+                item.subpath === f.subpath
+            )
+            .sort((a, b) => a.name.localeCompare(b.name, 'it', { numeric: true }));
           currentGalleryIdx = currentImageGallery.findIndex((item) => item.urlPath === f.urlPath);
           const hasGallery = currentImageGallery.length > 1;
           previewToolbar.innerHTML = `
@@ -2151,10 +2163,18 @@
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
               <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Vedi su GitHub</a>
-              <a class="btn btn-primary" href="${rawHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica originale</a>
+              <a class="btn btn-primary" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica originale</a>
             </div>
           `;
-          previewBody.innerHTML = `<img class="map-full" src="${rawHref}" alt="${escapeHtml(f.name)}">`;
+          previewBody.innerHTML = `<img class="map-full" src="${imgSrc}" data-fallback="${rawHref}" alt="${escapeHtml(f.name)}">`;
+          const imgEl = previewBody.querySelector('img');
+          if (imgEl) {
+            imgEl.onerror = () => {
+              if (imgEl.dataset.fallback && imgEl.src !== imgEl.dataset.fallback) {
+                imgEl.src = imgEl.dataset.fallback;
+              }
+            };
+          }
           if (hasGallery) {
             const prevBtn = document.getElementById('prev-img-btn');
             const nextBtn = document.getElementById('next-img-btn');
@@ -2173,7 +2193,7 @@
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Apri su GitHub</a>
-            <a class="btn" href="${rawHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica file</a>
+            <a class="btn" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica file</a>
           </div>
         `;
         previewBody.innerHTML = '<div class="preview-code">Caricamento anteprima in corso...</div>';
