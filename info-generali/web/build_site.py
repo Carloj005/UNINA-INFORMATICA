@@ -379,6 +379,10 @@ def main():
     with open(os.path.join(out_dir, ".nojekyll"), "w", encoding="utf-8"):
         pass
 
+    fav_src = os.path.join(os.path.dirname(__file__), "favicon.svg")
+    if os.path.exists(fav_src):
+        shutil.copy2(fav_src, os.path.join(out_dir, "favicon.svg"))
+
     for map_name in ("MappaMSA.png", "MappaViaClaudio.jpg"):
         src = os.path.join(REPO_ROOT, "info-generali", map_name)
         if os.path.exists(src):
