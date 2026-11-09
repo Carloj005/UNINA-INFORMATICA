@@ -12,6 +12,7 @@ import json
 import shutil
 import argparse
 import subprocess
+import unicodedata
 from datetime import datetime, timezone
 from urllib.parse import quote
 
@@ -20,6 +21,51 @@ TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template.html")
 
 LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
 LFS_SIZE_RE = re.compile(rb"^size\s+(\d+)", re.MULTILINE)
+
+# Sigle e alias comuni usati dagli studenti per la ricerca rapida
+COURSE_ALIASES = {
+    "Architettura degli Elaboratori": "ade architettura elaboratori",
+    "Analisi Matematica 1": "analisi 1 am1 analisi1",
+    "Programmazione 1": "prog 1 prog1 pr1",
+    "Algebra": "alg",
+    "Programmazione Object Oriented": "poo oop oggetti",
+    "Basi di Dati": "bd db sql",
+    "Analisi e Progettazione di Strutture Dati": "apsd asd lasd strutture dati",
+    "Informatica Teorica": "it teorica automi",
+    "Elementi di Fisica Generale 1": "fisica 1 fisica1",
+    "Elementi di Geometria": "geometria geom algebra lineare",
+    "Sistemi Operativi": "so os kernel",
+    "Introduzione agli Algoritmi": "ia algoritmi algo",
+    "Linguaggi e Modelli Computazionali - Modulo 1": "lmc lmp linguaggi",
+    "Elementi di Probabilità e Statistica": "eps statistica probabilita",
+    "Reti e Programmazione Distribuita": "rpd reti",
+    "Ingegneria del Software": "ingsw is",
+    "Tecnologie Web": "tw web",
+    "Artificial Intelligence Technologies": "ait ai intelligenza artificiale",
+    "Tecniche di Programmazione Avanzata": "tpa",
+    "Economia e Organizzazione Aziendale": "eoa economia",
+    "Multimedia Information Systems": "mis multimedia",
+    "Algorithm Design": "ad",
+    "Elementi di Ricerca Operativa": "ero ro ricerca operativa",
+    "Calcolo Numerico": "cn",
+}
+
+
+def norm_search_text(s: str) -> str:
+    nfd = unicodedata.normalize("NFD", s.lower())
+    return "".join(ch for ch in nfd if unicodedata.category(ch) != "Mn")
+
+
+def fmt_bytes(b: int) -> str:
+    if not b or b <= 0:
+        return "—"
+    if b >= 1073741824:
+        return f"{b / 1073741824:.2f} gb"
+    if b >= 1048576:
+        return f"{b / 1048576:.1f} mb"
+    if b >= 1024:
+        return f"{round(b / 1024)} kb"
+    return f"{b} b"
 
 # Regex patterns for extracting exam/material dates
 RE_DMY = re.compile(r"(?<!\d)(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20[12]\d)(?!\d)")
@@ -111,6 +157,7 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
         return updates
 
     cur_date = ""
+    cur_subj = ""
     for line in out.splitlines():
         line = line.strip()
         if not line:
@@ -118,14 +165,17 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
         if line.startswith("COMMIT|"):
             parts = line.split("|", 2)
             cur_date = parts[1] if len(parts) > 1 else ""
+            cur_subj = (parts[2] if len(parts) > 2 else "").lower()
             continue
 
         cols = line.split("\t")
         if len(cols) < 2:
             continue
         status = cols[0]
-        # Prefer added (A) or renamed (R) files so pure compression commits don't pollute recent additions
-        if not (status.startswith("A") or status.startswith("R")):
+        is_add = status.startswith("A")
+        is_ren = status.startswith("R")
+        is_mod = status.startswith("M") and "compress" not in cur_subj
+        if not (is_add or is_ren or is_mod):
             continue
         rel_path = cols[-1].replace("\\", "/")
         if any(rel_path.endswith(ign) for ign in (".gitkeep", "README.md", ".gitignore", "crediti.txt")):
@@ -174,6 +224,7 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
         prof_disp = prof_display_map.get(f"{course}/{prof_folder}", prof_folder.replace("Prof-", "Prof. "))
         updates.append({
             "date": cur_date,
+            "action": "Nuovo" if is_add else "Aggiornato",
             "yearGroup": year_group,
             "course": course,
             "prof": prof_disp,
@@ -219,6 +270,7 @@ def build_catalog(repo: str):
     for year_group, cp in course_dirs:
         rel_c = os.path.relpath(cp, repo).replace(os.sep, "/")
         cname = os.path.basename(cp)
+        aliases = COURSE_ALIASES.get(cname, "")
         creadme_p = os.path.join(cp, "README.md")
         creadme = open(creadme_p, encoding="utf-8", errors="replace").read() if os.path.exists(creadme_p) else ""
 
@@ -273,7 +325,9 @@ def build_catalog(repo: str):
                     course_file_count += 1
                     ext = os.path.splitext(fn)[1].lower()
                     date_iso, date_disp = extract_date_info(fn, subpath)
-                    search_blob = f"{fn} {cname} {doc_disp} {year_group} {cat} {subpath} {date_disp}".lower()
+                    search_blob = norm_search_text(
+                        f"{fn} {cname} {aliases} {doc_disp} {year_group} {cat} {subpath} {date_disp}"
+                    )
                     files_index.append({
                         "name": fn,
                         "ext": ext,
@@ -299,9 +353,12 @@ def build_catalog(repo: str):
             })
 
         mat_level = "high" if course_file_count >= 15 else ("medium" if course_file_count >= 1 else "empty")
-        c_blob = f"{cname} {title_en} {ssd} {prop} {' '.join(p['display'] for p in profs_data)}".lower()
+        c_blob = norm_search_text(
+            f"{cname} {aliases} {title_en} {ssd} {prop} {' '.join(p['display'] for p in profs_data)}"
+        )
         courses.append({
             "name": cname,
+            "aliases": aliases,
             "titleEn": title_en,
             "yearGroup": year_group,
             "semester": sem,
@@ -342,7 +399,7 @@ def build_catalog(repo: str):
                     "dateIso": date_iso,
                     "dateDisplay": date_disp,
                     "urlPath": url_encode_path(rel_f),
-                    "searchBlob": f"{fn} info generali guida mappa orario lezioni".lower(),
+                    "searchBlob": norm_search_text(f"{fn} info generali guida mappa orario lezioni"),
                 })
 
     recent_updates = extract_recent_updates(repo, prof_display_map)
@@ -359,6 +416,104 @@ def build_catalog(repo: str):
     }
 
 
+def write_pwa_and_seo_files(out_dir: str, generated_at: str):
+    manifest = {
+        "name": "Unina Informatica — Archivio Didattico Federico II",
+        "short_name": "Unina Info",
+        "description": "Catalogo ricercabile di slide, appunti, tracce d'esame, codici Teams e mappe per Informatica (Federico II).",
+        "start_url": "./",
+        "scope": "./",
+        "display": "standalone",
+        "background_color": "#0f172a",
+        "theme_color": "#0f4c81",
+        "lang": "it",
+        "icons": [
+            {
+                "src": "./favicon.svg",
+                "sizes": "any",
+                "type": "image/svg+xml",
+                "purpose": "any",
+            }
+        ],
+    }
+    with open(os.path.join(out_dir, "manifest.webmanifest"), "w", encoding="utf-8") as fp:
+        json.dump(manifest, fp, ensure_ascii=False, indent=2)
+
+    sw_code = f"""// Service Worker leggero per consultazione offline di indice, codici Teams e mappe campus
+const CACHE_NAME = 'unina-info-v1-{generated_at.replace("/", "")}';
+const PRECACHE_ASSETS = [
+  './',
+  './index.html',
+  './favicon.svg',
+  './manifest.webmanifest',
+  './assets/MappaMSA.png',
+  './assets/MappaViaClaudio.jpg'
+];
+
+self.addEventListener('install', (event) => {{
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS)).then(() => self.skipWaiting())
+  );
+}});
+
+self.addEventListener('activate', (event) => {{
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
+}});
+
+self.addEventListener('fetch', (event) => {{
+  if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
+
+  // Cache-first per le mappe dei campus, Network-first con fallback offline per la shell HTML
+  if (url.pathname.includes('/assets/')) {{
+    event.respondWith(
+      caches.match(event.request).then((cached) => cached || fetch(event.request).then((resp) => {{
+        const clone = resp.clone();
+        caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+        return resp;
+      }}))
+    );
+    return;
+  }}
+
+  event.respondWith(
+    fetch(event.request)
+      .then((resp) => {{
+        const clone = resp.clone();
+        caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+        return resp;
+      }})
+      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+  );
+}});
+"""
+    with open(os.path.join(out_dir, "sw.js"), "w", encoding="utf-8") as fp:
+        fp.write(sw_code)
+
+    robots_txt = "User-agent: *\nAllow: /\nSitemap: https://carloj005.github.io/UNINA-INFORMATICA/sitemap.xml\n"
+    with open(os.path.join(out_dir, "robots.txt"), "w", encoding="utf-8") as fp:
+        fp.write(robots_txt)
+
+    iso_today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    sitemap_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://carloj005.github.io/UNINA-INFORMATICA/</loc>
+    <lastmod>{iso_today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+"""
+    with open(os.path.join(out_dir, "sitemap.xml"), "w", encoding="utf-8") as fp:
+        fp.write(sitemap_xml)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Genera il sito statico per GitHub Pages.")
     parser.add_argument("--out", default="_site", help="Cartella di output (default: _site)")
@@ -371,13 +526,29 @@ def main():
     catalog = build_catalog(REPO_ROOT)
     template = open(TEMPLATE_PATH, encoding="utf-8").read()
     json_payload = json.dumps(catalog, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
-    html = template.replace("__UNINA_JSON_PAYLOAD__", json_payload)
+
+    stat_files_str = f"{len(catalog['files']):,}".replace(",", ".")
+    stat_courses_str = str(len(catalog["courses"]))
+    stat_teams_str = str(catalog["stats"]["teamsCount"])
+    stat_size_str = fmt_bytes(catalog["stats"]["totalBytes"])
+    stat_updated_str = catalog["stats"]["generatedAt"]
+
+    html = (
+        template.replace("__UNINA_JSON_PAYLOAD__", json_payload)
+        .replace("__STAT_FILES__", stat_files_str)
+        .replace("__STAT_COURSES__", stat_courses_str)
+        .replace("__STAT_TEAMS__", stat_teams_str)
+        .replace("__STAT_SIZE__", stat_size_str)
+        .replace("__STAT_UPDATED__", stat_updated_str)
+    )
 
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as fp:
         fp.write(html)
 
     with open(os.path.join(out_dir, ".nojekyll"), "w", encoding="utf-8"):
         pass
+
+    write_pwa_and_seo_files(out_dir, stat_updated_str)
 
     fav_src = os.path.join(os.path.dirname(__file__), "favicon.svg")
     if os.path.exists(fav_src):

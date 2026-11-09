@@ -7,7 +7,17 @@
   <script>try{document.querySelector('meta[name="color-scheme"]').content=localStorage.getItem("color-scheme")??"light dark";}catch{}</script>
   <title>Unina Informatica — Portale ricerca materiale, corsi e codici Teams</title>
   <link rel="icon" id="site-favicon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#0f4c81">
   <meta name="description" content="Motore di ricerca istantaneo per slide, appunti, tracce d'esame, propedeuticità e codici Teams del corso di laurea triennale in Informatica — Università Federico II di Napoli.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:title" content="Unina Informatica — Archivio Didattico, Esami e Codici Teams">
+  <meta property="og:description" content="Cerca e scarica slide, appunti, prove scritte, progetti, codici Microsoft Teams e mappe per tutti gli insegnamenti di Informatica (Federico II).">
+  <meta property="og:url" content="https://carloj005.github.io/UNINA-INFORMATICA/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Unina Informatica — Portale Studenti Federico II">
+  <meta name="twitter:description" content="Archivio open-source con ricerca istantanea di slide, tracce d'esame, appunti e codici Teams.">
   <style>
     :root {
       color-scheme: light dark;
@@ -98,6 +108,51 @@
       display: flex;
       flex-direction: column;
     }
+    body:has(dialog[open]) {
+      overflow: hidden;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    .skip-link {
+      position: absolute;
+      left: var(--sp-2);
+      top: -100px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: var(--sp-1) var(--sp-2);
+      border-radius: var(--sp-1);
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 100;
+    }
+    .skip-link:focus-visible {
+      top: var(--sp-1);
+    }
+
+    .noscript-banner {
+      background: var(--primary-soft);
+      border-bottom: 1px solid var(--primary);
+      padding: var(--sp-2) var(--sp-3);
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--text);
+    }
+    .noscript-banner a {
+      color: var(--primary-text);
+      font-weight: 600;
+    }
 
     /* Consistent line icons (Lucide) */
     .icon {
@@ -126,7 +181,7 @@
       padding: var(--sp-2) var(--sp-3);
     }
     .topbar-inner {
-      max-width: 1200px;
+      max-width: 1320px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
@@ -215,7 +270,7 @@
 
     /* Main Container */
     main {
-      max-width: 1200px;
+      max-width: 1320px;
       width: 100%;
       margin: var(--sp-4) auto var(--sp-6);
       padding: 0 var(--sp-3);
@@ -497,6 +552,9 @@
        FULL PORTAL VIEW (#catalog-screen)
        ========================================== */
     .catalog-top-bar {
+      position: sticky;
+      top: 8px;
+      z-index: 30;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--sp-1);
@@ -507,6 +565,7 @@
       align-items: center;
       justify-content: space-between;
       gap: var(--sp-2);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
     }
     .nav-tabs {
       display: flex;
@@ -550,6 +609,9 @@
       display: flex;
       gap: var(--sp-2);
       flex-wrap: wrap;
+    }
+    #mobile-filters-toggle {
+      display: none;
     }
     .search-input-wrap {
       flex: 1 1 280px;
@@ -648,6 +710,110 @@
       background: var(--primary);
       color: #ffffff;
       border-color: var(--primary);
+    }
+
+    /* Active Removable Filter Pills */
+    .filter-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: var(--sp-2);
+      align-items: center;
+    }
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--sp-1);
+      border: 1px solid var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .filter-pill:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Empty State Actionable Box */
+    .empty-state-card {
+      background: var(--surface);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--sp-1);
+      padding: var(--sp-4) var(--sp-3);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+    }
+    .empty-state-card h4 {
+      margin: 0;
+      font-size: 1.0625rem;
+      color: var(--text);
+    }
+    .empty-state-card p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--muted);
+      max-width: 48ch;
+    }
+    .empty-state-actions {
+      display: flex;
+      gap: var(--sp-1);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Multi-OS Git Selective Clone Switch */
+    .os-switch-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .os-btn {
+      padding: 6px 8px;
+      border-radius: var(--sp-1);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 0.78125rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .os-btn[aria-pressed="true"] {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .action-badge {
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      background: var(--surface-3);
+      color: var(--text);
+    }
+    .action-badge.is-new {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      border: 1px solid var(--primary);
+    }
+
+    .preview-pdf {
+      width: 100%;
+      height: 68dvh;
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      background: var(--surface-2);
+      display: block;
     }
 
     /* Active Folder / Path Filter Bar */
@@ -1362,6 +1528,7 @@
 
       /* Catalog Top Navigation Segmented Bar (all 3 tabs visible at once) */
       .catalog-top-bar {
+        top: 6px;
         padding: 6px;
         gap: 6px;
       }
@@ -1377,21 +1544,46 @@
         white-space: nowrap;
         padding: 8px 6px;
         font-size: 0.78125rem;
-        min-height: 36px;
+        min-height: 38px;
         gap: 4px;
       }
       #catalog-back-home-btn {
         display: none;
       }
 
-      /* Filters (compact 2x2 grid) & 3x2 Quick Chips Grid */
+      /* Filters (collapsible 2x2 grid on mobile) & 3x2 Quick Chips Grid */
       .filter-card {
         padding: 12px;
+      }
+      #panel-files .search-row {
+        flex-wrap: nowrap;
+        gap: 6px;
+        align-items: stretch;
+      }
+      #panel-files .search-input-wrap {
+        flex: 1 1 0%;
+        min-width: 0;
+      }
+      #mobile-filters-toggle {
+        display: inline-flex;
+        flex-shrink: 0;
+        padding: 0 10px;
+        min-height: 42px;
+        font-size: 0.8125rem;
+        white-space: nowrap;
+      }
+      #mobile-filters-toggle[aria-expanded="true"] {
+        background: var(--primary-soft);
+        color: var(--primary-text);
+        border-color: var(--primary);
       }
       .filters-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
         margin-top: 8px;
+      }
+      .filters-grid:not(.is-open) {
+        display: none;
       }
       .filters-grid select:last-child {
         grid-column: 1 / -1;
@@ -1411,7 +1603,7 @@
         white-space: nowrap;
         padding: 6px 6px;
         font-size: 0.78125rem;
-        min-height: 34px;
+        min-height: 36px;
         gap: 4px;
       }
       .results-meta {
@@ -1577,6 +1769,12 @@
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
+  <noscript>
+    <div class="noscript-banner">
+      Per utilizzare la ricerca istantanea del portale attiva JavaScript, oppure esplora direttamente le cartelle dei corsi sul <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">Repository GitHub UNINA-INFORMATICA</a>.
+    </div>
+  </noscript>
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand-title" href="./" id="brand-home-link" title="Torna alla pagina iniziale">
@@ -1624,7 +1822,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- ==========================================
          VIEW 1: STANDALONE HOME ENTRY SCREEN
          ========================================== -->
@@ -1642,29 +1840,29 @@
         <div class="home-stats-row" aria-label="Numeri dell'archivio">
           <span class="home-stat-item">
             <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-            <strong id="home-stat-files">0</strong> documenti indicizzati
+            <strong id="home-stat-files">__STAT_FILES__</strong> documenti indicizzati
           </span>
           <span class="home-stat-item">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            <strong id="home-stat-courses">0</strong> insegnamenti (2026/2027)
+            <strong id="home-stat-courses">__STAT_COURSES__</strong> insegnamenti (2026/2027)
           </span>
           <span class="home-stat-item">
             <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-            <strong id="home-stat-teams">0</strong> codici Teams attivi
+            <strong id="home-stat-teams">__STAT_TEAMS__</strong> codici Teams attivi
           </span>
           <span class="home-stat-item">
             <svg class="icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-            <strong id="home-stat-size">0 gb</strong> dimensione totale
+            <strong id="home-stat-size">__STAT_SIZE__</strong> dimensione totale
           </span>
           <span class="home-stat-item">
-            Aggiornato il <strong id="home-stat-updated">—</strong>
+            Aggiornato il <strong id="home-stat-updated">__STAT_UPDATED__</strong>
           </span>
         </div>
 
         <form class="home-search-bar" id="home-search-form">
           <div class="search-input-wrap">
             <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="search" id="home-search-input" class="search-input" placeholder="Cerca subito un corso, argomento, data d'esame (es. 22-10-2026) o docente..." aria-label="Ricerca rapida nel catalogo">
+            <input type="search" id="home-search-input" class="search-input" placeholder="Cerca corso o sigla (es. ASD, ADE, BD), argomento, data d'esame o docente..." aria-label="Ricerca rapida nel catalogo">
           </div>
           <button type="submit" class="btn btn-primary">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -1695,9 +1893,21 @@
             <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             I miei corsi fissati
           </span>
-          <span class="section-sub">Salvati automaticamente su questo browser</span>
+          <span class="section-sub">Salvati solo su questo dispositivo</span>
         </h3>
         <div id="home-pinned-grid" class="home-pinned-grid"></div>
+      </section>
+
+      <!-- Recent Updates Section (moved above years for returning students) -->
+      <section id="home-recent-section" class="home-recent-section" hidden>
+        <h3 class="section-heading">
+          <span class="section-heading-left">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Ultimi materiali aggiunti e aggiornati
+          </span>
+          <span class="section-sub">Clicca su un elemento per aprirlo nel catalogo</span>
+        </h3>
+        <div id="home-recent-grid" class="recent-grid"></div>
       </section>
 
       <h3 class="section-heading">
@@ -1776,18 +1986,6 @@
           </div>
         </article>
       </div>
-
-      <!-- Recent Updates Section -->
-      <section id="home-recent-section" class="home-recent-section" hidden>
-        <h3 class="section-heading">
-          <span class="section-heading-left">
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Ultimi materiali aggiunti
-          </span>
-          <span class="section-sub">Clicca su un elemento per aprirlo nel catalogo</span>
-        </h3>
-        <div id="home-recent-grid" class="recent-grid"></div>
-      </section>
 
       <h3 class="section-heading">
         <span class="section-heading-left">
@@ -1869,11 +2067,15 @@
           <div class="search-row">
             <div class="search-input-wrap">
               <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, traccia per data (es. 22-10-2026), argomento, docente..." aria-label="Cerca tra tutti i file">
+              <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, sigla (ASD, ADE, BD), data (es. 22-10-2026) o docente..." aria-label="Cerca tra tutti i file">
               <span class="kbd-hint" aria-hidden="true">/</span>
             </div>
+            <button type="button" class="btn" id="mobile-filters-toggle" aria-expanded="false" aria-controls="filters-grid-box">
+              <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
+              <span id="mobile-filters-label">Filtri</span>
+            </button>
           </div>
-          <div class="filters-grid">
+          <div class="filters-grid" id="filters-grid-box">
             <select id="filter-year" class="filter-select" aria-label="Filtra per anno">
               <option value="">Tutti gli anni</option>
               <option value="Primo Anno">Primo anno</option>
@@ -1937,6 +2139,9 @@
           </div>
         </div>
 
+        <!-- Active Removable Filter Pills -->
+        <div id="active-filter-pills" class="filter-pills-row" hidden aria-label="Filtri attivi"></div>
+
         <!-- Active Subfolder Breadcrumb Banner -->
         <div id="active-path-bar" class="active-path-bar" hidden>
           <div class="active-path-crumbs" id="active-path-text"></div>
@@ -1947,7 +2152,7 @@
         </div>
 
         <div class="results-meta">
-          <span id="results-count">Caricamento...</span>
+          <span id="results-count" aria-live="polite">__STAT_FILES__ documenti trovati</span>
           <div class="results-meta-actions">
             <button type="button" class="btn-link-action" id="copy-search-link-btn">
               <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
@@ -1969,7 +2174,7 @@
           <div class="search-row">
             <div class="search-input-wrap">
               <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, docente, settore o propedeuticità..." aria-label="Cerca corso o docente">
+              <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, sigla (ASD, ADE, BD), docente o propedeuticità..." aria-label="Cerca corso o docente">
             </div>
             <select id="course-year-filter" class="filter-select" style="max-width:240px" aria-label="Filtra corsi per anno">
               <option value="">Tutti i 31 insegnamenti</option>
@@ -2028,7 +2233,14 @@
               </h3>
               <p>Scarica sul computer con Git <strong>solo un singolo corso</strong> senza clonare l'intero archivio.</p>
             </div>
-            <select id="clone-course-select" class="filter-select" aria-label="Scegli il corso da clonare"></select>
+            <div>
+              <div class="os-switch-row" role="group" aria-label="Sistema operativo per i comandi Git">
+                <button type="button" class="os-btn" data-git-os="bash" aria-pressed="true"><span class="lbl-full">Linux / macOS / Git Bash</span><span class="lbl-short">Linux / macOS</span></button>
+                <button type="button" class="os-btn" data-git-os="ps" aria-pressed="false">PowerShell</button>
+                <button type="button" class="os-btn" data-git-os="cmd" aria-pressed="false">Windows CMD</button>
+              </div>
+              <select id="clone-course-select" class="filter-select" aria-label="Scegli il corso da clonare"></select>
+            </div>
             <div class="code-box" id="clone-cmd-box"></div>
             <div>
               <button type="button" class="btn btn-primary" id="copy-clone-cmd">
@@ -2149,11 +2361,19 @@
           </button>
         </form>
       </div>
+      <div class="preview-toolbar">
+        <div>
+          <a class="btn btn-primary" id="map-open-highres" href="" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
+            Apri mappa ad alta risoluzione (Zoom libero)
+          </a>
+        </div>
+      </div>
       <img id="map-modal-img" class="map-full" src="" alt="">
     </div>
   </dialog>
 
-  <!-- Native Modal Dialog for In-Portal File Preview (Images Gallery & Code/Markdown) -->
+  <!-- Native Modal Dialog for In-Portal File Preview (Images Gallery, PDF & Code/Markdown) -->
   <dialog id="preview-modal" class="map-dialog" aria-labelledby="preview-modal-title" closedby="any">
     <div class="dialog-inner">
       <div class="dialog-header">
@@ -2176,7 +2396,8 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <footer>
-    Progetto open-source della community studenti <strong>Unina Informatica</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">Creative Commons 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a>
+    <div>Progetto open-source della community studenti <strong>Unina Informatica</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">Creative Commons 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a></div>
+    <div style="margin-top:4px;font-size:0.75rem;">Il materiale didattico appartiene ai rispettivi autori e docenti ed è condiviso a solo scopo di studio non commerciale. Per richieste di modifica o rimozione: <a href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">apri una segnalazione</a>.</div>
   </footer>
 
   <script id="unina-catalog-data" type="application/json">__UNINA_JSON_PAYLOAD__</script>
@@ -2295,6 +2516,22 @@
         }
       });
 
+      const normText = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      const courseAliasesMap = new Map(
+        DATA.courses.map((c) => [c.name, normText(`${c.name} ${c.aliases || ''}`)])
+      );
+
+      // Modal history & focus restoration for mobile Back button support
+      let lastDialogTrigger = null;
+      const openDialogWithHistory = (dialog) => {
+        if (!dialog) return;
+        if (!dialog.open) {
+          lastDialogTrigger = document.activeElement;
+          dialog.showModal();
+          try { history.pushState({ modal: dialog.id }, '', location.href); } catch {}
+        }
+      };
+
       // Fallback for <dialog closedby="any"> on Safari
       if (!('closedBy' in HTMLDialogElement.prototype)) {
         const outside = (e, dialog) => {
@@ -2308,7 +2545,13 @@
         }
       }
       for (const dialog of document.querySelectorAll('dialog')) {
-        dialog.addEventListener('close', () => { dialog.returnValue = ''; });
+        dialog.addEventListener('close', () => {
+          dialog.returnValue = '';
+          if (lastDialogTrigger && typeof lastDialogTrigger.focus === 'function') {
+            try { lastDialogTrigger.focus({ preventScroll: true }); } catch {}
+            lastDialogTrigger = null;
+          }
+        });
       }
 
       // Pinned Courses in localStorage ("I miei corsi fissati")
@@ -2348,6 +2591,7 @@
         tabs.forEach((t) => {
           const sel = t.id === tabId;
           t.setAttribute('aria-selected', sel ? 'true' : 'false');
+          t.tabIndex = sel ? 0 : -1;
         });
         panels.forEach((p) => {
           p.hidden = p.getAttribute('aria-labelledby') !== tabId;
@@ -2367,9 +2611,20 @@
       const activePathText = document.getElementById('active-path-text');
       const clearSubpathBtn = document.getElementById('clear-subpath-btn');
       const resetBtn = document.getElementById('reset-filters');
+      const mobileFiltersToggle = document.getElementById('mobile-filters-toggle');
+      const mobileFiltersLabel = document.getElementById('mobile-filters-label');
+      const filtersGridBox = document.getElementById('filters-grid-box');
+      const activeFilterPills = document.getElementById('active-filter-pills');
 
       let activeSubpath = '';
       let groupByFolder = false;
+
+      if (mobileFiltersToggle && filtersGridBox) {
+        mobileFiltersToggle.addEventListener('click', () => {
+          const open = filtersGridBox.classList.toggle('is-open');
+          mobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      }
 
       // Sync current filters to URL query parameters for shareable deep links
       const syncUrlState = (tabId) => {
@@ -2415,7 +2670,17 @@
         }
       };
 
-      tabs.forEach((t) => t.addEventListener('click', () => openCatalog(t.id)));
+      tabs.forEach((t, idx) => {
+        t.addEventListener('click', () => openCatalog(t.id));
+        t.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const nextIdx = e.key === 'ArrowRight' ? (idx + 1) % tabs.length : (idx - 1 + tabs.length) % tabs.length;
+            tabs[nextIdx].focus();
+            openCatalog(tabs[nextIdx].id);
+          }
+        });
+      });
       headerBackHomeBtn.addEventListener('click', () => openHome());
       catalogBackHomeBtn.addEventListener('click', () => openHome());
       document.getElementById('brand-home-link').addEventListener('click', (e) => {
@@ -2528,25 +2793,28 @@
       const loadMoreBtn = document.getElementById('load-more-btn');
       const resultsCountEl = document.getElementById('results-count');
 
-      // In-Portal File Preview Modal (Images with Gallery <- / -> & Code/Markdown)
+      // In-Portal File Preview Modal (Images, PDF & Code/Markdown with Sequential Navigation <- / ->)
       const previewModal = document.getElementById('preview-modal');
       const previewTitle = document.getElementById('preview-modal-title');
       const previewSub = document.getElementById('preview-modal-sub');
       const previewToolbar = document.getElementById('preview-toolbar');
       const previewBody = document.getElementById('preview-modal-body');
-      let currentImageGallery = [];
-      let currentGalleryIdx = -1;
+      let currentPreviewList = [];
+      let currentPreviewIdx = -1;
+
+      const isPreviewable = (f) => IMAGE_EXTS.has(f.ext) || TEXT_EXTS.has(f.ext) || f.ext === '.pdf';
 
       const openFilePreview = async (f) => {
         const rawHref = `${RAW_BASE}/${f.urlPath}`;
+        const mediaHref = `${MEDIA_BASE}/${f.urlPath}`;
         const dlHref = `${REPO_URL}/raw/master/${f.urlPath}`;
         const ghHref = `${REPO_URL}/blob/master/${f.urlPath}`;
         previewTitle.textContent = f.name;
         previewSub.textContent = [f.course, f.prof, f.subpath, fmtBytes(f.size)].filter(Boolean).join(' • ');
 
+        // Scope sequential navigation: for images use same exam/folder first; otherwise use current filtered previewable files
         if (IMAGE_EXTS.has(f.ext)) {
-          const imgSrc = f.ext === '.svg' ? rawHref : `${MEDIA_BASE}/${f.urlPath}`;
-          currentImageGallery = DATA.files
+          currentPreviewList = DATA.files
             .filter(
               (item) =>
                 IMAGE_EXTS.has(item.ext) &&
@@ -2556,19 +2824,36 @@
                 item.subpath === f.subpath
             )
             .sort((a, b) => a.name.localeCompare(b.name, 'it', { numeric: true }));
-          currentGalleryIdx = currentImageGallery.findIndex((item) => item.urlPath === f.urlPath);
-          const hasGallery = currentImageGallery.length > 1;
+        } else {
+          currentPreviewList = filteredFiles.filter(isPreviewable).slice(0, 120);
+        }
+        currentPreviewIdx = currentPreviewList.findIndex((item) => item.urlPath === f.urlPath);
+        const hasNav = currentPreviewList.length > 1 && currentPreviewIdx !== -1;
+
+        const navHtml = hasNav ? `
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn" id="prev-file-btn" ${currentPreviewIdx <= 0 ? 'disabled' : ''}>${SVG_ICONS.chevLeft} Precedente</button>
+            <span style="font-size:0.8125rem;color:var(--muted);">${currentPreviewIdx + 1} di ${currentPreviewList.length}</span>
+            <button type="button" class="btn" id="next-file-btn" ${currentPreviewIdx >= currentPreviewList.length - 1 ? 'disabled' : ''}>Successivo ${SVG_ICONS.chevRight}</button>
+          </div>
+        ` : '<div></div>';
+
+        const bindNavButtons = () => {
+          if (!hasNav) return;
+          const prevBtn = document.getElementById('prev-file-btn');
+          const nextBtn = document.getElementById('next-file-btn');
+          if (prevBtn) prevBtn.onclick = () => { if (currentPreviewIdx > 0) openFilePreview(currentPreviewList[currentPreviewIdx - 1]); };
+          if (nextBtn) nextBtn.onclick = () => { if (currentPreviewIdx < currentPreviewList.length - 1) openFilePreview(currentPreviewList[currentPreviewIdx + 1]); };
+        };
+
+        if (IMAGE_EXTS.has(f.ext)) {
+          const imgSrc = f.ext === '.svg' ? rawHref : mediaHref;
           previewToolbar.innerHTML = `
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-              ${hasGallery ? `
-                <button type="button" class="btn" id="prev-img-btn" ${currentGalleryIdx <= 0 ? 'disabled' : ''}>${SVG_ICONS.chevLeft} Precedente</button>
-                <span style="font-size:0.875rem;color:var(--muted);">${currentGalleryIdx + 1} di ${currentImageGallery.length}</span>
-                <button type="button" class="btn" id="next-img-btn" ${currentGalleryIdx >= currentImageGallery.length - 1 ? 'disabled' : ''}>Successiva ${SVG_ICONS.chevRight}</button>
-              ` : ''}
-            </div>
+            ${navHtml}
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn" id="preview-copy-link-btn">${SVG_ICONS.link} Copia link</button>
               <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Vedi su GitHub</a>
-              <a class="btn btn-primary" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica originale</a>
+              <a class="btn btn-primary" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica (${fmtBytes(f.size)})</a>
             </div>
           `;
           previewBody.innerHTML = `<img class="map-full" src="${imgSrc}" data-fallback="${rawHref}" alt="${escapeHtml(f.name)}">`;
@@ -2580,29 +2865,42 @@
               }
             };
           }
-          if (hasGallery) {
-            const prevBtn = document.getElementById('prev-img-btn');
-            const nextBtn = document.getElementById('next-img-btn');
-            if (prevBtn) prevBtn.onclick = () => { if (currentGalleryIdx > 0) openFilePreview(currentImageGallery[currentGalleryIdx - 1]); };
-            if (nextBtn) nextBtn.onclick = () => { if (currentGalleryIdx < currentImageGallery.length - 1) openFilePreview(currentImageGallery[currentGalleryIdx + 1]); };
-          }
-          if (!previewModal.open) previewModal.showModal();
+          document.getElementById('preview-copy-link-btn').onclick = () => copyText(ghHref, 'Link al file copiato');
+          bindNavButtons();
+          openDialogWithHistory(previewModal);
           return;
         }
 
-        currentImageGallery = [];
-        currentGalleryIdx = -1;
+        if (f.ext === '.pdf') {
+          const gviewUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(mediaHref)}&embedded=true`;
+          previewToolbar.innerHTML = `
+            ${navHtml}
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button type="button" class="btn" id="preview-copy-link-btn">${SVG_ICONS.link} Copia link</button>
+              <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Apri su GitHub</a>
+              <a class="btn btn-primary" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica PDF (${fmtBytes(f.size)})</a>
+            </div>
+          `;
+          previewBody.innerHTML = `
+            <iframe class="preview-pdf" src="${gviewUrl}" title="Anteprima ${escapeHtml(f.name)}" loading="lazy"></iframe>
+          `;
+          document.getElementById('preview-copy-link-btn').onclick = () => copyText(ghHref, 'Link al PDF copiato');
+          bindNavButtons();
+          openDialogWithHistory(previewModal);
+          return;
+        }
+
         previewToolbar.innerHTML = `
-          <div>
-            <button type="button" class="btn btn-primary" id="preview-copy-code-btn">${SVG_ICONS.copy} Copia contenuto</button>
-          </div>
+          ${navHtml}
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button type="button" class="btn btn-primary" id="preview-copy-code-btn">${SVG_ICONS.copy} Copia contenuto</button>
             <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Apri su GitHub</a>
-            <a class="btn" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica file</a>
+            <a class="btn" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica (${fmtBytes(f.size)})</a>
           </div>
         `;
         previewBody.innerHTML = '<div class="preview-code">Caricamento anteprima in corso...</div>';
-        if (!previewModal.open) previewModal.showModal();
+        bindNavButtons();
+        openDialogWithHistory(previewModal);
         try {
           const resp = await fetch(rawHref);
           const text = await resp.text();
@@ -2614,19 +2912,76 @@
       };
 
       document.addEventListener('keydown', (e) => {
-        if (!previewModal.open || currentImageGallery.length <= 1) return;
-        if (e.key === 'ArrowLeft' && currentGalleryIdx > 0) {
-          openFilePreview(currentImageGallery[currentGalleryIdx - 1]);
-        } else if (e.key === 'ArrowRight' && currentGalleryIdx < currentImageGallery.length - 1) {
-          openFilePreview(currentImageGallery[currentGalleryIdx + 1]);
+        if (!previewModal.open || currentPreviewList.length <= 1) return;
+        if (e.key === 'ArrowLeft' && currentPreviewIdx > 0) {
+          openFilePreview(currentPreviewList[currentPreviewIdx - 1]);
+        } else if (e.key === 'ArrowRight' && currentPreviewIdx < currentPreviewList.length - 1) {
+          openFilePreview(currentPreviewList[currentPreviewIdx + 1]);
         }
       });
+
+      const renderActiveFilterPills = () => {
+        if (!activeFilterPills) return;
+        activeFilterPills.innerHTML = '';
+        const pills = [];
+        if (filterYear.value) {
+          pills.push({ label: filterYear.value, clear: () => { filterYear.value = ''; updateCourseOptions(); updateProfOptions(); } });
+        }
+        if (filterCourse.value) {
+          pills.push({ label: filterCourse.value, clear: () => { filterCourse.value = ''; updateProfOptions(); } });
+        }
+        if (filterProf.value) {
+          pills.push({ label: filterProf.value, clear: () => { filterProf.value = ''; } });
+        }
+        if (filterCat.value) {
+          pills.push({ label: CAT_LABELS[filterCat.value] || filterCat.value, clear: () => { filterCat.value = ''; } });
+        }
+        if (activeSubpath) {
+          pills.push({ label: `Cartella: ${activeSubpath}`, clear: () => { activeSubpath = ''; } });
+        }
+        if (pills.length === 0) {
+          activeFilterPills.hidden = true;
+          return;
+        }
+        activeFilterPills.hidden = false;
+        pills.forEach((p) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'filter-pill';
+          btn.title = `Rimuovi filtro: ${p.label}`;
+          btn.innerHTML = `<span>${escapeHtml(p.label)}</span> <span aria-hidden="true">×</span>`;
+          btn.addEventListener('click', () => {
+            p.clear();
+            applyFileFilters();
+          });
+          activeFilterPills.appendChild(btn);
+        });
+      };
 
       const renderFileBatch = (reset) => {
         if (reset) {
           fileListEl.innerHTML = '';
           shownCount = 0;
         }
+        if (filteredFiles.length === 0) {
+          loadMoreWrap.hidden = true;
+          loadMoreBtn.hidden = true;
+          const courseHint = filterCourse.value ? ` per ${filterCourse.value}` : '';
+          const issueHref = `${REPO_URL}/issues/new?template=richiesta_o_materiale.yml&title=${encodeURIComponent('[Materiale] Richiesta o contributo' + courseHint)}`;
+          fileListEl.innerHTML = `
+            <div class="empty-state-card">
+              <h4>Nessun documento trovato con questi filtri</h4>
+              <p>Prova a rimuovere qualche filtro, cercare con una sigla diversa (es. ASD, ADE, BD) oppure richiedi o invia il materiale mancante alla community.</p>
+              <div class="empty-state-actions">
+                <button type="button" class="btn btn-primary" id="empty-reset-btn">Azzera tutti i filtri</button>
+                <a class="btn" href="${issueHref}" target="_blank" rel="noopener">${SVG_ICONS.plus} Richiedi o invia materiale</a>
+              </div>
+            </div>
+          `;
+          document.getElementById('empty-reset-btn')?.addEventListener('click', () => resetBtn.click());
+          return;
+        }
+
         const slice = filteredFiles.slice(shownCount, shownCount + PAGE_SIZE);
         const frag = document.createDocumentFragment();
         let lastGroupKey = shownCount > 0 && filteredFiles[shownCount - 1]
@@ -2670,7 +3025,7 @@
           const catLbl = CAT_LABELS[f.cat] || f.cat;
           const viewHref = `${REPO_URL}/blob/master/${f.urlPath}`;
           const rawHref = `${REPO_URL}/raw/master/${f.urlPath}`;
-          const canPreviewInPortal = IMAGE_EXTS.has(f.ext) || TEXT_EXTS.has(f.ext);
+          const canPreviewInPortal = isPreviewable(f);
 
           row.innerHTML = `
             <div class="file-info">
@@ -2744,14 +3099,41 @@
         }
       };
 
+      // Weighted relevance scorer (ChatGPT 4.1 model)
+      const scoreFileRelevance = (f, tokens, fullQuery) => {
+        const fName = normText(f.name);
+        const fStem = fName.replace(/\.[^.]+$/, '');
+        const cBlob = courseAliasesMap.get(f.course) || normText(f.course);
+        const pBlob = normText(f.prof);
+        const sBlob = normText(f.subpath);
+        const catBlob = normText(f.cat);
+        let score = 0;
+        if (fName === fullQuery || fStem === fullQuery) score += 100;
+        for (const tk of tokens) {
+          if (fStem === tk) score += 100;
+          else if (fName.includes(tk)) score += 70;
+          if (cBlob.includes(tk)) score += 50;
+          if (pBlob.includes(tk)) score += 40;
+          if (sBlob.includes(tk)) score += 30;
+          if (catBlob.includes(tk)) score += 20;
+        }
+        return score;
+      };
+
       const applyFileFilters = (syncUrl = true) => {
-        const q = searchInput.value.trim().toLowerCase();
-        const tokens = q ? q.split(/\s+/) : [];
+        const qNorm = normText(searchInput.value.trim());
+        const tokens = qNorm ? qNorm.split(/\s+/) : [];
         const yr = filterYear.value;
         const cr = filterCourse.value;
         const pr = filterProf.value;
         const ct = filterCat.value;
         const srt = sortSelect.value;
+
+        const activeSelectCount = [yr, cr, pr, ct, srt !== 'relevance' ? srt : ''].filter(Boolean).length;
+        if (mobileFiltersLabel) {
+          mobileFiltersLabel.textContent = activeSelectCount > 0 ? `Filtri (${activeSelectCount})` : 'Filtri';
+        }
+        renderActiveFilterPills();
 
         quickChips.forEach((ch) => {
           ch.setAttribute('aria-pressed', ch.dataset.quickCat === ct ? 'true' : 'false');
@@ -2764,7 +3146,7 @@
           activePathBar.hidden = true;
         }
 
-        const hasFilter = Boolean(q || yr || cr || pr || ct || activeSubpath || srt !== 'relevance');
+        const hasFilter = Boolean(qNorm || yr || cr || pr || ct || activeSubpath || srt !== 'relevance');
         resetBtn.hidden = !hasFilter;
 
         filteredFiles = DATA.files.filter((f) => {
@@ -2796,24 +3178,24 @@
         } else if (srt === 'size-desc') {
           filteredFiles.sort((a, b) => (b.size || 0) - (a.size || 0));
         } else if (tokens.length > 0) {
-          // Relevance boost when searching: filename match > subpath match > course match
           filteredFiles.sort((a, b) => {
-            const aName = a.name.toLowerCase();
-            const bName = b.name.toLowerCase();
-            const aScore = tokens.reduce((acc, tk) => acc + (aName.includes(tk) ? 2 : (a.subpath.toLowerCase().includes(tk) ? 1 : 0)), 0);
-            const bScore = tokens.reduce((acc, tk) => acc + (bName.includes(tk) ? 2 : (b.subpath.toLowerCase().includes(tk) ? 1 : 0)), 0);
-            return bScore - aScore;
+            const diff = scoreFileRelevance(b, tokens, qNorm) - scoreFileRelevance(a, tokens, qNorm);
+            return diff !== 0 ? diff : a.name.localeCompare(b.name, 'it');
           });
         }
 
         resultsCountEl.textContent = filteredFiles.length === 0
-          ? 'Nessun documento trovato con questi filtri.'
+          ? '0 documenti trovati'
           : `${filteredFiles.length.toLocaleString('it-IT')} documenti trovati`;
         renderFileBatch(true);
         if (syncUrl) syncUrlState('tab-btn-files');
       };
 
-      searchInput.addEventListener('input', () => applyFileFilters());
+      let searchDebounce = null;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(() => applyFileFilters(), 120);
+      });
       filterYear.addEventListener('change', () => {
         activeSubpath = '';
         updateCourseOptions();
@@ -2887,7 +3269,7 @@
             <div>
               <div class="pinned-card-head">
                 <h4>${escapeHtml(c.name)}</h4>
-                <button type="button" class="pin-btn" aria-pressed="true" title="Rimuovi dai corsi fissati">${SVG_ICONS.starFilled}</button>
+                <button type="button" class="pin-btn" aria-pressed="true" aria-label="Rimuovi ${escapeHtml(c.name)} dai corsi fissati" title="Rimuovi dai corsi fissati">${SVG_ICONS.starFilled}</button>
               </div>
               <div class="pinned-meta">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem • ${c.fileCount} file</div>
             </div>
@@ -2920,9 +3302,13 @@
           btn.type = 'button';
           btn.className = 'recent-card';
           const catLbl = CAT_LABELS[u.cat] || u.cat;
+          const actLbl = u.action || 'Nuovo';
           btn.innerHTML = `
             <div class="recent-top">
-              <span class="cat-tag">${escapeHtml(catLbl)}</span>
+              <span style="display:inline-flex;gap:4px;align-items:center;">
+                <span class="action-badge ${actLbl === 'Nuovo' ? 'is-new' : ''}">${escapeHtml(actLbl)}</span>
+                <span class="cat-tag">${escapeHtml(catLbl)}</span>
+              </span>
               <span>${escapeHtml(u.date)}</span>
             </div>
             <div class="recent-title">${escapeHtml(u.label)}</div>
@@ -2983,6 +3369,18 @@
         });
       });
 
+      // Multi-OS Git Selective Clone Command Builder (Bash/macOS/Linux, PowerShell, CMD)
+      let currentGitOs = 'bash';
+      const buildGitCloneCmd = (relPath, osType = currentGitOs) => {
+        if (osType === 'ps') {
+          return `git lfs install\n$env:GIT_LFS_SKIP_SMUDGE="1"; git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${relPath}/**"`;
+        }
+        if (osType === 'cmd') {
+          return `git lfs install\nset GIT_LFS_SKIP_SMUDGE=1 && git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${relPath}/**"`;
+        }
+        return `git lfs install\nGIT_LFS_SKIP_SMUDGE=1 git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${relPath}/**"`;
+      };
+
       // Render Courses Grid
       const coursesGrid = document.getElementById('courses-grid');
       const courseSearch = document.getElementById('course-search');
@@ -2998,28 +3396,49 @@
       });
 
       const getStatusSvg = (c) => {
-        if (c.fileCount >= 15) return `${SVG_ICONS.checkCircle} <span>Completo</span>`;
-        if (c.fileCount >= 1) return `${SVG_ICONS.clock} <span>Parziale</span>`;
+        if (c.fileCount >= 15) return `${SVG_ICONS.checkCircle} <span>Materiale ricco</span>`;
+        if (c.fileCount >= 1) return `${SVG_ICONS.clock} <span>Materiale presente</span>`;
         return `${SVG_ICONS.circle} <span>Da popolare</span>`;
       };
 
       const openCourseModal = (c) => {
         document.getElementById('course-modal-title').textContent = c.name;
         document.getElementById('course-modal-sub').textContent = `${c.titleEn} • ${c.yearGroup} (${c.semester} semestre) • ${c.cfu} crediti • Settore ${c.ssd.toLowerCase()}`;
-        const cloneCmd = `GIT_LFS_SKIP_SMUDGE=1 git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${c.relPath}/**"`;
+        const renderModalClone = () => {
+          const cloneCmd = buildGitCloneCmd(c.relPath, currentGitOs);
+          const cmdBox = document.getElementById('modal-clone-box');
+          if (cmdBox) cmdBox.textContent = cloneCmd;
+          document.querySelectorAll('[data-modal-git-os]').forEach((b) => {
+            b.setAttribute('aria-pressed', b.dataset.modalGitOs === currentGitOs ? 'true' : 'false');
+          });
+          const copyBtn = document.getElementById('modal-copy-clone');
+          if (copyBtn) copyBtn.onclick = () => copyText(cloneCmd, 'Comandi Git copiati');
+        };
         document.getElementById('course-modal-body').innerHTML = `
           <p style="margin:0 0 8px;"><strong>Propedeuticità:</strong> ${escapeHtml(c.propedeuticita)}</p>
           <p style="margin:0 0 8px;"><strong>Modalità d'esame:</strong> ${escapeHtml(c.modalita)}</p>
           <p style="margin:0 0 16px;"><strong>Obiettivi formativi:</strong><br><span style="color:var(--muted);font-size:0.875rem;">${escapeHtml(c.obiettivi)}</span></p>
           <h3 style="font-size:0.9375rem;margin:0 0 8px;">Clone selettivo solo per questo corso</h3>
-          <div class="code-box">${escapeHtml(cloneCmd)}</div>
+          <div class="os-switch-row" role="group" aria-label="Sistema operativo per i comandi Git">
+            <button type="button" class="os-btn" data-modal-git-os="bash" aria-pressed="${currentGitOs === 'bash' ? 'true' : 'false'}"><span class="lbl-full">Linux / macOS / Git Bash</span><span class="lbl-short">Linux / macOS</span></button>
+            <button type="button" class="os-btn" data-modal-git-os="ps" aria-pressed="${currentGitOs === 'ps' ? 'true' : 'false'}">PowerShell</button>
+            <button type="button" class="os-btn" data-modal-git-os="cmd" aria-pressed="${currentGitOs === 'cmd' ? 'true' : 'false'}">Windows CMD</button>
+          </div>
+          <div class="code-box" id="modal-clone-box"></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
             <button type="button" class="btn btn-primary" id="modal-copy-clone">${SVG_ICONS.copy} Copia comandi Git</button>
             <button type="button" class="btn" id="modal-filter-files">${SVG_ICONS.search} Cerca tra i ${c.fileCount} file del corso</button>
             <a class="btn" href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${SVG_ICONS.folder} Apri cartella su GitHub</a>
           </div>
         `;
-        document.getElementById('modal-copy-clone').onclick = () => copyText(cloneCmd, 'Comandi Git copiati');
+        document.querySelectorAll('[data-modal-git-os]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            currentGitOs = btn.dataset.modalGitOs;
+            updateCloneBox();
+            renderModalClone();
+          });
+        });
+        renderModalClone();
         document.getElementById('modal-filter-files').onclick = () => {
           courseModal.close();
           openCatalog('tab-btn-files');
@@ -3029,11 +3448,11 @@
           updateProfOptions();
           applyFileFilters();
         };
-        courseModal.showModal();
+        openDialogWithHistory(courseModal);
       };
 
       const renderCourses = () => {
-        const q = courseSearch.value.trim().toLowerCase();
+        const q = normText(courseSearch.value.trim());
         const yr = courseYearFilter.value;
         coursesGrid.innerHTML = '';
         const list = DATA.courses.filter((c) => {
@@ -3070,7 +3489,7 @@
                 <h3 class="course-title"><a href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a></h3>
                 <div class="course-head-right">
                   <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
-                  <button type="button" class="pin-btn" aria-pressed="${isPinned ? 'true' : 'false'}" title="${isPinned ? 'Rimuovi dai corsi fissati in Home' : 'Fissa questo corso in Home'}">
+                  <button type="button" class="pin-btn" aria-pressed="${isPinned ? 'true' : 'false'}" aria-label="${isPinned ? 'Rimuovi ' + escapeHtml(c.name) + ' dai corsi fissati' : 'Fissa ' + escapeHtml(c.name) + ' in Home'}" title="${isPinned ? 'Rimuovi dai corsi fissati in Home' : 'Fissa questo corso in Home'}">
                     ${isPinned ? SVG_ICONS.starFilled : SVG_ICONS.star}
                   </button>
                 </div>
@@ -3111,6 +3530,7 @@
       // Selective Clone Generator in Tab 3
       const cloneSelect = document.getElementById('clone-course-select');
       const cloneCmdBox = document.getElementById('clone-cmd-box');
+      const osBtns = document.querySelectorAll('[data-git-os]');
       DATA.courses.forEach((c) => {
         const opt = document.createElement('option');
         opt.value = c.relPath;
@@ -3119,8 +3539,15 @@
       });
       const updateCloneBox = () => {
         const p = cloneSelect.value;
-        cloneCmdBox.textContent = `git lfs install\nGIT_LFS_SKIP_SMUDGE=1 git clone ${REPO_URL}.git\ncd UNINA-INFORMATICA\ngit lfs pull --include="${p}/**"`;
+        osBtns.forEach((b) => b.setAttribute('aria-pressed', b.dataset.gitOs === currentGitOs ? 'true' : 'false'));
+        cloneCmdBox.textContent = buildGitCloneCmd(p, currentGitOs);
       };
+      osBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          currentGitOs = btn.dataset.gitOs;
+          updateCloneBox();
+        });
+      });
       cloneSelect.addEventListener('change', updateCloneBox);
       updateCloneBox();
       document.getElementById('copy-clone-cmd').addEventListener('click', () => copyText(cloneCmdBox.textContent, 'Comandi Git copiati'));
@@ -3129,12 +3556,14 @@
       const mapModal = document.getElementById('map-modal');
       const mapModalImg = document.getElementById('map-modal-img');
       const mapModalTitle = document.getElementById('map-modal-title');
+      const mapOpenHighres = document.getElementById('map-open-highres');
       document.querySelectorAll('[data-map-src]').forEach((el) => {
         el.addEventListener('click', () => {
           mapModalTitle.textContent = el.dataset.mapTitle;
           mapModalImg.src = el.dataset.mapSrc;
           mapModalImg.alt = el.dataset.mapTitle;
-          mapModal.showModal();
+          if (mapOpenHighres) mapOpenHighres.href = el.dataset.mapSrc;
+          openDialogWithHistory(mapModal);
         });
       });
 
@@ -3164,11 +3593,25 @@
         else openHome(false);
       };
 
-      window.addEventListener('popstate', hydrateFromUrl);
+      window.addEventListener('popstate', () => {
+        const openDlg = document.querySelector('dialog[open]');
+        if (openDlg) {
+          openDlg.close();
+          return;
+        }
+        hydrateFromUrl();
+      });
 
       renderPinnedHome();
       renderCourses();
       hydrateFromUrl();
+
+      // Register Service Worker for offline campus maps & index shell
+      if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        });
+      }
     })();
   </script>
 </body>
