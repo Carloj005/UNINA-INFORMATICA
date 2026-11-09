@@ -1198,106 +1198,149 @@
       text-decoration: underline;
     }
 
+    .lbl-short {
+      display: none;
+    }
+
     /* ==========================================
        MOBILE & TABLET RESPONSIVE OPTIMIZATION
        ========================================== */
     @media (max-width: 768px) {
+      html, body {
+        overflow-x: hidden;
+      }
+      .lbl-full {
+        display: none;
+      }
+      .lbl-short {
+        display: inline;
+      }
+
       .topbar {
         padding: 10px 12px;
       }
       .topbar-inner {
-        gap: 10px;
+        position: relative;
+        gap: 8px;
       }
       .brand-title {
-        gap: 10px;
+        gap: 8px;
         min-width: 0;
-        flex: 1 1 auto;
+        flex: 1 1 100%;
+        padding-right: 42px;
+      }
+      .topbar-inner:has(#header-back-home-btn:not([hidden])) .brand-title {
+        padding-right: 114px;
       }
       .brand-badge {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
       }
       .brand-title h1 {
         font-size: 1.05rem;
-      }
-      .brand-sub {
-        font-size: 0.75rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 68vw;
+      }
+      .brand-sub {
+        display: none;
       }
       .header-actions {
         width: 100%;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 6px;
-        padding-bottom: 2px;
-      }
-      .header-actions::-webkit-scrollbar {
-        display: none;
       }
       .header-actions .btn {
-        flex-shrink: 0;
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
         white-space: nowrap;
-        padding: 6px 10px;
-        font-size: 0.8125rem;
-        min-height: 36px;
+        padding: 5px 6px;
+        font-size: 0.75rem;
+        min-height: 34px;
+        gap: 4px;
+      }
+      .header-actions #header-back-home-btn {
+        position: absolute;
+        top: 0;
+        right: 40px;
+        width: auto;
+        padding: 0 10px;
+        height: 34px;
+      }
+      .header-actions #theme-toggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+      }
+      .section-sub {
+        display: none;
       }
 
       main {
-        margin: var(--sp-2) auto var(--sp-4);
+        margin: 12px auto 32px;
         padding: 0 12px;
       }
 
       /* Home Hero Mobile */
       .home-hero {
-        padding: var(--sp-2);
+        padding: 14px;
         margin-bottom: var(--sp-3);
-        gap: var(--sp-2);
+        gap: 12px;
       }
       .home-hero h2 {
-        font-size: 1.35rem;
+        font-size: 1.25rem;
         line-height: 1.3;
       }
       .home-hero p {
-        font-size: 0.9375rem;
+        font-size: 0.875rem;
       }
       .home-stats-row {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px 12px;
-        padding: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 10px;
+        padding: 10px 12px;
         font-size: 0.8125rem;
       }
       .home-stats-row .home-stat-item:last-child {
         grid-column: 1 / -1;
       }
       .home-search-bar {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
         align-items: stretch;
-        gap: var(--sp-1);
+        gap: 6px;
       }
       .home-search-bar .search-input-wrap {
-        flex: none;
-        width: 100%;
+        flex: 1 1 0%;
+        min-width: 0;
       }
       .home-search-bar .btn {
-        width: 100%;
-        justify-content: center;
-        min-height: 44px;
+        flex-shrink: 0;
+        padding: 0 12px;
+        min-height: 42px;
+        font-size: 0.875rem;
       }
       .home-cta-row {
         display: grid;
-        grid-template-columns: 1fr;
-        gap: var(--sp-1);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding-top: 0;
+      }
+      .home-cta-row #home-open-catalog-btn {
+        grid-column: 1 / -1;
       }
       .home-cta-row .btn {
         width: 100%;
         justify-content: center;
-        min-height: 42px;
+        padding: 8px 10px;
+        font-size: 0.84375rem;
+        min-height: 40px;
+        white-space: nowrap;
       }
 
       /* Prevent iOS/Android auto-zoom on input focus & hide desktop '/' hint */
@@ -1306,98 +1349,137 @@
       }
       .search-input {
         font-size: 1rem;
-        padding: 8px 12px 8px 38px;
-        min-height: 44px;
+        padding: 6px 10px 6px 36px;
+        min-height: 42px;
       }
       select.filter-select {
-        font-size: 1rem;
-        min-height: 44px;
+        font-size: 0.875rem;
+        padding: 6px 8px;
+        min-height: 38px;
         max-width: none !important;
+        min-width: 0;
       }
 
-      /* Catalog Top Navigation Tabs */
+      /* Catalog Top Navigation Segmented Bar (all 3 tabs visible at once) */
       .catalog-top-bar {
-        padding: 10px;
-        gap: 8px;
+        padding: 6px;
+        gap: 6px;
       }
       .nav-tabs {
         width: 100%;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 6px;
       }
-      .nav-tabs::-webkit-scrollbar {
-        display: none;
-      }
       .tab-btn {
-        flex: 1 0 auto;
-        justify-content: center;
-        white-space: nowrap;
-        padding: 8px 12px;
-        font-size: 0.8125rem;
-        min-height: 38px;
-      }
-      #catalog-back-home-btn {
         width: 100%;
         justify-content: center;
-        min-height: 38px;
+        white-space: nowrap;
+        padding: 8px 6px;
+        font-size: 0.78125rem;
+        min-height: 36px;
+        gap: 4px;
+      }
+      #catalog-back-home-btn {
+        display: none;
       }
 
-      /* Filters & Swipeable Quick Chips */
+      /* Filters (compact 2x2 grid) & 3x2 Quick Chips Grid */
       .filter-card {
         padding: 12px;
       }
       .filters-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        margin-top: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin-top: 8px;
       }
       .filters-grid select:last-child {
         grid-column: 1 / -1;
       }
       .chip-bar-row {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 6px;
-        margin-top: 10px;
-        padding-bottom: 2px;
-      }
-      .chip-bar-row::-webkit-scrollbar {
-        display: none;
+        margin-top: 8px;
       }
       .chip-bar {
-        flex-wrap: nowrap;
-        gap: 6px;
+        display: contents;
       }
       .chip {
-        flex-shrink: 0;
+        width: 100%;
+        justify-content: center;
         white-space: nowrap;
-        padding: 6px 10px;
+        padding: 6px 6px;
+        font-size: 0.78125rem;
+        min-height: 34px;
+        gap: 4px;
+      }
+      .results-meta {
         font-size: 0.8125rem;
-        min-height: 36px;
+        gap: 8px;
+      }
+      .results-meta-actions {
+        gap: 10px;
+      }
+      .btn-link-action {
+        font-size: 0.8125rem;
+        gap: 4px;
       }
 
-      /* Grids Single-Column on Mobile */
+      /* Grids Single-Column with strict minmax(0, 1fr) to prevent overflow */
       .courses-grid,
       .hub-grid,
       .home-pinned-grid,
       .recent-grid,
       .home-years-grid,
       .home-shortcuts-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .course-card,
+      .hub-card,
+      .year-card,
+      .pinned-card,
+      .recent-card,
+      .file-row {
+        min-width: 0;
+        max-width: 100%;
+      }
+      .course-card {
+        padding: 14px;
+      }
+      .course-meta-row {
+        gap: 4px;
+      }
+      .meta-tag {
+        padding: 2px 6px;
+        font-size: 0.71875rem;
+      }
+      .hub-card {
+        padding: 14px;
+      }
+      .hub-card .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .prof-list {
+        padding: 8px 10px;
+        min-width: 0;
+      }
+      .prof-item {
+        min-width: 0;
+      }
+      .prof-link {
+        flex: 1 1 0%;
+        min-width: 0;
       }
       .year-card {
-        padding: var(--sp-2);
-        gap: var(--sp-2);
+        padding: 14px;
+        gap: 12px;
       }
       .year-card-actions {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--sp-1);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
       }
       .year-card-actions .btn {
         width: 100%;
@@ -1408,7 +1490,7 @@
       .file-row {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
+        gap: 8px;
         padding: 12px;
       }
       .file-info {
@@ -1418,28 +1500,29 @@
         gap: 10px;
       }
       .file-icon {
-        width: 36px;
-        height: 36px;
+        width: 34px;
+        height: 34px;
       }
       .file-name {
         font-size: 0.9375rem;
       }
       .file-crumbs {
         font-size: 0.8125rem;
+        margin-top: 4px;
       }
       .file-actions {
         width: 100%;
         justify-content: space-between;
         border-top: 1px solid var(--border);
-        padding-top: 10px;
+        padding-top: 8px;
       }
       .size-tag {
         margin-right: auto;
         font-size: 0.8125rem;
       }
       .file-actions .btn {
-        min-height: 36px;
-        padding: 6px 12px;
+        min-height: 34px;
+        padding: 5px 12px;
         font-size: 0.8125rem;
       }
 
@@ -1490,15 +1573,6 @@
       .brand-sub {
         display: none;
       }
-      .filters-grid {
-        grid-template-columns: 1fr;
-      }
-      .course-card {
-        padding: 16px;
-      }
-      .course-actions {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -1528,23 +1602,23 @@
         </button>
         <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">
           <svg class="icon" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-          Repository GitHub
+          <span class="lbl-full">Repository GitHub</span><span class="lbl-short">GitHub</span>
         </a>
         <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
           <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-          Segnala codice Teams
+          <span class="lbl-full">Segnala codice Teams</span><span class="lbl-short">Teams</span>
         </a>
         <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
           <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
-          Segnala bug
+          <span class="lbl-full">Segnala bug</span><span class="lbl-short">Bug</span>
         </a>
         <a class="btn" href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">
           <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-          Gruppi Telegram
+          <span class="lbl-full">Gruppi Telegram</span><span class="lbl-short">Telegram</span>
         </a>
-        <button type="button" class="btn" id="theme-toggle" aria-label="Cambia tema chiaro o scuro">
+        <button type="button" class="btn" id="theme-toggle" aria-label="Cambia tema chiaro o scuro" title="Cambia tema chiaro o scuro">
           <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          Tema
+          <span class="lbl-full">Tema</span>
         </button>
       </div>
     </div>
@@ -1594,7 +1668,7 @@
           </div>
           <button type="submit" class="btn btn-primary">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            Cerca nel catalogo
+            <span class="lbl-full">Cerca nel catalogo</span><span class="lbl-short">Cerca</span>
           </button>
         </form>
 
@@ -1605,11 +1679,11 @@
           </button>
           <button type="button" class="btn btn-lg" id="home-open-courses-btn">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            Sfoglia insegnamenti e codici Teams
+            <span class="lbl-full">Sfoglia insegnamenti e codici Teams</span><span class="lbl-short">Corsi e Teams</span>
           </button>
           <button type="button" class="btn btn-lg" id="home-open-hub-btn">
             <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-            Mappe campus e clone selettivo
+            <span class="lbl-full">Mappe campus e clone selettivo</span><span class="lbl-short">Mappe e Git</span>
           </button>
         </div>
       </section>
@@ -1772,15 +1846,15 @@
         <nav class="nav-tabs" role="tablist" aria-label="Sezioni del catalogo">
           <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="true">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            Catalogo file ed esami
+            <span class="lbl-full">Catalogo file ed esami</span><span class="lbl-short">File ed esami</span>
           </button>
           <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            Corsi, propedeuticità e Teams
+            <span class="lbl-full">Corsi, propedeuticità e Teams</span><span class="lbl-short">Corsi e Teams</span>
           </button>
           <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false">
             <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-            Mappe, clone selettivo e guide
+            <span class="lbl-full">Mappe, clone selettivo e guide</span><span class="lbl-short">Mappe e Git</span>
           </button>
         </nav>
         <button type="button" class="btn" id="catalog-back-home-btn">
@@ -1837,28 +1911,28 @@
             <div class="chip-bar" aria-label="Filtri rapidi">
               <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
                 <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-                Solo slides
+                <span class="lbl-full">Solo slides</span><span class="lbl-short">Slides</span>
               </button>
               <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                Solo tracce scritte
+                <span class="lbl-full">Solo tracce scritte</span><span class="lbl-short">Tracce</span>
               </button>
               <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                Solo appunti
+                <span class="lbl-full">Solo appunti</span><span class="lbl-short">Appunti</span>
               </button>
               <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                Solo progetti
+                <span class="lbl-full">Solo progetti</span><span class="lbl-short">Progetti</span>
               </button>
               <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
                 <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                Solo esercizi
+                <span class="lbl-full">Solo esercizi</span><span class="lbl-short">Esercizi</span>
               </button>
             </div>
             <button type="button" class="chip" id="toggle-group-folders" aria-pressed="false" title="Raggruppa i file per sottocartella">
               <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              Raggruppa per cartella
+              <span class="lbl-full">Raggruppa per cartella</span><span class="lbl-short">Cartelle</span>
             </button>
           </div>
         </div>
@@ -1877,7 +1951,7 @@
           <div class="results-meta-actions">
             <button type="button" class="btn-link-action" id="copy-search-link-btn">
               <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              Copia link a questa ricerca
+              <span class="lbl-full">Copia link a questa ricerca</span><span class="lbl-short">Condividi link</span>
             </button>
             <button type="button" class="btn-link-action" id="reset-filters" hidden>Azzera filtri</button>
           </div>
