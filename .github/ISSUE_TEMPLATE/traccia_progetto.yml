@@ -1,0 +1,37 @@
+name: "🚀 Invia Traccia Progetto"
+description: "Condividi la specifica, la traccia o il template di un progetto universitario (es. Ingegneria del Software, Tecnologie Web, Basi di Dati, POO, APSD, Reti)"
+title: "[Progetto] "
+labels: ["contenuto"]
+body:
+  - type: input
+    id: corso
+    attributes:
+      label: Insegnamento e Canale / Docente
+      description: "Indica l'insegnamento e il docente o canale di riferimento."
+      placeholder: "Es. Ingegneria del Software - Prof. Di Martino, Tecnologie Web - Prof. Starace, APSD - Prof. Benerecetti..."
+    validations:
+      required: true
+  - type: input
+    id: sessione
+    attributes:
+      label: Anno Accademico / Sessione o Data di Riferimento
+      description: "Indica l'anno accademico, il mese o la sessione a cui si riferisce il progetto."
+      placeholder: "Es. A.A. 2026/2027, Ottobre 2026, Sessione Estiva 2026..."
+    validations:
+      required: true
+  - type: textarea
+    id: traccia
+    attributes:
+      label: Testo o Allegato della Traccia / Template
+      description: "Trascina qui il file PDF della specifica e/o l'archivio `.zip` del template, oppure descrivi i requisiti del progetto."
+      placeholder: "Allega i file (specifica PDF, template .zip, diagrammi) o incolla qui i dettagli della traccia..."
+    validations:
+      required: true
+  - type: textarea
+    id: variazioni_note
+    attributes:
+      label: Modalità di Consegna, Variazioni e Note (opzionale)
+      description: "Eventuali chiarimenti del docente, scadenze, vincoli tecnologici o indicazioni utili per lo svolgimento."
+      placeholder: "Indica eventuali differenze rispetto agli anni precedenti, scadenze o note sui test..."
+    validations:
+      required: false

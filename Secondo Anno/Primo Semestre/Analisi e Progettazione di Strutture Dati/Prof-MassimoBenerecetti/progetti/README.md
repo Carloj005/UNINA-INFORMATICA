@@ -34,4 +34,4 @@ Questa directory raccoglie in ordine cronologico le specifiche ufficiali, i diag
 
 Hai ricevuto una nuova specifica di progetto, un aggiornamento del `Template.zip` o indicazioni sulle variazioni richieste per le sessioni successive?
 
-👉 **[Apri una segnalazione con il template dedicato (🚀 Segnala Traccia Progetto APSD)](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto_apsd.yml)**
+👉 **[Apri una segnalazione con il template dedicato (🚀 Invia Traccia Progetto)](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml)**

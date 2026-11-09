@@ -1,19 +1,33 @@
-name: "🐛 Segnala un Errore negli Appunti o nella Repository"
-description: "Segnala un refuso in una dispensa, un file corrotto o un'informazione da aggiornare."
-title: "[Fix] "
-labels: ["documentation"]
+name: "🐛 Segnala un Bug o un Errore"
+description: "Segnala un bug del portale web, un problema su una funzionalità della repository o un errore nel materiale didattico."
+title: "[Bug/Fix] "
+labels: ["bug"]
 body:
-  - type: input
-    id: percorso
+  - type: dropdown
+    id: ambito
     attributes:
-      label: Corso, Docente e Nome del File
-      placeholder: "Es. Geometria / Prof-FrancescaCioffi / appunti lezione 2 (pag. 4)"
+      label: Ambito della segnalazione
+      description: "Indica a cosa si riferisce il problema riscontrato."
+      options:
+        - "Portale Web (interfaccia, ricerca, filtri, navigazione)"
+        - "Funzionalità / Struttura della repository / Automazione"
+        - "Errore o refuso in un file / appunto didattico"
+        - "Altro"
     validations:
       required: true
+  - type: input
+    id: riferimento
+    attributes:
+      label: Sezione, Funzionalità o File interessato (opzionale)
+      description: "Se applicabile, indica la sezione del sito, la funzionalità o il file specifico."
+      placeholder: "Es. Filtro categorie sul portale web, oppure Geometria / appunti lezione 2"
+    validations:
+      required: false
   - type: textarea
     id: descrizione
     attributes:
-      label: Descrizione dell'errore e correzione suggerita
-      placeholder: "Descrivi chiaramente cosa c'è di errato e come andrebbe corretto."
+      label: Descrizione del problema e comportamento atteso
+      description: "Descrivi chiaramente il bug o l'errore riscontrato (puoi anche incollare uno screenshot) e come dovrebbe comportarsi."
+      placeholder: "Spiega cosa succede, i passaggi per riprodurlo o la correzione suggerita..."
     validations:
       required: true

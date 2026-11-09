@@ -26,35 +26,44 @@
       --sp-5: 40px;
       --sp-6: 48px;
 
-      /* Single neutral high-contrast palette (zero gradients, zero glow) */
-      --bg-light: #fafafa;
-      --bg-dark: #09090b;
+      /* High-readability Slate + Federico II Academic Blue palette (zero gradients, zero glow) */
+      --bg-light: #f1f5f9;
+      --bg-dark: #0b1120;
       --surface-light: #ffffff;
-      --surface-dark: #18181b;
-      --surface-2-light: #f4f4f5;
-      --surface-2-dark: #27272a;
-      --border-light: #d4d4d8;
-      --border-dark: #3f3f46;
-      --border-strong-light: #71717a;
-      --border-strong-dark: #a1a1aa;
-      --text-light: #09090b;
-      --text-dark: #fafafa;
-      --muted-light: #52525b;
-      --muted-dark: #d4d4d8;
-      --accent-light: #18181b;
-      --accent-dark: #fafafa;
-      --accent-fg-light: #fafafa;
-      --accent-fg-dark: #09090b;
+      --surface-dark: #111827;
+      --surface-2-light: #f8fafc;
+      --surface-2-dark: #1e293b;
+      --surface-3-light: #e2e8f0;
+      --surface-3-dark: #334155;
+      --border-light: #cbd5e1;
+      --border-dark: #334155;
+      --border-strong-light: #64748b;
+      --border-strong-dark: #94a3b8;
+      --text-light: #0f172a;
+      --text-dark: #f8fafc;
+      --muted-light: #334155;
+      --muted-dark: #cbd5e1;
+      --primary-light: #0f4c81;
+      --primary-dark: #2563eb;
+      --primary-hover-light: #0a365c;
+      --primary-hover-dark: #1d4ed8;
+      --primary-soft-light: #e0f2fe;
+      --primary-soft-dark: #1e3a8a;
+      --primary-text-light: #0f4c81;
+      --primary-text-dark: #93c5fd;
 
       --bg: light-dark(var(--bg-light), var(--bg-dark));
       --surface: light-dark(var(--surface-light), var(--surface-dark));
       --surface-2: light-dark(var(--surface-2-light), var(--surface-2-dark));
+      --surface-3: light-dark(var(--surface-3-light), var(--surface-3-dark));
       --border: light-dark(var(--border-light), var(--border-dark));
       --border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
       --text: light-dark(var(--text-light), var(--text-dark));
       --muted: light-dark(var(--muted-light), var(--muted-dark));
-      --accent: light-dark(var(--accent-light), var(--accent-dark));
-      --accent-fg: light-dark(var(--accent-fg-light), var(--accent-fg-dark));
+      --primary: light-dark(var(--primary-light), var(--primary-dark));
+      --primary-hover: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
+      --primary-soft: light-dark(var(--primary-soft-light), var(--primary-soft-dark));
+      --primary-text: light-dark(var(--primary-text-light), var(--primary-text-dark));
     }
 
     [hidden] {
@@ -62,7 +71,7 @@
     }
 
     html {
-      accent-color: var(--accent);
+      accent-color: var(--primary);
       box-sizing: border-box;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
       font-weight: 400;
@@ -132,16 +141,17 @@
       height: var(--sp-5);
       border-radius: var(--sp-1);
       border: 1px solid var(--border);
-      background: var(--surface-2);
+      background: var(--primary-soft);
+      color: var(--primary-text);
       display: grid;
       place-items: center;
-      color: var(--text);
       flex-shrink: 0;
     }
     .brand-title h1 {
       margin: 0;
       font-size: 1.125rem;
       font-weight: 600;
+      color: var(--text);
     }
     .brand-sub {
       font-size: 0.875rem;
@@ -171,124 +181,96 @@
       font-weight: 600;
       cursor: pointer;
       line-height: 1.5;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
     }
     .btn:hover {
       border-color: var(--border-strong);
-      background: var(--surface);
+      background: var(--surface-3);
     }
     .btn-primary {
-      background: var(--accent);
-      color: var(--accent-fg);
-      border-color: var(--accent);
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
     }
     .btn-primary:hover {
-      background: var(--surface-2);
-      color: var(--text);
-      border-color: var(--border-strong);
+      background: var(--primary-hover);
+      color: #ffffff;
+      border-color: var(--primary-hover);
     }
     .btn-lg {
       padding: var(--sp-2) var(--sp-3);
       font-size: 1rem;
     }
 
-    /* Stats Strip (plain undecorated numbers) */
-    .stats-bar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: var(--sp-1) var(--sp-3);
-    }
-    .stats-inner {
+    /* Main Container */
+    main {
       max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--sp-2);
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.875rem;
-      color: var(--muted);
+      width: 100%;
+      margin: var(--sp-4) auto var(--sp-6);
+      padding: 0 var(--sp-3);
+      flex: 1;
     }
-    .stats-list {
+
+    /* ==========================================
+       STANDALONE HOME SCREEN (#home-screen)
+       ========================================== */
+    .home-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-4);
+      margin-bottom: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+    .home-hero-header {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-1);
+    }
+    .home-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary-text);
+    }
+    .home-hero h2 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .home-hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 74ch;
+    }
+    .home-stats-row {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sp-3);
-      align-items: center;
+      padding: var(--sp-2);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      font-size: 0.9375rem;
+      color: var(--muted);
     }
-    .stat-item {
+    .home-stat-item {
       display: inline-flex;
       align-items: center;
       gap: var(--sp-1);
       font-variant-numeric: tabular-nums;
     }
-    .stat-item strong {
+    .home-stat-item strong {
       color: var(--text);
       font-weight: 600;
-    }
-
-    /* Navigation Tabs */
-    .nav-tabs {
-      max-width: 1200px;
-      width: 100%;
-      margin: var(--sp-3) auto 0;
-      padding: 0 var(--sp-3);
-      display: flex;
-      gap: var(--sp-1);
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--muted);
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-1);
-    }
-    .tab-btn:hover {
-      color: var(--text);
-      border-color: var(--border-strong);
-    }
-    .tab-btn[aria-selected="true"] {
-      background: var(--accent);
-      color: var(--accent-fg);
-      border-color: var(--accent);
-    }
-
-    /* Main Container */
-    main {
-      max-width: 1200px;
-      width: 100%;
-      margin: var(--sp-3) auto var(--sp-6);
-      padding: 0 var(--sp-3);
-      flex: 1;
-    }
-
-    /* Home View (Issue #26) */
-    .home-hero {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-4);
-      margin-bottom: var(--sp-3);
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-3);
-    }
-    .home-hero h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .home-hero p {
-      margin: var(--sp-1) 0 0;
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 72ch;
     }
     .home-search-bar {
       display: flex;
@@ -301,6 +283,7 @@
       gap: var(--sp-2);
       flex-wrap: wrap;
       align-items: center;
+      padding-top: var(--sp-1);
     }
     .section-heading {
       margin: 0 0 var(--sp-2);
@@ -313,7 +296,7 @@
     }
     .home-years-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
       gap: var(--sp-2);
       margin-bottom: var(--sp-4);
     }
@@ -325,24 +308,38 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: var(--sp-2);
+      gap: var(--sp-3);
+      transition: border-color 0.15s ease;
     }
     .year-card:hover {
-      border-color: var(--border-strong);
+      border-color: var(--primary);
+    }
+    .year-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-1);
     }
     .year-card h3 {
       margin: 0;
-      font-size: 1.0625rem;
+      font-size: 1.125rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       gap: var(--sp-1);
+      color: var(--text);
+    }
+    .year-count {
+      font-size: 0.875rem;
+      color: var(--primary-text);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }
     .year-card-meta {
       margin: var(--sp-1) 0 0;
       font-size: 0.875rem;
       color: var(--muted);
-      font-variant-numeric: tabular-nums;
+      line-height: 1.5;
     }
     .year-card-actions {
       display: flex;
@@ -366,11 +363,12 @@
       text-decoration: none;
       color: var(--text);
       font-weight: 600;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
     }
     .shortcut-card:hover {
-      border-color: var(--border-strong);
+      border-color: var(--primary);
       background: var(--surface-2);
     }
     .shortcut-left {
@@ -378,13 +376,68 @@
       align-items: center;
       gap: var(--sp-2);
     }
+    .shortcut-icon-box {
+      width: var(--sp-4);
+      height: var(--sp-4);
+      border-radius: var(--sp-1);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================
+       FULL PORTAL VIEW (#catalog-screen)
+       ========================================== */
+    .catalog-top-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
+      margin-bottom: var(--sp-3);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+    }
+    .nav-tabs {
+      display: flex;
+      gap: var(--sp-1);
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: var(--sp-1) var(--sp-2);
+      border-radius: var(--sp-1);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
+      background: var(--surface-3);
+    }
+    .tab-btn[aria-selected="true"] {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
 
     /* Search & Filters Card */
     .filter-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--sp-1);
-      padding: var(--sp-2);
+      padding: var(--sp-3);
       margin-bottom: var(--sp-2);
     }
     .search-row {
@@ -414,9 +467,10 @@
       font-size: 0.9375rem;
       font-weight: 400;
       line-height: 1.5;
+      min-height: 40px;
     }
     .search-input:focus {
-      outline: 2px solid var(--border-strong);
+      outline: 2px solid var(--primary);
       outline-offset: 0;
       background: var(--surface);
     }
@@ -447,6 +501,11 @@
       font-size: 0.875rem;
       font-weight: 400;
       line-height: 1.5;
+      min-height: 40px;
+    }
+    select.filter-select:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 0;
     }
     .chip-bar {
       display: flex;
@@ -463,18 +522,19 @@
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--muted);
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
     }
     .chip:hover {
       color: var(--text);
       border-color: var(--border-strong);
+      background: var(--surface-3);
     }
     .chip[aria-pressed="true"] {
-      background: var(--accent);
-      color: var(--accent-fg);
-      border-color: var(--accent);
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
     }
 
     /* Results Header */
@@ -483,7 +543,7 @@
       align-items: center;
       justify-content: space-between;
       margin: var(--sp-2) 0;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       color: var(--muted);
       flex-wrap: wrap;
       gap: var(--sp-1);
@@ -492,7 +552,7 @@
     .btn-link-reset {
       background: none;
       border: none;
-      color: var(--text);
+      color: var(--primary-text);
       cursor: pointer;
       font-size: 0.875rem;
       font-weight: 600;
@@ -516,9 +576,10 @@
       justify-content: space-between;
       gap: var(--sp-2);
       flex-wrap: wrap;
+      transition: border-color 0.15s ease;
     }
     .file-row:hover {
-      border-color: var(--border-strong);
+      border-color: var(--primary);
     }
     .deferred-card {
       content-visibility: auto;
@@ -526,26 +587,29 @@
     }
     .file-info {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: var(--sp-2);
       min-width: 240px;
       flex: 1;
     }
     .file-icon {
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding-top: 0;
+      width: var(--sp-5);
+      height: var(--sp-5);
+      border-radius: var(--sp-1);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
     }
     .file-name {
       font-weight: 600;
-      font-size: 0.9375rem;
+      font-size: 1rem;
       color: var(--text);
       word-break: break-word;
     }
     .file-crumbs {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--muted);
       margin-top: var(--sp-1);
       display: flex;
@@ -554,8 +618,13 @@
       align-items: center;
     }
     .cat-tag {
-      color: var(--text);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 0 var(--sp-1);
+      border-radius: var(--sp-1);
+      color: var(--primary-text);
       font-weight: 600;
+      font-size: 0.8125rem;
     }
     .file-actions {
       display: flex;
@@ -564,7 +633,7 @@
       flex-shrink: 0;
     }
     .size-tag {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--muted);
       margin-right: var(--sp-1);
       font-variant-numeric: tabular-nums;
@@ -578,25 +647,27 @@
     /* Courses Grid */
     .courses-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(336px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
       gap: var(--sp-2);
     }
     .course-card {
       background: var(--surface);
       border: 1px solid var(--border);
+      border-top: 4px solid var(--primary);
       border-radius: var(--sp-1);
       padding: var(--sp-3);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: var(--sp-2);
+      transition: border-color 0.15s ease;
     }
     .course-card:hover {
-      border-color: var(--border-strong);
+      border-color: var(--primary);
     }
     .course-card.deferred-course {
       content-visibility: auto;
-      contain-intrinsic-size: auto none auto 240px;
+      contain-intrinsic-size: auto none auto 256px;
     }
     .course-head {
       display: flex;
@@ -606,7 +677,7 @@
     }
     .course-title {
       margin: 0;
-      font-size: 1rem;
+      font-size: 1.0625rem;
       font-weight: 600;
       line-height: 1.4;
     }
@@ -615,6 +686,7 @@
       text-decoration: none;
     }
     .course-title a:hover {
+      color: var(--primary-text);
       text-decoration: underline;
     }
     .course-status {
@@ -622,20 +694,30 @@
       align-items: center;
       gap: var(--sp-1);
       font-size: 0.8125rem;
-      color: var(--muted);
+      font-weight: 600;
+      color: var(--primary-text);
+      background: var(--primary-soft);
+      padding: 0 var(--sp-1);
+      border-radius: var(--sp-1);
       flex-shrink: 0;
     }
     .course-meta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sp-2);
+      gap: var(--sp-1);
       margin-top: var(--sp-1);
       font-size: 0.8125rem;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
     }
+    .meta-tag {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 0 var(--sp-1);
+      border-radius: var(--sp-1);
+    }
     .course-prop {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       color: var(--muted);
       margin-top: var(--sp-1);
     }
@@ -643,15 +725,17 @@
       display: flex;
       flex-direction: column;
       gap: var(--sp-1);
-      border-top: 1px solid var(--border);
-      padding-top: var(--sp-2);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
     }
     .prof-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: var(--sp-1);
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       flex-wrap: wrap;
     }
     .prof-link {
@@ -661,24 +745,27 @@
       font-variant-numeric: tabular-nums;
     }
     .prof-link:hover {
+      color: var(--primary-text);
       text-decoration: underline;
     }
     .teams-chip {
       display: inline-flex;
       align-items: center;
       gap: var(--sp-1);
-      padding: var(--sp-1) var(--sp-2);
+      padding: 0 var(--sp-1);
       border-radius: var(--sp-1);
       font-size: 0.8125rem;
       font-weight: 600;
       border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
+      background: var(--surface);
+      color: var(--primary-text);
       cursor: pointer;
       text-decoration: none;
+      min-height: 32px;
     }
     .teams-chip:hover {
-      border-color: var(--border-strong);
+      border-color: var(--primary);
+      background: var(--primary-soft);
     }
     .teams-chip.missing-code {
       color: var(--muted);
@@ -688,7 +775,7 @@
     /* Hub & Maps Grid */
     .hub-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(312px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: var(--sp-2);
     }
     .hub-card {
@@ -703,7 +790,7 @@
     }
     .hub-card h3 {
       margin: 0 0 var(--sp-1);
-      font-size: 1rem;
+      font-size: 1.0625rem;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -793,8 +880,8 @@
       position: fixed;
       bottom: var(--sp-3);
       right: var(--sp-3);
-      background: var(--accent);
-      color: var(--accent-fg);
+      background: var(--primary);
+      color: #ffffff;
       padding: var(--sp-1) var(--sp-2);
       border-radius: var(--sp-1);
       border: 1px solid var(--border-strong);
@@ -820,7 +907,7 @@
       color: var(--muted);
     }
     footer a {
-      color: var(--text);
+      color: var(--primary-text);
       font-weight: 600;
       text-decoration: underline;
     }
@@ -829,7 +916,7 @@
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand-title" href="./" id="brand-home-link">
+      <a class="brand-title" href="./" id="brand-home-link" title="Torna alla pagina iniziale">
         <span class="brand-badge" aria-hidden="true">
           <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
         </span>
@@ -839,6 +926,10 @@
         </span>
       </a>
       <div class="header-actions">
+        <button type="button" class="btn" id="header-back-home-btn" hidden>
+          <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Home
+        </button>
         <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">
           <svg class="icon" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
           Repository GitHub
@@ -863,136 +954,139 @@
     </div>
   </header>
 
-  <section class="stats-bar" aria-label="Statistiche archivio">
-    <div class="stats-inner">
-      <div class="stats-list">
-        <span class="stat-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-          <strong id="stat-files">0</strong> documenti indicizzati
-        </span>
-        <span class="stat-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-          <strong id="stat-courses">0</strong> corsi (2026/2027)
-        </span>
-        <span class="stat-item">
-          <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-          <strong id="stat-teams">0</strong> codici Teams attivi
-        </span>
-        <span class="stat-item">
-          <svg class="icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-          <strong id="stat-size">0 gb</strong> archivio totale
-        </span>
-      </div>
-      <span>Ultimo aggiornamento: <strong id="stat-updated">—</strong></span>
-    </div>
-  </section>
-
-  <nav class="nav-tabs" role="tablist" aria-label="Sezioni del portale">
-    <button type="button" role="tab" class="tab-btn" id="tab-btn-home" aria-controls="panel-home" aria-selected="true">
-      <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Home
-    </button>
-    <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="false">
-      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      Catalogo file ed esami
-    </button>
-    <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-      Corsi, propedeuticità e Teams
-    </button>
-    <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false">
-      <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-      Mappe, clone selettivo e guide
-    </button>
-  </nav>
-
   <main>
-    <!-- TAB 0: HOME (Issue #26) -->
-    <section id="panel-home" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-home">
-      <div class="home-hero">
-        <div>
-          <h2>Archivio didattico di Informatica — Federico II</h2>
-          <p>Trova rapidamente slide, appunti, tracce d'esame, esercitazioni svolte e codici Teams del corso di laurea triennale in Informatica, oppure accedi al catalogo completo.</p>
+    <!-- ==========================================
+         VIEW 1: STANDALONE HOME ENTRY SCREEN
+         ========================================== -->
+    <div id="home-screen">
+      <section class="home-hero" aria-label="Presentazione archivio">
+        <div class="home-hero-header">
+          <span class="home-kicker">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            Archivio open-source degli studenti di Informatica
+          </span>
+          <h2>Materiale didattico, esami e codici Teams in un unico posto</h2>
+          <p>Consulta rapidamente slide, appunti, prove scritte, tracce di progetto ed esercitazioni svolte di tutti gli anni di corso, oppure entra nel catalogo completo per filtrare ogni documento.</p>
         </div>
+
+        <div class="home-stats-row" aria-label="Numeri dell'archivio">
+          <span class="home-stat-item">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+            <strong id="home-stat-files">0</strong> documenti indicizzati
+          </span>
+          <span class="home-stat-item">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            <strong id="home-stat-courses">0</strong> insegnamenti (2026/2027)
+          </span>
+          <span class="home-stat-item">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+            <strong id="home-stat-teams">0</strong> codici Teams attivi
+          </span>
+          <span class="home-stat-item">
+            <svg class="icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+            <strong id="home-stat-size">0 gb</strong> dimensione totale
+          </span>
+          <span class="home-stat-item">
+            Aggiornato il <strong id="home-stat-updated">—</strong>
+          </span>
+        </div>
+
         <form class="home-search-bar" id="home-search-form">
           <div class="search-input-wrap">
             <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="search" id="home-search-input" class="search-input" placeholder="Cerca subito un corso, argomento, data d'esame o docente..." aria-label="Ricerca rapida nel catalogo">
+            <input type="search" id="home-search-input" class="search-input" placeholder="Cerca subito un corso, argomento, data d'esame (es. 22-10-2026) o docente..." aria-label="Ricerca rapida nel catalogo">
           </div>
-          <button type="submit" class="btn">
+          <button type="submit" class="btn btn-primary">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            Cerca
+            Cerca nel catalogo
           </button>
         </form>
+
         <div class="home-cta-row">
           <button type="button" class="btn btn-primary btn-lg" id="home-open-catalog-btn">
             <svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
-            Esplora il catalogo completo
+            Accedi al catalogo completo
           </button>
           <button type="button" class="btn btn-lg" id="home-open-courses-btn">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
             Sfoglia insegnamenti e codici Teams
           </button>
+          <button type="button" class="btn btn-lg" id="home-open-hub-btn">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+            Mappe campus e clone selettivo
+          </button>
         </div>
-      </div>
+      </section>
 
       <h3 class="section-heading">
         <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        Navigazione rapida per anno di corso
+        Accesso rapido per anno di corso
       </h3>
       <div class="home-years-grid">
         <article class="year-card">
           <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              Primo anno
-            </h3>
-            <p class="year-card-meta">6 insegnamenti — Architettura, Analisi 1, Programmazione 1, Algebra, Object Oriented, Basi di Dati</p>
+            <div class="year-card-head">
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Primo anno
+              </h3>
+              <span class="year-count">6 corsi</span>
+            </div>
+            <p class="year-card-meta">Architettura degli Elaboratori, Analisi Matematica 1, Programmazione 1, Algebra, Programmazione Object Oriented, Basi di Dati.</p>
           </div>
           <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Primo Anno">Vedi file</button>
+            <button type="button" class="btn btn-primary" data-home-year-files="Primo Anno">Esplora file</button>
             <button type="button" class="btn" data-home-year-courses="Primo Anno">Corsi e Teams</button>
           </div>
         </article>
 
         <article class="year-card">
           <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              Secondo anno
-            </h3>
-            <p class="year-card-meta">8 insegnamenti — Strutture Dati, Informatica Teorica, Fisica 1, Geometria, Sistemi Operativi, Algoritmi, Linguaggi 1, Statistica</p>
+            <div class="year-card-head">
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Secondo anno
+              </h3>
+              <span class="year-count">8 corsi</span>
+            </div>
+            <p class="year-card-meta">Analisi e Progettazione di Strutture Dati, Informatica Teorica, Fisica Generale 1, Geometria, Sistemi Operativi, Algoritmi, Linguaggi 1, Statistica.</p>
           </div>
           <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Secondo Anno">Vedi file</button>
+            <button type="button" class="btn btn-primary" data-home-year-files="Secondo Anno">Esplora file</button>
             <button type="button" class="btn" data-home-year-courses="Secondo Anno">Corsi e Teams</button>
           </div>
         </article>
 
         <article class="year-card">
           <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              Terzo anno
-            </h3>
-            <p class="year-card-meta">5 insegnamenti — Reti e Programmazione Distribuita, Ingegneria del Software, Tecnologie Web, AI Technologies, Programmazione Avanzata</p>
+            <div class="year-card-head">
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Terzo anno
+              </h3>
+              <span class="year-count">5 corsi</span>
+            </div>
+            <p class="year-card-meta">Reti e Programmazione Distribuita, Ingegneria del Software, Tecnologie Web, AI Technologies, Tecniche di Programmazione Avanzata.</p>
           </div>
           <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Terzo Anno">Vedi file</button>
+            <button type="button" class="btn btn-primary" data-home-year-files="Terzo Anno">Esplora file</button>
             <button type="button" class="btn" data-home-year-courses="Terzo Anno">Corsi e Teams</button>
           </div>
         </article>
 
         <article class="year-card">
           <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              Esami a scelta
-            </h3>
-            <p class="year-card-meta">12 insegnamenti — Economia, Multimedia, Algorithm Design, Ricerca Operativa, Calcolo Numerico, Forensics e altri</p>
+            <div class="year-card-head">
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                Esami a scelta
+              </h3>
+              <span class="year-count">12 corsi</span>
+            </div>
+            <p class="year-card-meta">Economia e Organizzazione Aziendale, Multimedia Information Systems, Algorithm Design, Ricerca Operativa, Calcolo Numerico, Forensics e altri.</p>
           </div>
           <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Esami a Scelta">Vedi file</button>
+            <button type="button" class="btn btn-primary" data-home-year-files="Esami a Scelta">Esplora file</button>
             <button type="button" class="btn" data-home-year-courses="Esami a Scelta">Corsi e Teams</button>
           </div>
         </article>
@@ -1000,28 +1094,34 @@
 
       <h3 class="section-heading">
         <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Scorciatoie rapide
+        Scorciatoie e contributi rapidi
       </h3>
       <div class="home-shortcuts-grid">
         <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
           <span class="shortcut-left">
-            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            <span class="shortcut-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </span>
             Orario lezioni 2026/2027
           </span>
           <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
 
-        <button type="button" class="shortcut-card" id="home-open-maps-btn">
+        <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">
           <span class="shortcut-left">
-            <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-            Mappe campus e clone Git
+            <span class="shortcut-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            Invia traccia progetto
           </span>
           <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
+        </a>
 
         <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
           <span class="shortcut-left">
-            <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+            <span class="shortcut-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+            </span>
             Invia codice Teams
           </span>
           <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -1029,243 +1129,263 @@
 
         <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
           <span class="shortcut-left">
-            <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
+            <span class="shortcut-icon-box">
+              <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
+            </span>
             Segnala bug o errore
           </span>
           <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-
-        <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto_apsd.yml" target="_blank" rel="noopener">
-          <span class="shortcut-left">
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Invia traccia progetto APSD
-          </span>
-          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
       </div>
-    </section>
+    </div>
 
-    <!-- TAB 1: FILE SEARCH -->
-    <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files" hidden>
-      <div class="filter-card">
-        <div class="search-row">
-          <div class="search-input-wrap">
-            <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, traccia per data (es. 22-10-2026), argomento, docente..." aria-label="Cerca tra tutti i file">
-            <span class="kbd-hint" aria-hidden="true">/</span>
+    <!-- ==========================================
+         VIEW 2: FULL PORTAL CATALOG (#catalog-screen)
+         ========================================== -->
+    <div id="catalog-screen" hidden>
+      <div class="catalog-top-bar">
+        <nav class="nav-tabs" role="tablist" aria-label="Sezioni del catalogo">
+          <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="true">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Catalogo file ed esami
+          </button>
+          <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            Corsi, propedeuticità e Teams
+          </button>
+          <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+            Mappe, clone selettivo e guide
+          </button>
+        </nav>
+        <button type="button" class="btn" id="catalog-back-home-btn">
+          <svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+          Torna alla Home
+        </button>
+      </div>
+
+      <!-- TAB 1: FILE SEARCH -->
+      <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files">
+        <div class="filter-card">
+          <div class="search-row">
+            <div class="search-input-wrap">
+              <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, traccia per data (es. 22-10-2026), argomento, docente..." aria-label="Cerca tra tutti i file">
+              <span class="kbd-hint" aria-hidden="true">/</span>
+            </div>
           </div>
-        </div>
-        <div class="filters-grid">
-          <select id="filter-year" class="filter-select" aria-label="Filtra per anno">
-            <option value="">Tutti gli anni</option>
-            <option value="Primo Anno">Primo anno</option>
-            <option value="Secondo Anno">Secondo anno</option>
-            <option value="Terzo Anno">Terzo anno</option>
-            <option value="Esami a Scelta">Esami a scelta</option>
-            <option value="Info Generali">Info generali e guide</option>
-          </select>
-          <select id="filter-course" class="filter-select" aria-label="Filtra per corso">
-            <option value="">Tutti i corsi</option>
-          </select>
-          <select id="filter-cat" class="filter-select" aria-label="Filtra per categoria">
-            <option value="">Tutte le categorie</option>
-            <option value="slides">Slides</option>
-            <option value="appunti">Appunti e dispense</option>
-            <option value="esami/scritto">Esami scritti e intercorso</option>
-            <option value="esami/orale">Esami orali</option>
-            <option value="esercizi">Esercizi e laboratorio</option>
-            <option value="progetti">Progetti</option>
-            <option value="libri">Libri</option>
-            <option value="contenuto-non-proprio">Contributi studenti</option>
-          </select>
-        </div>
-        <div class="chip-bar" aria-label="Filtri rapidi">
-          <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
-            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-            Solo slides
-          </button>
-          <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            Solo tracce scritte
-          </button>
-          <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-            Solo appunti
-          </button>
-          <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            Solo progetti
-          </button>
-          <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
-            <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Solo esercizi
-          </button>
-        </div>
-      </div>
-
-      <div class="results-meta">
-        <span id="results-count">Caricamento...</span>
-        <button type="button" class="btn-link-reset" id="reset-filters" hidden>Azzera filtri</button>
-      </div>
-
-      <div id="file-list" class="file-list"></div>
-      <div class="load-more-wrap" id="load-more-wrap" hidden>
-        <button type="button" class="btn" id="load-more-btn" hidden>Mostra altri risultati</button>
-      </div>
-    </section>
-
-    <!-- TAB 2: COURSES & TEAMS -->
-    <section id="panel-courses" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-courses" hidden>
-      <div class="filter-card">
-        <div class="search-row">
-          <div class="search-input-wrap">
-            <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, docente, settore o propedeuticità..." aria-label="Cerca corso o docente">
+          <div class="filters-grid">
+            <select id="filter-year" class="filter-select" aria-label="Filtra per anno">
+              <option value="">Tutti gli anni</option>
+              <option value="Primo Anno">Primo anno</option>
+              <option value="Secondo Anno">Secondo anno</option>
+              <option value="Terzo Anno">Terzo anno</option>
+              <option value="Esami a Scelta">Esami a scelta</option>
+              <option value="Info Generali">Info generali e guide</option>
+            </select>
+            <select id="filter-course" class="filter-select" aria-label="Filtra per corso">
+              <option value="">Tutti i corsi</option>
+            </select>
+            <select id="filter-cat" class="filter-select" aria-label="Filtra per categoria">
+              <option value="">Tutte le categorie</option>
+              <option value="slides">Slides</option>
+              <option value="appunti">Appunti e dispense</option>
+              <option value="esami/scritto">Esami scritti e intercorso</option>
+              <option value="esami/orale">Esami orali</option>
+              <option value="esercizi">Esercizi e laboratorio</option>
+              <option value="progetti">Progetti</option>
+              <option value="libri">Libri</option>
+              <option value="contenuto-non-proprio">Contributi studenti</option>
+            </select>
           </div>
-          <select id="course-year-filter" class="filter-select" style="max-width:240px" aria-label="Filtra corsi per anno">
-            <option value="">Tutti i 31 insegnamenti</option>
-            <option value="Primo Anno">Primo anno (6)</option>
-            <option value="Secondo Anno">Secondo anno (8)</option>
-            <option value="Terzo Anno">Terzo anno (5)</option>
-            <option value="Esami a Scelta">Esami a scelta (12)</option>
-          </select>
-        </div>
-      </div>
-      <div id="courses-grid" class="courses-grid"></div>
-    </section>
-
-    <!-- TAB 3: MAPS, SELECTIVE CLONE & FORMS -->
-    <section id="panel-hub" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-hub" hidden>
-      <div class="hub-grid">
-        <article class="hub-card">
-          <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-              Mappa complesso Monte Sant'Angelo
-            </h3>
-            <p>Aule, edifici (Centri Comuni, Edificio 7) e servizi del campus di Monte Sant'Angelo.</p>
-          </div>
-          <img src="./assets/MappaMSA.png" alt="Mappa del complesso universitario di Monte Sant'Angelo" class="map-thumb" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo" loading="lazy">
-          <div>
-            <button type="button" class="btn btn-primary" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
-              Ingrandisci mappa Monte Sant'Angelo
+          <div class="chip-bar" aria-label="Filtri rapidi">
+            <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
+              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+              Solo slides
             </button>
-          </div>
-        </article>
-
-        <article class="hub-card">
-          <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-              Mappa complesso di Via Claudio
-            </h3>
-            <p>Planimetria delle aule e strutture del complesso universitario di Via Claudio.</p>
-          </div>
-          <img src="./assets/MappaViaClaudio.jpg" alt="Mappa del complesso universitario di Via Claudio" class="map-thumb" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio" loading="lazy">
-          <div>
-            <button type="button" class="btn btn-primary" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
-              Ingrandisci mappa Via Claudio
-            </button>
-          </div>
-        </article>
-
-        <article class="hub-card">
-          <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
-              Generatore comando clone selettivo
-            </h3>
-            <p>Scarica sul computer con Git <strong>solo un singolo corso</strong> senza clonare l'intero archivio.</p>
-          </div>
-          <select id="clone-course-select" class="filter-select" aria-label="Scegli il corso da clonare"></select>
-          <div class="code-box" id="clone-cmd-box"></div>
-          <div>
-            <button type="button" class="btn btn-primary" id="copy-clone-cmd">
-              <svg class="icon" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              Copia comandi Git
-            </button>
-          </div>
-        </article>
-
-        <article class="hub-card">
-          <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-              Moduli anonimi della community
-            </h3>
-            <p>Aiuta i prossimi studenti lasciando una valutazione anonima o condividendo le domande ricevute all'orale.</p>
-          </div>
-          <div class="stack-actions">
-            <a class="btn btn-primary" href="https://forms.gle/seGUyzc2HiRxmpDs9" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-              Valutazione corsi e docenti
-            </a>
-            <a class="btn" href="https://forms.gle/KFHXPqoKNj1LyCk67" target="_blank" rel="noopener">
+            <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
               <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-              Valutazione qualità materiale
-            </a>
-            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfvGQmwT_MQWKN01Ru08KnlvdL-S65TlTPMx-NLvd9kYmX_Xg/viewform" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Raccolta domande esami orali
-            </a>
-          </div>
-        </article>
-
-        <article class="hub-card">
-          <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              Guide ufficiali e GitHub Student Pack
-            </h3>
-            <p>Orario lezioni, manifesto degli studi 2026/2027 e guida ai vantaggi gratuiti con mail istituzionale.</p>
-          </div>
-          <div class="stack-actions">
-            <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/info-generali/guida-github-education.md" target="_blank" rel="noopener">
+              Solo tracce scritte
+            </button>
+            <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              Solo appunti
+            </button>
+            <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              Solo progetti
+            </button>
+            <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
               <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              Guida GitHub Education (Copilot e JetBrains)
-            </a>
-            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              Scarica orario lezioni 2026/2027
-            </a>
-            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/GuidaTriennaleInformatica-26-27.pdf" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-              Scarica guida dello studente 2026/2027
-            </a>
+              Solo esercizi
+            </button>
           </div>
-        </article>
+        </div>
 
-        <article class="hub-card">
-          <div>
-            <h3>
-              <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
-              Contribuisci e segnala
-            </h3>
-            <p>Manca una traccia scritta, un progetto di strutture dati, un codice Teams o hai trovato un bug?</p>
+        <div class="results-meta">
+          <span id="results-count">Caricamento...</span>
+          <button type="button" class="btn-link-reset" id="reset-filters" hidden>Azzera filtri</button>
+        </div>
+
+        <div id="file-list" class="file-list"></div>
+        <div class="load-more-wrap" id="load-more-wrap" hidden>
+          <button type="button" class="btn" id="load-more-btn" hidden>Mostra altri risultati</button>
+        </div>
+      </section>
+
+      <!-- TAB 2: COURSES & TEAMS -->
+      <section id="panel-courses" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-courses" hidden>
+        <div class="filter-card">
+          <div class="search-row">
+            <div class="search-input-wrap">
+              <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, docente, settore o propedeuticità..." aria-label="Cerca corso o docente">
+            </div>
+            <select id="course-year-filter" class="filter-select" style="max-width:240px" aria-label="Filtra corsi per anno">
+              <option value="">Tutti i 31 insegnamenti</option>
+              <option value="Primo Anno">Primo anno (6)</option>
+              <option value="Secondo Anno">Secondo anno (8)</option>
+              <option value="Terzo Anno">Terzo anno (5)</option>
+              <option value="Esami a Scelta">Esami a scelta (12)</option>
+            </select>
           </div>
-          <div class="stack-actions">
-            <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-              Invia o richiedi una traccia o appunti
-            </a>
-            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto_apsd.yml" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              Invia traccia progetto di strutture dati
-            </a>
-            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
-              Segnala bug o errore
-            </a>
-            <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/discussions" target="_blank" rel="noopener">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Apri discussioni su GitHub
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
+        </div>
+        <div id="courses-grid" class="courses-grid"></div>
+      </section>
+
+      <!-- TAB 3: MAPS, SELECTIVE CLONE & FORMS -->
+      <section id="panel-hub" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-hub" hidden>
+        <div class="hub-grid">
+          <article class="hub-card">
+            <div>
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+                Mappa complesso Monte Sant'Angelo
+              </h3>
+              <p>Aule, edifici (Centri Comuni, Edificio 7) e servizi del campus di Monte Sant'Angelo.</p>
+            </div>
+            <img src="./assets/MappaMSA.png" alt="Mappa del complesso universitario di Monte Sant'Angelo" class="map-thumb" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo" loading="lazy">
+            <div>
+              <button type="button" class="btn btn-primary" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
+                Ingrandisci mappa Monte Sant'Angelo
+              </button>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div>
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+                Mappa complesso di Via Claudio
+              </h3>
+              <p>Planimetria delle aule e strutture del complesso universitario di Via Claudio.</p>
+            </div>
+            <img src="./assets/MappaViaClaudio.jpg" alt="Mappa del complesso universitario di Via Claudio" class="map-thumb" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio" loading="lazy">
+            <div>
+              <button type="button" class="btn btn-primary" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
+                Ingrandisci mappa Via Claudio
+              </button>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div>
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+                Generatore comando clone selettivo
+              </h3>
+              <p>Scarica sul computer con Git <strong>solo un singolo corso</strong> senza clonare l'intero archivio.</p>
+            </div>
+            <select id="clone-course-select" class="filter-select" aria-label="Scegli il corso da clonare"></select>
+            <div class="code-box" id="clone-cmd-box"></div>
+            <div>
+              <button type="button" class="btn btn-primary" id="copy-clone-cmd">
+                <svg class="icon" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Copia comandi Git
+              </button>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div>
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                Moduli anonimi della community
+              </h3>
+              <p>Aiuta i prossimi studenti lasciando una valutazione anonima o condividendo le domande ricevute all'orale.</p>
+            </div>
+            <div class="stack-actions">
+              <a class="btn btn-primary" href="https://forms.gle/seGUyzc2HiRxmpDs9" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+                Valutazione corsi e docenti
+              </a>
+              <a class="btn" href="https://forms.gle/KFHXPqoKNj1LyCk67" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                Valutazione qualità materiale
+              </a>
+              <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfvGQmwT_MQWKN01Ru08KnlvdL-S65TlTPMx-NLvd9kYmX_Xg/viewform" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Raccolta domande esami orali
+              </a>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div>
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                Guide ufficiali e GitHub Student Pack
+              </h3>
+              <p>Orario lezioni, manifesto degli studi 2026/2027 e guida ai vantaggi gratuiti con mail istituzionale.</p>
+            </div>
+            <div class="stack-actions">
+              <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/info-generali/guida-github-education.md" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Guida GitHub Education (Copilot e JetBrains)
+              </a>
+              <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Scarica orario lezioni 2026/2027
+              </a>
+              <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/GuidaTriennaleInformatica-26-27.pdf" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Scarica guida dello studente 2026/2027
+              </a>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div>
+              <h3>
+                <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                Contribuisci e segnala
+              </h3>
+              <p>Manca una traccia scritta, una traccia di progetto, un codice Teams o hai trovato un bug?</p>
+            </div>
+            <div class="stack-actions">
+              <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                Invia o richiedi una traccia o appunti
+              </a>
+              <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                Invia traccia progetto
+              </a>
+              <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
+                Segnala bug o errore
+              </a>
+              <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/discussions" target="_blank" rel="noopener">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Apri discussioni su GitHub
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Native Modal Dialog for Course Details -->
@@ -1335,7 +1455,6 @@
         circle: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>'
       };
 
-      // Stats (plain undecorated numbers, lowercase units)
       const fmtBytes = (b) => {
         if (!b || b <= 0) return '—';
         if (b >= 1073741824) return (b / 1073741824).toFixed(2) + ' gb';
@@ -1344,11 +1463,11 @@
         return b + ' b';
       };
 
-      document.getElementById('stat-files').textContent = DATA.files.length.toLocaleString('it-IT');
-      document.getElementById('stat-courses').textContent = DATA.courses.length;
-      document.getElementById('stat-teams').textContent = DATA.stats.teamsCount;
-      document.getElementById('stat-size').textContent = fmtBytes(DATA.stats.totalBytes);
-      document.getElementById('stat-updated').textContent = DATA.stats.generatedAt;
+      document.getElementById('home-stat-files').textContent = DATA.files.length.toLocaleString('it-IT');
+      document.getElementById('home-stat-courses').textContent = DATA.courses.length;
+      document.getElementById('home-stat-teams').textContent = DATA.stats.teamsCount;
+      document.getElementById('home-stat-size').textContent = fmtBytes(DATA.stats.totalBytes);
+      document.getElementById('home-stat-updated').textContent = DATA.stats.generatedAt;
 
       const toastEl = document.getElementById('toast');
       let toastTimer = null;
@@ -1409,10 +1528,15 @@
         dialog.addEventListener('close', () => { dialog.returnValue = ''; });
       }
 
-      // Tabs
+      // View Switching: Standalone Home (#home-screen) <-> Full Catalog (#catalog-screen)
+      const homeScreen = document.getElementById('home-screen');
+      const catalogScreen = document.getElementById('catalog-screen');
+      const headerBackHomeBtn = document.getElementById('header-back-home-btn');
+      const catalogBackHomeBtn = document.getElementById('catalog-back-home-btn');
       const tabs = document.querySelectorAll('[role="tab"]');
       const panels = document.querySelectorAll('[role="tabpanel"]');
-      const activateTab = (tabId) => {
+
+      const activateCatalogTab = (tabId) => {
         tabs.forEach((t) => {
           const sel = t.id === tabId;
           t.setAttribute('aria-selected', sel ? 'true' : 'false');
@@ -1421,11 +1545,45 @@
           p.hidden = p.getAttribute('aria-labelledby') !== tabId;
         });
       };
-      tabs.forEach((t) => t.addEventListener('click', () => activateTab(t.id)));
 
+      const openCatalog = (tabId = 'tab-btn-files', pushHash = true) => {
+        homeScreen.hidden = true;
+        catalogScreen.hidden = false;
+        headerBackHomeBtn.hidden = false;
+        activateCatalogTab(tabId);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (pushHash) {
+          const hash = tabId === 'tab-btn-courses' ? '#corsi' : (tabId === 'tab-btn-hub' ? '#mappe' : '#catalogo');
+          if (location.hash !== hash) {
+            try { history.pushState({ view: 'catalog', tabId }, '', hash); } catch {}
+          }
+        }
+      };
+
+      const openHome = (pushHash = true) => {
+        catalogScreen.hidden = true;
+        homeScreen.hidden = false;
+        headerBackHomeBtn.hidden = true;
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (pushHash && location.hash) {
+          try { history.pushState({ view: 'home' }, '', location.pathname + location.search); } catch {}
+        }
+      };
+
+      tabs.forEach((t) => t.addEventListener('click', () => openCatalog(t.id)));
+      headerBackHomeBtn.addEventListener('click', () => openHome());
+      catalogBackHomeBtn.addEventListener('click', () => openHome());
       document.getElementById('brand-home-link').addEventListener('click', (e) => {
         e.preventDefault();
-        activateTab('tab-btn-home');
+        openHome();
+      });
+
+      window.addEventListener('popstate', () => {
+        const h = location.hash;
+        if (h === '#catalogo') openCatalog('tab-btn-files', false);
+        else if (h === '#corsi') openCatalog('tab-btn-courses', false);
+        else if (h === '#mappe') openCatalog('tab-btn-hub', false);
+        else openHome(false);
       });
 
       // Populate course dropdowns
@@ -1458,7 +1616,7 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
           e.preventDefault();
-          if (document.getElementById('panel-files').hidden) activateTab('tab-btn-files');
+          openCatalog('tab-btn-files');
           searchInput.focus();
         }
       });
@@ -1539,7 +1697,7 @@
                 <div class="file-name">${escapeHtml(f.name)}</div>
                 <div class="file-crumbs">
                   <span class="cat-tag">${escapeHtml(catLbl)}</span>
-                  <span>• ${escapeHtml(f.yearGroup)}</span>
+                  <span>${escapeHtml(f.yearGroup)}</span>
                   ${f.course ? `<span>› <strong>${escapeHtml(f.course)}</strong></span>` : ''}
                   ${f.prof ? `<span>› ${escapeHtml(f.prof)}</span>` : ''}
                   ${f.subpath ? `<span>› ${escapeHtml(f.subpath)}</span>` : ''}
@@ -1618,28 +1776,32 @@
         applyFileFilters();
       });
 
-      // Home actions (Issue #26)
+      // Home actions
       const homeSearchForm = document.getElementById('home-search-form');
       const homeSearchInput = document.getElementById('home-search-input');
       homeSearchForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        activateTab('tab-btn-files');
+        openCatalog('tab-btn-files');
         searchInput.value = homeSearchInput.value;
+        filterYear.value = '';
+        updateCourseOptions();
+        filterCourse.value = '';
+        filterCat.value = '';
         applyFileFilters();
         searchInput.focus();
       });
       document.getElementById('home-open-catalog-btn').addEventListener('click', () => {
-        activateTab('tab-btn-files');
+        openCatalog('tab-btn-files');
       });
       document.getElementById('home-open-courses-btn').addEventListener('click', () => {
-        activateTab('tab-btn-courses');
+        openCatalog('tab-btn-courses');
       });
-      document.getElementById('home-open-maps-btn').addEventListener('click', () => {
-        activateTab('tab-btn-hub');
+      document.getElementById('home-open-hub-btn').addEventListener('click', () => {
+        openCatalog('tab-btn-hub');
       });
       document.querySelectorAll('[data-home-year-files]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          activateTab('tab-btn-files');
+          openCatalog('tab-btn-files');
           filterYear.value = btn.dataset.homeYearFiles;
           updateCourseOptions();
           filterCourse.value = '';
@@ -1655,7 +1817,7 @@
 
       document.querySelectorAll('[data-home-year-courses]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          activateTab('tab-btn-courses');
+          openCatalog('tab-btn-courses');
           courseYearFilter.value = btn.dataset.homeYearCourses;
           renderCourses();
         });
@@ -1686,7 +1848,7 @@
         document.getElementById('modal-copy-clone').onclick = () => copyText(cloneCmd, 'Comandi Git copiati');
         document.getElementById('modal-filter-files').onclick = () => {
           courseModal.close();
-          activateTab('tab-btn-files');
+          openCatalog('tab-btn-files');
           filterYear.value = c.yearGroup;
           updateCourseOptions();
           filterCourse.value = c.name;
@@ -1733,10 +1895,10 @@
                 <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
               </div>
               <div class="course-meta-row">
-                <span>${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem</span>
-                <span>${escapeHtml(c.cfu)} crediti</span>
-                <span>${escapeHtml(c.ssd.toLowerCase())}</span>
-                <span>${c.fileCount} file</span>
+                <span class="meta-tag">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem</span>
+                <span class="meta-tag">${escapeHtml(c.cfu)} crediti</span>
+                <span class="meta-tag">${escapeHtml(c.ssd.toLowerCase())}</span>
+                <span class="meta-tag">${c.fileCount} file</span>
               </div>
               <div class="course-prop"><strong>Propedeuticità:</strong> ${escapeHtml(c.propedeuticita)}</div>
             </div>
@@ -1748,7 +1910,7 @@
           `;
           card.querySelector('[data-open-course]').addEventListener('click', () => openCourseModal(c));
           card.querySelector('[data-jump-files]').addEventListener('click', () => {
-            activateTab('tab-btn-files');
+            openCatalog('tab-btn-files');
             filterYear.value = c.yearGroup;
             updateCourseOptions();
             filterCourse.value = c.name;
@@ -1793,9 +1955,12 @@
         });
       });
 
-      // Initial render
+      // Initial render & deep-link support
       applyFileFilters();
       renderCourses();
+      if (location.hash === '#catalogo') openCatalog('tab-btn-files', false);
+      else if (location.hash === '#corsi') openCatalog('tab-btn-courses', false);
+      else if (location.hash === '#mappe') openCatalog('tab-btn-hub', false);
     })();
   </script>
 </body>
