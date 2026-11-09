@@ -498,7 +498,7 @@
       border: 1px solid var(--border);
       border-radius: var(--sp-1);
       padding: var(--sp-2);
-      margin-bottom: var(--sp-3);
+      margin-bottom: var(--sp-2);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -540,7 +540,7 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--sp-1);
-      padding: var(--sp-3);
+      padding: var(--sp-2);
       margin-bottom: var(--sp-2);
     }
     .search-row {
@@ -850,10 +850,9 @@
       border: 1px solid var(--border);
       border-top: 4px solid var(--primary);
       border-radius: var(--sp-1);
-      padding: var(--sp-3);
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: var(--sp-2);
       transition: border-color 0.15s ease;
     }
@@ -874,7 +873,7 @@
       margin: 0;
       font-size: 1.0625rem;
       font-weight: 600;
-      line-height: 1.4;
+      line-height: 1.35;
     }
     .course-title a {
       color: var(--text);
@@ -887,19 +886,22 @@
     .course-head-right {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
+      gap: 6px;
       flex-shrink: 0;
     }
     .pin-btn {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-1);
+      border-radius: 6px;
+      width: 28px;
+      height: 28px;
+      padding: 0;
       color: var(--muted);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
     .pin-btn:hover {
       border-color: var(--primary);
@@ -913,57 +915,75 @@
     .course-status {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
-      font-size: 0.8125rem;
+      gap: 5px;
+      font-size: 0.75rem;
       font-weight: 600;
       color: var(--primary-text);
       background: var(--primary-soft);
-      padding: 0 var(--sp-1);
-      border-radius: var(--sp-1);
+      padding: 0 8px;
+      height: 28px;
+      border-radius: 6px;
       flex-shrink: 0;
     }
     .course-meta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sp-1);
-      margin-top: var(--sp-1);
-      font-size: 0.8125rem;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 0.75rem;
       color: var(--muted);
       font-variant-numeric: tabular-nums;
     }
     .meta-tag {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 0 var(--sp-1);
-      border-radius: var(--sp-1);
+      padding: 2px 8px;
+      border-radius: 6px;
+      line-height: 1.4;
+      white-space: nowrap;
     }
     .course-prop {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--muted);
-      margin-top: var(--sp-1);
+      margin-top: 10px;
+      line-height: 1.4;
     }
     .prof-list {
       display: flex;
       flex-direction: column;
-      gap: var(--sp-1);
+      gap: 0;
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: var(--sp-1);
-      padding: var(--sp-2);
+      padding: 10px 12px;
     }
     .prof-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: var(--sp-1);
-      font-size: 0.875rem;
-      flex-wrap: wrap;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8125rem;
+      flex-wrap: nowrap;
+    }
+    .prof-item:first-child {
+      padding-top: 0;
+    }
+    .prof-item:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
     }
     .prof-link {
       color: var(--text);
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.8125rem;
       font-variant-numeric: tabular-nums;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .prof-link:hover {
       color: var(--primary-text);
@@ -972,17 +992,19 @@
     .teams-chip {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
-      padding: 0 var(--sp-1);
-      border-radius: var(--sp-1);
-      font-size: 0.8125rem;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
       font-weight: 600;
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--primary-text);
       cursor: pointer;
       text-decoration: none;
-      min-height: 32px;
+      min-height: 26px;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .teams-chip:hover {
       border-color: var(--primary);
@@ -991,6 +1013,20 @@
     .teams-chip.missing-code {
       color: var(--muted);
       font-weight: 400;
+    }
+    .course-actions {
+      margin-top: auto;
+      padding-top: 4px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-1);
+    }
+    .course-actions .btn {
+      width: 100%;
+      justify-content: center;
+      padding: var(--sp-1) 10px;
+      font-size: 0.8125rem;
+      white-space: nowrap;
     }
 
     /* Hub & Maps Grid */
@@ -1006,8 +1042,10 @@
       padding: var(--sp-3);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: var(--sp-2);
+    }
+    .hub-card > :last-child {
+      margin-top: auto;
     }
     .hub-card h3 {
       margin: 0 0 var(--sp-1);
@@ -2595,7 +2633,7 @@
             }
             return `
               <div class="prof-item">
-                <a class="prof-link" href="${REPO_URL}/tree/master/${p.urlPath}" target="_blank" rel="noopener">${escapeHtml(p.display)} (${p.fileCount})</a>
+                <a class="prof-link" href="${REPO_URL}/tree/master/${p.urlPath}" target="_blank" rel="noopener" title="${escapeHtml(p.display)} (${p.fileCount} file)">${escapeHtml(p.display)} (${p.fileCount})</a>
                 ${teamsEl}
               </div>
             `;
@@ -2621,7 +2659,7 @@
               <div class="course-prop"><strong>Propedeuticità:</strong> ${escapeHtml(c.propedeuticita)}</div>
             </div>
             <div class="prof-list">${profHtml}</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div class="course-actions">
               <button type="button" class="btn btn-primary" data-open-course="${idx}">${SVG_ICONS.book} Scheda e obiettivi</button>
               <button type="button" class="btn" data-jump-files="${escapeHtml(c.name)}" data-jump-year="${escapeHtml(c.yearGroup)}">${SVG_ICONS.search} Vedi file (${c.fileCount})</button>
             </div>

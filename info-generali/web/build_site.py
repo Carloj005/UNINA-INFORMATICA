@@ -243,7 +243,9 @@ def build_catalog(repo: str):
             rel_p = f"{rel_c}/{entry}"
             preadme_p = os.path.join(pp, "README.md")
             preadme = open(preadme_p, encoding="utf-8", errors="replace").read() if os.path.exists(preadme_p) else ""
-            doc_disp = extract_md_field(preadme, "Docente", entry.replace("Prof-", "Prof. "))
+            raw_prof_name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", entry[5:])
+            fallback_prof = "Da Definire" if entry == "Prof-DaDefinire" else f"Prof. {raw_prof_name}"
+            doc_disp = extract_md_field(preadme, "Docente", fallback_prof)
             prof_display_map[f"{cname}/{entry}"] = doc_disp
             t_code, t_url = parse_teams_info(preadme)
             if t_code or t_url:
