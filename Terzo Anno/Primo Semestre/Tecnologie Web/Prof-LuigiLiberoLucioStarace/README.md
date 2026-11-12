@@ -23,7 +23,7 @@ Codice Teams 2026/2027: `hdxhvv9`
   * 2 prove complessive: Scritto + Progetto con discussione orale
   * Prova scritta: domande a risposta multipla e a risposta aperta
 * **Prove Intercorso:** 
-  * 2 prove previste: la prima a fine ottobre 2026, la seconda a dicembre 2026
+  * 2 prove previste: la prima a fine ottobre 2026, la seconda a dicembre 2026; disponibile il [Facsimile Prima Prova Intercorso (2026-2027)](./esami/scritto/Facsimile%20Prima%20Prova%20Intercorso%20%282026-2027%29.pdf)
 
 ## 📚 Risorse aggiuntive
 * [The Concise TypeScript Book](https://gibbok.github.io/typescript-book/it-it/) — guida gratuita e open source in italiano per approfondire TypeScript.

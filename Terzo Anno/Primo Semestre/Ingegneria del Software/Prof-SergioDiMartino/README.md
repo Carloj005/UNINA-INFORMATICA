@@ -19,4 +19,5 @@ Codice Teams 2026/2027: `tkt97at`
 * **Progetto:** 
   * Gruppi da 2 o 3 membri (la traccia è la medesima del corso di *Tecnologie Web*)
   * Discussione orale del progetto tramite presentazione PowerPoint
+* **Esercitazioni e Laboratorio:** Disponibile il codice didattico di partenza per l'esercitazione sul [Refactoring (Movie Rental)](./esercizi/Refactoring/README.md)
 * **Utilizzo AI:** È consentito l'uso dell'Intelligenza Artificiale, a patto di documentare e giustificare ogni scelta progettuale e implementativa

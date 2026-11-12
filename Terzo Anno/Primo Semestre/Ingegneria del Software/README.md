@@ -10,7 +10,7 @@
 - **Settore Scientifico-Disciplinare (SSD):** `INFO-01/A`
 - **Propedeuticità:** [Programmazione Object Oriented](../../../Primo%20Anno/Secondo%20Semestre/Programmazione%20Object%20Oriented), [Algebra](../../../Primo%20Anno/Secondo%20Semestre/Algebra)
 - **Modalità d'Esame:** L’esame si articola in prova: Scritta e Orale. Per la prova scritta, i quesiti sono a risposta libera ed esercizi numerici. Progetto obbligatorio di gruppo.
-- **Copertura Materiale:** 🟡 Parziale (11 file)
+- **Copertura Materiale:** 🟢 Ricco (16 file)
 - **Stato Esame (Tracker Autore):** ⏳ In Corso / Da Sostenere
 
 ## 🎯 Obiettivi Formativi
@@ -20,7 +20,7 @@ Comprendere l'ingegneria del software, dei processi di ingegneria del software e
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof. Porfirio Tramontana](./Prof-PorfirioTramontana) *(vuoto)*
-- [Prof. Sergio Di Martino](./Prof-SergioDiMartino) *(11 file)*
+- [Prof. Sergio Di Martino](./Prof-SergioDiMartino) *(16 file)*
 
 ---
 

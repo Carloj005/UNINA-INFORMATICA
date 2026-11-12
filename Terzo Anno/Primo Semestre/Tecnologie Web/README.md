@@ -10,7 +10,7 @@
 - **Settore Scientifico-Disciplinare (SSD):** `INFO-01/A`
 - **Propedeuticità:** [Programmazione Object Oriented](../../../Primo%20Anno/Secondo%20Semestre/Programmazione%20Object%20Oriented), [Algebra](../../../Primo%20Anno/Secondo%20Semestre/Algebra)
 - **Modalità d'Esame:** L’esame si articola in prova: Scritta e orale. Per la prova scritta, i quesiti sono a risposta multipla, a risposta aperta, ed esercizi numerici. Progetto obbligatorio di gruppo.
-- **Copertura Materiale:** 🟢 Ricco (23 file)
+- **Copertura Materiale:** 🟢 Ricco (33 file)
 - **Stato Esame (Tracker Autore):** ⏳ In Corso / Da Sostenere
 
 ## 🎯 Obiettivi Formativi
@@ -20,4 +20,4 @@ L'obiettivo del corso è fornire una panoramica completa dei concetti fondamenta
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof. Bernardo Breve](./Prof-BernardoBreve) *(vuoto)*
-- [Prof. Luigi Libero Lucio Starace](./Prof-LuigiLiberoLucioStarace) *(23 file)*
+- [Prof. Luigi Libero Lucio Starace](./Prof-LuigiLiberoLucioStarace) *(33 file)*
