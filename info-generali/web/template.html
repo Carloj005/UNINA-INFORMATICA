@@ -170,6 +170,19 @@
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    @media (max-width: 1180px) and (min-width: 1024px) {
+      :root {
+        --gut: 56px;
+      }
+      .nav__link {
+        padding: 0 10px;
+        font-size: 0.875rem;
+      }
+      .topbar .nav__cta {
+        padding: 0 14px;
+        font-size: 0.875rem;
+      }
+    }
     @media (max-width: 1023px) {
       :root {
         --gut: 48px;
@@ -212,11 +225,23 @@
 
     body {
       margin: 0;
-      padding: var(--nav) 0 0;
+      padding: 0;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       overflow-x: clip;
+      --padb: 72px;
+      --bar-h: 0px;
+    }
+    @media (max-width: 1023px) {
+      body {
+        --bar-h: var(--bottom-nav-h);
+      }
+    }
+    @media (max-width: 639px) {
+      body {
+        --padb: 48px;
+      }
     }
     body:has(dialog[open]) {
       overflow: hidden;
@@ -242,8 +267,12 @@
 
     .skip-link {
       position: absolute;
-      left: var(--sp-2);
-      top: -100px;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
       background: var(--primary);
       color: #ffffff;
       padding: 10px 16px;
@@ -253,7 +282,12 @@
       z-index: 100;
     }
     .skip-link:focus-visible {
-      top: var(--sp-1);
+      left: max(var(--gut), calc((100vw - var(--container)) / 2));
+      top: 12px;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
     }
 
     .noscript-banner {
@@ -491,7 +525,7 @@
         bottom: 0;
         width: 100%;
         height: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
-        padding: 0 8px env(safe-area-inset-bottom, 0px);
+        padding: 0 var(--gut) env(safe-area-inset-bottom, 0px);
         background: var(--surface);
         border-top: 1px solid var(--border);
         z-index: 45;
@@ -556,202 +590,331 @@
     }
 
     /* ==========================================
-       STANDALONE HOME SCREEN (#home-screen)
+       HOME SECTIONS, HERO & BENTO GRID
        ========================================== */
-    .home-hero {
-      background: var(--surface);
+    .home-section,
+    footer.closing {
+      position: relative;
+      width: 100%;
+      height: calc(var(--h, 1) * 100svh);
+      min-height: calc(var(--h, 1) * 100svh);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: calc(var(--nav) + 28px);
+      padding-bottom: calc(var(--padb, 72px) + var(--bar-h, 0px));
+      overflow: clip;
+    }
+    .hero.home-section {
+      padding-bottom: calc(32px + var(--bar-h, 0px));
+      background-image:
+        radial-gradient(640px 360px at 80% 24%, light-dark(rgba(2, 132, 199, 0.09), rgba(56, 189, 248, 0.14)), transparent 70%),
+        linear-gradient(to right, light-dark(rgba(15, 76, 129, 0.035), rgba(148, 163, 184, 0.045)) 1px, transparent 1px),
+        linear-gradient(to bottom, light-dark(rgba(15, 76, 129, 0.035), rgba(148, 163, 184, 0.045)) 1px, transparent 1px);
+      background-size: 100% 100%, 64px 64px, 64px 64px;
+    }
+    .home-section > .wrap,
+    footer.closing > .wrap {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+    .bento-section > .wrap,
+    .updates-section > .wrap {
+      justify-content: center;
+      gap: 24px;
+    }
+    .hero-canvas-wrap {
+      position: relative;
+      border-radius: var(--r-md);
       border: 1px solid var(--border);
-      border-top: 4px solid var(--primary);
-      border-radius: var(--sp-1);
-      padding: var(--sp-4);
-      margin-bottom: var(--sp-4);
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-3);
+      background: var(--surface-2);
+      overflow: hidden;
+      height: 84px;
     }
-    .home-hero-header {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-1);
+    .hero-canvas {
+      display: block;
+      width: 100%;
+      height: 84px;
+      pointer-events: none;
     }
-    .home-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-1);
-      font-size: 0.875rem;
-      font-weight: 600;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: var(--gap);
+      align-items: start;
+      width: 100%;
+    }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-12 { grid-column: span 12; }
+
+    .kicker {
+      margin: 0 0 12px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--primary-text);
     }
-    .home-hero h2 {
-      margin: 0;
-      font-size: 1.75rem;
-      font-weight: 600;
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: var(--t-h1);
+      line-height: 1.07;
+      letter-spacing: -0.03em;
       color: var(--text);
-      line-height: 1.3;
+      text-wrap: balance;
     }
-    .home-hero p {
+    .home-section h2,
+    footer.closing h2 {
       margin: 0;
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 74ch;
+      font-size: var(--t-h2);
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      text-wrap: balance;
     }
-    .home-stats-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--sp-3);
-      padding: var(--sp-2);
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      font-size: 0.9375rem;
-      color: var(--muted);
+    [data-hl] {
+      color: var(--primary-text);
     }
-    .home-stat-item {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-1);
+    .lead {
+      margin: 0 0 24px;
+      font-size: var(--t-lead);
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 60ch;
       font-variant-numeric: tabular-nums;
     }
-    .home-stat-item strong {
+    .lead strong {
       color: var(--text);
-      font-weight: 600;
+      font-weight: 700;
     }
-    .home-search-bar {
+    .btn-row {
       display: flex;
-      gap: var(--sp-2);
       flex-wrap: wrap;
       align-items: center;
-    }
-    .home-cta-row {
-      display: flex;
       gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-      padding-top: var(--sp-1);
-    }
-    .home-cta-row .btn-lg {
-      padding: 12px 18px;
-      font-size: 0.9375rem;
-    }
-    .section-heading {
-      margin: 0 0 var(--sp-2);
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--sp-2);
-      flex-wrap: wrap;
-    }
-    .section-heading-left {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-1);
-    }
-    .section-sub {
-      font-size: 0.875rem;
-      font-weight: 400;
-      color: var(--muted);
     }
 
-    /* Pinned Courses & Recent Updates on Home */
-    .home-pinned-section {
-      margin-bottom: var(--sp-4);
-    }
-    .home-pinned-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--sp-2);
-    }
-    .pinned-card {
-      background: var(--surface);
-      border: 1px solid var(--primary);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: var(--sp-2);
-    }
-    .pinned-card-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: var(--sp-1);
-    }
-    .pinned-card h4 {
-      margin: 0;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    .pinned-meta {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      margin-top: var(--sp-1);
-    }
-
-    .home-recent-section {
-      margin-bottom: var(--sp-4);
-    }
-    .recent-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
-      gap: var(--sp-2);
-    }
-    .recent-card {
+    /* Protagonist Search Console in Hero Right Column ([data-ui]) */
+    .hero-console {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
+      border-radius: var(--r-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-lg);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: var(--sp-1);
-      text-align: left;
-      cursor: pointer;
-      color: var(--text);
-      transition: border-color 0.15s ease, background-color 0.15s ease;
+      gap: 14px;
     }
-    .recent-card:hover {
-      border-color: var(--primary);
-      background: var(--surface-2);
-    }
-    .recent-top {
+    .console-topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-1);
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
       font-size: 0.8125rem;
       color: var(--muted);
     }
-    .recent-title {
+    .console-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-weight: 600;
-      font-size: 0.9375rem;
       color: var(--text);
-      word-break: break-word;
     }
-    .recent-sub {
-      font-size: 0.8125rem;
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+    .console-kbd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      min-height: 32px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
       color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .console-kbd-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-text);
+    }
+    .field-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .home-search-bar {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-search-input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-search-input-box .search-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 48px 10px 40px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border-strong);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 0.9375rem;
+    }
+    .hero-search-go {
+      position: absolute;
+      right: 4px;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-sm);
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .hero-search-go:hover {
+      background: var(--primary-hover);
+    }
+    .search-suggestions {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-lg);
+      padding: 8px;
+      z-index: 35;
+      max-height: 280px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sugg-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
+      min-height: 40px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: var(--r-sm);
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-text);
+      font-size: 0.875rem;
+      text-align: left;
+      cursor: pointer;
+    }
+    .sugg-item:hover,
+    .sugg-item.is-active {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+    }
+    .sugg-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .quick-acronyms-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .quick-acronym-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 4px 10px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .quick-acronym-chip:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+    }
+    .console-subcards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .console-nav-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 52px;
+      padding: 10px 12px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: var(--font-text);
+      font-size: 0.84375rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .console-nav-card:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-text);
     }
 
+    /* Section 2: Bento Years Grid (2x2) */
     .home-years-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
-      gap: var(--sp-2);
-      margin-bottom: var(--sp-4);
+      align-items: stretch;
     }
     .year-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-3);
+      border-radius: var(--r-lg);
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: var(--sp-3);
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
       transition: border-color 0.15s ease;
     }
     .year-card:hover {
@@ -761,85 +924,311 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-1);
+      gap: 8px;
     }
     .year-card h3 {
       margin: 0;
-      font-size: 1.125rem;
+      font-size: var(--t-h3);
       font-weight: 600;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
+      gap: 8px;
       color: var(--text);
     }
     .year-count {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--primary-text);
-      font-weight: 600;
+      background: var(--primary-soft);
+      padding: 2px 10px;
+      border-radius: var(--r-pill);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .year-card__ui {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 92px;
+      padding: 12px;
+      border-radius: var(--r-md);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+    .year-pills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .year-course-pill {
+      font-size: 0.78125rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: var(--r-xs);
+    }
+    .year-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--muted);
       font-variant-numeric: tabular-nums;
     }
-    .year-card-meta {
-      margin: var(--sp-1) 0 0;
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.5;
+    .year-progress-track {
+      flex: 1;
+      height: 6px;
+      border-radius: var(--r-pill);
+      background: var(--surface-3);
+      overflow: hidden;
+    }
+    .year-progress-fill {
+      display: block;
+      height: 100%;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--primary), var(--accent-vivid));
     }
     .year-card-actions {
       display: flex;
-      gap: var(--sp-1);
-      flex-wrap: wrap;
+      gap: 10px;
+      flex-wrap: nowrap;
+    }
+
+    /* Section 3: Asymmetric Updates & Pinned Bento */
+    .bento-updates-grid {
+      align-items: stretch;
+    }
+    .bento-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .bento-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .bento-panel h3 {
+      margin: 0;
+      font-size: var(--t-h3);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+    .recent-grid,
+    .home-pinned-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .recent-card,
+    .pinned-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 12px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .recent-card:hover,
+    .pinned-card:hover {
+      border-color: var(--primary);
+      background: var(--surface-3);
+    }
+    .recent-card > *,
+    .pinned-card > * {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .recent-top,
+    .pinned-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      min-width: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .recent-top > span:last-child,
+    .pinned-card-head > span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-width: 0;
+    }
+    .recent-title,
+    .pinned-card h4 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .recent-sub,
+    .pinned-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Closing Footer Section (footer.closing) */
+    footer.closing {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: left;
+    }
+    .closing__call {
+      align-items: start;
     }
     .home-shortcuts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
-      gap: var(--sp-2);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
     }
     .shortcut-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      min-height: 54px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
+      gap: 10px;
       text-decoration: none;
       color: var(--text);
       font-weight: 600;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       cursor: pointer;
       transition: border-color 0.15s ease, background-color 0.15s ease;
     }
     .shortcut-card:hover {
       border-color: var(--primary);
-      background: var(--surface-2);
+      background: var(--primary-soft);
+      color: var(--primary-text);
     }
     .shortcut-left {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-2);
+      gap: 10px;
     }
     .shortcut-icon-box {
-      width: var(--sp-4);
-      height: var(--sp-4);
-      border-radius: var(--sp-1);
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-sm);
       background: var(--primary-soft);
       color: var(--primary-text);
       display: grid;
       place-items: center;
       flex-shrink: 0;
     }
+    .closing__legal {
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .closing__legal a {
+      color: var(--primary-text);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    /* Command Palette Dialog (#cmd-modal) */
+    dialog.cmd-dialog {
+      max-width: min(640px, 94vw);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-lg);
+    }
+    .cmd-results-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 56dvh;
+      overflow-y: auto;
+      margin-top: 12px;
+    }
+    .cmd-group-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 8px 6px 2px;
+    }
+    .cmd-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 12px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: var(--font-text);
+      font-size: 0.9375rem;
+      text-align: left;
+      cursor: pointer;
+    }
+    .cmd-item:hover,
+    .cmd-item.is-active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+    }
 
     /* ==========================================
        FULL PORTAL VIEW (#catalog-screen)
        ========================================== */
+    .catalog-view {
+      padding-top: calc(var(--nav) + 24px);
+      padding-bottom: calc(var(--bottom-nav-h) + 48px);
+      min-height: 100dvh;
+    }
     .catalog-top-bar {
       position: sticky;
-      top: 8px;
+      top: calc(var(--nav) + 8px);
       z-index: 30;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
+      border-radius: var(--r-lg);
       padding: var(--sp-2);
       margin-bottom: var(--sp-2);
       display: flex;
@@ -1915,42 +2304,37 @@
     /* Toast feedback */
     .toast {
       position: fixed;
-      bottom: var(--sp-3);
+      bottom: calc(var(--bar-h, 0px) + 20px);
       right: var(--sp-3);
       background: var(--primary);
       color: #ffffff;
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
+      padding: 10px 16px;
+      border-radius: var(--r-btn);
       border: 1px solid var(--border-strong);
       font-size: 0.875rem;
       font-weight: 600;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(8px);
-      transition: opacity 0.15s ease, transform 0.15s ease;
-      z-index: 50;
+      display: none;
+      z-index: 60;
+      box-shadow: var(--shadow-md);
     }
     .toast.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-      padding: var(--sp-2) var(--sp-3);
-      text-align: center;
-      font-size: 0.8125rem;
-      color: var(--muted);
-    }
-    footer a {
-      color: var(--primary-text);
-      font-weight: 600;
-      text-decoration: underline;
+      display: block;
     }
 
     .lbl-short {
       display: none;
+    }
+
+    @media (max-width: 1023px) {
+      .btn {
+        padding: 0 14px;
+      }
+      .year-card {
+        padding: 16px;
+      }
+      .bento-panel {
+        padding: 16px;
+      }
     }
 
     /* ==========================================
@@ -1958,7 +2342,7 @@
        ========================================== */
     @media (max-width: 768px) {
       html, body {
-        overflow-x: hidden;
+        overflow-x: clip;
       }
       .lbl-full {
         display: none;
@@ -1970,60 +2354,6 @@
         display: none;
       }
 
-      /* Home Hero Mobile */
-      .home-hero {
-        padding: 14px;
-        margin-bottom: var(--sp-3);
-        gap: 12px;
-      }
-      .home-hero h2 {
-        font-size: 1.25rem;
-        line-height: 1.3;
-      }
-      .home-hero p {
-        font-size: 0.875rem;
-      }
-      .home-stats-row {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px 10px;
-        padding: 10px 12px;
-        font-size: 0.8125rem;
-      }
-      .home-stats-row .home-stat-item:last-child {
-        grid-column: 1 / -1;
-      }
-      .home-search-bar {
-        display: flex;
-        flex-direction: row;
-        align-items: stretch;
-        gap: 6px;
-      }
-      .home-search-bar .search-input-wrap {
-        flex: 1 1 0%;
-        min-width: 0;
-      }
-      .home-search-bar .btn {
-        flex-shrink: 0;
-        padding: 0 12px;
-        min-height: 42px;
-        font-size: 0.875rem;
-      }
-      .home-cta-row {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-        padding-top: 0;
-      }
-      .home-cta-row .btn {
-        width: 100%;
-        justify-content: center;
-        padding: 8px 10px;
-        font-size: 0.84375rem;
-        min-height: 40px;
-        white-space: nowrap;
-      }
-
       /* Prevent iOS/Android auto-zoom on input focus & hide desktop '/' hint */
       .kbd-hint {
         display: none;
@@ -2031,19 +2361,19 @@
       .search-input {
         font-size: 1rem;
         padding: 6px 10px 6px 36px;
-        min-height: 42px;
+        min-height: 44px;
       }
       select.filter-select {
         font-size: 0.875rem;
         padding: 6px 8px;
-        min-height: 38px;
+        min-height: 44px;
         max-width: none !important;
         min-width: 0;
       }
 
       /* Catalog Top Navigation Segmented Bar (2x2 grid for 4 tabs on mobile) */
       .catalog-top-bar {
-        top: 6px;
+        top: calc(var(--nav) + 6px);
         padding: 6px;
         gap: 6px;
       }
@@ -2059,7 +2389,7 @@
         white-space: nowrap;
         padding: 8px 6px;
         font-size: 0.78125rem;
-        min-height: 38px;
+        min-height: 44px;
         gap: 4px;
       }
       #catalog-back-home-btn {
@@ -2085,8 +2415,8 @@
       #cal-mobile-filters-toggle {
         display: inline-flex;
         flex-shrink: 0;
-        padding: 0 10px;
-        min-height: 42px;
+        padding: 0 12px;
+        min-height: 44px;
         font-size: 0.8125rem;
         white-space: nowrap;
       }
@@ -2122,7 +2452,7 @@
         white-space: nowrap;
         padding: 6px 6px;
         font-size: 0.78125rem;
-        min-height: 36px;
+        min-height: 44px;
         gap: 4px;
       }
       .results-meta {
@@ -2135,16 +2465,13 @@
       .btn-link-action {
         font-size: 0.8125rem;
         gap: 4px;
+        min-height: 44px;
       }
 
-      /* Grids Single-Column with strict minmax(0, 1fr) to prevent overflow */
+      /* Grids Single-Column with strict minmax(0, 1fr) in Catalog panels */
       .courses-grid,
       .calendar-grid,
-      .hub-grid,
-      .home-pinned-grid,
-      .recent-grid,
-      .home-years-grid,
-      .home-shortcuts-grid {
+      .hub-grid {
         grid-template-columns: minmax(0, 1fr);
       }
       .course-card,
@@ -2312,26 +2639,188 @@
       .toast {
         left: 12px;
         right: 12px;
-        bottom: 12px;
+        bottom: calc(var(--bar-h, 0px) + 12px);
         text-align: center;
       }
     }
 
-    @media (max-width: 480px) {
-      .brand-sub {
+    @media (max-width: 639px) {
+      .home-section,
+      footer.closing {
+        padding-top: calc(var(--nav) + 12px);
+        padding-bottom: calc(var(--padb, 48px) + var(--bar-h, 0px));
+      }
+      .hero.home-section {
+        padding-bottom: calc(26px + var(--bar-h, 0px));
+      }
+      .home-section > .wrap,
+      footer.closing > .wrap {
+        gap: 12px;
+      }
+      .hero-text.grid > .span-6,
+      .bento-updates-grid.grid > .span-6,
+      .closing__call.grid > .span-6 {
+        grid-column: 1 / -1;
+      }
+      .kicker {
+        margin-bottom: 4px;
+        font-size: 0.6875rem;
+      }
+      .hero h1 {
+        font-size: 1.75rem;
+        margin-bottom: 8px;
+      }
+      .home-section h2,
+      footer.closing h2 {
+        font-size: 1.4375rem;
+      }
+      .lead {
+        font-size: 0.875rem;
+        line-height: 1.4;
+        margin-bottom: 10px;
+      }
+      .hero-console {
+        padding: 12px;
+        gap: 8px;
+      }
+      .console-topbar {
+        padding-bottom: 6px;
+      }
+      .quick-acronym-chip:nth-child(n+6) {
         display: none;
+      }
+      .console-nav-card {
+        min-height: 44px;
+        padding: 8px 10px;
+        font-size: 0.78125rem;
+      }
+      .year-card {
+        padding: 12px;
+        gap: 10px;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .year-card-head {
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+      .year-card h3 {
+        font-size: 0.875rem;
+        gap: 5px;
+      }
+      .year-card h3 .icon-lg {
+        width: 16px;
+        height: 16px;
+      }
+      .year-count {
+        font-size: 0.72rem;
+        padding: 1px 7px;
+      }
+      .year-card__ui {
+        padding: 8px 10px;
+        gap: 8px;
+        min-height: 84px;
+      }
+      .year-course-pill:nth-child(n+4) {
+        display: none;
+      }
+      .year-card-actions [data-home-year-courses] {
+        display: none;
+      }
+      .year-card-actions .btn {
+        width: 100%;
+        min-width: 0;
+        padding: 0 8px;
+        font-size: 0.875rem;
+      }
+      .bento-panel {
+        padding: 12px;
+        gap: 10px;
+      }
+      .bento-panel h3 {
+        font-size: 0.9375rem;
+      }
+      .recent-grid,
+      .home-pinned-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .recent-card:nth-child(n+3),
+      .pinned-card:nth-child(n+3) {
+        display: none;
+      }
+      .home-shortcuts-grid {
+        padding: 10px;
+        gap: 8px;
+      }
+      .shortcut-card {
+        padding: 8px 10px;
+        min-height: 44px;
+        font-size: 0.78125rem;
+      }
+      .closing__legal {
+        padding-top: 10px;
+        font-size: 0.75rem;
+        gap: 6px;
+      }
+    }
+
+    @media (max-width: 900px) and (min-height: 920px) {
+      .hero-text.grid > .span-6,
+      .bento-updates-grid.grid > .span-6,
+      .closing__call.grid > .span-6 {
+        grid-column: 1 / -1;
+      }
+      .home-section > .wrap,
+      footer.closing > .wrap {
+        gap: 20px;
+      }
+      .year-card {
+        padding: 20px;
+        gap: 14px;
+      }
+      .year-card__ui {
+        min-height: 100px;
+      }
+      .bento-panel {
+        padding: 16px;
+        gap: 12px;
+      }
+      .recent-card:nth-child(n+5),
+      .pinned-card:nth-child(n+5) {
+        display: none;
+      }
+      .home-shortcuts-grid {
+        padding: 18px;
+        gap: 12px;
+      }
+      .shortcut-card {
+        min-height: 58px;
+        padding: 12px 14px;
+      }
+    }
+
+    @media (max-height: 750px) {
+      .home-section,
+      footer.closing {
+        height: auto;
+        min-height: 100svh;
+      }
+      .bento-section > .wrap,
+      .updates-section > .wrap {
+        max-height: none;
       }
     }
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
   <noscript>
     <div class="noscript-banner">
       Per utilizzare la ricerca istantanea del portale attiva JavaScript, oppure esplora direttamente le cartelle dei corsi sul <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">Repository GitHub UNINA-INFORMATICA</a>.
     </div>
   </noscript>
   <header class="topbar nav">
+    <a href="#main-content" class="skip-link">Salta al contenuto principale</a>
     <div class="wrap topbar-inner nav__bar">
       <a class="brand-title nav__brand" href="./" id="brand-home-link" title="Torna alla pagina iniziale">
         <span class="brand-badge" aria-hidden="true">
@@ -2348,11 +2837,10 @@
       </a>
 
       <nav class="nav__links" aria-label="Navigazione principale">
-        <a href="#home-hero" class="nav__link is-current" data-header-nav="home" aria-current="page">Archivio</a>
-        <a href="#catalogo" class="nav__link" data-header-nav="tab-btn-files">Catalogo</a>
-        <a href="#corsi" class="nav__link" data-header-nav="tab-btn-courses">Corsi e Teams</a>
-        <a href="#calendario" class="nav__link" data-header-nav="tab-btn-calendar">Calendario</a>
-        <a href="#mappe" class="nav__link" data-header-nav="tab-btn-hub">Mappe e Git</a>
+        <a href="#home-screen" class="nav__link is-current" data-header-nav="home" aria-current="page">Archivio</a>
+        <a href="#panel-files" class="nav__link" data-header-nav="tab-btn-files">Catalogo</a>
+        <a href="#panel-courses" class="nav__link" data-header-nav="tab-btn-courses">Corsi</a>
+        <a href="#panel-calendar" class="nav__link" data-header-nav="tab-btn-calendar">Calendario</a>
       </nav>
 
       <div class="header-actions nav__actions">
@@ -2366,268 +2854,290 @@
         <button type="button" class="nav__icon-btn" id="theme-toggle" aria-label="Cambia tema chiaro o scuro" title="Cambia tema chiaro o scuro">
           <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
         </button>
-        <a href="#catalogo" class="btn btn-primary nav__cta" id="header-open-catalog-btn">Esplora il catalogo</a>
+        <a href="#panel-files" class="btn btn-primary nav__cta" id="header-open-catalog-btn">Esplora il catalogo</a>
       </div>
     </div>
   </header>
 
   <main id="main-content">
     <!-- ==========================================
-         VIEW 1: STANDALONE HOME ENTRY SCREEN
+         HOME SECTION 1: HERO & PROTAGONIST SEARCH CONSOLE
          ========================================== -->
-    <div id="home-screen">
-      <section class="home-hero" aria-label="Presentazione archivio">
-        <div class="home-hero-header">
-          <span class="home-kicker">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            Archivio open-source degli studenti di Informatica
-          </span>
-          <h2>Materiale didattico, esami e codici Teams in un unico posto</h2>
-          <p>Consulta rapidamente slide, appunti, prove scritte, tracce di progetto ed esercitazioni svolte di tutti gli anni di corso, oppure entra nel catalogo completo per filtrare ogni documento.</p>
-        </div>
-
-        <div class="home-stats-row" aria-label="Numeri dell'archivio">
-          <span class="home-stat-item">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-            <strong id="home-stat-files">__STAT_FILES__</strong> documenti indicizzati
-          </span>
-          <span class="home-stat-item">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            <strong id="home-stat-courses">__STAT_COURSES__</strong> insegnamenti (2026/2027)
-          </span>
-          <span class="home-stat-item">
-            <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-            <strong id="home-stat-teams">__STAT_TEAMS__</strong> codici Teams attivi
-          </span>
-          <span class="home-stat-item">
-            <svg class="icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-            <strong id="home-stat-size">__STAT_SIZE__</strong> dimensione totale
-          </span>
-          <span class="home-stat-item">
-            Aggiornato il <strong id="home-stat-updated">__STAT_UPDATED__</strong>
-          </span>
-        </div>
-
-        <form class="home-search-bar" id="home-search-form">
-          <div class="search-input-wrap">
-            <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="search" id="home-search-input" class="search-input" placeholder="Cerca corso o sigla (es. ASD, ADE, BD), argomento, data d'esame o docente..." aria-label="Ricerca rapida nel catalogo">
+    <section id="home-screen" class="hero home-section" data-home-section data-enter aria-label="Presentazione archivio">
+      <div class="wrap">
+        <div class="hero-text grid">
+          <div class="hero-copy span-6">
+            <p class="kicker" data-enter>CORSO DI LAUREA TRIENNALE IN INFORMATICA · FEDERICO II</p>
+            <h1 data-enter>Archivio didattico ed esami di Informatica Federico II.</h1>
+            <p class="lead" data-enter>
+              Consulta <strong id="home-stat-files">__STAT_FILES__</strong> documenti verificati,
+              <strong id="home-stat-courses">__STAT_COURSES__</strong> insegnamenti,
+              <strong id="home-stat-teams">__STAT_TEAMS__</strong> codici Teams e
+              <strong id="home-stat-exams">__STAT_EXAMS__</strong> appelli ufficiali DIETI
+              (<strong id="home-stat-size">__STAT_SIZE__</strong> totali, aggiornato il <strong id="home-stat-updated">__STAT_UPDATED__</strong>).
+            </p>
+            <div class="btn-row" data-enter>
+              <button type="button" class="btn btn-primary" id="home-open-catalog-btn">Esplora il catalogo</button>
+              <button type="button" class="btn btn--secondary" id="home-open-calendar-btn">Calendario esami</button>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary">
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <span class="lbl-full">Cerca nel catalogo</span><span class="lbl-short">Cerca</span>
-          </button>
-        </form>
 
-        <div class="home-cta-row">
-          <button type="button" class="btn btn-primary btn-lg" id="home-open-catalog-btn">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
-            <span class="lbl-full">Accedi al catalogo completo</span><span class="lbl-short">Catalogo file</span>
-          </button>
-          <button type="button" class="btn btn-lg" id="home-open-courses-btn">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            <span class="lbl-full">Sfoglia insegnamenti e codici Teams</span><span class="lbl-short">Corsi e Teams</span>
-          </button>
-          <button type="button" class="btn btn-lg" id="home-open-calendar-btn">
-            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-            <span class="lbl-full">Calendario appelli d'esame</span><span class="lbl-short">Calendario esami</span>
-          </button>
-          <button type="button" class="btn btn-lg" id="home-open-hub-btn">
-            <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-            <span class="lbl-full">Mappe campus e clone selettivo</span><span class="lbl-short">Mappe e Git</span>
-          </button>
+          <div class="hero-console span-6" data-ui="hero-search-console">
+            <div class="console-topbar">
+              <span class="console-status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>Motore di ricerca istantaneo • Indice locale</span>
+              </span>
+              <button type="button" class="console-kbd-btn" data-open-cmd title="Apri palette comandi (Ctrl+K)">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span>Ctrl+K</span>
+              </button>
+            </div>
+
+            <div class="hero-canvas-wrap" aria-hidden="true">
+              <canvas id="hero-canvas" class="hero-canvas" width="520" height="84"></canvas>
+            </div>
+
+            <div class="home-search-bar" id="home-search-form" role="search">
+              <label class="field-label" for="home-search-input">Cerca insegnamento, sigla, traccia d'esame o docente</label>
+              <div class="hero-search-input-box">
+                <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="search" id="home-search-input" class="search-input" placeholder="Es. ADE, APSD, APA, Basi di Dati, 18/01..." autocomplete="off">
+                <button type="button" class="hero-search-go" id="home-search-submit" aria-label="Cerca nel catalogo">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </button>
+              </div>
+              <div id="home-search-suggestions" class="search-suggestions" hidden></div>
+            </div>
+
+            <div class="quick-acronyms-row" aria-label="Sigle insegnamenti frequenti">
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="ADE">ADE</button>
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="APSD">APSD</button>
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="APA">APA</button>
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="BD">Basi di Dati</button>
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="POO">POO</button>
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="INGSW">Ing. Software</button>
+              <button type="button" class="quick-acronym-chip" data-home-quick-q="TECWEB">TecWeb</button>
+            </div>
+
+            <div class="console-subcards">
+              <button type="button" class="console-nav-card" id="home-open-courses-btn">
+                <span class="shortcut-left">
+                  <span class="shortcut-icon-box">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                  </span>
+                  <span>31 Corsi e Teams</span>
+                </span>
+                <svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <button type="button" class="console-nav-card" id="home-open-hub-btn">
+                <span class="shortcut-left">
+                  <span class="shortcut-icon-box">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+                  </span>
+                  <span>Mappe e Clone Git</span>
+                </span>
+                <svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Pinned Courses Section (shown when student pins courses) -->
-      <section id="home-pinned-section" class="home-pinned-section" hidden>
-        <h3 class="section-heading">
-          <span class="section-heading-left">
-            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            I miei corsi fissati
-          </span>
-          <span class="section-sub">Salvati solo su questo dispositivo</span>
-        </h3>
-        <div id="home-pinned-grid" class="home-pinned-grid"></div>
-      </section>
-
-      <!-- Recent Updates Section (moved above years for returning students) -->
-      <section id="home-recent-section" class="home-recent-section" hidden>
-        <h3 class="section-heading">
-          <span class="section-heading-left">
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Ultimi materiali aggiunti e aggiornati
-          </span>
-          <span class="section-sub">Clicca su un elemento per aprirlo nel catalogo</span>
-        </h3>
-        <div id="home-recent-grid" class="recent-grid"></div>
-      </section>
-
-      <h3 class="section-heading">
-        <span class="section-heading-left">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          Accesso rapido per anno di corso
-        </span>
-        <span class="section-sub">Puoi fissare i tuoi corsi preferiti cliccando la stellina nella sezione Corsi</span>
-      </h3>
-      <div class="home-years-grid">
-        <article class="year-card">
-          <div>
+    <!-- ==========================================
+         HOME SECTION 2: BENTO GRID PER ANNO DI CORSO
+         ========================================== -->
+    <section id="home-bento" class="bento-section home-section" data-home-section aria-label="Insegnamenti per anno di corso">
+      <div class="wrap">
+        <h2>Insegnamenti per anno, <span data-hl>codici Teams</span> e materiale didattico.</h2>
+        <div class="home-years-grid grid">
+          <article class="year-card span-6">
             <div class="year-card-head">
               <h3>
-                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Primo anno
               </h3>
               <span class="year-count">6 corsi</span>
             </div>
-            <p class="year-card-meta">Architettura degli Elaboratori, Analisi Matematica 1, Programmazione 1, Algebra, Programmazione Object Oriented, Basi di Dati.</p>
-          </div>
-          <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Primo Anno">Esplora file</button>
-            <button type="button" class="btn" data-home-year-courses="Primo Anno">Corsi e Teams</button>
-          </div>
-        </article>
+            <div class="year-card__ui" data-ui="year-1-pills">
+              <div class="year-pills-wrap">
+                <span class="year-course-pill">ADE</span>
+                <span class="year-course-pill">Analisi 1</span>
+                <span class="year-course-pill">Programmazione 1</span>
+                <span class="year-course-pill">Algebra</span>
+                <span class="year-course-pill">POO</span>
+                <span class="year-course-pill">Basi di Dati</span>
+              </div>
+              <div class="year-progress-row">
+                <span class="year-progress-track"><span class="year-progress-fill" style="width:92%"></span></span>
+                <span data-year-stat="Primo Anno">Archivio completo</span>
+              </div>
+            </div>
+            <div class="year-card-actions">
+              <button type="button" class="btn btn-primary" data-home-year-files="Primo Anno">Esplora file</button>
+              <button type="button" class="btn btn--secondary" data-home-year-courses="Primo Anno">Corsi e Teams</button>
+            </div>
+          </article>
 
-        <article class="year-card">
-          <div>
+          <article class="year-card span-6">
             <div class="year-card-head">
               <h3>
-                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Secondo anno
               </h3>
               <span class="year-count">8 corsi</span>
             </div>
-            <p class="year-card-meta">Analisi e Progettazione di Strutture Dati, Informatica Teorica, Fisica Generale 1, Geometria, Sistemi Operativi, Algoritmi, Linguaggi 1, Statistica.</p>
-          </div>
-          <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Secondo Anno">Esplora file</button>
-            <button type="button" class="btn" data-home-year-courses="Secondo Anno">Corsi e Teams</button>
-          </div>
-        </article>
+            <div class="year-card__ui" data-ui="year-2-pills">
+              <div class="year-pills-wrap">
+                <span class="year-course-pill">APSD</span>
+                <span class="year-course-pill">Informatica Teorica</span>
+                <span class="year-course-pill">Fisica 1</span>
+                <span class="year-course-pill">Geometria</span>
+                <span class="year-course-pill">Sistemi Operativi</span>
+                <span class="year-course-pill">Algoritmi (APA)</span>
+              </div>
+              <div class="year-progress-row">
+                <span class="year-progress-track"><span class="year-progress-fill" style="width:88%"></span></span>
+                <span data-year-stat="Secondo Anno">Tracce e dispense</span>
+              </div>
+            </div>
+            <div class="year-card-actions">
+              <button type="button" class="btn btn-primary" data-home-year-files="Secondo Anno">Esplora file</button>
+              <button type="button" class="btn btn--secondary" data-home-year-courses="Secondo Anno">Corsi e Teams</button>
+            </div>
+          </article>
 
-        <article class="year-card">
-          <div>
+          <article class="year-card span-6">
             <div class="year-card-head">
               <h3>
-                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Terzo anno
               </h3>
               <span class="year-count">5 corsi</span>
             </div>
-            <p class="year-card-meta">Reti e Programmazione Distribuita, Ingegneria del Software, Tecnologie Web, AI Technologies, Tecniche di Programmazione Avanzata.</p>
-          </div>
-          <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Terzo Anno">Esplora file</button>
-            <button type="button" class="btn" data-home-year-courses="Terzo Anno">Corsi e Teams</button>
-          </div>
-        </article>
+            <div class="year-card__ui" data-ui="year-3-pills">
+              <div class="year-pills-wrap">
+                <span class="year-course-pill">Reti</span>
+                <span class="year-course-pill">Ingegneria del Software</span>
+                <span class="year-course-pill">Tecnologie Web</span>
+                <span class="year-course-pill">AI Technologies</span>
+                <span class="year-course-pill">TPA</span>
+              </div>
+              <div class="year-progress-row">
+                <span class="year-progress-track"><span class="year-progress-fill" style="width:84%"></span></span>
+                <span data-year-stat="Terzo Anno">Progetti ed esami</span>
+              </div>
+            </div>
+            <div class="year-card-actions">
+              <button type="button" class="btn btn-primary" data-home-year-files="Terzo Anno">Esplora file</button>
+              <button type="button" class="btn btn--secondary" data-home-year-courses="Terzo Anno">Corsi e Teams</button>
+            </div>
+          </article>
 
-        <article class="year-card">
-          <div>
+          <article class="year-card span-6">
             <div class="year-card-head">
               <h3>
-                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Esami a scelta
               </h3>
               <span class="year-count">12 corsi</span>
             </div>
-            <p class="year-card-meta">Economia e Organizzazione Aziendale, Multimedia Information Systems, Algorithm Design, Ricerca Operativa, Calcolo Numerico, Forensics e altri.</p>
-          </div>
-          <div class="year-card-actions">
-            <button type="button" class="btn btn-primary" data-home-year-files="Esami a Scelta">Esplora file</button>
-            <button type="button" class="btn" data-home-year-courses="Esami a Scelta">Corsi e Teams</button>
-          </div>
-        </article>
+            <div class="year-card__ui" data-ui="year-4-pills">
+              <div class="year-pills-wrap">
+                <span class="year-course-pill">Economia</span>
+                <span class="year-course-pill">Multimedia</span>
+                <span class="year-course-pill">Algorithm Design</span>
+                <span class="year-course-pill">Ricerca Operativa</span>
+                <span class="year-course-pill">Calcolo Numerico</span>
+                <span class="year-course-pill">Forensics</span>
+              </div>
+              <div class="year-progress-row">
+                <span class="year-progress-track"><span class="year-progress-fill" style="width:74%"></span></span>
+                <span data-year-stat="Esami a Scelta">12 insegnamenti</span>
+              </div>
+            </div>
+            <div class="year-card-actions">
+              <button type="button" class="btn btn-primary" data-home-year-files="Esami a Scelta">Esplora file</button>
+              <button type="button" class="btn btn--secondary" data-home-year-courses="Esami a Scelta">Corsi e Teams</button>
+            </div>
+          </article>
+        </div>
       </div>
+    </section>
 
-      <h3 class="section-heading">
-        <span class="section-heading-left">
-          <svg class="icon" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          Scorciatoie e contributi rapidi
-        </span>
-      </h3>
-      <div class="home-shortcuts-grid">
-        <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
-          <span class="shortcut-left">
-            <span class="shortcut-icon-box">
-              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-            </span>
-            Orario lezioni 2026/2027
-          </span>
-          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
+    <!-- ==========================================
+         HOME SECTION 3: AGGIORNAMENTI & CORSI FISSATI / APPELLI
+         ========================================== -->
+    <section id="home-updates" class="updates-section home-section" data-home-section aria-label="Ultimi aggiornamenti e corsi preferiti">
+      <div class="wrap">
+        <h2>Ultimi aggiornamenti didattici, corsi fissati e appelli DIETI.</h2>
+        <div class="bento-updates-grid grid">
+          <article id="home-recent-section" class="bento-panel span-6">
+            <div class="bento-panel-head">
+              <h3>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Ultimi materiali aggiunti
+              </h3>
+              <span class="year-count">Git log</span>
+            </div>
+            <div id="home-recent-grid" class="recent-grid" data-ui="recent-updates-feed"></div>
+          </article>
 
-        <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">
-          <span class="shortcut-left">
-            <span class="shortcut-icon-box">
-              <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            </span>
-            Invia traccia progetto
-          </span>
-          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-
-        <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
-          <span class="shortcut-left">
-            <span class="shortcut-icon-box">
-              <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-            </span>
-            Invia codice Teams
-          </span>
-          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-
-        <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
-          <span class="shortcut-left">
-            <span class="shortcut-icon-box">
-              <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
-            </span>
-            Segnala bug o errore
-          </span>
-          <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
+          <article id="home-pinned-section" class="bento-panel span-6">
+            <div class="bento-panel-head">
+              <h3>
+                <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span id="home-pinned-title">I miei corsi fissati e appelli</span>
+              </h3>
+              <span class="year-count" id="home-pinned-badge">Preferiti</span>
+            </div>
+            <div id="home-pinned-grid" class="home-pinned-grid" data-ui="pinned-courses-feed"></div>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- ==========================================
          VIEW 2: FULL PORTAL CATALOG (#catalog-screen)
          ========================================== -->
-    <div id="catalog-screen" hidden>
-      <div class="catalog-top-bar">
-        <nav class="nav-tabs" role="tablist" aria-label="Sezioni del catalogo">
-          <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="true">
-            <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <span class="lbl-full">Catalogo file ed esami</span><span class="lbl-short">File ed esami</span>
+    <section id="catalog-screen" class="catalog-view" hidden aria-label="Catalogo completo del portale">
+      <div class="wrap">
+        <div class="catalog-top-bar">
+          <nav class="nav-tabs" role="tablist" aria-label="Sezioni del catalogo">
+            <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="true" aria-disabled="true">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <span class="lbl-full">Catalogo file ed esami</span><span class="lbl-short">File ed esami</span>
+            </button>
+            <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false" aria-disabled="true">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              <span class="lbl-full">Corsi, propedeuticità e Teams</span><span class="lbl-short">Corsi e Teams</span>
+            </button>
+            <button type="button" role="tab" class="tab-btn" id="tab-btn-calendar" aria-controls="panel-calendar" aria-selected="false" aria-disabled="true">
+              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              <span class="lbl-full">Calendario esami</span><span class="lbl-short">Calendario esami</span>
+            </button>
+            <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false" aria-disabled="true">
+              <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+              <span class="lbl-full">Mappe, clone selettivo e guide</span><span class="lbl-short">Mappe e Git</span>
+            </button>
+          </nav>
+          <button type="button" class="btn" id="catalog-back-home-btn">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+            Torna alla Home
           </button>
-          <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            <span class="lbl-full">Corsi, propedeuticità e Teams</span><span class="lbl-short">Corsi e Teams</span>
-          </button>
-          <button type="button" role="tab" class="tab-btn" id="tab-btn-calendar" aria-controls="panel-calendar" aria-selected="false">
-            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-            <span class="lbl-full">Calendario esami</span><span class="lbl-short">Calendario esami</span>
-          </button>
-          <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false">
-            <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-            <span class="lbl-full">Mappe, clone selettivo e guide</span><span class="lbl-short">Mappe e Git</span>
-          </button>
-        </nav>
-        <button type="button" class="btn" id="catalog-back-home-btn">
-          <svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-          Torna alla Home
-        </button>
-      </div>
+        </div>
 
-      <!-- TAB 1: FILE SEARCH -->
-      <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files">
-        <div class="filter-card">
-          <div class="search-row">
-            <div class="search-input-wrap">
-              <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, sigla (ASD, ADE, BD), data (es. 22-10-2026) o docente..." aria-label="Cerca tra tutti i file">
-              <span class="kbd-hint" aria-hidden="true">/</span>
-            </div>
-            <button type="button" class="btn" id="mobile-filters-toggle" aria-expanded="false" aria-controls="filters-grid-box">
+        <!-- TAB 1: FILE SEARCH -->
+        <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files">
+          <div class="filter-card">
+            <div class="search-row">
+              <div class="search-input-wrap">
+                <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, sigla (ASD, ADE, BD), data (es. 22-10-2026) o docente..." aria-label="Cerca tra tutti i file">
+                <span class="kbd-hint" aria-hidden="true">/</span>
+              </div>
+              <button type="button" class="btn" id="mobile-filters-toggle" aria-expanded="false" aria-disabled="true" aria-controls="filters-grid-box">
               <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
               <span id="mobile-filters-label">Filtri</span>
             </button>
@@ -2780,7 +3290,7 @@
               <input type="search" id="calendar-search" class="search-input" placeholder="Cerca insegnamento, sigla (ADE, APSD, APA, BD), docente, canale (FG1, A-DE) o data (es. 18/01)..." aria-label="Cerca nel calendario esami">
               <span class="kbd-hint" aria-hidden="true">/</span>
             </div>
-            <button type="button" class="btn" id="cal-mobile-filters-toggle" aria-expanded="false" aria-controls="cal-filters-grid-box">
+            <button type="button" class="btn" id="cal-mobile-filters-toggle" aria-expanded="false" aria-disabled="true" aria-controls="cal-filters-grid-box">
               <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
               <span id="cal-mobile-filters-label">Filtri</span>
             </button>
@@ -2975,8 +3485,35 @@
           </article>
         </div>
       </section>
-    </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Native Modal Dialog for Command Palette (Ctrl+K / Cmd+K) -->
+  <dialog id="cmd-modal" class="cmd-dialog" aria-labelledby="cmd-modal-title" closedby="any">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <div>
+          <h2 id="cmd-modal-title">Ricerca rapida e comandi</h2>
+          <span style="font-size:0.8125rem;color:var(--muted);">Corsi, appelli d'esame DIETI, documenti e azioni rapide</span>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="btn" value="close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            Chiudi
+          </button>
+        </form>
+      </div>
+      <div>
+        <label class="field-label" for="cmd-search-input">Digita insegnamento, sigla, data appello o nome file</label>
+        <div class="search-input-wrap">
+          <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="cmd-search-input" class="search-input" placeholder="Es. ADE, APSD, APA, Algebra, 07/01, Starace..." autocomplete="off">
+        </div>
+        <div id="cmd-results-list" class="cmd-results-list" role="listbox" aria-label="Risultati ricerca rapida"></div>
+      </div>
+    </div>
+  </dialog>
 
   <!-- Native Modal Dialog for Course Details -->
   <dialog id="course-modal" aria-labelledby="course-modal-title" closedby="any">
@@ -3044,7 +3581,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <!-- Mobile App-Like Bottom Navigation Bar (Home · Catalogo · Corsi · Calendario · Preferiti) -->
-  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" role="tablist" aria-label="Navigazione mobile">
+  <nav class="mobile-bottom-nav actionbar" id="mobile-bottom-nav" role="tablist" aria-label="Navigazione mobile">
     <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="home" aria-selected="true">
       <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span>Home</span>
@@ -3068,9 +3605,81 @@
     </button>
   </nav>
 
-  <footer>
-    <div>Progetto open-source della community studenti <strong>Unina Informatica</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">Creative Commons 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a></div>
-    <div style="margin-top:4px;font-size:0.75rem;">Il materiale didattico appartiene ai rispettivi autori e docenti ed è condiviso a solo scopo di studio non commerciale. Per richieste di modifica o rimozione: <a href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">apri una segnalazione</a>.</div>
+  <footer class="footer closing">
+    <div class="wrap">
+      <div class="closing__call grid">
+        <div class="span-6">
+          <p class="kicker">COMMUNITY STUDENTI INFORMATICA FEDERICO II</p>
+          <h2>Contribuisci all'archivio didattico di Informatica Federico II.</h2>
+          <p class="lead">Condividi appunti, tracce scritte, progetti o codici Microsoft Teams per mantenere aggiornato il portale.</p>
+          <div class="btn-row">
+            <a href="#panel-files" class="btn btn-primary" id="footer-open-catalog-btn">Esplora il catalogo</a>
+            <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener" class="btn btn--secondary">Repository GitHub</a>
+          </div>
+        </div>
+        <div class="home-shortcuts-grid span-6" data-ui="closing-shortcuts">
+          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
+            <span class="shortcut-left">
+              <span class="shortcut-icon-box">
+                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              </span>
+              <span>Orario lezioni 26/27</span>
+            </span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">
+            <span class="shortcut-left">
+              <span class="shortcut-icon-box">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              </span>
+              <span>Invia appunti o tracce</span>
+            </span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">
+            <span class="shortcut-left">
+              <span class="shortcut-icon-box">
+                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </span>
+              <span>Invia traccia progetto</span>
+            </span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
+            <span class="shortcut-left">
+              <span class="shortcut-icon-box">
+                <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
+              </span>
+              <span>Invia codice Teams</span>
+            </span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="shortcut-card" href="https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale" target="_blank" rel="noopener">
+            <span class="shortcut-left">
+              <span class="shortcut-icon-box">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              </span>
+              <span>Calendario DIETI</span>
+            </span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
+            <span class="shortcut-left">
+              <span class="shortcut-icon-box">
+                <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
+              </span>
+              <span>Segnala bug o errore</span>
+            </span>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="closing__legal">
+        <div>Progetto open-source <strong>Unina Informatica</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">Creative Commons 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a> • <a href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">Gruppi Telegram</a></div>
+        <div>Materiale condiviso a solo scopo di studio non commerciale. Per modifiche o rimozioni: <a href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">apri una segnalazione</a>.</div>
+      </div>
+    </div>
   </footer>
 
   <script id="unina-catalog-data" type="application/json">__UNINA_JSON_PAYLOAD__</script>
@@ -3311,6 +3920,10 @@
         bottomNavFavBadge.hidden = cnt === 0;
       };
 
+      let filesRendered = false;
+      let coursesRendered = false;
+      let calendarRendered = false;
+
       const togglePinCourse = (courseName) => {
         if (pinnedCourses.has(courseName)) {
           pinnedCourses.delete(courseName);
@@ -3322,8 +3935,8 @@
         savePins();
         syncFavBadge();
         renderPinnedHome();
-        renderCourses();
-        if (typeof renderCalendar === 'function') renderCalendar(false);
+        if (coursesRendered) renderCourses();
+        if (calendarRendered && typeof renderCalendar === 'function') renderCalendar(false);
       };
 
       // View Switching: Standalone Home (#home-screen) <-> Full Catalog (#catalog-screen)
@@ -3358,6 +3971,16 @@
         panels.forEach((p) => {
           p.hidden = p.getAttribute('aria-labelledby') !== tabId;
         });
+        if (tabId === 'tab-btn-files' && !filesRendered && typeof applyFileFilters === 'function') {
+          filesRendered = true;
+          applyFileFilters(false);
+        } else if (tabId === 'tab-btn-courses' && !coursesRendered && typeof renderCourses === 'function') {
+          coursesRendered = true;
+          renderCourses();
+        } else if (tabId === 'tab-btn-calendar' && !calendarRendered && typeof renderCalendar === 'function') {
+          calendarRendered = true;
+          renderCalendar(false);
+        }
         syncShellNav(tabId === 'tab-btn-courses' && coursePinnedOnly ? 'favorites' : tabId);
       };
 
@@ -3443,9 +4066,19 @@
         try { history.replaceState({ view: 'catalog', tabId: currentTab }, '', nextUrl); } catch {}
       };
 
+      const homeSections = document.querySelectorAll('[data-home-section]');
+      const catalogExpandables = document.querySelectorAll('#catalog-screen [role="tab"], #mobile-filters-toggle, #cal-mobile-filters-toggle');
+      const setCatalogInteractive = (enabled) => {
+        catalogExpandables.forEach((el) => {
+          if (enabled) el.removeAttribute('aria-disabled');
+          else el.setAttribute('aria-disabled', 'true');
+        });
+      };
+
       const openCatalog = (tabId = 'tab-btn-files', pushHistory = true) => {
-        homeScreen.hidden = true;
+        homeSections.forEach((sec) => { sec.hidden = true; });
         catalogScreen.hidden = false;
+        setCatalogInteractive(true);
         headerBackHomeBtn.hidden = false;
         activateCatalogTab(tabId);
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -3458,7 +4091,8 @@
 
       const openHome = (pushHistory = true) => {
         catalogScreen.hidden = true;
-        homeScreen.hidden = false;
+        setCatalogInteractive(false);
+        homeSections.forEach((sec) => { sec.hidden = false; });
         headerBackHomeBtn.hidden = true;
         syncShellNav('home');
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -3469,6 +4103,7 @@
 
       tabs.forEach((t, idx) => {
         t.addEventListener('click', () => {
+          if (catalogScreen.hidden) return;
           if (t.id === 'tab-btn-courses') coursePinnedOnly = false;
           openCatalog(t.id);
         });
@@ -4106,69 +4741,117 @@
         copyText(location.href, 'Link diretto a questa ricerca copiato');
       });
 
-      // Render Pinned Courses on Home
+      // Recent Searches in localStorage
+      const RECENT_SEARCHES_KEY = 'unina_recent_searches';
+      const getRecentSearches = () => {
+        try {
+          const arr = JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY) || '[]');
+          return Array.isArray(arr) ? arr.slice(0, 6) : [];
+        } catch {
+          return [];
+        }
+      };
+      const saveRecentSearch = (q) => {
+        const clean = String(q || '').trim();
+        if (clean.length < 2) return;
+        try {
+          const prev = getRecentSearches().filter((x) => x.toLowerCase() !== clean.toLowerCase());
+          localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([clean, ...prev].slice(0, 6)));
+        } catch {}
+      };
+
+      // Render Pinned Courses or Upcoming Exam Dates on Home (zero CLS!)
       const homePinnedSection = document.getElementById('home-pinned-section');
       const homePinnedGrid = document.getElementById('home-pinned-grid');
+      const homePinnedTitle = document.getElementById('home-pinned-title');
+      const homePinnedBadge = document.getElementById('home-pinned-badge');
       const renderPinnedHome = () => {
+        if (!homePinnedGrid) return;
+        if (homePinnedSection) homePinnedSection.hidden = false;
         const list = DATA.courses.filter((c) => pinnedCourses.has(c.name));
-        if (list.length === 0) {
-          homePinnedSection.hidden = true;
-          homePinnedGrid.innerHTML = '';
+        homePinnedGrid.innerHTML = '';
+
+        if (list.length > 0) {
+          if (homePinnedTitle) homePinnedTitle.textContent = 'I miei corsi fissati';
+          if (homePinnedBadge) homePinnedBadge.textContent = `${list.length} ${list.length === 1 ? 'salvato' : 'salvati'}`;
+          list.slice(0, 6).forEach((c) => {
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'pinned-card';
+            card.innerHTML = `
+              <div class="pinned-card-head">
+                <span class="action-badge is-new">${escapeHtml(c.yearGroup)}</span>
+                <span>${c.fileCount} file</span>
+              </div>
+              <h4>${escapeHtml(c.name)}</h4>
+              <div class="pinned-meta">${escapeHtml(c.semester)} sem • ${escapeHtml(c.cfu)} CFU</div>
+            `;
+            card.addEventListener('click', () => {
+              openCatalog('tab-btn-files');
+              filterYear.value = c.yearGroup;
+              updateCourseOptions();
+              filterCourse.value = c.name;
+              updateProfOptions();
+              applyFileFilters();
+            });
+            homePinnedGrid.appendChild(card);
+          });
           return;
         }
-        homePinnedSection.hidden = false;
-        homePinnedGrid.innerHTML = '';
-        list.forEach((c) => {
-          const card = document.createElement('article');
-          card.className = 'pinned-card';
-          card.innerHTML = `
-            <div>
-              <div class="pinned-card-head">
-                <h4>${escapeHtml(c.name)}</h4>
-                <button type="button" class="pin-btn" aria-pressed="true" aria-label="Rimuovi ${escapeHtml(c.name)} dai corsi fissati" title="Rimuovi dai corsi fissati">${SVG_ICONS.starFilled}</button>
-              </div>
-              <div class="pinned-meta">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem • ${c.fileCount} file</div>
-            </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <button type="button" class="btn btn-primary" data-pin-files>Apri ${c.fileCount} file</button>
-              <button type="button" class="btn" data-pin-info>Scheda e Teams</button>
-            </div>
-          `;
-          card.querySelector('.pin-btn').addEventListener('click', () => togglePinCourse(c.name));
-          card.querySelector('[data-pin-files]').addEventListener('click', () => {
-            openCatalog('tab-btn-files');
-            filterYear.value = c.yearGroup;
-            updateCourseOptions();
-            filterCourse.value = c.name;
-            updateProfOptions();
-            applyFileFilters();
+
+        // Fallback: mostra i prossimi 6 appelli d'esame ufficiali DIETI
+        if (homePinnedTitle) homePinnedTitle.textContent = 'Prossimi appelli in sessione';
+        if (homePinnedBadge) homePinnedBadge.textContent = 'Sessione DIETI';
+        const nowD = new Date();
+        const isoNow = `${nowD.getFullYear()}-${String(nowD.getMonth() + 1).padStart(2, '0')}-${String(nowD.getDate()).padStart(2, '0')}`;
+        const upcoming = [];
+        ((DATA.examCalendar && DATA.examCalendar.entries) || []).forEach((e) => {
+          if (e.regolamento === 'Vecchio Regolamento') return;
+          (e.dates || []).forEach((d) => {
+            if (d.iso >= isoNow) upcoming.push({ entry: e, date: d });
           });
-          card.querySelector('[data-pin-info]').addEventListener('click', () => openCourseModal(c));
-          homePinnedGrid.appendChild(card);
+        });
+        upcoming.sort((a, b) => a.date.iso.localeCompare(b.date.iso));
+        upcoming.slice(0, 6).forEach(({ entry, date }) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'pinned-card';
+          btn.innerHTML = `
+            <div class="pinned-card-head">
+              <span class="action-badge is-new">${escapeHtml(date.display)}</span>
+              <span>${escapeHtml(entry.channel || entry.yearGroup)}</span>
+            </div>
+            <h4>${escapeHtml(entry.course)}</h4>
+            <div class="pinned-meta">${escapeHtml(entry.prof || entry.yearGroup)}</div>
+          `;
+          btn.addEventListener('click', () => {
+            openCatalog('tab-btn-calendar');
+            if (calSearch) calSearch.value = entry.course;
+            if (typeof renderCalendar === 'function') renderCalendar();
+          });
+          homePinnedGrid.appendChild(btn);
         });
       };
 
-      // Render Recent Updates on Home
+      // Render Recent Updates on Home (top 6 items, zero CLS)
       const homeRecentSection = document.getElementById('home-recent-section');
       const homeRecentGrid = document.getElementById('home-recent-grid');
-      if (Array.isArray(DATA.recentUpdates) && DATA.recentUpdates.length > 0) {
-        homeRecentSection.hidden = false;
-        DATA.recentUpdates.forEach((u) => {
+      if (homeRecentGrid && Array.isArray(DATA.recentUpdates)) {
+        if (homeRecentSection) homeRecentSection.hidden = false;
+        DATA.recentUpdates.slice(0, 6).forEach((u) => {
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'recent-card';
           const catLbl = CAT_LABELS[u.cat] || u.cat;
-          const actLbl = u.action || 'Nuovo';
+          const shortDate = String(u.date || '').replace(/^(\d{2}\/\d{2})\/20(\d{2})$/, '$1/$2');
+          const trunc = (s, n) => (String(s || '').length > n ? String(s).slice(0, n - 1).trim() + '…' : String(s || ''));
           btn.innerHTML = `
             <div class="recent-top">
-              <span style="display:inline-flex;gap:4px;align-items:center;">
-                <span class="action-badge ${actLbl === 'Nuovo' ? 'is-new' : ''}">${escapeHtml(actLbl)}</span>
-                <span class="cat-tag">${escapeHtml(catLbl)}</span>
-              </span>
-              <span>${escapeHtml(u.date)}</span>
+              <span class="cat-tag">${escapeHtml(catLbl)}</span>
+              <span>${escapeHtml(shortDate)}</span>
             </div>
-            <div class="recent-title">${escapeHtml(u.label)}</div>
-            <div class="recent-sub">${escapeHtml(u.course)} • ${escapeHtml(u.prof)}</div>
+            <div class="recent-title" title="${escapeHtml(u.label)}">${escapeHtml(trunc(u.label, 24))}</div>
+            <div class="recent-sub" title="${escapeHtml(u.course + ' • ' + u.prof)}">${escapeHtml(trunc(u.course, 24))}</div>
           `;
           btn.addEventListener('click', () => {
             openCatalog('tab-btn-files');
@@ -4186,13 +4869,17 @@
         });
       }
 
-      // Home actions
-      const homeSearchForm = document.getElementById('home-search-form');
+      // Protagonist Search on Home + Live Suggestions + Quick Acronym Chips
       const homeSearchInput = document.getElementById('home-search-input');
-      homeSearchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+      const homeSearchSubmit = document.getElementById('home-search-submit');
+      const homeSuggestionsEl = document.getElementById('home-search-suggestions');
+
+      const executeHomeSearch = (queryStr) => {
+        const q = String(queryStr !== undefined ? queryStr : (homeSearchInput ? homeSearchInput.value : '')).trim();
+        if (q) saveRecentSearch(q);
+        if (homeSuggestionsEl) homeSuggestionsEl.hidden = true;
         openCatalog('tab-btn-files');
-        searchInput.value = homeSearchInput.value;
+        searchInput.value = q;
         filterYear.value = '';
         updateCourseOptions();
         filterCourse.value = '';
@@ -4202,17 +4889,111 @@
         activeSubpath = '';
         applyFileFilters();
         searchInput.focus();
+      };
+
+      const renderHomeSuggestions = () => {
+        if (!homeSuggestionsEl || !homeSearchInput) return;
+        const raw = homeSearchInput.value.trim();
+        const q = normText(raw);
+        homeSuggestionsEl.innerHTML = '';
+
+        if (!q) {
+          const recents = getRecentSearches();
+          if (!recents.length) {
+            homeSuggestionsEl.hidden = true;
+            return;
+          }
+          recents.forEach((r) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'sugg-item';
+            btn.innerHTML = `<span>${SVG_ICONS.clock} ${escapeHtml(r)}</span><span class="sugg-meta">Ricerca recente</span>`;
+            btn.addEventListener('click', () => executeHomeSearch(r));
+            homeSuggestionsEl.appendChild(btn);
+          });
+          homeSuggestionsEl.hidden = false;
+          return;
+        }
+
+        const matchedCourses = DATA.courses.filter((c) => c.searchBlob.includes(q)).slice(0, 3);
+        const matchedFiles = DATA.files.filter((f) => f.searchBlob.includes(q)).slice(0, 4);
+        if (!matchedCourses.length && !matchedFiles.length) {
+          homeSuggestionsEl.hidden = true;
+          return;
+        }
+
+        matchedCourses.forEach((c) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'sugg-item';
+          btn.innerHTML = `<span>${SVG_ICONS.book} <strong>${escapeHtml(c.name)}</strong></span><span class="sugg-meta">${c.fileCount} file • ${escapeHtml(c.yearGroup)}</span>`;
+          btn.addEventListener('click', () => {
+            saveRecentSearch(c.name);
+            homeSuggestionsEl.hidden = true;
+            openCatalog('tab-btn-files');
+            filterYear.value = c.yearGroup;
+            updateCourseOptions();
+            filterCourse.value = c.name;
+            updateProfOptions();
+            applyFileFilters();
+          });
+          homeSuggestionsEl.appendChild(btn);
+        });
+
+        matchedFiles.forEach((f) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'sugg-item';
+          btn.innerHTML = `<span>${SVG_ICONS.fileText} ${escapeHtml(f.name)}</span><span class="sugg-meta">${escapeHtml(f.course)}</span>`;
+          btn.addEventListener('click', () => {
+            saveRecentSearch(raw);
+            homeSuggestionsEl.hidden = true;
+            openCatalog('tab-btn-files');
+            searchInput.value = f.name;
+            applyFileFilters();
+          });
+          homeSuggestionsEl.appendChild(btn);
+        });
+        homeSuggestionsEl.hidden = false;
+      };
+
+      if (homeSearchInput) {
+        homeSearchInput.addEventListener('input', renderHomeSuggestions);
+        homeSearchInput.addEventListener('focus', renderHomeSuggestions);
+        homeSearchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            executeHomeSearch();
+          } else if (e.key === 'Escape' && homeSuggestionsEl) {
+            homeSuggestionsEl.hidden = true;
+          }
+        });
+      }
+      document.addEventListener('click', (e) => {
+        if (homeSuggestionsEl && !e.target.closest('#home-search-form')) {
+          homeSuggestionsEl.hidden = true;
+        }
       });
-      document.getElementById('home-open-catalog-btn').addEventListener('click', () => {
+      homeSearchSubmit?.addEventListener('click', () => executeHomeSearch());
+
+      document.querySelectorAll('[data-home-quick-q]').forEach((chip) => {
+        chip.addEventListener('click', () => executeHomeSearch(chip.dataset.homeQuickQ));
+      });
+
+      document.getElementById('home-open-catalog-btn')?.addEventListener('click', () => {
         openCatalog('tab-btn-files');
       });
-      document.getElementById('home-open-courses-btn').addEventListener('click', () => {
+      document.getElementById('footer-open-catalog-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCatalog('tab-btn-files');
+      });
+      document.getElementById('home-open-courses-btn')?.addEventListener('click', () => {
         openCatalog('tab-btn-courses');
       });
-      document.getElementById('home-open-calendar-btn').addEventListener('click', () => {
+      document.getElementById('home-open-calendar-btn')?.addEventListener('click', () => {
         openCatalog('tab-btn-calendar');
       });
-      document.getElementById('home-open-hub-btn').addEventListener('click', () => {
+      document.getElementById('home-open-hub-btn')?.addEventListener('click', () => {
         openCatalog('tab-btn-hub');
       });
       document.querySelectorAll('[data-home-year-files]').forEach((btn) => {
@@ -4227,6 +5008,235 @@
           applyFileFilters();
         });
       });
+
+      // Command Palette Controller (Ctrl/Cmd + K)
+      const cmdModal = document.getElementById('cmd-modal');
+      const cmdSearchInput = document.getElementById('cmd-search-input');
+      const cmdResultsList = document.getElementById('cmd-results-list');
+      let cmdActiveIdx = 0;
+
+      const renderCmdResults = () => {
+        if (!cmdResultsList) return;
+        const raw = cmdSearchInput ? cmdSearchInput.value.trim() : '';
+        const q = normText(raw);
+        cmdResultsList.innerHTML = '';
+        const items = [];
+
+        const addGroup = (label) => {
+          const g = document.createElement('div');
+          g.className = 'cmd-group-label';
+          g.textContent = label;
+          cmdResultsList.appendChild(g);
+        };
+        const addItem = (titleHtml, metaText, onSelect) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cmd-item';
+          btn.setAttribute('role', 'option');
+          btn.innerHTML = `<span>${titleHtml}</span><span class="sugg-meta">${escapeHtml(metaText)}</span>`;
+          btn.addEventListener('click', () => {
+            if (raw) saveRecentSearch(raw);
+            cmdModal?.close();
+            onSelect();
+          });
+          cmdResultsList.appendChild(btn);
+          items.push(btn);
+        };
+
+        if (!q) {
+          const recents = getRecentSearches();
+          if (recents.length) {
+            addGroup('Ricerche recenti');
+            recents.forEach((r) => {
+              addItem(`${SVG_ICONS.clock} ${escapeHtml(r)}`, 'Cerca nel catalogo', () => executeHomeSearch(r));
+            });
+          }
+          addGroup('Navigazione rapida');
+          addItem(`${SVG_ICONS.search} Esplora catalogo completo (${DATA.files.length} file)`, 'Catalogo', () => openCatalog('tab-btn-files'));
+          addItem(`${SVG_ICONS.calendar} Calendario appelli d'esame DIETI`, 'Calendario', () => openCatalog('tab-btn-calendar'));
+          addItem(`${SVG_ICONS.book} Insegnamenti, propedeuticità e codici Teams`, '31 corsi', () => openCatalog('tab-btn-courses'));
+          addItem(`${SVG_ICONS.map} Mappe Monte Sant'Angelo, Via Claudio e Clone Git`, 'Mappe e Git', () => openCatalog('tab-btn-hub'));
+          addItem(`${SVG_ICONS.star} Cambia tema Chiaro / Scuro`, 'Aspetto', () => applyThemeSwitch());
+        } else {
+          const mCourses = DATA.courses.filter((c) => c.searchBlob.includes(q)).slice(0, 4);
+          if (mCourses.length) {
+            addGroup('Insegnamenti e Teams');
+            mCourses.forEach((c) => {
+              addItem(`${SVG_ICONS.book} <strong>${escapeHtml(c.name)}</strong>`, `${c.fileCount} file • ${c.yearGroup}`, () => {
+                openCatalog('tab-btn-files');
+                filterYear.value = c.yearGroup;
+                updateCourseOptions();
+                filterCourse.value = c.name;
+                updateProfOptions();
+                applyFileFilters();
+              });
+            });
+          }
+          const mExams = ((DATA.examCalendar && DATA.examCalendar.entries) || [])
+            .filter((e) => normText(`${e.course} ${e.aliases || ''} ${e.prof} ${e.channel}`).includes(q))
+            .slice(0, 3);
+          if (mExams.length) {
+            addGroup('Calendario esami DIETI');
+            mExams.forEach((e) => {
+              addItem(`${SVG_ICONS.calendar} ${escapeHtml(e.course)} ${e.channel ? '(' + escapeHtml(e.channel) + ')' : ''}`, e.prof || e.yearGroup, () => {
+                openCatalog('tab-btn-calendar');
+                if (calSearch) calSearch.value = e.course;
+                if (typeof renderCalendar === 'function') renderCalendar();
+              });
+            });
+          }
+          const mFiles = DATA.files.filter((f) => f.searchBlob.includes(q)).slice(0, 5);
+          if (mFiles.length) {
+            addGroup('Documenti e tracce');
+            mFiles.forEach((f) => {
+              addItem(`${SVG_ICONS.fileText} ${escapeHtml(f.name)}`, `${f.course} • ${fmtBytes(f.size)}`, () => {
+                openCatalog('tab-btn-files');
+                searchInput.value = f.name;
+                applyFileFilters();
+              });
+            });
+          }
+        }
+
+        cmdActiveIdx = 0;
+        items.forEach((el, idx) => el.classList.toggle('is-active', idx === cmdActiveIdx));
+      };
+
+      const openCommandPalette = () => {
+        if (!cmdModal) return;
+        if (cmdSearchInput) cmdSearchInput.value = '';
+        renderCmdResults();
+        openDialogWithHistory(cmdModal);
+        setTimeout(() => cmdSearchInput?.focus(), 30);
+      };
+
+      document.querySelectorAll('[data-open-cmd]').forEach((btn) => {
+        btn.addEventListener('click', openCommandPalette);
+      });
+      cmdSearchInput?.addEventListener('input', renderCmdResults);
+      cmdSearchInput?.addEventListener('keydown', (e) => {
+        const opts = [...(cmdResultsList?.querySelectorAll('.cmd-item') || [])];
+        if (!opts.length) return;
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          cmdActiveIdx = (cmdActiveIdx + 1) % opts.length;
+          opts.forEach((el, i) => el.classList.toggle('is-active', i === cmdActiveIdx));
+          opts[cmdActiveIdx].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          cmdActiveIdx = (cmdActiveIdx - 1 + opts.length) % opts.length;
+          opts.forEach((el, i) => el.classList.toggle('is-active', i === cmdActiveIdx));
+          opts[cmdActiveIdx].scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          opts[cmdActiveIdx]?.click();
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          if (cmdModal?.open) cmdModal.close();
+          else openCommandPalette();
+        }
+      });
+
+      // Hydrate exact file counts per year in Home Section 2 Bento
+      const yearFileCounts = new Map();
+      DATA.files.forEach((f) => {
+        yearFileCounts.set(f.yearGroup, (yearFileCounts.get(f.yearGroup) || 0) + 1);
+      });
+      const maxYearFiles = Math.max(1, ...yearFileCounts.values());
+      document.querySelectorAll('[data-year-stat]').forEach((el) => {
+        const yg = el.dataset.yearStat;
+        const cnt = yearFileCounts.get(yg) || 0;
+        el.textContent = `${cnt} documenti`;
+        const fill = el.parentElement?.querySelector('.year-progress-fill');
+        if (fill) fill.style.width = `${Math.max(18, Math.round((cnt / maxYearFiles) * 100))}%`;
+      });
+
+      // Lightweight Hero 2D Canvas Academic Graph (renders crisp prerequisite network inside console, respects reduced-motion)
+      const heroCanvas = document.getElementById('hero-canvas');
+      const drawHeroConstellation = () => {
+        if (!heroCanvas || !heroCanvas.getContext) return;
+        const ctx2d = heroCanvas.getContext('2d');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = heroCanvas.clientWidth || 480;
+        const h = heroCanvas.clientHeight || 84;
+        if (!w || !h) return;
+        heroCanvas.width = Math.round(w * dpr);
+        heroCanvas.height = Math.round(h * dpr);
+        ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const isDark = document.documentElement.dataset.theme === 'dark';
+
+        // Rich subtle gradient backdrop
+        const bgGrad = ctx2d.createLinearGradient(0, 0, w, h);
+        bgGrad.addColorStop(0, isDark ? '#0e1726' : '#eaf2fb');
+        bgGrad.addColorStop(0.55, isDark ? '#122238' : '#e0eefb');
+        bgGrad.addColorStop(1, isDark ? '#0c1d33' : '#dbeafe');
+        ctx2d.fillStyle = bgGrad;
+        ctx2d.fillRect(0, 0, w, h);
+
+        // Fine coordinate grid
+        ctx2d.strokeStyle = isDark ? 'rgba(125, 211, 252, 0.10)' : 'rgba(15, 76, 129, 0.08)';
+        ctx2d.lineWidth = 1;
+        for (let x = 28; x < w; x += 28) {
+          ctx2d.beginPath();
+          ctx2d.moveTo(x, 0);
+          ctx2d.lineTo(x, h);
+          ctx2d.stroke();
+        }
+        for (let y = 28; y < h; y += 28) {
+          ctx2d.beginPath();
+          ctx2d.moveTo(0, y);
+          ctx2d.lineTo(w, y);
+          ctx2d.stroke();
+        }
+
+        // Academic curriculum prerequisite graph nodes
+        const nodes = [
+          { x: w * 0.09, y: h * 0.56, label: '1° Anno', r: 5.5 },
+          { x: w * 0.28, y: h * 0.34, label: 'APSD', r: 5 },
+          { x: w * 0.48, y: h * 0.64, label: 'APA', r: 5.5 },
+          { x: w * 0.68, y: h * 0.34, label: '3° Anno', r: 5.5 },
+          { x: w * 0.89, y: h * 0.52, label: 'DIETI', r: 6.5 }
+        ];
+        const edges = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [2, 4], [3, 4]];
+
+        ctx2d.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.42)' : 'rgba(15, 76, 129, 0.34)';
+        ctx2d.lineWidth = 1.6;
+        edges.forEach(([a, b]) => {
+          const n1 = nodes[a], n2 = nodes[b];
+          ctx2d.beginPath();
+          ctx2d.moveTo(n1.x, n1.y);
+          ctx2d.quadraticCurveTo((n1.x + n2.x) * 0.5, (n1.y + n2.y) * 0.5 - 10, n2.x, n2.y);
+          ctx2d.stroke();
+        });
+
+        ctx2d.font = '600 11px ui-monospace, SFMono-Regular, Menlo, monospace';
+        ctx2d.textAlign = 'center';
+        nodes.forEach((n, idx) => {
+          const halo = ctx2d.createRadialGradient(n.x, n.y, 1, n.x, n.y, n.r * 3.4);
+          halo.addColorStop(0, isDark ? 'rgba(56, 189, 248, 0.38)' : 'rgba(2, 132, 199, 0.26)');
+          halo.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx2d.fillStyle = halo;
+          ctx2d.beginPath();
+          ctx2d.arc(n.x, n.y, n.r * 3.4, 0, Math.PI * 2);
+          ctx2d.fill();
+
+          ctx2d.fillStyle = idx === nodes.length - 1
+            ? (isDark ? '#38bdf8' : '#0284c7')
+            : (isDark ? '#7dd3fc' : '#0f4c81');
+          ctx2d.beginPath();
+          ctx2d.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx2d.fill();
+
+          ctx2d.fillStyle = isDark ? '#e2e8f0' : '#0f2540';
+          ctx2d.fillText(n.label, n.x, n.y > h * 0.5 ? n.y - 12 : n.y + 18);
+        });
+      };
+      drawHeroConstellation();
+      window.addEventListener('resize', drawHeroConstellation, { passive: true });
+      new MutationObserver(drawHeroConstellation).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
       // Multi-OS Git Selective Clone Command Builder (Bash/macOS/Linux, PowerShell, CMD)
       let currentGitOs = 'bash';
@@ -4824,7 +5834,6 @@
           groupByFolder = true;
           toggleGroupBtn.setAttribute('aria-pressed', 'true');
         }
-        applyFileFilters(false);
 
         if (calSearch) calSearch.value = params.get('cal_q') || '';
         if (calYearFilter) calYearFilter.value = params.get('cal_year') || '';
@@ -4833,14 +5842,25 @@
         calUpcomingOnly = params.get('cal_past') !== '1';
         calPinnedOnly = params.get('cal_pins') === '1';
         calViewMode = params.get('cal_view') === 'timeline' ? 'timeline' : 'courses';
-        renderCalendar(false);
 
         const h = location.hash;
-        if (h === '#calendario' || hasCalFilters) openCatalog('tab-btn-calendar', false);
-        else if (h === '#catalogo' || hasQueryFilters) openCatalog('tab-btn-files', false);
-        else if (h === '#corsi') openCatalog('tab-btn-courses', false);
-        else if (h === '#mappe') openCatalog('tab-btn-hub', false);
-        else openHome(false);
+        if (h === '#calendario' || hasCalFilters) {
+          calendarRendered = true;
+          renderCalendar(false);
+          openCatalog('tab-btn-calendar', false);
+        } else if (h === '#catalogo' || hasQueryFilters) {
+          filesRendered = true;
+          applyFileFilters(false);
+          openCatalog('tab-btn-files', false);
+        } else if (h === '#corsi') {
+          coursesRendered = true;
+          renderCourses();
+          openCatalog('tab-btn-courses', false);
+        } else if (h === '#mappe') {
+          openCatalog('tab-btn-hub', false);
+        } else {
+          openHome(false);
+        }
       };
 
       window.addEventListener('popstate', () => {
@@ -4852,8 +5872,8 @@
         hydrateFromUrl();
       });
 
+      syncFavBadge();
       renderPinnedHome();
-      renderCourses();
       hydrateFromUrl();
 
       // Register Service Worker for offline campus maps & index shell
