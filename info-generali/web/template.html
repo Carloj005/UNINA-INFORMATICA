@@ -509,8 +509,9 @@
     }
     @media (max-width: 1023px) {
       .nav__links,
-      .topbar .nav__cta {
-        display: none;
+      .topbar .nav__cta,
+      #header-back-home-btn {
+        display: none !important;
       }
       body {
         padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
@@ -1268,46 +1269,111 @@
       border-color: var(--primary);
     }
 
+    /* ==========================================
+       CATALOGO FILE: DESKTOP SIDEBAR + MOBILE BOTTOM SHEET
+       ========================================== */
+    .catalog-layout {
+      display: grid;
+      grid-template-columns: 284px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .catalog-main {
+      min-width: 0;
+    }
+    .catalog-sidebar {
+      position: sticky;
+      top: calc(var(--nav) + 84px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sidebar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-title {
+      margin: 0;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sheet-drag-handle,
+    .sheet-close-btn,
+    .sheet-footer,
+    .sheet-backdrop {
+      display: none;
+    }
+    .filter-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .filter-field label {
+      font-size: 0.78125rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .catalog-sidebar .filters-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 0;
+    }
+
     /* Search & Filters Card */
     .filter-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
-      margin-bottom: var(--sp-2);
+      border-radius: var(--r-lg);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
     }
     .search-row {
       display: flex;
-      gap: var(--sp-2);
+      gap: 10px;
       flex-wrap: wrap;
+      align-items: center;
     }
     #mobile-filters-toggle,
     #cal-mobile-filters-toggle {
       display: none;
     }
     .search-input-wrap {
-      flex: 1 1 280px;
+      flex: 1 1 260px;
       position: relative;
       display: flex;
       align-items: center;
     }
     .search-input-icon {
       position: absolute;
-      left: var(--sp-2);
+      left: 14px;
       color: var(--muted);
       pointer-events: none;
     }
     .search-input {
       width: 100%;
-      padding: var(--sp-1) var(--sp-5) var(--sp-1) var(--sp-5);
-      border-radius: var(--sp-1);
-      border: 1px solid var(--border);
+      padding: 10px 42px 10px 42px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border-strong);
       background: var(--surface-2);
       color: var(--text);
       font-size: 0.9375rem;
       font-weight: 400;
-      line-height: 1.5;
-      min-height: 40px;
+      line-height: 1.45;
+      min-height: 46px;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
     }
     .search-input:focus {
       outline: 2px solid var(--primary);
@@ -1316,10 +1382,11 @@
     }
     .kbd-hint {
       position: absolute;
-      right: var(--sp-2);
+      right: 12px;
+      font-family: var(--font-mono);
       font-size: 0.75rem;
-      padding: 0 var(--sp-1);
-      border-radius: var(--sp-1);
+      padding: 2px 7px;
+      border-radius: var(--r-xs);
       border: 1px solid var(--border);
       color: var(--muted);
       background: var(--surface);
@@ -1328,20 +1395,22 @@
     .filters-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(184px, 1fr));
-      gap: var(--sp-2);
-      margin-top: var(--sp-2);
+      gap: 12px;
+      margin-top: 12px;
     }
     select.filter-select {
       width: 100%;
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
-      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border-strong);
       background: var(--surface-2);
       color: var(--text);
+      font-family: var(--font-text);
       font-size: 0.875rem;
-      font-weight: 400;
-      line-height: 1.5;
-      min-height: 40px;
+      font-weight: 500;
+      line-height: 1.4;
+      min-height: 44px;
+      cursor: pointer;
     }
     select.filter-select:focus {
       outline: 2px solid var(--primary);
@@ -1352,26 +1421,30 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
-      margin-top: var(--sp-2);
+      gap: 8px;
+      margin-top: 12px;
     }
     .chip-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sp-1);
+      gap: 6px;
     }
     .chip {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
+      gap: 6px;
+      padding: 6px 12px;
+      min-height: 38px;
+      border-radius: var(--r-pill);
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--muted);
-      font-size: 0.875rem;
+      font-family: var(--font-text);
+      font-size: 0.84375rem;
       font-weight: 600;
       cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
     }
     .chip:hover {
       color: var(--text);
@@ -1546,93 +1619,149 @@
     .file-list {
       display: flex;
       flex-direction: column;
-      gap: var(--sp-1);
+      gap: 10px;
     }
     .folder-group-header {
-      background: var(--surface-2);
+      position: sticky;
+      top: calc(var(--nav) + 74px);
+      z-index: 15;
+      background: var(--surface-glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       border-left: 4px solid var(--primary);
-      border-radius: var(--sp-1);
-      padding: var(--sp-1) var(--sp-2);
-      margin-top: var(--sp-1);
+      border-radius: var(--r-md);
+      padding: 10px 14px;
+      margin-top: 6px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
+      gap: 10px;
       flex-wrap: wrap;
+      box-shadow: var(--shadow-sm);
     }
     .folder-group-title {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
+      gap: 8px;
       font-weight: 600;
       font-size: 0.9375rem;
       color: var(--text);
+      flex-wrap: wrap;
     }
     .file-row {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
+      gap: 14px;
       flex-wrap: wrap;
-      transition: border-color 0.15s ease;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
     }
     .file-row:hover {
       border-color: var(--primary);
+      box-shadow: var(--shadow-md);
     }
     .deferred-card {
       content-visibility: auto;
-      contain-intrinsic-size: auto none auto 72px;
+      contain-intrinsic-size: auto none auto 82px;
     }
     .file-info {
       display: flex;
-      align-items: center;
-      gap: var(--sp-2);
+      align-items: flex-start;
+      gap: 12px;
       min-width: 240px;
       flex: 1;
     }
     .file-icon {
-      width: var(--sp-5);
-      height: var(--sp-5);
-      border-radius: var(--sp-1);
+      width: 42px;
+      height: 42px;
+      border-radius: var(--r-md);
       background: var(--primary-soft);
       color: var(--primary-text);
-      display: grid;
-      place-items: center;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
       flex-shrink: 0;
+    }
+    .file-ext-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .file-icon.type-pdf {
+      background: light-dark(#fef2f2, rgba(239, 68, 68, 0.14));
+      color: light-dark(#b91c1c, #fca5a5);
+      border-color: light-dark(#fecaca, rgba(239, 68, 68, 0.3));
+    }
+    .file-icon.type-slides {
+      background: light-dark(#fffbeb, rgba(245, 158, 11, 0.14));
+      color: light-dark(#b45309, #fcd34d);
+      border-color: light-dark(#fde68a, rgba(245, 158, 11, 0.3));
+    }
+    .file-icon.type-archive {
+      background: light-dark(#f5f3ff, rgba(167, 139, 250, 0.14));
+      color: light-dark(#6d28d9, #c4b5fd);
+      border-color: light-dark(#ddd6fe, rgba(167, 139, 250, 0.3));
+    }
+    .file-icon.type-image {
+      background: light-dark(#ecfdf5, rgba(16, 185, 129, 0.14));
+      color: light-dark(#047857, #6ee7b7);
+      border-color: light-dark(#a7f3d0, rgba(16, 185, 129, 0.3));
+    }
+    .file-icon.type-code {
+      background: light-dark(#ecfeff, rgba(56, 189, 248, 0.14));
+      color: light-dark(#0369a1, #7dd3fc);
+      border-color: light-dark(#bae6fd, rgba(56, 189, 248, 0.3));
+    }
+    .file-body {
+      min-width: 0;
+      flex: 1;
     }
     .file-name-row {
       display: flex;
       align-items: center;
-      gap: var(--sp-1);
+      gap: 8px;
       flex-wrap: wrap;
     }
     .file-name {
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.96875rem;
+      line-height: 1.35;
       color: var(--text);
       word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .date-badge {
       background: var(--primary-soft);
       color: var(--primary-text);
-      padding: 0 var(--sp-1);
-      border-radius: var(--sp-1);
-      font-size: 0.75rem;
-      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
     .file-crumbs {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--muted);
-      margin-top: var(--sp-1);
+      margin-top: 6px;
       display: flex;
       flex-wrap: wrap;
-      gap: var(--sp-1);
+      gap: 6px;
       align-items: center;
     }
     .crumb-btn {
@@ -1651,11 +1780,11 @@
     .cat-tag {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 0 var(--sp-1);
-      border-radius: var(--sp-1);
+      padding: 1px 8px;
+      border-radius: var(--r-pill);
       color: var(--primary-text);
       font-weight: 600;
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       cursor: pointer;
     }
     .cat-tag:hover {
@@ -1664,15 +1793,46 @@
     .file-actions {
       display: flex;
       align-items: center;
-      gap: var(--sp-1);
+      gap: 8px;
       flex-shrink: 0;
       flex-wrap: wrap;
     }
+    .file-actions .btn {
+      height: 40px;
+      min-height: 40px;
+      padding: 0 14px;
+      font-size: 0.84375rem;
+    }
+    .file-actions .btn-icon-copy {
+      width: 40px;
+      padding: 0;
+    }
     .size-tag {
-      font-size: 0.875rem;
+      font-family: var(--font-mono);
+      font-size: 0.78125rem;
       color: var(--muted);
-      margin-right: var(--sp-1);
+      margin-right: 4px;
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Skeleton loader utility */
+    @keyframes skel-pulse {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 0.9; }
+    }
+    .skeleton-card {
+      height: 76px;
+      border-radius: var(--r-md);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      animation: skel-pulse 1.3s ease-in-out infinite;
+    }
+    .empty-state-svg {
+      width: 72px;
+      height: 72px;
+      color: var(--primary-text);
+      opacity: 0.9;
     }
 
     .load-more-wrap {
@@ -2340,6 +2500,138 @@
     /* ==========================================
        MOBILE & TABLET RESPONSIVE OPTIMIZATION
        ========================================== */
+    /* Tablet & Mobile Bottom Sheet for Catalog Filters (<= 1023px) */
+    @media (max-width: 1023px) {
+      .catalog-layout {
+        display: block;
+      }
+      #mobile-filters-toggle {
+        display: inline-flex;
+        flex-shrink: 0;
+        height: 46px;
+        min-height: 46px;
+        padding: 0 14px;
+        font-size: 0.875rem;
+        white-space: nowrap;
+      }
+      #mobile-filters-toggle[aria-expanded="true"] {
+        background: var(--primary-soft);
+        color: var(--primary-text);
+        border-color: var(--primary);
+      }
+      .sheet-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(4, 10, 20, 0.56);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 58;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.22s ease;
+      }
+      .sheet-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .catalog-sidebar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        z-index: 60;
+        border-radius: 22px 22px 0 0;
+        border: 1px solid var(--border-strong);
+        border-bottom: none;
+        padding: 10px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+        max-height: 85dvh;
+        overflow-y: auto;
+        box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.28);
+        transform: translateY(108%);
+        visibility: hidden;
+        transition: transform 0.28s var(--ease-out), visibility 0.28s;
+      }
+      .catalog-sidebar.is-open {
+        transform: translateY(0);
+        visibility: visible;
+      }
+      .catalog-sidebar.is-dragging {
+        transition: none;
+      }
+      .sheet-drag-handle {
+        display: flex;
+        justify-content: center;
+        padding: 6px 0 12px;
+        cursor: grab;
+        touch-action: none;
+      }
+      .sheet-drag-handle::before {
+        content: "";
+        width: 44px;
+        height: 5px;
+        border-radius: var(--r-pill);
+        background: var(--border-strong);
+      }
+      .sheet-close-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--r-btn);
+        border: 1px solid var(--border);
+        background: var(--surface-2);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .catalog-sidebar .filters-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .catalog-sidebar .filter-field:last-child {
+        grid-column: 1 / -1;
+      }
+      .sheet-footer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 16px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+        position: sticky;
+        bottom: 0;
+        background: var(--surface);
+      }
+      .sheet-footer .btn-primary {
+        flex: 1;
+      }
+      #panel-files .chip-bar-row {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        padding-bottom: 2px;
+      }
+      #panel-files .chip-bar-row::-webkit-scrollbar {
+        display: none;
+      }
+      #panel-files .chip-bar {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
+      #panel-files .chip {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 0 14px;
+      }
+    }
+
     @media (max-width: 768px) {
       html, body {
         overflow-x: clip;
@@ -2371,26 +2663,34 @@
         min-width: 0;
       }
 
-      /* Catalog Top Navigation Segmented Bar (2x2 grid for 4 tabs on mobile) */
+      /* Compact 1-Row Horizontal Tab Strip on Mobile */
       .catalog-top-bar {
-        top: calc(var(--nav) + 6px);
+        position: static;
         padding: 6px;
+        margin-bottom: 10px;
         gap: 6px;
+        border-radius: var(--r-md);
       }
       .nav-tabs {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
         gap: 6px;
       }
+      .nav-tabs::-webkit-scrollbar {
+        display: none;
+      }
       .tab-btn {
-        width: 100%;
+        flex: 0 0 auto;
         justify-content: center;
         white-space: nowrap;
-        padding: 8px 6px;
-        font-size: 0.78125rem;
-        min-height: 44px;
-        gap: 4px;
+        padding: 6px 12px;
+        font-size: 0.8125rem;
+        min-height: 40px;
+        gap: 6px;
       }
       #catalog-back-home-btn {
         display: none;
@@ -2403,7 +2703,7 @@
       #panel-files .search-row,
       #panel-calendar .search-row {
         flex-wrap: nowrap;
-        gap: 6px;
+        gap: 8px;
         align-items: stretch;
       }
       #panel-files .search-input-wrap,
@@ -2411,42 +2711,40 @@
         flex: 1 1 0%;
         min-width: 0;
       }
-      #mobile-filters-toggle,
       #cal-mobile-filters-toggle {
         display: inline-flex;
         flex-shrink: 0;
         padding: 0 12px;
-        min-height: 44px;
-        font-size: 0.8125rem;
+        min-height: 46px;
+        font-size: 0.84375rem;
         white-space: nowrap;
       }
-      #mobile-filters-toggle[aria-expanded="true"],
       #cal-mobile-filters-toggle[aria-expanded="true"] {
         background: var(--primary-soft);
         color: var(--primary-text);
         border-color: var(--primary);
       }
-      .filters-grid {
+      #cal-filters-grid-box {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
         margin-top: 8px;
       }
-      .filters-grid:not(.is-open) {
+      #cal-filters-grid-box:not(.is-open) {
         display: none;
       }
-      .filters-grid select:last-child {
+      #cal-filters-grid-box select:last-child {
         grid-column: 1 / -1;
       }
-      .chip-bar-row {
+      #panel-calendar .chip-bar-row {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
         margin-top: 8px;
       }
-      .chip-bar {
+      #panel-calendar .chip-bar {
         display: contents;
       }
-      .chip {
+      #panel-calendar .chip {
         width: 100%;
         justify-content: center;
         white-space: nowrap;
@@ -2587,22 +2885,32 @@
       }
       .file-actions {
         width: 100%;
-        justify-content: space-between;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
         border-top: 1px solid var(--border);
-        padding-top: 8px;
+        padding-top: 10px;
+        gap: 6px;
       }
       .size-tag {
         margin-right: auto;
-        font-size: 0.8125rem;
+        font-size: 0.75rem;
       }
       .file-actions .btn {
-        min-height: 34px;
-        padding: 5px 12px;
+        height: 42px;
+        min-height: 42px;
+        padding: 0 10px;
         font-size: 0.8125rem;
+        gap: 5px;
+      }
+      .file-actions .btn-icon-copy {
+        width: 42px;
+        padding: 0;
+        flex-shrink: 0;
       }
 
       /* Folder Group Header Mobile */
       .folder-group-header {
+        top: calc(var(--nav) + 56px);
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
@@ -3130,110 +3438,147 @@
 
         <!-- TAB 1: FILE SEARCH -->
         <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files">
-          <div class="filter-card">
-            <div class="search-row">
-              <div class="search-input-wrap">
-                <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, sigla (ASD, ADE, BD), data (es. 22-10-2026) o docente..." aria-label="Cerca tra tutti i file">
-                <span class="kbd-hint" aria-hidden="true">/</span>
+          <div class="catalog-layout">
+            <div class="sheet-backdrop" id="catalog-sheet-backdrop" aria-hidden="true"></div>
+            <aside class="catalog-sidebar" id="catalog-filters-sheet" aria-label="Filtri avanzati catalogo">
+              <div class="sheet-drag-handle" id="catalog-sheet-handle" aria-hidden="true"></div>
+              <div class="sidebar-head">
+                <h2 class="sidebar-title">
+                  <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
+                  <span>Filtra archivio</span>
+                </h2>
+                <button type="button" class="sheet-close-btn" id="catalog-sheet-close" aria-label="Chiudi filtri">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
               </div>
-              <button type="button" class="btn" id="mobile-filters-toggle" aria-expanded="false" aria-disabled="true" aria-controls="filters-grid-box">
-              <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
-              <span id="mobile-filters-label">Filtri</span>
-            </button>
-          </div>
-          <div class="filters-grid" id="filters-grid-box">
-            <select id="filter-year" class="filter-select" aria-label="Filtra per anno">
-              <option value="">Tutti gli anni</option>
-              <option value="Primo Anno">Primo anno</option>
-              <option value="Secondo Anno">Secondo anno</option>
-              <option value="Terzo Anno">Terzo anno</option>
-              <option value="Esami a Scelta">Esami a scelta</option>
-              <option value="Info Generali">Info generali e guide</option>
-            </select>
-            <select id="filter-course" class="filter-select" aria-label="Filtra per corso">
-              <option value="">Tutti i corsi</option>
-            </select>
-            <select id="filter-prof" class="filter-select" aria-label="Filtra per docente">
-              <option value="">Tutti i docenti</option>
-            </select>
-            <select id="filter-cat" class="filter-select" aria-label="Filtra per categoria">
-              <option value="">Tutte le categorie</option>
-              <option value="slides">Slides</option>
-              <option value="appunti">Appunti e dispense</option>
-              <option value="esami/scritto">Esami scritti e intercorso</option>
-              <option value="esami/orale">Esami orali</option>
-              <option value="esercizi">Esercizi e laboratorio</option>
-              <option value="progetti">Progetti</option>
-              <option value="libri">Libri</option>
-              <option value="contenuto-non-proprio">Contributi studenti</option>
-            </select>
-            <select id="sort-select" class="filter-select" aria-label="Ordina risultati">
-              <option value="relevance">Ordina: rilevanza e percorso</option>
-              <option value="date-desc">Ordina: data (dal più recente)</option>
-              <option value="name-asc">Ordina: nome file (a-z)</option>
-              <option value="size-asc">Ordina: dimensione (crescente)</option>
-              <option value="size-desc">Ordina: dimensione (decrescente)</option>
-            </select>
-          </div>
-          <div class="chip-bar-row">
-            <div class="chip-bar" aria-label="Filtri rapidi">
-              <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
-                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-                <span class="lbl-full">Solo slides</span><span class="lbl-short">Slides</span>
-              </button>
-              <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                <span class="lbl-full">Solo tracce scritte</span><span class="lbl-short">Tracce</span>
-              </button>
-              <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                <span class="lbl-full">Solo appunti</span><span class="lbl-short">Appunti</span>
-              </button>
-              <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                <span class="lbl-full">Solo progetti</span><span class="lbl-short">Progetti</span>
-              </button>
-              <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                <span class="lbl-full">Solo esercizi</span><span class="lbl-short">Esercizi</span>
-              </button>
+              <div class="filters-grid" id="filters-grid-box">
+                <div class="filter-field">
+                  <label for="filter-year">Anno di corso</label>
+                  <select id="filter-year" class="filter-select" aria-label="Filtra per anno">
+                    <option value="">Tutti gli anni</option>
+                    <option value="Primo Anno">Primo anno</option>
+                    <option value="Secondo Anno">Secondo anno</option>
+                    <option value="Terzo Anno">Terzo anno</option>
+                    <option value="Esami a Scelta">Esami a scelta</option>
+                    <option value="Info Generali">Info generali e guide</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label for="filter-course">Insegnamento</label>
+                  <select id="filter-course" class="filter-select" aria-label="Filtra per corso">
+                    <option value="">Tutti i corsi</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label for="filter-prof">Docente</label>
+                  <select id="filter-prof" class="filter-select" aria-label="Filtra per docente">
+                    <option value="">Tutti i docenti</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label for="filter-cat">Categoria</label>
+                  <select id="filter-cat" class="filter-select" aria-label="Filtra per categoria">
+                    <option value="">Tutte le categorie</option>
+                    <option value="slides">Slides</option>
+                    <option value="appunti">Appunti e dispense</option>
+                    <option value="esami/scritto">Esami scritti e intercorso</option>
+                    <option value="esami/orale">Esami orali</option>
+                    <option value="esercizi">Esercizi e laboratorio</option>
+                    <option value="progetti">Progetti</option>
+                    <option value="libri">Libri</option>
+                    <option value="contenuto-non-proprio">Contributi studenti</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label for="sort-select">Ordinamento</label>
+                  <select id="sort-select" class="filter-select" aria-label="Ordina risultati">
+                    <option value="relevance">Rilevanza e percorso</option>
+                    <option value="date-desc">Data (dal più recente)</option>
+                    <option value="name-asc">Nome file (A-Z)</option>
+                    <option value="size-asc">Dimensione (crescente)</option>
+                    <option value="size-desc">Dimensione (decrescente)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sheet-footer">
+                <button type="button" class="btn btn--secondary" id="sheet-reset-filters">Azzera</button>
+                <button type="button" class="btn btn-primary" id="sheet-apply-filters">Mostra risultati</button>
+              </div>
+            </aside>
+
+            <div class="catalog-main">
+              <div class="filter-card">
+                <div class="search-row">
+                  <div class="search-input-wrap">
+                    <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <input type="search" id="file-search" class="search-input" placeholder="Cerca slide, sigla (ASD, ADE, BD), data (es. 22-10-2026) o docente..." aria-label="Cerca tra tutti i file">
+                    <span class="kbd-hint" aria-hidden="true">/</span>
+                  </div>
+                  <button type="button" class="btn" id="mobile-filters-toggle" aria-expanded="false" aria-disabled="true" aria-controls="catalog-filters-sheet">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
+                    <span id="mobile-filters-label">Filtri</span>
+                  </button>
+                </div>
+                <div class="chip-bar-row">
+                  <div class="chip-bar" aria-label="Filtri rapidi">
+                    <button type="button" class="chip" data-quick-cat="slides" aria-pressed="false">
+                      <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                      <span class="lbl-full">Slides</span><span class="lbl-short">Slides</span>
+                    </button>
+                    <button type="button" class="chip" data-quick-cat="esami/scritto" aria-pressed="false">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                      <span class="lbl-full">Tracce scritte</span><span class="lbl-short">Tracce</span>
+                    </button>
+                    <button type="button" class="chip" data-quick-cat="appunti" aria-pressed="false">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                      <span class="lbl-full">Appunti</span><span class="lbl-short">Appunti</span>
+                    </button>
+                    <button type="button" class="chip" data-quick-cat="progetti" aria-pressed="false">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                      <span class="lbl-full">Progetti</span><span class="lbl-short">Progetti</span>
+                    </button>
+                    <button type="button" class="chip" data-quick-cat="esercizi" aria-pressed="false">
+                      <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                      <span class="lbl-full">Esercizi</span><span class="lbl-short">Esercizi</span>
+                    </button>
+                  </div>
+                  <button type="button" class="chip" id="toggle-group-folders" aria-pressed="false" title="Raggruppa i file per sottocartella">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                    <span class="lbl-full">Per cartella</span><span class="lbl-short">Cartelle</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Active Removable Filter Pills -->
+              <div id="active-filter-pills" class="filter-pills-row" hidden aria-label="Filtri attivi"></div>
+
+              <!-- Active Subfolder Breadcrumb Banner -->
+              <div id="active-path-bar" class="active-path-bar" hidden>
+                <div class="active-path-crumbs" id="active-path-text"></div>
+                <button type="button" class="btn" id="clear-subpath-btn">
+                  <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  Esci dalla sottocartella
+                </button>
+              </div>
+
+              <div class="results-meta">
+                <span id="results-count" aria-live="polite">__STAT_FILES__ documenti trovati</span>
+                <div class="results-meta-actions">
+                  <button type="button" class="btn-link-action" id="copy-search-link-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    <span class="lbl-full">Copia link a questa ricerca</span><span class="lbl-short">Condividi link</span>
+                  </button>
+                  <button type="button" class="btn-link-action" id="reset-filters" hidden>Azzera filtri</button>
+                </div>
+              </div>
+
+              <div id="file-list" class="file-list"></div>
+              <div class="load-more-wrap" id="load-more-wrap" hidden>
+                <button type="button" class="btn" id="load-more-btn" hidden>Mostra altri risultati</button>
+              </div>
             </div>
-            <button type="button" class="chip" id="toggle-group-folders" aria-pressed="false" title="Raggruppa i file per sottocartella">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              <span class="lbl-full">Raggruppa per cartella</span><span class="lbl-short">Cartelle</span>
-            </button>
           </div>
-        </div>
-
-        <!-- Active Removable Filter Pills -->
-        <div id="active-filter-pills" class="filter-pills-row" hidden aria-label="Filtri attivi"></div>
-
-        <!-- Active Subfolder Breadcrumb Banner -->
-        <div id="active-path-bar" class="active-path-bar" hidden>
-          <div class="active-path-crumbs" id="active-path-text"></div>
-          <button type="button" class="btn" id="clear-subpath-btn">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            Esci dalla sottocartella
-          </button>
-        </div>
-
-        <div class="results-meta">
-          <span id="results-count" aria-live="polite">__STAT_FILES__ documenti trovati</span>
-          <div class="results-meta-actions">
-            <button type="button" class="btn-link-action" id="copy-search-link-btn">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              <span class="lbl-full">Copia link a questa ricerca</span><span class="lbl-short">Condividi link</span>
-            </button>
-            <button type="button" class="btn-link-action" id="reset-filters" hidden>Azzera filtri</button>
-          </div>
-        </div>
-
-        <div id="file-list" class="file-list"></div>
-        <div class="load-more-wrap" id="load-more-wrap" hidden>
-          <button type="button" class="btn" id="load-more-btn" hidden>Mostra altri risultati</button>
-        </div>
-      </section>
+        </section>
 
       <!-- TAB 2: COURSES & TEAMS -->
       <section id="panel-courses" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-courses" hidden>
@@ -4023,11 +4368,70 @@
       let calPinnedOnly = false;
       let calViewMode = 'courses';
 
-      if (mobileFiltersToggle && filtersGridBox) {
+      const catalogFiltersSheet = document.getElementById('catalog-filters-sheet');
+      const catalogSheetBackdrop = document.getElementById('catalog-sheet-backdrop');
+      const catalogSheetClose = document.getElementById('catalog-sheet-close');
+      const catalogSheetHandle = document.getElementById('catalog-sheet-handle');
+      const sheetResetFilters = document.getElementById('sheet-reset-filters');
+      const sheetApplyFilters = document.getElementById('sheet-apply-filters');
+
+      const setCatalogSheetOpen = (open) => {
+        if (!catalogFiltersSheet || !mobileFiltersToggle) return;
+        catalogFiltersSheet.style.transform = '';
+        catalogFiltersSheet.classList.toggle('is-open', open);
+        filtersGridBox?.classList.toggle('is-open', open);
+        catalogSheetBackdrop?.classList.toggle('is-open', open);
+        mobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          filterYear?.focus({ preventScroll: true });
+        } else if (document.activeElement && catalogFiltersSheet.contains(document.activeElement)) {
+          mobileFiltersToggle.focus({ preventScroll: true });
+        }
+      };
+
+      if (mobileFiltersToggle && catalogFiltersSheet) {
         mobileFiltersToggle.addEventListener('click', () => {
-          const open = filtersGridBox.classList.toggle('is-open');
-          mobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          setCatalogSheetOpen(!catalogFiltersSheet.classList.contains('is-open'));
         });
+        catalogSheetBackdrop?.addEventListener('click', () => setCatalogSheetOpen(false));
+        catalogSheetClose?.addEventListener('click', () => setCatalogSheetOpen(false));
+        sheetApplyFilters?.addEventListener('click', () => setCatalogSheetOpen(false));
+        sheetResetFilters?.addEventListener('click', () => {
+          resetBtn?.click();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && catalogFiltersSheet.classList.contains('is-open')) {
+            setCatalogSheetOpen(false);
+          }
+        });
+        // Draggable swipe-down-to-close gesture on mobile handle
+        if (catalogSheetHandle) {
+          let dragStartY = 0;
+          let dragDeltaY = 0;
+          let dragging = false;
+          catalogSheetHandle.addEventListener('pointerdown', (e) => {
+            if (window.innerWidth > 1023) return;
+            dragging = true;
+            dragStartY = e.clientY;
+            dragDeltaY = 0;
+            catalogFiltersSheet.classList.add('is-dragging');
+            catalogSheetHandle.setPointerCapture?.(e.pointerId);
+          });
+          catalogSheetHandle.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            dragDeltaY = Math.max(0, e.clientY - dragStartY);
+            catalogFiltersSheet.style.transform = `translateY(${dragDeltaY}px)`;
+          });
+          const endDrag = () => {
+            if (!dragging) return;
+            dragging = false;
+            catalogFiltersSheet.classList.remove('is-dragging');
+            if (dragDeltaY > 75) setCatalogSheetOpen(false);
+            else catalogFiltersSheet.style.transform = '';
+          };
+          catalogSheetHandle.addEventListener('pointerup', endDrag);
+          catalogSheetHandle.addEventListener('pointercancel', endDrag);
+        }
       }
 
       const tabToHash = (tabId) => {
@@ -4075,11 +4479,13 @@
         });
       };
 
+      const headerOpenCatalogBtn = document.getElementById('header-open-catalog-btn');
       const openCatalog = (tabId = 'tab-btn-files', pushHistory = true) => {
         homeSections.forEach((sec) => { sec.hidden = true; });
         catalogScreen.hidden = false;
         setCatalogInteractive(true);
         headerBackHomeBtn.hidden = false;
+        if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = true;
         activateCatalogTab(tabId);
         window.scrollTo({ top: 0, behavior: 'instant' });
         if (pushHistory) {
@@ -4094,6 +4500,7 @@
         setCatalogInteractive(false);
         homeSections.forEach((sec) => { sec.hidden = false; });
         headerBackHomeBtn.hidden = true;
+        if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = false;
         syncShellNav('home');
         window.scrollTo({ top: 0, behavior: 'instant' });
         if (pushHistory && (location.hash || location.search)) {
@@ -4461,6 +4868,13 @@
           const issueHref = `${REPO_URL}/issues/new?template=richiesta_o_materiale.yml&title=${encodeURIComponent('[Materiale] Richiesta o contributo' + courseHint)}`;
           fileListEl.innerHTML = `
             <div class="empty-state-card">
+              <svg class="empty-state-svg" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                <rect x="10" y="18" width="48" height="38" rx="8" stroke="currentColor" stroke-width="2.5" fill="var(--primary-soft)"/>
+                <path d="M10 28h48" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                <circle cx="53" cy="51" r="14" fill="var(--surface)" stroke="var(--accent-vivid)" stroke-width="3"/>
+                <path d="M63 61l8 8" stroke="var(--accent-vivid)" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M48 51h10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
               <h4>Nessun documento trovato con questi filtri</h4>
               <p>Prova a rimuovere qualche filtro, cercare con una sigla diversa (es. ASD, ADE, BD) oppure richiedi o invia il materiale mancante alla community.</p>
               <div class="empty-state-actions">
@@ -4513,6 +4927,12 @@
           const row = document.createElement('div');
           row.className = globalIdx >= 14 ? 'file-row deferred-card' : 'file-row';
           const iconSvg = ICON_BY_EXT[f.ext] || SVG_ICONS.fileText;
+          const extClean = (f.ext || '').replace(/^\./, '').toUpperCase().slice(0, 4);
+          const typeClass = f.ext === '.pdf' ? 'type-pdf'
+            : (['.pptx', '.ppt', '.odp'].includes(f.ext) ? 'type-slides'
+              : (['.zip', '.rar', '.7z'].includes(f.ext) ? 'type-archive'
+                : (IMAGE_EXTS.has(f.ext) ? 'type-image'
+                  : (['.c', '.h', '.java', '.py', '.sh', '.ps1', '.tex', '.mdj'].includes(f.ext) ? 'type-code' : ''))));
           const catLbl = CAT_LABELS[f.cat] || f.cat;
           const viewHref = `${REPO_URL}/blob/master/${f.urlPath}`;
           const rawHref = `${REPO_URL}/raw/master/${f.urlPath}`;
@@ -4520,10 +4940,10 @@
 
           row.innerHTML = `
             <div class="file-info">
-              <span class="file-icon" aria-hidden="true">${iconSvg}</span>
-              <div>
+              <span class="file-icon ${typeClass}" aria-hidden="true">${iconSvg}${extClean ? `<span class="file-ext-lbl">${escapeHtml(extClean)}</span>` : ''}</span>
+              <div class="file-body">
                 <div class="file-name-row">
-                  <span class="file-name">${escapeHtml(f.name)}</span>
+                  <span class="file-name" title="${escapeHtml(f.name)}">${escapeHtml(f.name)}</span>
                   ${f.dateDisplay ? `<span class="date-badge" title="Data di riferimento">${escapeHtml(f.dateDisplay)}</span>` : ''}
                 </div>
                 <div class="file-crumbs">
@@ -4537,6 +4957,7 @@
             </div>
             <div class="file-actions">
               <span class="size-tag">${fmtBytes(f.size)}</span>
+              <button type="button" class="btn btn-icon-copy" data-copy-file="${escapeHtml(viewHref)}" aria-label="Copia link a ${escapeHtml(f.name)}" title="Copia link diretto">${SVG_ICONS.link}</button>
               ${canPreviewInPortal
                 ? `<button type="button" class="btn" data-preview-idx="${globalIdx}">${SVG_ICONS.eye} Anteprima</button>`
                 : `<a class="btn" href="${viewHref}" target="_blank" rel="noopener">${SVG_ICONS.eye} Apri</a>`
@@ -4545,7 +4966,10 @@
             </div>
           `;
 
-          // Interactive breadcrumb clicks
+          // Interactive breadcrumb clicks & quick copy link
+          row.querySelector('[data-copy-file]')?.addEventListener('click', () => {
+            copyText(viewHref, `Link a "${f.name}" copiato`);
+          });
           row.querySelector('[data-crumb-cat]')?.addEventListener('click', () => {
             filterCat.value = f.cat;
             applyFileFilters();
@@ -4678,6 +5102,11 @@
         resultsCountEl.textContent = filteredFiles.length === 0
           ? '0 documenti trovati'
           : `${filteredFiles.length.toLocaleString('it-IT')} documenti trovati`;
+        if (sheetApplyFilters) {
+          sheetApplyFilters.textContent = filteredFiles.length === 0
+            ? 'Mostra 0 risultati'
+            : `Mostra ${filteredFiles.length.toLocaleString('it-IT')} risultati`;
+        }
         renderFileBatch(true);
         if (syncUrl) syncUrlState('tab-btn-files');
       };
