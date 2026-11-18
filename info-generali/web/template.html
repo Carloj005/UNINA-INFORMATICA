@@ -1844,37 +1844,42 @@
     .courses-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
-      gap: var(--sp-2);
+      gap: 16px;
     }
     .course-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-top: 4px solid var(--primary);
-      border-radius: var(--sp-1);
+      border-top: 3px solid var(--primary);
+      border-radius: var(--r-lg);
       padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: var(--sp-2);
-      transition: border-color 0.15s ease;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease, box-shadow 0.18s ease, transform 0.15s ease;
     }
     .course-card:hover {
       border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+    .course-card.is-pinned {
+      border-top-color: var(--accent-vivid);
     }
     .course-card.deferred-course {
       content-visibility: auto;
-      contain-intrinsic-size: auto none auto 256px;
+      contain-intrinsic-size: auto none auto 280px;
     }
     .course-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: var(--sp-1);
+      gap: 10px;
     }
     .course-title {
       margin: 0;
       font-size: 1.0625rem;
-      font-weight: 600;
-      line-height: 1.35;
+      font-weight: 700;
+      line-height: 1.3;
     }
     .course-title a {
       color: var(--text);
@@ -1887,15 +1892,15 @@
     .course-head-right {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-shrink: 0;
     }
     .pin-btn {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      width: 28px;
-      height: 28px;
+      border-radius: var(--r-md);
+      width: 40px;
+      height: 40px;
       padding: 0;
       color: var(--muted);
       cursor: pointer;
@@ -1903,27 +1908,32 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease, transform 0.18s var(--ease-spring);
     }
     .pin-btn:hover {
       border-color: var(--primary);
       color: var(--primary-text);
+      transform: scale(1.06);
+    }
+    .pin-btn:active {
+      transform: scale(0.92);
     }
     .pin-btn[aria-pressed="true"] {
-      background: var(--primary-soft);
-      border-color: var(--primary);
-      color: var(--primary-text);
+      background: light-dark(#fef3c7, rgba(245, 158, 11, 0.18));
+      border-color: light-dark(#f59e0b, #fbbf24);
+      color: light-dark(#b45309, #fcd34d);
     }
     .course-status {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.72rem;
+      font-weight: 700;
       color: var(--primary-text);
       background: var(--primary-soft);
-      padding: 0 8px;
+      padding: 0 9px;
       height: 28px;
-      border-radius: 6px;
+      border-radius: var(--r-pill);
       flex-shrink: 0;
     }
     .course-meta-row {
@@ -1938,31 +1948,38 @@
     .meta-tag {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 2px 8px;
-      border-radius: 6px;
-      line-height: 1.4;
+      padding: 3px 9px;
+      border-radius: var(--r-pill);
+      line-height: 1.35;
       white-space: nowrap;
+      font-weight: 500;
+    }
+    .meta-tag.is-year {
+      background: var(--primary-soft);
+      border-color: transparent;
+      color: var(--primary-text);
+      font-weight: 700;
     }
     .course-prop {
       font-size: 0.8125rem;
       color: var(--muted);
       margin-top: 10px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
     .prof-list {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      gap: 2px;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
+      border-radius: var(--r-md);
       padding: 10px 12px;
     }
     .prof-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-1);
+      gap: 8px;
       padding: 6px 0;
       border-bottom: 1px solid var(--border);
       font-size: 0.8125rem;
@@ -1993,40 +2010,55 @@
     .teams-chip {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: 6px;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: var(--r-sm);
+      font-family: var(--font-mono);
       font-size: 0.75rem;
-      font-weight: 600;
-      border: 1px solid var(--border);
+      font-weight: 700;
+      border: 1px solid var(--border-strong);
       background: var(--surface);
       color: var(--primary-text);
       cursor: pointer;
       text-decoration: none;
-      min-height: 26px;
+      min-height: 36px;
       flex-shrink: 0;
       white-space: nowrap;
+      transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease;
     }
     .teams-chip:hover {
       border-color: var(--primary);
       background: var(--primary-soft);
     }
+    .teams-chip:active {
+      transform: scale(0.96);
+    }
+    .teams-chip.is-copied {
+      background: var(--success-soft);
+      border-color: var(--success-text);
+      color: var(--success-text);
+    }
     .teams-chip.missing-code {
+      font-family: var(--font-text);
       color: var(--muted);
-      font-weight: 400;
+      font-weight: 500;
+      border-style: dashed;
     }
     .course-actions {
       margin-top: auto;
       padding-top: 4px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--sp-1);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
     }
     .course-actions .btn {
       width: 100%;
+      height: 42px;
+      min-height: 42px;
       justify-content: center;
-      padding: var(--sp-1) 10px;
+      padding: 0 8px;
       font-size: 0.8125rem;
+      gap: 5px;
       white-space: nowrap;
     }
 
@@ -2819,9 +2851,30 @@
       }
       .course-card {
         padding: 14px;
+        gap: 12px;
+      }
+      .pin-btn {
+        width: 44px;
+        height: 44px;
+      }
+      .teams-chip {
+        min-height: 40px;
+        padding: 4px 10px;
+      }
+      #panel-courses .search-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+      #panel-courses .search-input-wrap {
+        grid-column: 1 / -1;
+      }
+      #panel-courses #course-pinned-chip {
+        min-height: 44px;
+        padding: 0 12px;
       }
       .course-meta-row {
-        gap: 4px;
+        gap: 5px;
       }
       .meta-tag {
         padding: 2px 6px;
@@ -5623,11 +5676,11 @@
 
         // Academic curriculum prerequisite graph nodes
         const nodes = [
-          { x: w * 0.09, y: h * 0.56, label: '1° Anno', r: 5.5 },
-          { x: w * 0.28, y: h * 0.34, label: 'APSD', r: 5 },
-          { x: w * 0.48, y: h * 0.64, label: 'APA', r: 5.5 },
-          { x: w * 0.68, y: h * 0.34, label: '3° Anno', r: 5.5 },
-          { x: w * 0.89, y: h * 0.52, label: 'DIETI', r: 6.5 }
+          { x: w * 0.12, y: h * 0.58, label: '1° Anno', r: 5 },
+          { x: w * 0.30, y: h * 0.34, label: 'APSD', r: 5 },
+          { x: w * 0.50, y: h * 0.64, label: 'APA', r: 5.5 },
+          { x: w * 0.70, y: h * 0.34, label: '3° Anno', r: 5 },
+          { x: w * 0.88, y: h * 0.54, label: 'DIETI', r: 6 }
         ];
         const edges = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [2, 4], [3, 4]];
 
@@ -5725,8 +5778,9 @@
           <div class="code-box" id="modal-clone-box"></div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
             <button type="button" class="btn btn-primary" id="modal-copy-clone">${SVG_ICONS.copy} Copia comandi Git</button>
-            <button type="button" class="btn" id="modal-filter-files">${SVG_ICONS.search} Cerca tra i ${c.fileCount} file del corso</button>
-            <a class="btn" href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${SVG_ICONS.folder} Apri cartella su GitHub</a>
+            <button type="button" class="btn" id="modal-filter-files">${SVG_ICONS.search} Materiale (${c.fileCount} file)</button>
+            <button type="button" class="btn" id="modal-jump-calendar">${SVG_ICONS.calendar} Appelli esame</button>
+            <a class="btn" href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${SVG_ICONS.folder} GitHub</a>
           </div>
         `;
         document.querySelectorAll('[data-modal-git-os]').forEach((btn) => {
@@ -5745,6 +5799,12 @@
           filterCourse.value = c.name;
           updateProfOptions();
           applyFileFilters();
+        };
+        document.getElementById('modal-jump-calendar').onclick = () => {
+          courseModal.close();
+          openCatalog('tab-btn-calendar');
+          if (calSearch) calSearch.value = c.name;
+          if (typeof renderCalendar === 'function') renderCalendar();
         };
         openDialogWithHistory(courseModal);
       };
@@ -5787,14 +5847,14 @@
 
         list.forEach((c, idx) => {
           const card = document.createElement('article');
-          card.className = idx >= 9 ? 'course-card deferred-course' : 'course-card';
           const isPinned = pinnedCourses.has(c.name);
+          card.className = `${idx >= 9 ? 'course-card deferred-course' : 'course-card'}${isPinned ? ' is-pinned' : ''}`;
           const profHtml = c.profs.map((p) => {
             let teamsEl = '';
             if (p.teamsUrl) {
               teamsEl = `<a class="teams-chip has-code" href="${escapeHtml(p.teamsUrl)}" target="_blank" rel="noopener">${SVG_ICONS.link} Link Teams</a>`;
             } else if (p.teamsCode) {
-              teamsEl = `<button type="button" class="teams-chip has-code" data-copy-teams="${escapeHtml(p.teamsCode)}">${SVG_ICONS.copy} Teams: ${escapeHtml(p.teamsCode)}</button>`;
+              teamsEl = `<button type="button" class="teams-chip has-code" data-copy-teams="${escapeHtml(p.teamsCode)}" title="Tocca per copiare il codice Microsoft Teams">${SVG_ICONS.copy} ${escapeHtml(p.teamsCode)}</button>`;
             } else {
               const issueHref = `${REPO_URL}/issues/new?template=codice_teams.yml&title=${encodeURIComponent('[Teams 26/27] ' + c.name + ' - ' + p.display)}`;
               teamsEl = `<a class="teams-chip missing-code" href="${issueHref}" target="_blank" rel="noopener" title="Segnala il codice Teams di questo canale">${SVG_ICONS.plus} Codice Teams</a>`;
@@ -5819,8 +5879,8 @@
                 </div>
               </div>
               <div class="course-meta-row">
-                <span class="meta-tag">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem</span>
-                <span class="meta-tag">${escapeHtml(c.cfu)} crediti</span>
+                <span class="meta-tag is-year">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem</span>
+                <span class="meta-tag">${escapeHtml(c.cfu)} CFU</span>
                 <span class="meta-tag">${escapeHtml(c.ssd.toLowerCase())}</span>
                 <span class="meta-tag">${c.fileCount} file</span>
               </div>
@@ -5828,8 +5888,9 @@
             </div>
             <div class="prof-list">${profHtml}</div>
             <div class="course-actions">
-              <button type="button" class="btn btn-primary" data-open-course="${idx}">${SVG_ICONS.book} Scheda e obiettivi</button>
-              <button type="button" class="btn" data-jump-files="${escapeHtml(c.name)}" data-jump-year="${escapeHtml(c.yearGroup)}">${SVG_ICONS.search} Vedi file (${c.fileCount})</button>
+              <button type="button" class="btn btn-primary" data-jump-files="${escapeHtml(c.name)}" data-jump-year="${escapeHtml(c.yearGroup)}">${SVG_ICONS.folder} File (${c.fileCount})</button>
+              <button type="button" class="btn" data-jump-calendar="${escapeHtml(c.name)}">${SVG_ICONS.calendar} Appelli</button>
+              <button type="button" class="btn" data-open-course="${idx}">${SVG_ICONS.book} Scheda</button>
             </div>
           `;
           card.querySelector('.pin-btn').addEventListener('click', () => togglePinCourse(c.name));
@@ -5842,8 +5903,19 @@
             updateProfOptions();
             applyFileFilters();
           });
+          card.querySelector('[data-jump-calendar]').addEventListener('click', () => {
+            openCatalog('tab-btn-calendar');
+            if (calSearch) calSearch.value = c.name;
+            if (calYearFilter) calYearFilter.value = '';
+            if (calRegFilter) calRegFilter.value = 'all';
+            if (typeof renderCalendar === 'function') renderCalendar();
+          });
           card.querySelectorAll('[data-copy-teams]').forEach((btn) => {
-            btn.addEventListener('click', () => copyText(btn.dataset.copyTeams, `Codice Teams "${btn.dataset.copyTeams}" copiato`));
+            btn.addEventListener('click', () => {
+              copyText(btn.dataset.copyTeams, `Codice Teams "${btn.dataset.copyTeams}" copiato`);
+              btn.classList.add('is-copied');
+              setTimeout(() => btn.classList.remove('is-copied'), 1200);
+            });
           });
           coursesGrid.appendChild(card);
         });
