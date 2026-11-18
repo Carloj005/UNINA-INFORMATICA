@@ -34,7 +34,7 @@ COURSE_ALIASES = {
     "Analisi e Progettazione di Strutture Dati": "apsd asd lasd strutture dati",
     "Elementi di Informatica Teorica": "it eoit teorica automi",
     "Fisica Generale 1": "fisica 1 fisica1 fg1",
-    "Geometria": "geom algebra lineare",
+    "Geometria": "geom",
     "Sistemi Operativi": "so os kernel",
     "Analisi e Progettazione di Algoritmi": "apa algoritmi algo",
     "Linguaggi di Programmazione 1": "lp1 lmp lmc linguaggi prolog lisp",

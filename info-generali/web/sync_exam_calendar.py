@@ -91,7 +91,7 @@ REPO_COURSE_MAP = {
     "basi di dati": ("Basi di Dati", "bd db sql"),
     "elementi di informatica teorica": ("Elementi di Informatica Teorica", "it eoit teorica automi"),
     "fisica generale i": ("Fisica Generale 1", "fisica 1 fisica1 fg1"),
-    "geometria": ("Geometria", "geom algebra lineare"),
+    "geometria": ("Geometria", "geom"),
     "analisi e progettazione di strutture dati": ("Analisi e Progettazione di Strutture Dati", "apsd asd lasd strutture dati"),
     "laboratorio di algoritmi e strutture dati": ("Analisi e Progettazione di Strutture Dati", "lasd asd apsd laboratorio algoritmi"),
     "algoritmi i": ("Analisi e Progettazione di Strutture Dati", "algoritmi 1 asd apsd"),
