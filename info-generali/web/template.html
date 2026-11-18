@@ -2198,14 +2198,15 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-left: 4px solid var(--primary);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
-      margin-bottom: var(--sp-2);
+      border-radius: var(--r-lg);
+      padding: 16px 18px;
+      margin-bottom: 14px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
     }
     .calendar-source-info {
       display: flex;
@@ -2214,8 +2215,8 @@
       min-width: 0;
     }
     .calendar-source-title {
-      font-weight: 600;
-      font-size: 0.9375rem;
+      font-weight: 700;
+      font-size: 0.96875rem;
       color: var(--text);
       display: flex;
       align-items: flex-start;
@@ -2225,6 +2226,7 @@
     }
     .calendar-source-title .icon {
       margin-top: 2px;
+      color: var(--primary-text);
     }
     .calendar-source-sub {
       font-size: 0.8125rem;
@@ -2236,36 +2238,160 @@
     }
     .calendar-source-actions {
       display: flex;
-      gap: var(--sp-1);
+      gap: 8px;
       flex-wrap: wrap;
       flex-shrink: 0;
+    }
+    .calendar-source-actions .btn {
+      height: 42px;
+      min-height: 42px;
+      padding: 0 14px;
+      font-size: 0.84375rem;
     }
     .cal-filters-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .cal-view-switch {
+    .cal-month-pills {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      gap: 8px;
+      margin-top: 12px;
+      padding-bottom: 2px;
+    }
+    .cal-month-pills::-webkit-scrollbar {
+      display: none;
+    }
+    .cal-month-pill {
+      flex: 0 0 auto;
       display: inline-flex;
+      align-items: center;
       gap: 6px;
-      flex-wrap: wrap;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-family: var(--font-text);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    }
+    .cal-month-pill:hover {
+      border-color: var(--border-strong);
+      color: var(--text);
+    }
+    .cal-month-pill[aria-pressed="true"] {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    .cal-month-pill .pill-cnt {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      opacity: 0.8;
+    }
+    /* Segmented Control (Per Corso / Cronologico) */
+    .cal-view-switch {
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--r-md);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+    .cal-view-switch .chip {
+      border: none;
+      border-radius: var(--r-sm);
+      background: transparent;
+      min-height: 36px;
+      padding: 0 14px;
+      justify-content: center;
+    }
+    .cal-view-switch .chip[aria-pressed="true"] {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+    /* Pinned Exams Spotlight Banner */
+    .cal-pinned-spotlight {
+      background: light-dark(rgba(15, 76, 129, 0.05), rgba(56, 189, 248, 0.08));
+      border: 1px solid var(--primary);
+      border-radius: var(--r-lg);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cal-pinned-spotlight-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--primary-text);
+    }
+    .cal-pinned-strip {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 10px;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .cal-pinned-strip::-webkit-scrollbar {
+      display: none;
+    }
+    .cal-pinned-mini {
+      flex: 0 0 auto;
+      min-width: 210px;
+      max-width: 260px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .cal-pinned-mini:hover {
+      border-color: var(--primary);
     }
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
-      gap: var(--sp-2);
+      gap: 16px;
     }
     .calendar-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-top: 4px solid var(--primary);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
+      border-top: 3px solid var(--primary);
+      border-radius: var(--r-lg);
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      transition: border-color 0.15s ease;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease, box-shadow 0.18s ease;
     }
     .calendar-card:hover {
       border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+    .calendar-card.is-pinned-exam {
+      border-top-color: var(--accent-vivid);
+      border-color: light-dark(rgba(2, 132, 199, 0.35), rgba(56, 189, 248, 0.38));
     }
     .calendar-card.is-old-reg {
       border-top-color: var(--border-strong);
@@ -2274,33 +2400,47 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: var(--sp-1);
+      gap: 8px;
     }
     .calendar-card-title {
       margin: 0;
       font-size: 1.0625rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text);
-      line-height: 1.35;
+      line-height: 1.3;
     }
     .channel-badge {
       background: var(--primary-soft);
       color: var(--primary-text);
-      border: 1px solid var(--primary);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      border: 1px solid transparent;
+      padding: 2px 9px;
+      border-radius: var(--r-pill);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
       white-space: nowrap;
       flex-shrink: 0;
+    }
+    .pinned-exam-badge {
+      background: light-dark(#fef3c7, rgba(245, 158, 11, 0.18));
+      color: light-dark(#b45309, #fcd34d);
+      border: 1px solid light-dark(#fde68a, rgba(245, 158, 11, 0.35));
+      padding: 2px 8px;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
     }
     .reg-badge {
       background: var(--surface-3);
       color: var(--muted);
       border: 1px solid var(--border);
       padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
+      border-radius: var(--r-pill);
+      font-size: 0.72rem;
       font-weight: 600;
       white-space: nowrap;
     }
@@ -2324,10 +2464,10 @@
     }
     .cal-next-banner {
       background: var(--primary-soft);
-      border: 1px solid var(--primary);
-      border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 0.8125rem;
+      border: 1px solid light-dark(rgba(15, 76, 129, 0.2), rgba(56, 189, 248, 0.25));
+      border-radius: var(--r-md);
+      padding: 8px 12px;
+      font-size: 0.84375rem;
       font-weight: 600;
       color: var(--primary-text);
       display: flex;
@@ -2340,22 +2480,31 @@
     .cal-countdown-tag {
       background: var(--primary);
       color: #ffffff;
-      padding: 1px 7px;
-      border-radius: 4px;
+      padding: 3px 9px;
+      border-radius: var(--r-pill);
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .cal-countdown-tag.is-urgent {
+      background: light-dark(#dc2626, #ef4444);
+      color: #ffffff;
+    }
+    .cal-countdown-tag.is-soon {
+      background: light-dark(#d97706, #f59e0b);
+      color: light-dark(#ffffff, #091526);
     }
     .cal-dates-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
     .exam-date-pill {
       display: inline-flex;
       flex-direction: column;
-      padding: 5px 10px;
-      border-radius: 6px;
+      padding: 6px 11px;
+      border-radius: var(--r-sm);
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
@@ -2382,97 +2531,116 @@
     .cal-note-box {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 8px 10px;
+      border-radius: var(--r-sm);
+      padding: 8px 11px;
       font-size: 0.8125rem;
       color: var(--muted);
       line-height: 1.45;
     }
     .calendar-card-footer {
       margin-top: auto;
-      padding-top: 8px;
+      padding-top: 10px;
       border-top: 1px solid var(--border);
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
+    .calendar-card-footer .btn {
+      width: 100%;
+      height: 42px;
+      min-height: 42px;
+      font-size: 0.84375rem;
+    }
     .timeline-month-group {
-      margin-bottom: var(--sp-3);
+      margin-bottom: 20px;
     }
     .timeline-month-title {
-      background: var(--surface-2);
+      position: sticky;
+      top: calc(var(--nav) + 74px);
+      z-index: 14;
+      background: var(--surface-glass);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       border-left: 4px solid var(--primary);
-      border-radius: var(--sp-1);
-      padding: var(--sp-1) var(--sp-2);
-      font-weight: 600;
+      border-radius: var(--r-md);
+      padding: 10px 14px;
+      font-weight: 700;
       font-size: 0.9375rem;
       color: var(--text);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      box-shadow: var(--shadow-sm);
     }
     .timeline-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 8px;
+      gap: 10px;
+      margin-top: 10px;
     }
     .timeline-row {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: 12px 16px;
+      border-radius: var(--r-md);
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
+      gap: 14px;
       flex-wrap: wrap;
-      transition: border-color 0.15s ease;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
     }
     .timeline-row:hover {
       border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+    .timeline-row.is-pinned-exam {
+      border-left: 4px solid var(--accent-vivid);
     }
     .timeline-row.is-past {
-      opacity: 0.65;
+      opacity: 0.62;
     }
     .timeline-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       min-width: 0;
       flex: 1 1 280px;
     }
     .timeline-date-box {
-      min-width: 64px;
-      padding: 6px 8px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
+      min-width: 62px;
+      padding: 8px 8px;
+      border-radius: var(--r-md);
+      border: 1px solid light-dark(rgba(15, 76, 129, 0.2), rgba(56, 189, 248, 0.25));
       background: var(--primary-soft);
       color: var(--primary-text);
       text-align: center;
       flex-shrink: 0;
       font-variant-numeric: tabular-nums;
-      line-height: 1.2;
+      line-height: 1.15;
     }
     .timeline-date-box strong {
       display: block;
-      font-size: 1.125rem;
+      font-size: 1.25rem;
+      margin: 1px 0;
     }
     .timeline-date-box span {
       display: block;
       font-size: 0.6875rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .timeline-info {
       min-width: 0;
       flex: 1;
     }
     .timeline-course {
-      font-weight: 600;
-      font-size: 0.9375rem;
+      font-weight: 700;
+      font-size: 0.96875rem;
       color: var(--text);
       display: flex;
       align-items: center;
@@ -2483,11 +2651,24 @@
     .timeline-sub {
       font-size: 0.8125rem;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 3px;
     }
     .timeline-actions {
       display: flex;
       align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .timeline-actions .btn {
+      height: 40px;
+      min-height: 40px;
+      padding: 0 12px;
+      font-size: 0.8125rem;
+    }
+    .cal-sheet-head,
+    .cal-sheet-footer {
+      display: none;
+    }
       gap: 8px;
       flex-wrap: wrap;
       flex-shrink: 0;
@@ -2757,21 +2938,56 @@
         border-color: var(--primary);
       }
       #cal-filters-grid-box {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-        margin-top: 8px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        z-index: 60;
+        margin-top: 0;
+        background: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-bottom: none;
+        border-radius: 22px 22px 0 0;
+        padding: 12px 20px calc(18px + env(safe-area-inset-bottom, 0px));
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-height: 82dvh;
+        overflow-y: auto;
+        box-shadow: 0 -16px 40px rgba(0, 0, 0, 0.28);
+        transform: translateY(108%);
+        visibility: hidden;
+        transition: transform 0.28s var(--ease-out), visibility 0.28s;
       }
-      #cal-filters-grid-box:not(.is-open) {
-        display: none;
+      #cal-filters-grid-box.is-open {
+        transform: translateY(0);
+        visibility: visible;
       }
-      #cal-filters-grid-box select:last-child {
-        grid-column: 1 / -1;
+      .cal-sheet-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border);
+      }
+      .cal-sheet-footer {
+        display: flex;
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+      .cal-sheet-footer .btn-primary {
+        flex: 1;
+      }
+      .timeline-month-title {
+        top: calc(var(--nav) + 8px);
       }
       #panel-calendar .chip-bar-row {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
-        margin-top: 8px;
+        gap: 8px;
+        margin-top: 10px;
       }
       #panel-calendar .chip-bar {
         display: contents;
@@ -2780,10 +2996,17 @@
         width: 100%;
         justify-content: center;
         white-space: nowrap;
-        padding: 6px 6px;
-        font-size: 0.78125rem;
+        padding: 6px 8px;
+        font-size: 0.8125rem;
         min-height: 44px;
-        gap: 4px;
+        gap: 5px;
+      }
+      #panel-calendar .cal-view-switch {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+      #panel-calendar .cal-view-switch .chip {
+        min-height: 40px;
       }
       .results-meta {
         font-size: 0.8125rem;
@@ -3693,7 +3916,14 @@
               <span id="cal-mobile-filters-label">Filtri</span>
             </button>
           </div>
+          <div class="sheet-backdrop" id="cal-sheet-backdrop" aria-hidden="true"></div>
           <div class="filters-grid cal-filters-grid" id="cal-filters-grid-box">
+            <div class="cal-sheet-head">
+              <strong style="font-size:0.9375rem;">Filtra calendario esami</strong>
+              <button type="button" class="sheet-close-btn" id="cal-sheet-close" aria-label="Chiudi filtri calendario">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
             <select id="calendar-year-filter" class="filter-select" aria-label="Filtra appelli per anno">
               <option value="">Tutti gli anni (Triennale)</option>
               <option value="Primo Anno">Primo anno</option>
@@ -3711,7 +3941,12 @@
             <select id="calendar-month-filter" class="filter-select" aria-label="Filtra appelli per mese">
               <option value="">Tutti i mesi della sessione</option>
             </select>
+            <div class="cal-sheet-footer">
+              <button type="button" class="btn btn--secondary" id="cal-sheet-reset">Azzera</button>
+              <button type="button" class="btn btn-primary" id="cal-sheet-apply">Mostra appelli</button>
+            </div>
           </div>
+          <div class="cal-month-pills" id="cal-month-pills" role="group" aria-label="Filtra per mese"></div>
           <div class="chip-bar-row">
             <div class="chip-bar" aria-label="Opzioni filtro appelli">
               <button type="button" class="chip" id="cal-upcoming-chip" aria-pressed="true">
@@ -3741,6 +3976,7 @@
           </div>
         </div>
 
+        <div id="cal-pinned-spotlight" class="cal-pinned-spotlight" hidden></div>
         <div id="calendar-results"></div>
       </section>
 
@@ -4365,6 +4601,9 @@
           const sel = t.id === tabId;
           t.setAttribute('aria-selected', sel ? 'true' : 'false');
           t.tabIndex = sel ? 0 : -1;
+          if (sel && window.innerWidth <= 768) {
+            t.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+          }
         });
         panels.forEach((p) => {
           p.hidden = p.getAttribute('aria-labelledby') !== tabId;
@@ -5996,12 +6235,26 @@
         if (diff > 1) return `Tra ${diff} giorni`;
         return 'Passato';
       };
+      const getCountdownClass = (iso) => {
+        const diff = Math.round((parseIsoDate(iso) - todayMidnight) / 86400000);
+        if (diff < 0) return 'meta-tag';
+        if (diff <= 7) return 'cal-countdown-tag is-urgent';
+        if (diff <= 21) return 'cal-countdown-tag is-soon';
+        return 'cal-countdown-tag';
+      };
 
-      // Populate source header and month options
+      // Populate source header and month options + horizontal month pills
       const calTitleEl = document.getElementById('cal-session-title');
       const calMetaEl = document.getElementById('cal-source-meta');
       const calPdfLinkEl = document.getElementById('cal-pdf-link');
       const calPageLinkEl = document.getElementById('cal-page-link');
+      const calMonthPillsEl = document.getElementById('cal-month-pills');
+      const calPinnedSpotlightEl = document.getElementById('cal-pinned-spotlight');
+      const calSheetBackdrop = document.getElementById('cal-sheet-backdrop');
+      const calSheetClose = document.getElementById('cal-sheet-close');
+      const calSheetApply = document.getElementById('cal-sheet-apply');
+      const calSheetReset = document.getElementById('cal-sheet-reset');
+
       if (calTitleEl && CAL_DATA.sessionTitle) calTitleEl.textContent = CAL_DATA.sessionTitle;
       if (calMetaEl) {
         const updPart = CAL_DATA.pdfModifiedAt ? `Aggiornato da DIETI il ${CAL_DATA.pdfModifiedAt}` : 'Fonte ufficiale DIETI';
@@ -6018,11 +6271,53 @@
           calMonthFilter.appendChild(opt);
         });
       }
+      if (calMonthPillsEl && Array.isArray(CAL_DATA.months)) {
+        const allBtn = document.createElement('button');
+        allBtn.type = 'button';
+        allBtn.className = 'cal-month-pill';
+        allBtn.dataset.calMonthPill = '';
+        allBtn.setAttribute('aria-pressed', 'true');
+        allBtn.innerHTML = `<span>Tutti i mesi</span><span class="pill-cnt">${CAL_DATA.totalDates || 0}</span>`;
+        allBtn.addEventListener('click', () => {
+          if (calMonthFilter) calMonthFilter.value = '';
+          renderCalendar();
+        });
+        calMonthPillsEl.appendChild(allBtn);
+        CAL_DATA.months.forEach((m) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'cal-month-pill';
+          b.dataset.calMonthPill = m.key;
+          b.setAttribute('aria-pressed', 'false');
+          b.innerHTML = `<span>${escapeHtml(m.label)}</span><span class="pill-cnt">${m.count}</span>`;
+          b.addEventListener('click', () => {
+            if (calMonthFilter) calMonthFilter.value = calMonthFilter.value === m.key ? '' : m.key;
+            renderCalendar();
+          });
+          calMonthPillsEl.appendChild(b);
+        });
+      }
+
+      const setCalSheetOpen = (open) => {
+        if (!calFiltersGridBox || !calMobileFiltersToggle) return;
+        calFiltersGridBox.classList.toggle('is-open', open);
+        calSheetBackdrop?.classList.toggle('is-open', open);
+        calMobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (!open && document.activeElement && calFiltersGridBox.contains(document.activeElement)) {
+          calMobileFiltersToggle.focus({ preventScroll: true });
+        }
+      };
 
       if (calMobileFiltersToggle && calFiltersGridBox) {
         calMobileFiltersToggle.addEventListener('click', () => {
-          const open = calFiltersGridBox.classList.toggle('is-open');
-          calMobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          setCalSheetOpen(!calFiltersGridBox.classList.contains('is-open'));
+        });
+        calSheetBackdrop?.addEventListener('click', () => setCalSheetOpen(false));
+        calSheetClose?.addEventListener('click', () => setCalSheetOpen(false));
+        calSheetApply?.addEventListener('click', () => setCalSheetOpen(false));
+        calSheetReset?.addEventListener('click', () => calResetBtn?.click());
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && calFiltersGridBox.classList.contains('is-open')) setCalSheetOpen(false);
         });
       }
 
@@ -6056,6 +6351,11 @@
         if (calUpcomingChip) calUpcomingChip.setAttribute('aria-pressed', calUpcomingOnly ? 'true' : 'false');
         if (calPinnedChip) calPinnedChip.setAttribute('aria-pressed', calPinnedOnly ? 'true' : 'false');
         calViewBtns.forEach((b) => b.setAttribute('aria-pressed', b.dataset.calView === calViewMode ? 'true' : 'false'));
+        if (calMonthPillsEl) {
+          calMonthPillsEl.querySelectorAll('[data-cal-month-pill]').forEach((p) => {
+            p.setAttribute('aria-pressed', p.dataset.calMonthPill === mo ? 'true' : 'false');
+          });
+        }
 
         const hasNonDefault = Boolean(qNorm || yr || reg !== 'current' || mo || !calUpcomingOnly || calPinnedOnly);
         if (calResetBtn) calResetBtn.hidden = !hasNonDefault;
@@ -6106,10 +6406,62 @@
           totalVisibleDates += filterDatesForEntry(e, calUpcomingOnly).length;
         });
 
+        // Sort pinned courses first in courses view so user's exams stay at the top
+        const isEntryPinned = (e) => pinnedCourses.has(e.repoCourse || e.course);
+        filteredEntries.sort((a, b) => Number(isEntryPinned(b)) - Number(isEntryPinned(a)));
+
+        // Pinned courses upcoming exams spotlight strip at top of Calendar
+        if (calPinnedSpotlightEl) {
+          const pinnedUpcoming = [];
+          if (pinnedCourses.size > 0 && !calPinnedOnly && !qNorm) {
+            entries.forEach((e) => {
+              if (!isEntryPinned(e)) return;
+              const nextD = (e.dates || []).find((d) => d.iso >= todayIso);
+              if (nextD) pinnedUpcoming.push({ entry: e, date: nextD });
+            });
+            pinnedUpcoming.sort((a, b) => a.date.iso.localeCompare(b.date.iso));
+          }
+          if (pinnedUpcoming.length > 0) {
+            calPinnedSpotlightEl.hidden = false;
+            calPinnedSpotlightEl.innerHTML = `
+              <div class="cal-pinned-spotlight-head">
+                <span style="display:inline-flex;align-items:center;gap:6px;">${SVG_ICONS.starFilled} Prossimi appelli dei tuoi corsi fissati</span>
+                <span class="meta-tag">${pinnedUpcoming.length}</span>
+              </div>
+              <div class="cal-pinned-strip"></div>
+            `;
+            const strip = calPinnedSpotlightEl.querySelector('.cal-pinned-strip');
+            pinnedUpcoming.slice(0, 6).forEach(({ entry: e, date: d }) => {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'cal-pinned-mini';
+              btn.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                  <strong style="font-size:0.8125rem;color:var(--primary-text);">${escapeHtml(getWeekdayShort(d.iso))} ${escapeHtml(d.display)}</strong>
+                  <span class="${getCountdownClass(d.iso)}">${escapeHtml(formatCountdown(d.iso))}</span>
+                </div>
+                <strong style="font-size:0.875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(e.course)}</strong>
+                <span style="font-size:0.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(e.channel || e.prof || e.yearGroup)}</span>
+              `;
+              btn.addEventListener('click', () => {
+                if (calSearch) calSearch.value = e.course;
+                renderCalendar();
+              });
+              strip.appendChild(btn);
+            });
+          } else {
+            calPinnedSpotlightEl.hidden = true;
+            calPinnedSpotlightEl.innerHTML = '';
+          }
+        }
+
         if (calResultsCount) {
           calResultsCount.textContent = calViewMode === 'timeline'
             ? `${totalVisibleDates} ${totalVisibleDates === 1 ? 'appello' : 'appelli'} in calendario`
             : `${filteredEntries.length} ${filteredEntries.length === 1 ? 'canale trovato' : 'canali trovati'} • ${totalVisibleDates} appelli`;
+        }
+        if (calSheetApply) {
+          calSheetApply.textContent = `Mostra ${totalVisibleDates} appelli`;
         }
 
         calResultsEl.innerHTML = '';
@@ -6170,11 +6522,12 @@
             const listEl = sec.querySelector('.timeline-list');
             list.forEach(({ entry: e, date: d }) => {
               const isPast = d.iso < todayIso;
+              const isPinnedEx = isEntryPinned(e);
               const wd = getWeekdayShort(d.iso);
               const cd = formatCountdown(d.iso);
               const hasRepo = Boolean(e.repoCourse && courseByNameMap.has(e.repoCourse));
               const row = document.createElement('div');
-              row.className = isPast ? 'timeline-row is-past' : 'timeline-row';
+              row.className = `timeline-row${isPast ? ' is-past' : ''}${isPinnedEx ? ' is-pinned-exam' : ''}`;
               row.innerHTML = `
                 <div class="timeline-left">
                   <div class="timeline-date-box">
@@ -6185,6 +6538,7 @@
                   <div class="timeline-info">
                     <div class="timeline-course">
                       <span>${escapeHtml(e.course)}</span>
+                      ${isPinnedEx ? `<span class="pinned-exam-badge">${SVG_ICONS.starFilled} Fissato</span>` : ''}
                       ${e.channel ? `<span class="channel-badge">${escapeHtml(e.channel)}</span>` : ''}
                       ${e.regolamento === 'Vecchio Regolamento' ? '<span class="reg-badge">Vecchio Reg.</span>' : ''}
                     </div>
@@ -6194,7 +6548,7 @@
                   </div>
                 </div>
                 <div class="timeline-actions">
-                  <span class="${isPast ? 'meta-tag' : 'cal-countdown-tag'}">${escapeHtml(cd)}</span>
+                  <span class="${getCountdownClass(d.iso)}">${escapeHtml(cd)}</span>
                   ${hasRepo ? `<button type="button" class="btn" data-cal-jump="${escapeHtml(e.repoCourse)}">${SVG_ICONS.search} Materiale</button>` : ''}
                 </div>
               `;
@@ -6215,7 +6569,8 @@
 
         filteredEntries.forEach((e) => {
           const card = document.createElement('article');
-          card.className = e.regolamento === 'Vecchio Regolamento' ? 'calendar-card is-old-reg' : 'calendar-card';
+          const isPinnedEx = isEntryPinned(e);
+          card.className = `calendar-card${e.regolamento === 'Vecchio Regolamento' ? ' is-old-reg' : ''}${isPinnedEx ? ' is-pinned-exam' : ''}`;
           const futureDates = (e.dates || []).filter((d) => d.iso >= todayIso);
           const nextDate = futureDates[0] || null;
           const displayDates = (e.dates || []).filter((d) => {
@@ -6245,7 +6600,8 @@
                 ${e.channel ? `<span class="channel-badge">${escapeHtml(e.channel)}</span>` : ''}
               </div>
               <div class="course-meta-row">
-                <span class="meta-tag">${escapeHtml(e.yearGroup)}${e.semester ? ` • ${escapeHtml(e.semester)} sem` : ''}</span>
+                <span class="meta-tag is-year">${escapeHtml(e.yearGroup)}${e.semester ? ` • ${escapeHtml(e.semester)} sem` : ''}</span>
+                ${isPinnedEx ? `<span class="pinned-exam-badge">${SVG_ICONS.starFilled} Corso fissato</span>` : ''}
                 ${e.regolamento === 'Vecchio Regolamento' ? '<span class="reg-badge">Vecchio Regolamento</span>' : ''}
               </div>
             </div>
@@ -6257,8 +6613,8 @@
             ` : ''}
             ${nextDate ? `
               <div class="cal-next-banner">
-                <span>Prossimo appello: ${escapeHtml(getWeekdayShort(nextDate.iso))} ${escapeHtml(nextDate.display)}</span>
-                <span class="cal-countdown-tag">${escapeHtml(formatCountdown(nextDate.iso))}</span>
+                <span>Prossimo: ${escapeHtml(getWeekdayShort(nextDate.iso))} ${escapeHtml(nextDate.display)}</span>
+                <span class="${getCountdownClass(nextDate.iso)}">${escapeHtml(formatCountdown(nextDate.iso))}</span>
               </div>
             ` : ''}
             ${displayDates.length > 0 ? `<div class="cal-dates-list">${datesHtml}</div>` : ''}
