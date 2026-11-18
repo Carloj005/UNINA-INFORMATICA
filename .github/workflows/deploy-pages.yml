@@ -41,7 +41,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
 
       - name: Sincronizza Calendario Esami Triennale da DIETI
-        run: python3 info-generali/web/sync_exam_calendar.py || echo "Avviso: sincronizzazione DIETI fallita, uso il fallback exam_calendar.json."
+        run: |
+          python3 info-generali/web/sync_exam_calendar.py || echo "Avviso: sincronizzazione DIETI fallita, uso il fallback exam_calendar.json."
 
       - name: Salva aggiornamento calendario nel repository (se cambiato)
         run: |
