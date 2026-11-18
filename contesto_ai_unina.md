@@ -117,6 +117,8 @@ Il [README.md](./README.md) funge da hub centrale della community e include:
   - *Allineamento README & Ricerca*: aggiornato badge di copertura `Ingegneria del Software` (`🟡` → `🟢`) in `README.md`, riallineati i conteggi nei README di `APSD` (196), `Reti` (121) e `Fisica Generale 1` (82), e corretti gli alias `COURSE_ALIASES` in `info-generali/web/build_site.py`.
 - **Materiale Completo Analisi e Progettazione di Algoritmi — APA (Novembre 2026):**
   - Integrati in entrambi i canali (`Prof-MassimoBenerecetti` e `Prof-FabioMogavero`): `contenuto-non-proprio/Dispense APA (20-07-2026) - Mattia Perna.pdf` (edizione completa da 54 pagine con programmazione dinamica e greedy + `crediti.txt`), `esercizi/Esercizi Equazioni di Ricorrenza.pdf`, i sorgenti C++20 puliti in `esercizi/Esercizi C++ - Programmazione Dinamica e Alberi/` (esclusi artefatti `x64/Debug/`), e 8 prove d'esame 2024 in `esami/scritto/` (`17-01-2024.jpg` .. `09-09-2024.jpg` + `Ottobre 2024 (Ordinamento).png` con EXIF rimossi); aggiornati i README di corso e portato il badge dashboard di APA da `🟡` a `🟢` (Issue #34).
+- **Tecnologie Web — Nuove Lezioni 22–24 (Novembre 2026):**
+  - *Tecnologie Web* (`Prof-LuigiLiberoLucioStarace/slides/`): integrate `Lezione 22 - Content Management Systems and GraphQL.pdf`, `Lezione 23 - Esercitazione.md` e `Lezione 24 - TypeScript.pdf` (portando il canale a `36 file`).
 
 ---
 
