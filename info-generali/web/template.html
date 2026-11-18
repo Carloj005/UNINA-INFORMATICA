@@ -2119,16 +2119,25 @@
       gap: var(--sp-1);
     }
 
-    /* Native Modal Dialogs */
+    /* Native Modal Dialogs (Desktop Dialog -> Mobile Fullscreen/Bottom Sheet) */
     dialog {
       border: 1px solid var(--border-strong);
-      border-radius: var(--sp-1);
+      border-radius: var(--r-xl);
       background: var(--surface);
       color: var(--text);
       padding: 0;
       max-width: min(768px, 94vw);
       width: 100%;
-      box-shadow: none;
+      box-shadow: var(--shadow-lg);
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: opacity 0.2s var(--ease-out), transform 0.24s var(--ease-out), overlay 0.24s allow-discrete, display 0.24s allow-discrete;
+    }
+    @starting-style {
+      dialog[open] {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
     }
     dialog.map-dialog {
       max-width: min(1152px, 96vw);
@@ -2139,10 +2148,15 @@
     dialog::backdrop {
       overflow: hidden;
       overscroll-behavior: contain;
-      background: rgb(0 0 0 / 0.72);
+      background: rgba(4, 10, 20, 0.68);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .dialog-drag-handle {
+      display: none;
     }
     .dialog-inner {
-      padding: var(--sp-3);
+      padding: 22px 24px;
       max-height: 88dvh;
       overflow-y: auto;
     }
@@ -2150,38 +2164,78 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: var(--sp-2);
+      gap: 12px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: var(--sp-2);
-      margin-bottom: var(--sp-2);
-      flex-wrap: wrap;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+      flex-wrap: nowrap;
     }
     .dialog-header h2 {
       margin: 0;
       font-size: 1.125rem;
-      font-weight: 600;
+      font-weight: 700;
       word-break: break-word;
+    }
+    .dialog-header .btn {
+      height: 40px;
+      min-height: 40px;
+      padding: 0 12px;
+      flex-shrink: 0;
+    }
+    .map-zoom-stage {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      max-height: 70dvh;
     }
     .map-full {
       width: 100%;
       height: auto;
-      border-radius: var(--sp-1);
+      border-radius: var(--r-sm);
       display: block;
+      transition: width 0.2s ease;
+    }
+    .map-full.is-zoomed {
+      width: 185%;
+      max-width: none;
+      cursor: zoom-out;
     }
     .preview-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--sp-2);
-      margin-bottom: var(--sp-2);
+      gap: 10px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
+    }
+    .preview-toolbar .btn {
+      height: 40px;
+      min-height: 40px;
+      padding: 0 12px;
+      font-size: 0.84375rem;
+    }
+    .preview-pdf-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      border-radius: var(--r-md);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.8125rem;
+      color: var(--muted);
     }
     .preview-code {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      border-radius: var(--sp-1);
-      padding: var(--sp-2);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      border-radius: var(--r-md);
+      padding: 14px;
+      font-family: var(--font-mono);
       font-size: 0.8125rem;
       overflow-x: auto;
       white-space: pre-wrap;
@@ -3196,16 +3250,52 @@
         justify-content: center;
       }
 
-      /* Modals & Toast on Mobile */
-      dialog {
-        max-width: 96vw;
-        width: 96vw;
+      /* Modals become Fullscreen / Bottom Sheets on Mobile (<= 768px) */
+      dialog,
+      dialog.map-dialog,
+      dialog.cmd-dialog {
+        margin: auto 0 0 0;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 22px 22px 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        max-height: 92dvh;
       }
-      .modal-head {
-        padding: 12px 14px;
+      @starting-style {
+        dialog[open] {
+          opacity: 0;
+          transform: translateY(100%);
+        }
       }
-      .modal-body {
-        padding: 14px;
+      dialog.is-dragging {
+        transition: none;
+      }
+      .dialog-drag-handle {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0 6px;
+        cursor: grab;
+        touch-action: none;
+      }
+      .dialog-drag-handle::before {
+        content: "";
+        width: 44px;
+        height: 5px;
+        border-radius: var(--r-pill);
+        background: var(--border-strong);
+      }
+      .dialog-inner {
+        padding: 6px 16px calc(18px + env(safe-area-inset-bottom, 0px));
+        max-height: 88dvh;
+      }
+      .dialog-header {
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+      }
+      .preview-pdf {
+        height: 56dvh;
       }
       .preview-toolbar {
         flex-direction: column;
@@ -4181,14 +4271,20 @@
         </form>
       </div>
       <div class="preview-toolbar">
-        <div>
-          <a class="btn btn-primary" id="map-open-highres" href="./assets/MappaMSA.png" target="_blank" rel="noopener">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" class="btn" id="map-zoom-toggle">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
-            Apri mappa ad alta risoluzione (Zoom libero)
+            Zoom 1.8x
+          </button>
+          <a class="btn btn-primary" id="map-open-highres" href="./assets/MappaMSA.png" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+            Apri alta risoluzione
           </a>
         </div>
       </div>
-      <img id="map-modal-img" class="map-full" src="./assets/MappaMSA.png" width="1200" height="800" alt="Mappa del campus universitario" loading="lazy">
+      <div class="map-zoom-stage">
+        <img id="map-modal-img" class="map-full" src="./assets/MappaMSA.png" width="1200" height="800" alt="Mappa del campus universitario" loading="lazy">
+      </div>
     </div>
   </dialog>
 
@@ -4500,16 +4596,59 @@
         }
       });
 
-      // Modal history & focus restoration for mobile Back button support
+      // Modal history, scroll preservation, mobile swipe-down-to-close & focus restoration
       let lastDialogTrigger = null;
+      let savedDialogScrollY = 0;
       const openDialogWithHistory = (dialog) => {
         if (!dialog) return;
         if (!dialog.open) {
           lastDialogTrigger = document.activeElement;
+          savedDialogScrollY = window.scrollY;
+          dialog.style.transform = '';
           dialog.showModal();
           try { history.pushState({ modal: dialog.id }, '', location.href); } catch {}
         }
       };
+
+      // Inject swipe-down drag handle into every modal dialog for mobile sheet ergonomics
+      for (const dialog of document.querySelectorAll('dialog')) {
+        const inner = dialog.querySelector('.dialog-inner');
+        if (inner && !dialog.querySelector('.dialog-drag-handle')) {
+          const handle = document.createElement('div');
+          handle.className = 'dialog-drag-handle';
+          handle.setAttribute('aria-hidden', 'true');
+          dialog.insertBefore(handle, inner);
+          let startY = 0;
+          let deltaY = 0;
+          let dragging = false;
+          handle.addEventListener('pointerdown', (e) => {
+            if (window.innerWidth > 768) return;
+            dragging = true;
+            startY = e.clientY;
+            deltaY = 0;
+            dialog.classList.add('is-dragging');
+            handle.setPointerCapture?.(e.pointerId);
+          });
+          handle.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            deltaY = Math.max(0, e.clientY - startY);
+            dialog.style.transform = `translateY(${deltaY}px)`;
+          });
+          const endSwipe = () => {
+            if (!dragging) return;
+            dragging = false;
+            dialog.classList.remove('is-dragging');
+            if (deltaY > 80) {
+              dialog.style.transform = '';
+              dialog.close();
+            } else {
+              dialog.style.transform = '';
+            }
+          };
+          handle.addEventListener('pointerup', endSwipe);
+          handle.addEventListener('pointercancel', endSwipe);
+        }
+      }
 
       // Fallback for <dialog closedby="any"> on Safari
       if (!('closedBy' in HTMLDialogElement.prototype)) {
@@ -4526,9 +4665,13 @@
       for (const dialog of document.querySelectorAll('dialog')) {
         dialog.addEventListener('close', () => {
           dialog.returnValue = '';
+          dialog.style.transform = '';
           if (lastDialogTrigger && typeof lastDialogTrigger.focus === 'function') {
             try { lastDialogTrigger.focus({ preventScroll: true }); } catch {}
             lastDialogTrigger = null;
+          }
+          if (Math.abs(window.scrollY - savedDialogScrollY) > 10) {
+            window.scrollTo({ top: savedDialogScrollY, behavior: 'instant' });
           }
         });
       }
@@ -5072,6 +5215,10 @@
             </div>
           `;
           previewBody.innerHTML = `
+            <div class="preview-pdf-fallback">
+              <span>Visualizzatore PDF integrato. Su smartphone puoi aprire o scaricare direttamente il file originale.</span>
+              <a class="btn" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.externalLink} Apri PDF</a>
+            </div>
             <iframe class="preview-pdf" src="${gviewUrl}" title="Anteprima ${escapeHtml(f.name)}" loading="lazy"></iframe>
           `;
           document.getElementById('preview-copy-link-btn').onclick = () => copyText(ghHref, 'Link al PDF copiato');
@@ -5088,7 +5235,7 @@
             <a class="btn" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica (${fmtBytes(f.size)})</a>
           </div>
         `;
-        previewBody.innerHTML = '<div class="preview-code">Caricamento anteprima in corso...</div>';
+        previewBody.innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;" aria-label="Caricamento anteprima"><div class="skeleton-card"></div><div class="skeleton-card" style="height:140px;"></div></div>';
         bindNavButtons();
         openDialogWithHistory(previewModal);
         try {
@@ -6198,11 +6345,20 @@
       const mapModalImg = document.getElementById('map-modal-img');
       const mapModalTitle = document.getElementById('map-modal-title');
       const mapOpenHighres = document.getElementById('map-open-highres');
+      const mapZoomToggle = document.getElementById('map-zoom-toggle');
+      const syncMapZoom = (zoomed) => {
+        if (!mapModalImg) return;
+        mapModalImg.classList.toggle('is-zoomed', zoomed);
+        if (mapZoomToggle) mapZoomToggle.textContent = zoomed ? 'Adatta 1x' : 'Zoom 1.8x';
+      };
+      mapZoomToggle?.addEventListener('click', () => syncMapZoom(!mapModalImg.classList.contains('is-zoomed')));
+      mapModalImg?.addEventListener('click', () => syncMapZoom(!mapModalImg.classList.contains('is-zoomed')));
       document.querySelectorAll('[data-map-src]').forEach((el) => {
         el.addEventListener('click', () => {
           mapModalTitle.textContent = el.dataset.mapTitle;
           mapModalImg.src = el.dataset.mapSrc;
           mapModalImg.alt = el.dataset.mapTitle;
+          syncMapZoom(false);
           if (mapOpenHighres) mapOpenHighres.href = el.dataset.mapSrc;
           openDialogWithHistory(mapModal);
         });
