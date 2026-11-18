@@ -3,10 +3,12 @@ name: Deploy Portale Web (GitHub Pages)
 on:
   push:
     branches: [master]
+  schedule:
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -34,6 +36,23 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Installa poppler-utils per estrazione PDF calendario
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
+
+      - name: Sincronizza Calendario Esami Triennale da DIETI
+        run: python3 info-generali/web/sync_exam_calendar.py || echo "Avviso: sincronizzazione DIETI fallita, uso il fallback exam_calendar.json."
+
+      - name: Salva aggiornamento calendario nel repository (se cambiato)
+        run: |
+          if ! git diff --quiet info-generali/web/exam_calendar.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add info-generali/web/exam_calendar.json
+            git commit -m "chore(calendar): aggiornamento automatico calendario esami DIETI [skip ci]"
+            git pull --rebase origin master
+            git push origin HEAD:master
+          fi
 
       - name: Build statica Portale Web
         run: python3 info-generali/web/build_site.py --out _site

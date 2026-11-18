@@ -18,6 +18,7 @@ from urllib.parse import quote
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template.html")
+EXAM_CALENDAR_PATH = os.path.join(os.path.dirname(__file__), "exam_calendar.json")
 
 LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
 LFS_SIZE_RE = re.compile(rb"^size\s+(\d+)", re.MULTILINE)
@@ -243,6 +244,31 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
     return updates
 
 
+def load_exam_calendar() -> dict:
+    """Carica il calendario esami Triennale generato da sync_exam_calendar.py."""
+    if os.path.exists(EXAM_CALENDAR_PATH):
+        try:
+            with open(EXAM_CALENDAR_PATH, encoding="utf-8") as fp:
+                return json.load(fp)
+        except Exception:
+            pass
+    try:
+        from sync_exam_calendar import sync_calendar
+        return sync_calendar(out_path=EXAM_CALENDAR_PATH)
+    except Exception:
+        return {
+            "academicYear": "",
+            "sourcePageUrl": "https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale",
+            "pdfUrl": "",
+            "sessionTitle": "Calendario Esami Laurea Triennale",
+            "pdfModifiedAt": "",
+            "totalEntries": 0,
+            "totalDates": 0,
+            "months": [],
+            "entries": [],
+        }
+
+
 def build_catalog(repo: str):
     courses = []
     files_index = []
@@ -408,6 +434,7 @@ def build_catalog(repo: str):
                 })
 
     recent_updates = extract_recent_updates(repo, prof_display_map)
+    exam_calendar = load_exam_calendar()
     now_str = datetime.now(timezone.utc).strftime("%d/%m/%Y")
     return {
         "stats": {
@@ -416,6 +443,7 @@ def build_catalog(repo: str):
             "generatedAt": now_str,
         },
         "recentUpdates": recent_updates,
+        "examCalendar": exam_calendar,
         "courses": courses,
         "files": files_index,
     }
@@ -537,6 +565,7 @@ def main():
     stat_teams_str = str(catalog["stats"]["teamsCount"])
     stat_size_str = fmt_bytes(catalog["stats"]["totalBytes"])
     stat_updated_str = catalog["stats"]["generatedAt"]
+    stat_exams_str = str(catalog.get("examCalendar", {}).get("totalDates", 0))
 
     html = (
         template.replace("__UNINA_JSON_PAYLOAD__", json_payload)
@@ -545,6 +574,7 @@ def main():
         .replace("__STAT_TEAMS__", stat_teams_str)
         .replace("__STAT_SIZE__", stat_size_str)
         .replace("__STAT_UPDATED__", stat_updated_str)
+        .replace("__STAT_EXAMS__", stat_exams_str)
     )
 
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as fp:
@@ -568,7 +598,8 @@ def main():
         f"✅ Portale Web generato in '{out_dir}': "
         f"{len(catalog['courses'])} corsi, {len(catalog['files'])} file indicizzati, "
         f"{catalog['stats']['teamsCount']} codici Teams, "
-        f"{len(catalog['recentUpdates'])} aggiornamenti recenti."
+        f"{len(catalog['recentUpdates'])} aggiornamenti recenti, "
+        f"{stat_exams_str} appelli d'esame."
     )
 
 

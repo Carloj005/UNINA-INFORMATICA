@@ -1,0 +1,3010 @@
+{
+  "academicYear": "2026/2027",
+  "sourcePageUrl": "https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale",
+  "pdfUrl": "https://informatica.dieti.unina.it/images/calendario-esami/2026-27/triennale-1-26-27.pdf",
+  "sessionTitle": "Calendario Esami Laurea Triennale - Sessione Invernale 2026-27",
+  "pdfModifiedAt": "16/11/2026",
+  "totalEntries": 90,
+  "totalDates": 182,
+  "months": [
+    {
+      "key": "2026-11",
+      "label": "Novembre 2026",
+      "shortLabel": "Nov 2026",
+      "count": 14
+    },
+    {
+      "key": "2026-12",
+      "label": "Dicembre 2026",
+      "shortLabel": "Dic 2026",
+      "count": 8
+    },
+    {
+      "key": "2027-01",
+      "label": "Gennaio 2027",
+      "shortLabel": "Gen 2027",
+      "count": 50
+    },
+    {
+      "key": "2027-02",
+      "label": "Febbraio 2027",
+      "shortLabel": "Feb 2027",
+      "count": 50
+    },
+    {
+      "key": "2027-03",
+      "label": "Marzo 2027",
+      "shortLabel": "Mar 2027",
+      "count": 50
+    },
+    {
+      "key": "2027-04",
+      "label": "Aprile 2027",
+      "shortLabel": "Apr 2027",
+      "count": 2
+    },
+    {
+      "key": "2027-05",
+      "label": "Maggio 2027",
+      "shortLabel": "Mag 2027",
+      "count": 7
+    },
+    {
+      "key": "2027-06",
+      "label": "Giugno 2027",
+      "shortLabel": "Giu 2027",
+      "count": 1
+    }
+  ],
+  "entries": [
+    {
+      "id": "cal-1",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi Matematica I",
+      "repoCourse": "Analisi Matematica 1",
+      "aliases": "analisi 1 am1 analisi1",
+      "prof": "Chiara Leone",
+      "email": "chiara.leone@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-2",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi Matematica I",
+      "repoCourse": "Analisi Matematica 1",
+      "aliases": "analisi 1 am1 analisi1",
+      "prof": "Raffaele Scandone",
+      "email": "raffaele.scandone@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-03",
+          "display": "03/02/2027",
+          "day": 3,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-03",
+          "display": "03/03/2027",
+          "day": 3,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        },
+        {
+          "iso": "2027-06-02",
+          "display": "02/06/2027",
+          "day": 2,
+          "month": 6,
+          "year": 2027,
+          "monthKey": "2027-06",
+          "weekLabel": "31 mag.-4 giu."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-3",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi Matematica I",
+      "repoCourse": "Analisi Matematica 1",
+      "aliases": "analisi 1 am1 analisi1",
+      "prof": "Annamaria Barbagallo",
+      "email": "annamaria.barbagallo@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-4",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Architettura degli Elaboratori",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade architettura elaboratori",
+      "prof": "Luigi Sauro",
+      "email": "luigi.sauro@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-5",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Architettura degli Elaboratori",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade architettura elaboratori",
+      "prof": "Silvia Rossi",
+      "email": "silvia.rossi@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-16",
+          "display": "16/02/2027",
+          "day": 16,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-16",
+          "display": "16/03/2027",
+          "day": 16,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-6",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Architettura degli Elaboratori",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade architettura elaboratori",
+      "prof": "Alessandra Somma",
+      "email": "alessandra.somma@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [
+        {
+          "iso": "2026-12-21",
+          "display": "21/12/2026",
+          "day": 21,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "21-23 dic."
+        },
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-09",
+          "display": "09/02/2027",
+          "day": 9,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        },
+        {
+          "iso": "2027-05-04",
+          "display": "04/05/2027",
+          "day": 4,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "3-7 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-7",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "prog 1 prog1 pr1 programmazione",
+      "prof": "Roberto Prevete / Daniel Riccio",
+      "email": "roberto.prevete@unina.it / daniel.riccio@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-12",
+          "display": "12/02/2027",
+          "day": 12,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-12",
+          "display": "12/03/2027",
+          "day": 12,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-8",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "prog 1 prog1 pr1 programmazione",
+      "prof": "Luigi Sauro",
+      "email": "luigi.sauro@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [
+        {
+          "iso": "2026-11-12",
+          "display": "12/11/2026",
+          "day": 12,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        },
+        {
+          "iso": "2027-01-14",
+          "display": "14/01/2027",
+          "day": 14,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-15",
+          "display": "15/02/2027",
+          "day": 15,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-9",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "prog 1 prog1 pr1 programmazione",
+      "prof": "Francesco Isgrò",
+      "email": "francesco.isgro@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-12",
+          "display": "12/02/2027",
+          "day": 12,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-12",
+          "display": "12/03/2027",
+          "day": 12,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-10",
+      "yearGroup": "Primo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Inglese",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": "Prove gestite dal Centro Linguistico di Ateneo (CLA)"
+    },
+    {
+      "id": "cal-11",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Algebra",
+      "repoCourse": "Algebra",
+      "aliases": "alg",
+      "prof": "Maria Rosaria Celentani",
+      "email": "mariarosaria.celentani@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-07",
+          "display": "07/01/2027",
+          "day": 7,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-12",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Algebra",
+      "repoCourse": "Algebra",
+      "aliases": "alg",
+      "prof": "Giovanni Cutolo",
+      "email": "giovanni.cutolo@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-07",
+          "display": "07/01/2027",
+          "day": 7,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-13",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Algebra",
+      "repoCourse": "Algebra",
+      "aliases": "alg",
+      "prof": "Mattia Brescia",
+      "email": "mattia.brescia@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-07",
+          "display": "07/01/2027",
+          "day": 7,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-14",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Programmazione Object-Oriented",
+      "repoCourse": "Programmazione Object Oriented",
+      "aliases": "poo oop oggetti",
+      "prof": "Sergio Di Martino",
+      "email": "sergio.dimartino@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-15",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Programmazione Object-Oriented",
+      "repoCourse": "Programmazione Object Oriented",
+      "aliases": "poo oop oggetti",
+      "prof": "Porfirio Tramontana",
+      "email": "porfirio.tramontana@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [
+        {
+          "iso": "2026-12-17",
+          "display": "17/12/2026",
+          "day": 17,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "14-18 dic."
+        },
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-22",
+          "display": "22/02/2027",
+          "day": 22,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-15",
+          "display": "15/03/2027",
+          "day": 15,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        },
+        {
+          "iso": "2027-05-03",
+          "display": "03/05/2027",
+          "day": 3,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "3-7 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-16",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Programmazione Object-Oriented",
+      "repoCourse": "Programmazione Object Oriented",
+      "aliases": "poo oop oggetti",
+      "prof": "Riccardo Caccavale",
+      "email": "riccardo.caccavale@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-22",
+          "display": "22/02/2027",
+          "day": 22,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-15",
+          "display": "15/03/2027",
+          "day": 15,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-17",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Basi di Dati",
+      "repoCourse": "Basi di Dati",
+      "aliases": "bd db sql",
+      "prof": "Mara Sangiovanni",
+      "email": "mara.sangiovanni@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [
+        {
+          "iso": "2026-11-11",
+          "display": "11/11/2026",
+          "day": 11,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        },
+        {
+          "iso": "2026-12-10",
+          "display": "10/12/2026",
+          "day": 10,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "7-11 dic."
+        },
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        },
+        {
+          "iso": "2027-04-14",
+          "display": "14/04/2027",
+          "day": 14,
+          "month": 4,
+          "year": 2027,
+          "monthKey": "2027-04",
+          "weekLabel": "12-16 apr."
+        },
+        {
+          "iso": "2027-05-12",
+          "display": "12/05/2027",
+          "day": 12,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "10-14 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-18",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Basi di Dati",
+      "repoCourse": "Basi di Dati",
+      "aliases": "bd db sql",
+      "prof": "Silvio Barra",
+      "email": "silvio.barra@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [
+        {
+          "iso": "2026-11-11",
+          "display": "11/11/2026",
+          "day": 11,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        },
+        {
+          "iso": "2026-12-10",
+          "display": "10/12/2026",
+          "day": 10,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "7-11 dic."
+        },
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        },
+        {
+          "iso": "2027-04-14",
+          "display": "14/04/2027",
+          "day": 14,
+          "month": 4,
+          "year": 2027,
+          "monthKey": "2027-04",
+          "weekLabel": "12-16 apr."
+        },
+        {
+          "iso": "2027-05-12",
+          "display": "12/05/2027",
+          "day": 12,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "10-14 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-19",
+      "yearGroup": "Primo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Basi di Dati",
+      "repoCourse": "Basi di Dati",
+      "aliases": "bd db sql",
+      "prof": "Andrea Calì",
+      "email": "andrea.cali@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-20",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Analisi matematica I",
+      "repoCourse": "Analisi Matematica 1",
+      "aliases": "analisi 1 am1 analisi1",
+      "prof": "Roberto Alicandro",
+      "email": "roberto.alicandro@unina.it",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-21",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Analisi matematica I",
+      "repoCourse": "Analisi Matematica 1",
+      "aliases": "analisi 1 am1 analisi1",
+      "prof": "Daniele Castorina",
+      "email": "daniele.castorina@unina.it",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-22",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Analisi matematica I",
+      "repoCourse": "Analisi Matematica 1",
+      "aliases": "analisi 1 am1 analisi1",
+      "prof": "Annamaria Barbagallo",
+      "email": "annamaria.barbagallo@unina.it",
+      "channel": "",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-23",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Algebra",
+      "repoCourse": "Algebra",
+      "aliases": "alg",
+      "prof": "Maria Rosaria Celentani",
+      "email": "mariarosaria.celentani@unina.it",
+      "channel": "",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-07",
+          "display": "07/01/2027",
+          "day": 7,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-24",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Algebra",
+      "repoCourse": "Algebra",
+      "aliases": "alg",
+      "prof": "Giovanni Cutolo",
+      "email": "giovanni.cutolo@unina.it",
+      "channel": "",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-07",
+          "display": "07/01/2027",
+          "day": 7,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-25",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Algebra",
+      "repoCourse": "Algebra",
+      "aliases": "alg",
+      "prof": "Mattia Brescia",
+      "email": "mattia.brescia@unina.it",
+      "channel": "",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-07",
+          "display": "07/01/2027",
+          "day": 7,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-26",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "prog 1 prog1 pr1 programmazione",
+      "prof": "",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": "Mutua docenti e date da Programmazione nuovo regolamento"
+    },
+    {
+      "id": "cal-27",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Inglese",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": "Prove gestite dal Centro Linguistico di Ateneo (CLA)"
+    },
+    {
+      "id": "cal-28",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Architettura degli elaboratori I",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade ade1 architettura elaboratori",
+      "prof": "Luigi Sauro",
+      "email": "silvia.rossi@unina.it",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-29",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Architettura degli elaboratori I",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade ade1 architettura elaboratori",
+      "prof": "Silvia Rossi",
+      "email": "luigi.sauro@unina.it",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-30",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Architettura degli elaboratori I",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade ade1 architettura elaboratori",
+      "prof": "Roberto Prevete",
+      "email": "roberto.prevete@unina.it",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-31",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Geometria",
+      "repoCourse": "Geometria",
+      "aliases": "geom algebra lineare",
+      "prof": "Marco Trombetti",
+      "email": "marco.trombetti@unina.it",
+      "channel": "FG1 (A-DE)",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-32",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Geometria",
+      "repoCourse": "Geometria",
+      "aliases": "geom algebra lineare",
+      "prof": "Francesca Cioffi",
+      "email": "francesca.cioffi@unina.it",
+      "channel": "FG2 (DF-M)",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-33",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Geometria",
+      "repoCourse": "Geometria",
+      "aliases": "geom algebra lineare",
+      "prof": "Roberto Pirisi",
+      "email": "roberto.pirisi@unina.it",
+      "channel": "FG3 (N-Z)",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-34",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Fisica generale I",
+      "repoCourse": "Fisica Generale 1",
+      "aliases": "fisica 1 fisica1 fg1",
+      "prof": "",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": "Insegnamento disattivato. Serve nomina nuova commissione"
+    },
+    {
+      "id": "cal-35",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "lab prog laboratorio programmazione lp",
+      "prof": "Gruppo 1 (Bozzelli)",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-36",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "lab prog laboratorio programmazione lp",
+      "prof": "Gruppo 2 (Origlia)",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-37",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di programmazione",
+      "repoCourse": "Programmazione 1",
+      "aliases": "lab prog laboratorio programmazione lp",
+      "prof": "Gruppo 3 (Apicella)",
+      "email": "",
+      "channel": "",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-38",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Elementi di Informatica Teorica",
+      "repoCourse": "Elementi di Informatica Teorica",
+      "aliases": "it eoit teorica automi",
+      "prof": "Alessandro De Luca",
+      "email": "alessandro.deluca@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2026-11-10",
+          "display": "10/11/2026",
+          "day": 10,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        },
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-17",
+          "display": "17/02/2027",
+          "day": 17,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-17",
+          "display": "17/03/2027",
+          "day": 17,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-39",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Elementi di Informatica Teorica",
+      "repoCourse": "Elementi di Informatica Teorica",
+      "aliases": "it eoit teorica automi",
+      "prof": "Aniello Murano",
+      "email": "aniello.murano@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2026-11-10",
+          "display": "10/11/2026",
+          "day": 10,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        },
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-17",
+          "display": "17/02/2027",
+          "day": 17,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-17",
+          "display": "17/03/2027",
+          "day": 17,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-40",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Fisica Generale I",
+      "repoCourse": "Fisica Generale 1",
+      "aliases": "fisica 1 fisica1 fg1",
+      "prof": "Gianfranca De Rosa",
+      "email": "gianfranca.derosa@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2026-11-05",
+          "display": "05/11/2026",
+          "day": 5,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-26",
+          "display": "26/02/2027",
+          "day": 26,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-18",
+          "display": "18/03/2027",
+          "day": 18,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        },
+        {
+          "iso": "2027-05-13",
+          "display": "13/05/2027",
+          "day": 13,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "10-14 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-41",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Fisica Generale I",
+      "repoCourse": "Fisica Generale 1",
+      "aliases": "fisica 1 fisica1 fg1",
+      "prof": "Antonia Di Crescenzo",
+      "email": "antonia.dicrescenzo@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-16",
+          "display": "16/02/2027",
+          "day": 16,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-04",
+          "display": "04/03/2027",
+          "day": 4,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-42",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Geometria",
+      "repoCourse": "Geometria",
+      "aliases": "geom algebra lineare",
+      "prof": "Francesca Cioffi",
+      "email": "francesca.cioffi@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-19",
+          "display": "19/01/2027",
+          "day": 19,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-09",
+          "display": "09/02/2027",
+          "day": 9,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-43",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Geometria",
+      "repoCourse": "Geometria",
+      "aliases": "geom algebra lineare",
+      "prof": "Roberto Pirisi",
+      "email": "roberto.pirisi@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-44",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi e Progettazione di Strutture Dati",
+      "repoCourse": "Analisi e Progettazione di Strutture Dati",
+      "aliases": "apsd asd lasd strutture dati",
+      "prof": "Massimo Benerecetti",
+      "email": "massimo.benerecetti@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-45",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi e Progettazione di Strutture Dati",
+      "repoCourse": "Analisi e Progettazione di Strutture Dati",
+      "aliases": "apsd asd lasd strutture dati",
+      "prof": "Fabio Mogavero",
+      "email": "fabio.mogavero@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-46",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Sistemi Operativi",
+      "repoCourse": "Sistemi Operativi",
+      "aliases": "so os kernel",
+      "prof": "Alberto Finzi",
+      "email": "walter.balzano@unina.it",
+      "channel": "FG1",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-47",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Sistemi Operativi",
+      "repoCourse": "Sistemi Operativi",
+      "aliases": "so os kernel",
+      "prof": "Walter Balzano",
+      "email": "alberto.finzi@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-48",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Linguaggi di Programmazione",
+      "repoCourse": "Linguaggi di Programmazione 1",
+      "aliases": "lp1 lmp lmc linguaggi prolog lisp",
+      "prof": "Piero Bonatti",
+      "email": "piero.bonatti@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-14",
+          "display": "14/01/2027",
+          "day": 14,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-04",
+          "display": "04/03/2027",
+          "day": 4,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-49",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Linguaggi di Programmazione",
+      "repoCourse": "Linguaggi di Programmazione 1",
+      "aliases": "lp1 lmp lmc linguaggi prolog lisp",
+      "prof": "Marco Faella",
+      "email": "marco.faella@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-19",
+          "display": "19/02/2027",
+          "day": 19,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-05",
+          "display": "05/03/2027",
+          "day": 5,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-50",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Metodi Statistici per l'informazione",
+      "repoCourse": "Metodi Statistici per l'Informazione",
+      "aliases": "msi eps statistica probabilita",
+      "prof": "Marco Lops",
+      "email": "marco.lops@unina.it",
+      "channel": "FG1",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-51",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Metodi Statistici per l'informazione",
+      "repoCourse": "Metodi Statistici per l'Informazione",
+      "aliases": "msi eps statistica probabilita",
+      "prof": "Mario Tanda",
+      "email": "mario.tanda@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2026-11-06",
+          "display": "06/11/2026",
+          "day": 6,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2026-12-09",
+          "display": "09/12/2026",
+          "day": 9,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "7-11 dic."
+        },
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-02",
+          "display": "02/02/2027",
+          "day": 2,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-52",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi e Progettazione di Algoritmi",
+      "repoCourse": "Analisi e Progettazione di Algoritmi",
+      "aliases": "apa algoritmi algo",
+      "prof": "Massimo Benerecetti",
+      "email": "massimo.benerecetti@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-01",
+          "display": "01/03/2027",
+          "day": 1,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-53",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Analisi e Progettazione di Algoritmi",
+      "repoCourse": "Analisi e Progettazione di Algoritmi",
+      "aliases": "apa algoritmi algo",
+      "prof": "Fabio Mogavero",
+      "email": "fabio.mogavero@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-01",
+          "display": "01/03/2027",
+          "day": 1,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-54",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di algoritmi e strutture dati",
+      "repoCourse": "Analisi e Progettazione di Strutture Dati",
+      "aliases": "lasd asd apsd laboratorio algoritmi",
+      "prof": "Fabio Mogavero",
+      "email": "fabio.mogavero@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-01",
+          "display": "01/03/2027",
+          "day": 1,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-55",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di algoritmi e strutture dati",
+      "repoCourse": "Analisi e Progettazione di Strutture Dati",
+      "aliases": "lasd asd apsd laboratorio algoritmi",
+      "prof": "Anna Corazza",
+      "email": "anna.corazza@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-56",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Algoritmi I",
+      "repoCourse": "Analisi e Progettazione di Strutture Dati",
+      "aliases": "algoritmi 1 asd apsd",
+      "prof": "Massimo Benerecetti",
+      "email": "massimo.benerecetti@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-57",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Algoritmi I",
+      "repoCourse": "Analisi e Progettazione di Strutture Dati",
+      "aliases": "algoritmi 1 asd apsd",
+      "prof": "Fabio Mogavero",
+      "email": "fabio.mogavero@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-58",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Object Orientation",
+      "repoCourse": "Programmazione Object Oriented",
+      "aliases": "poo oop oggetti object orientation",
+      "prof": "Sergio Di Martino",
+      "email": "sergio.dimartino@unina.it",
+      "channel": "FG1",
+      "dates": [],
+      "note": "contattare il docente"
+    },
+    {
+      "id": "cal-59",
+      "yearGroup": "Secondo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Object Orientation",
+      "repoCourse": "Programmazione Object Oriented",
+      "aliases": "poo oop oggetti object orientation",
+      "prof": "Porfirio Tramontana",
+      "email": "porfirio.tramontana@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-60",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Tecnologie Web",
+      "repoCourse": "Tecnologie Web",
+      "aliases": "tecweb tw web",
+      "prof": "Starace Luigi Libero Lucio",
+      "email": "luigiliberolucio.starace@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-61",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Tecnologie Web",
+      "repoCourse": "Tecnologie Web",
+      "aliases": "tecweb tw web",
+      "prof": "Bernardo Breve",
+      "email": "bernardo.breve@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-62",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Ingegneria del Software",
+      "repoCourse": "Ingegneria del Software",
+      "aliases": "ingsw is",
+      "prof": "Sergio Di Martino",
+      "email": "sergio.dimartino@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-63",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Ingegneria del Software",
+      "repoCourse": "Ingegneria del Software",
+      "aliases": "ingsw is",
+      "prof": "Porfirio Tramontana",
+      "email": "porfirio.tramontana@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2026-12-17",
+          "display": "17/12/2026",
+          "day": 17,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "14-18 dic."
+        },
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-22",
+          "display": "22/02/2027",
+          "day": 22,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-15",
+          "display": "15/03/2027",
+          "day": 15,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        },
+        {
+          "iso": "2027-05-03",
+          "display": "03/05/2027",
+          "day": 3,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "3-7 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-64",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Reti e Programmazione Distribuita",
+      "repoCourse": "Reti e Programmazione Distribuita",
+      "aliases": "rpd reti",
+      "prof": "Alberto Finzi",
+      "email": "alberto.finzi@unina.it",
+      "channel": "FG1",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-65",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Reti e Programmazione Distribuita",
+      "repoCourse": "Reti e Programmazione Distribuita",
+      "aliases": "rpd reti",
+      "prof": "Andrea Calì",
+      "email": "andrea.cali@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-66",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Tecniche di programmazione Avanzata",
+      "repoCourse": "Tecniche di Programmazione Avanzata",
+      "aliases": "tpa",
+      "prof": "Marco Faella",
+      "email": "marco.faella@unina.it",
+      "channel": "FG1",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-67",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Tecniche di programmazione Avanzata",
+      "repoCourse": "Tecniche di Programmazione Avanzata",
+      "aliases": "tpa",
+      "prof": "TBD",
+      "email": "",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-68",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "AI Technologies",
+      "repoCourse": "AI Technologies",
+      "aliases": "ait ai intelligenza artificiale",
+      "prof": "Anna Corazza",
+      "email": "anna.corazza@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-17",
+          "display": "17/02/2027",
+          "day": 17,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-03",
+          "display": "03/03/2027",
+          "day": 3,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-69",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "AI Technologies",
+      "repoCourse": "AI Technologies",
+      "aliases": "ait ai intelligenza artificiale",
+      "prof": "Silvia Rossi",
+      "email": "silvia.rossi@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-70",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di Sistemi Operativi",
+      "repoCourse": "Sistemi Operativi",
+      "aliases": "lso lab so sistemi operativi",
+      "prof": "Alberto Finzi",
+      "email": "alberto.finzi@unina.it",
+      "channel": "FG1",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-71",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Reti di calcolatori",
+      "repoCourse": "Reti e Programmazione Distribuita",
+      "aliases": "rc reti calcolatori rpd",
+      "prof": "Riccardo Caccavale",
+      "email": "riccardo.caccavale@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2026-11-03",
+          "display": "03/11/2026",
+          "day": 3,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "2-6 nov."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-72",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Reti di calcolatori",
+      "repoCourse": "Reti e Programmazione Distribuita",
+      "aliases": "rc reti calcolatori rpd",
+      "prof": "Andrea Calì",
+      "email": "andrea.cali@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-73",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Ingegneria del Software (MOD. A+B)",
+      "repoCourse": "Ingegneria del Software",
+      "aliases": "ingsw is mod ab",
+      "prof": "Sergio Di Martino",
+      "email": "sergio.dimartino@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-74",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Ingegneria del Software (MOD. A+B)",
+      "repoCourse": "Ingegneria del Software",
+      "aliases": "ingsw is mod ab",
+      "prof": "Starace Luigi Libero Lucio",
+      "email": "luigiliberolucio.starace@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-75",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Ingegneria del Software (MOD. A+B)",
+      "repoCourse": "Ingegneria del Software",
+      "aliases": "ingsw is mod ab",
+      "prof": "Porfirio Tramontana",
+      "email": "porfirio.tramontana@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2026-12-17",
+          "display": "17/12/2026",
+          "day": 17,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "14-18 dic."
+        },
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-22",
+          "display": "22/02/2027",
+          "day": 22,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-15",
+          "display": "15/03/2027",
+          "day": 15,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        },
+        {
+          "iso": "2027-05-03",
+          "display": "03/05/2027",
+          "day": 3,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "3-7 mag."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-76",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Ingegneria del Software (MOD. A+B)",
+      "repoCourse": "Ingegneria del Software",
+      "aliases": "ingsw is mod ab",
+      "prof": "Bernardo Breve",
+      "email": "bernardo.breve@unina.it",
+      "channel": "FG2",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-77",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Linguaggi di programmazione II",
+      "repoCourse": "Linguaggi di Programmazione 1",
+      "aliases": "lp2 linguaggi",
+      "prof": "Marco Faella",
+      "email": "marco.faella@unina.it",
+      "channel": "A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-19",
+          "display": "19/02/2027",
+          "day": 19,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-05",
+          "display": "05/03/2027",
+          "day": 5,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-78",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Tecnologie Web (2025-2026)",
+      "repoCourse": "Tecnologie Web",
+      "aliases": "tecweb tw web",
+      "prof": "Starace Luigi Libero Lucio",
+      "email": "luigiliberolucio.starace@unina.it",
+      "channel": "A-Z",
+      "dates": [],
+      "note": ""
+    },
+    {
+      "id": "cal-79",
+      "yearGroup": "Esami a Scelta",
+      "semester": "1°",
+      "regolamento": "Esami a Scelta",
+      "course": "Istituzioni di Matematica II",
+      "repoCourse": "",
+      "aliases": "im2 istituzioni matematica 2",
+      "prof": "Carlo Maria Mantegazza",
+      "email": "carlomaria.mantegazza@unina.it",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-80",
+      "yearGroup": "Esami a Scelta",
+      "semester": "1°",
+      "regolamento": "Esami a Scelta",
+      "course": "Parallel and distributed computing",
+      "repoCourse": "Parallel and Distributed Computing",
+      "aliases": "pdc",
+      "prof": "Marco Lapegna",
+      "email": "marco.lapegna@unina.it",
+      "channel": "FG A-Z",
+      "dates": [],
+      "note": "Consultare il calendario di Laurea Magistrale"
+    },
+    {
+      "id": "cal-81",
+      "yearGroup": "Esami a Scelta",
+      "semester": "1°",
+      "regolamento": "Esami a Scelta",
+      "course": "Scientific computing",
+      "repoCourse": "Scientific Computing",
+      "aliases": "sc",
+      "prof": "Salvatore Cuomo",
+      "email": "salvatore.cuomo@unina.it",
+      "channel": "FG A-Z",
+      "dates": [],
+      "note": "Consultare il calendario di Laurea Magistrale"
+    },
+    {
+      "id": "cal-82",
+      "yearGroup": "Esami a Scelta",
+      "semester": "1°",
+      "regolamento": "Esami a Scelta",
+      "course": "Calcolo Numerico",
+      "repoCourse": "Calcolo Numerico",
+      "aliases": "cn",
+      "prof": "Salvatore Cuomo",
+      "email": "salvatore.cuomo@unina.it",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-21",
+          "display": "21/02/2027",
+          "day": 21,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-15",
+          "display": "15/03/2027",
+          "day": 15,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-83",
+      "yearGroup": "Esami a Scelta",
+      "semester": "1°",
+      "regolamento": "Esami a Scelta",
+      "course": "Operation Research",
+      "repoCourse": "Ricerca Operativa",
+      "aliases": "ro ero ricerca operativa operation research",
+      "prof": "Paola Festa",
+      "email": "paola.festa@unina.it",
+      "channel": "FG A-Z",
+      "dates": [],
+      "note": "Consultare il calendario di Laurea Magistrale"
+    },
+    {
+      "id": "cal-84",
+      "yearGroup": "Esami a Scelta",
+      "semester": "1° / 2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Operating systems for mobile, cloud and IoT",
+      "repoCourse": "Operating Systems for Mobile, Cloud and IoT",
+      "aliases": "osmci iot",
+      "prof": "Silvio Barra",
+      "email": "silvio.barra@unina.it",
+      "channel": "FG A-Z",
+      "dates": [],
+      "note": "Consultare il calendario di Laurea Magistrale"
+    },
+    {
+      "id": "cal-85",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Algorithm design",
+      "repoCourse": "Algorithm Design",
+      "aliases": "ad",
+      "prof": "Fabio Mogavero",
+      "email": "fabio.mogavero@unina.it",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-13",
+          "display": "13/01/2027",
+          "day": 13,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-10",
+          "display": "10/02/2027",
+          "day": 10,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-02",
+          "display": "02/03/2027",
+          "day": 2,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-86",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Logics for computer science",
+      "repoCourse": "Logics for Computer Science",
+      "aliases": "lcs logica",
+      "prof": "Massimo Benerecetti",
+      "email": "massimo.benerecetti@unina.it",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-12",
+          "display": "12/01/2027",
+          "day": 12,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-01",
+          "display": "01/03/2027",
+          "day": 1,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-87",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Computer Forensics",
+      "repoCourse": "Computer Forensics",
+      "aliases": "cf forensics",
+      "prof": "Marco Alfè",
+      "email": "marco.alfe@unina.it",
+      "channel": "FG A-Z",
+      "dates": [],
+      "note": "Consultare il calendario di Laurea Magistrale"
+    },
+    {
+      "id": "cal-88",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Diritto dell'Informatica",
+      "repoCourse": "Diritto dell'Informatica",
+      "aliases": "diritto",
+      "prof": "Lucio Franzese",
+      "email": "lucio.franzese@unina.it",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-05",
+          "display": "05/02/2027",
+          "day": 5,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-19",
+          "display": "19/03/2027",
+          "day": 19,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-89",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Economia ed organizzazione aziendale",
+      "repoCourse": "Economia e Organizzazione Aziendale",
+      "aliases": "eoa economia",
+      "prof": "Piccirillo Giuseppe",
+      "email": "giuseppe.piccirillo@unina.it",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2026-12-17",
+          "display": "17/12/2026",
+          "day": 17,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "14-18 dic."
+        },
+        {
+          "iso": "2027-01-14",
+          "display": "14/01/2027",
+          "day": 14,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-90",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Multimedia Information Systems",
+      "repoCourse": "Multimedia Information Systems",
+      "aliases": "mis multimedia",
+      "prof": "Walter Balzano",
+      "email": "walter.balzano@unina.it",
+      "channel": "FG A-Z",
+      "dates": [],
+      "note": "Consultare il calendario di Laurea Magistrale"
+    }
+  ]
+}

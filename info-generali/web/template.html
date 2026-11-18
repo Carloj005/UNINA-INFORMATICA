@@ -346,10 +346,14 @@
     }
     .home-cta-row {
       display: flex;
-      gap: var(--sp-2);
+      gap: 12px;
       flex-wrap: wrap;
       align-items: center;
       padding-top: var(--sp-1);
+    }
+    .home-cta-row .btn-lg {
+      padding: 12px 18px;
+      font-size: 0.9375rem;
     }
     .section-heading {
       margin: 0 0 var(--sp-2);
@@ -610,7 +614,8 @@
       gap: var(--sp-2);
       flex-wrap: wrap;
     }
-    #mobile-filters-toggle {
+    #mobile-filters-toggle,
+    #cal-mobile-filters-toggle {
       display: none;
     }
     .search-input-wrap {
@@ -1327,6 +1332,308 @@
       margin: 0;
     }
 
+    /* ==========================================
+       EXAM CALENDAR TAB (#panel-calendar)
+       ========================================== */
+    .calendar-source-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
+      margin-bottom: var(--sp-2);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+    }
+    .calendar-source-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .calendar-source-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      flex-wrap: nowrap;
+      line-height: 1.35;
+    }
+    .calendar-source-title .icon {
+      margin-top: 2px;
+    }
+    .calendar-source-sub {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .calendar-source-actions {
+      display: flex;
+      gap: var(--sp-1);
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .cal-filters-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .cal-view-switch {
+      display: inline-flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(344px, 1fr));
+      gap: var(--sp-2);
+    }
+    .calendar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-2);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.15s ease;
+    }
+    .calendar-card:hover {
+      border-color: var(--primary);
+    }
+    .calendar-card.is-old-reg {
+      border-top-color: var(--border-strong);
+    }
+    .calendar-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-1);
+    }
+    .calendar-card-title {
+      margin: 0;
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .channel-badge {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      border: 1px solid var(--primary);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .reg-badge {
+      background: var(--surface-3);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .calendar-prof-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      color: var(--text);
+    }
+    .calendar-prof-mail {
+      color: var(--primary-text);
+      font-size: 0.8125rem;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .calendar-prof-mail:hover {
+      text-decoration: underline;
+    }
+    .cal-next-banner {
+      background: var(--primary-soft);
+      border: 1px solid var(--primary);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--primary-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .cal-countdown-tag {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .cal-dates-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .exam-date-pill {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.3;
+    }
+    .exam-date-pill .exam-date-sub {
+      font-size: 0.6875rem;
+      color: var(--muted);
+    }
+    .exam-date-pill.is-next {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+    .exam-date-pill.is-next .exam-date-sub {
+      color: #e0f2fe;
+    }
+    .exam-date-pill.is-past {
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+    .cal-note-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .calendar-card-footer {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .timeline-month-group {
+      margin-bottom: var(--sp-3);
+    }
+    .timeline-month-title {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--sp-1);
+      padding: var(--sp-1) var(--sp-2);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .timeline-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--sp-1);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+      transition: border-color 0.15s ease;
+    }
+    .timeline-row:hover {
+      border-color: var(--primary);
+    }
+    .timeline-row.is-past {
+      opacity: 0.65;
+    }
+    .timeline-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1 1 280px;
+    }
+    .timeline-date-box {
+      min-width: 64px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      text-align: center;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+    .timeline-date-box strong {
+      display: block;
+      font-size: 1.125rem;
+    }
+    .timeline-date-box span {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .timeline-info {
+      min-width: 0;
+      flex: 1;
+    }
+    .timeline-course {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      word-break: break-word;
+    }
+    .timeline-sub {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .timeline-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
     /* Toast feedback */
     .toast {
       position: fixed;
@@ -1497,9 +1804,6 @@
         gap: 8px;
         padding-top: 0;
       }
-      .home-cta-row #home-open-catalog-btn {
-        grid-column: 1 / -1;
-      }
       .home-cta-row .btn {
         width: 100%;
         justify-content: center;
@@ -1526,7 +1830,7 @@
         min-width: 0;
       }
 
-      /* Catalog Top Navigation Segmented Bar (all 3 tabs visible at once) */
+      /* Catalog Top Navigation Segmented Bar (2x2 grid for 4 tabs on mobile) */
       .catalog-top-bar {
         top: 6px;
         padding: 6px;
@@ -1535,7 +1839,7 @@
       .nav-tabs {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
       }
       .tab-btn {
@@ -1551,20 +1855,23 @@
         display: none;
       }
 
-      /* Filters (collapsible 2x2 grid on mobile) & 3x2 Quick Chips Grid */
+      /* Filters (collapsible 2x2 grid on mobile) & Quick Chips Grid */
       .filter-card {
         padding: 12px;
       }
-      #panel-files .search-row {
+      #panel-files .search-row,
+      #panel-calendar .search-row {
         flex-wrap: nowrap;
         gap: 6px;
         align-items: stretch;
       }
-      #panel-files .search-input-wrap {
+      #panel-files .search-input-wrap,
+      #panel-calendar .search-input-wrap {
         flex: 1 1 0%;
         min-width: 0;
       }
-      #mobile-filters-toggle {
+      #mobile-filters-toggle,
+      #cal-mobile-filters-toggle {
         display: inline-flex;
         flex-shrink: 0;
         padding: 0 10px;
@@ -1572,7 +1879,8 @@
         font-size: 0.8125rem;
         white-space: nowrap;
       }
-      #mobile-filters-toggle[aria-expanded="true"] {
+      #mobile-filters-toggle[aria-expanded="true"],
+      #cal-mobile-filters-toggle[aria-expanded="true"] {
         background: var(--primary-soft);
         color: var(--primary-text);
         border-color: var(--primary);
@@ -1620,6 +1928,7 @@
 
       /* Grids Single-Column with strict minmax(0, 1fr) to prevent overflow */
       .courses-grid,
+      .calendar-grid,
       .hub-grid,
       .home-pinned-grid,
       .recent-grid,
@@ -1628,6 +1937,9 @@
         grid-template-columns: minmax(0, 1fr);
       }
       .course-card,
+      .calendar-card,
+      .timeline-row,
+      .calendar-source-banner,
       .hub-card,
       .year-card,
       .pinned-card,
@@ -1635,6 +1947,39 @@
       .file-row {
         min-width: 0;
         max-width: 100%;
+      }
+      .calendar-source-banner {
+        padding: 12px;
+      }
+      .calendar-source-actions {
+        width: 100%;
+      }
+      .calendar-source-actions .btn {
+        flex: 1 1 0%;
+        justify-content: center;
+      }
+      .cal-view-switch {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        grid-column: 1 / -1;
+      }
+      #panel-calendar .chip-bar-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .timeline-row {
+        padding: 12px;
+        gap: 10px;
+      }
+      .timeline-left {
+        flex: 1 1 100%;
+      }
+      .timeline-actions {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid var(--border);
+        padding-top: 8px;
       }
       .course-card {
         padding: 14px;
@@ -1873,11 +2218,15 @@
         <div class="home-cta-row">
           <button type="button" class="btn btn-primary btn-lg" id="home-open-catalog-btn">
             <svg class="icon" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
-            Accedi al catalogo completo
+            <span class="lbl-full">Accedi al catalogo completo</span><span class="lbl-short">Catalogo file</span>
           </button>
           <button type="button" class="btn btn-lg" id="home-open-courses-btn">
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
             <span class="lbl-full">Sfoglia insegnamenti e codici Teams</span><span class="lbl-short">Corsi e Teams</span>
+          </button>
+          <button type="button" class="btn btn-lg" id="home-open-calendar-btn">
+            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            <span class="lbl-full">Calendario appelli d'esame</span><span class="lbl-short">Calendario esami</span>
           </button>
           <button type="button" class="btn btn-lg" id="home-open-hub-btn">
             <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
@@ -2050,6 +2399,10 @@
             <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
             <span class="lbl-full">Corsi, propedeuticità e Teams</span><span class="lbl-short">Corsi e Teams</span>
           </button>
+          <button type="button" role="tab" class="tab-btn" id="tab-btn-calendar" aria-controls="panel-calendar" aria-selected="false">
+            <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            <span class="lbl-full">Calendario esami</span><span class="lbl-short">Calendario esami</span>
+          </button>
           <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false">
             <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
             <span class="lbl-full">Mappe, clone selettivo e guide</span><span class="lbl-short">Mappe e Git</span>
@@ -2188,7 +2541,94 @@
         <div id="courses-grid" class="courses-grid"></div>
       </section>
 
-      <!-- TAB 3: MAPS, SELECTIVE CLONE & FORMS -->
+      <!-- TAB 3: EXAM CALENDAR (TRIENNALE DIETI AUTO-SYNC) -->
+      <section id="panel-calendar" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-calendar" hidden>
+        <div class="calendar-source-banner">
+          <div class="calendar-source-info">
+            <div class="calendar-source-title">
+              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              <span id="cal-session-title">Calendario Esami Laurea Triennale</span>
+            </div>
+            <div class="calendar-source-sub">
+              <span id="cal-source-meta">Fonte ufficiale DIETI • Sincronizzazione automatica attiva (__STAT_EXAMS__ appelli)</span>
+            </div>
+          </div>
+          <div class="calendar-source-actions">
+            <a class="btn btn-primary" id="cal-pdf-link" href="https://informatica.dieti.unina.it/images/calendario-esami/2026-27/triennale-1-26-27.pdf" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+              <span class="lbl-full">Apri PDF ufficiale DIETI</span><span class="lbl-short">PDF DIETI</span>
+            </a>
+            <a class="btn" id="cal-page-link" href="https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span class="lbl-full">Pagina sito DIETI</span><span class="lbl-short">Sito DIETI</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="filter-card">
+          <div class="search-row">
+            <div class="search-input-wrap">
+              <svg class="icon search-input-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="search" id="calendar-search" class="search-input" placeholder="Cerca insegnamento, sigla (ADE, APSD, APA, BD), docente, canale (FG1, A-DE) o data (es. 18/01)..." aria-label="Cerca nel calendario esami">
+              <span class="kbd-hint" aria-hidden="true">/</span>
+            </div>
+            <button type="button" class="btn" id="cal-mobile-filters-toggle" aria-expanded="false" aria-controls="cal-filters-grid-box">
+              <svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="20" y1="21" y2="21"/><line x1="4" x2="20" y1="14" y2="14"/><line x1="4" x2="20" y1="7" y2="7"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="14" r="2"/><circle cx="11" cy="21" r="2"/></svg>
+              <span id="cal-mobile-filters-label">Filtri</span>
+            </button>
+          </div>
+          <div class="filters-grid cal-filters-grid" id="cal-filters-grid-box">
+            <select id="calendar-year-filter" class="filter-select" aria-label="Filtra appelli per anno">
+              <option value="">Tutti gli anni (Triennale)</option>
+              <option value="Primo Anno">Primo anno</option>
+              <option value="Secondo Anno">Secondo anno</option>
+              <option value="Terzo Anno">Terzo anno</option>
+              <option value="Esami a Scelta">Esami a scelta</option>
+            </select>
+            <select id="calendar-reg-filter" class="filter-select" aria-label="Filtra per regolamento">
+              <option value="current">Nuovo Regolamento + Scelta (attuali)</option>
+              <option value="Nuovo Regolamento">Solo Nuovo Regolamento (1°-3° anno)</option>
+              <option value="Esami a Scelta">Solo Esami a Scelta</option>
+              <option value="Vecchio Regolamento">Solo Vecchio Regolamento</option>
+              <option value="all">Tutti i regolamenti</option>
+            </select>
+            <select id="calendar-month-filter" class="filter-select" aria-label="Filtra appelli per mese">
+              <option value="">Tutti i mesi della sessione</option>
+            </select>
+          </div>
+          <div class="chip-bar-row">
+            <div class="chip-bar" aria-label="Opzioni filtro appelli">
+              <button type="button" class="chip" id="cal-upcoming-chip" aria-pressed="true">
+                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="lbl-full">Solo prossimi appelli</span><span class="lbl-short">Prossimi</span>
+              </button>
+              <button type="button" class="chip" id="cal-pinned-chip" aria-pressed="false">
+                <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span class="lbl-full">Solo i miei corsi fissati</span><span class="lbl-short">Miei corsi</span>
+              </button>
+            </div>
+            <div class="cal-view-switch" role="group" aria-label="Modalità di visualizzazione calendario">
+              <button type="button" class="chip" data-cal-view="courses" aria-pressed="true">Per Corso</button>
+              <button type="button" class="chip" data-cal-view="timeline" aria-pressed="false">Cronologico</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="results-meta">
+          <span id="calendar-results-count" aria-live="polite">Caricamento calendario...</span>
+          <div class="results-meta-actions">
+            <button type="button" class="btn-link-action" id="copy-calendar-link-btn">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <span class="lbl-full">Copia link a questo filtro</span><span class="lbl-short">Condividi link</span>
+            </button>
+            <button type="button" class="btn-link-action" id="reset-calendar-filters" hidden>Azzera filtri</button>
+          </div>
+        </div>
+
+        <div id="calendar-results"></div>
+      </section>
+
+      <!-- TAB 4: MAPS, SELECTIVE CLONE & FORMS -->
       <section id="panel-hub" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-hub" hidden>
         <div class="hub-grid">
           <article class="hub-card">
@@ -2429,7 +2869,8 @@
         star: '<svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
         starFilled: '<svg class="icon icon-filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
         chevLeft: '<svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>',
-        chevRight: '<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>'
+        chevRight: '<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>',
+        calendar: '<svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>'
       };
 
       const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
@@ -2577,6 +3018,7 @@
         savePins();
         renderPinnedHome();
         renderCourses();
+        if (typeof renderCalendar === 'function') renderCalendar(false);
       };
 
       // View Switching: Standalone Home (#home-screen) <-> Full Catalog (#catalog-screen)
@@ -2619,12 +3061,37 @@
       let activeSubpath = '';
       let groupByFolder = false;
 
+      // Calendar DOM refs & state declared here so syncUrlState can reference them safely
+      const calSearch = document.getElementById('calendar-search');
+      const calYearFilter = document.getElementById('calendar-year-filter');
+      const calRegFilter = document.getElementById('calendar-reg-filter');
+      const calMonthFilter = document.getElementById('calendar-month-filter');
+      const calUpcomingChip = document.getElementById('cal-upcoming-chip');
+      const calPinnedChip = document.getElementById('cal-pinned-chip');
+      const calViewBtns = document.querySelectorAll('[data-cal-view]');
+      const calMobileFiltersToggle = document.getElementById('cal-mobile-filters-toggle');
+      const calMobileFiltersLabel = document.getElementById('cal-mobile-filters-label');
+      const calFiltersGridBox = document.getElementById('cal-filters-grid-box');
+      const calResultsCount = document.getElementById('calendar-results-count');
+      const calResetBtn = document.getElementById('reset-calendar-filters');
+      const calResultsEl = document.getElementById('calendar-results');
+      let calUpcomingOnly = true;
+      let calPinnedOnly = false;
+      let calViewMode = 'courses';
+
       if (mobileFiltersToggle && filtersGridBox) {
         mobileFiltersToggle.addEventListener('click', () => {
           const open = filtersGridBox.classList.toggle('is-open');
           mobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
       }
+
+      const tabToHash = (tabId) => {
+        if (tabId === 'tab-btn-courses') return '#corsi';
+        if (tabId === 'tab-btn-calendar') return '#calendario';
+        if (tabId === 'tab-btn-hub') return '#mappe';
+        return '#catalogo';
+      };
 
       // Sync current filters to URL query parameters for shareable deep links
       const syncUrlState = (tabId) => {
@@ -2640,8 +3107,16 @@
           if (activeSubpath) params.set('sub', activeSubpath);
           if (sortSelect.value !== 'relevance') params.set('sort', sortSelect.value);
           if (groupByFolder) params.set('group', '1');
+        } else if (currentTab === 'tab-btn-calendar') {
+          if (calSearch && calSearch.value.trim()) params.set('cal_q', calSearch.value.trim());
+          if (calYearFilter && calYearFilter.value) params.set('cal_year', calYearFilter.value);
+          if (calRegFilter && calRegFilter.value !== 'current') params.set('cal_reg', calRegFilter.value);
+          if (calMonthFilter && calMonthFilter.value) params.set('cal_month', calMonthFilter.value);
+          if (!calUpcomingOnly) params.set('cal_past', '1');
+          if (calPinnedOnly) params.set('cal_pins', '1');
+          if (calViewMode === 'timeline') params.set('cal_view', 'timeline');
         }
-        const hash = currentTab === 'tab-btn-courses' ? '#corsi' : (currentTab === 'tab-btn-hub' ? '#mappe' : '#catalogo');
+        const hash = tabToHash(currentTab);
         const qs = params.toString();
         const nextUrl = `${location.pathname}${qs ? '?' + qs : ''}${hash}`;
         try { history.replaceState({ view: 'catalog', tabId: currentTab }, '', nextUrl); } catch {}
@@ -2654,8 +3129,8 @@
         activateCatalogTab(tabId);
         window.scrollTo({ top: 0, behavior: 'instant' });
         if (pushHistory) {
-          const hash = tabId === 'tab-btn-courses' ? '#corsi' : (tabId === 'tab-btn-hub' ? '#mappe' : '#catalogo');
-          try { history.pushState({ view: 'catalog', tabId }, '', `${location.pathname}${location.search}${hash}`); } catch {}
+          const hash = tabToHash(tabId);
+          try { history.pushState({ view: 'catalog', tabId }, '', `${location.pathname}${hash}`); } catch {}
           syncUrlState(tabId);
         }
       };
@@ -2736,12 +3211,19 @@
       updateCourseOptions();
       updateProfOptions();
 
-      // Keyboard shortcut '/' for search
+      // Keyboard shortcut '/' for active section search
       document.addEventListener('keydown', (e) => {
         if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
           e.preventDefault();
-          openCatalog('tab-btn-files');
-          searchInput.focus();
+          const activeTab = (!catalogScreen.hidden && [...tabs].find((t) => t.getAttribute('aria-selected') === 'true')?.id) || 'tab-btn-files';
+          if (activeTab === 'tab-btn-calendar' && !catalogScreen.hidden && calSearch) {
+            calSearch.focus();
+          } else if (activeTab === 'tab-btn-courses' && !catalogScreen.hidden) {
+            courseSearch.focus();
+          } else {
+            openCatalog('tab-btn-files');
+            searchInput.focus();
+          }
         }
       });
 
@@ -3353,6 +3835,9 @@
       document.getElementById('home-open-courses-btn').addEventListener('click', () => {
         openCatalog('tab-btn-courses');
       });
+      document.getElementById('home-open-calendar-btn').addEventListener('click', () => {
+        openCatalog('tab-btn-calendar');
+      });
       document.getElementById('home-open-hub-btn').addEventListener('click', () => {
         openCatalog('tab-btn-hub');
       });
@@ -3567,10 +4052,359 @@
         });
       });
 
+      // Exam Calendar (Triennale DIETI Auto-Sync) Controller
+      const CAL_DATA = DATA.examCalendar || { entries: [], months: [], totalDates: 0 };
+      const CAL_MONTH_NAMES_IT = [
+        '', 'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
+        'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'
+      ];
+      const CAL_MONTH_SHORT_IT = [
+        '', 'Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'
+      ];
+      const CAL_WEEKDAYS_IT = ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
+
+      const nowLocal = new Date();
+      const todayIso = `${nowLocal.getFullYear()}-${String(nowLocal.getMonth() + 1).padStart(2, '0')}-${String(nowLocal.getDate()).padStart(2, '0')}`;
+      const todayMidnight = new Date(nowLocal.getFullYear(), nowLocal.getMonth(), nowLocal.getDate());
+
+      const parseIsoDate = (iso) => {
+        const [y, m, d] = iso.split('-').map(Number);
+        return new Date(y, m - 1, d);
+      };
+      const getWeekdayShort = (iso) => CAL_WEEKDAYS_IT[parseIsoDate(iso).getDay()] || '';
+      const formatCountdown = (iso) => {
+        const diff = Math.round((parseIsoDate(iso) - todayMidnight) / 86400000);
+        if (diff === 0) return 'Oggi!';
+        if (diff === 1) return 'Domani';
+        if (diff > 1) return `Tra ${diff} giorni`;
+        return 'Passato';
+      };
+
+      // Populate source header and month options
+      const calTitleEl = document.getElementById('cal-session-title');
+      const calMetaEl = document.getElementById('cal-source-meta');
+      const calPdfLinkEl = document.getElementById('cal-pdf-link');
+      const calPageLinkEl = document.getElementById('cal-page-link');
+      if (calTitleEl && CAL_DATA.sessionTitle) calTitleEl.textContent = CAL_DATA.sessionTitle;
+      if (calMetaEl) {
+        const updPart = CAL_DATA.pdfModifiedAt ? `Aggiornato da DIETI il ${CAL_DATA.pdfModifiedAt}` : 'Fonte ufficiale DIETI';
+        calMetaEl.textContent = `${updPart} • ${CAL_DATA.totalDates || 0} appelli indicizzati • Sincronizzazione automatica attiva`;
+      }
+      if (calPdfLinkEl && CAL_DATA.pdfUrl) calPdfLinkEl.href = CAL_DATA.pdfUrl;
+      if (calPageLinkEl && CAL_DATA.sourcePageUrl) calPageLinkEl.href = CAL_DATA.sourcePageUrl;
+
+      if (calMonthFilter && Array.isArray(CAL_DATA.months)) {
+        CAL_DATA.months.forEach((m) => {
+          const opt = document.createElement('option');
+          opt.value = m.key;
+          opt.textContent = `${m.label} (${m.count})`;
+          calMonthFilter.appendChild(opt);
+        });
+      }
+
+      if (calMobileFiltersToggle && calFiltersGridBox) {
+        calMobileFiltersToggle.addEventListener('click', () => {
+          const open = calFiltersGridBox.classList.toggle('is-open');
+          calMobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      }
+
+      const courseByNameMap = new Map(DATA.courses.map((c) => [c.name, c]));
+      const jumpToCourseFiles = (repoCourseName) => {
+        const c = courseByNameMap.get(repoCourseName);
+        if (!c) return;
+        openCatalog('tab-btn-files');
+        searchInput.value = '';
+        filterYear.value = c.yearGroup;
+        updateCourseOptions();
+        filterCourse.value = c.name;
+        updateProfOptions();
+        filterProf.value = '';
+        activeSubpath = '';
+        applyFileFilters();
+      };
+
+      function renderCalendar(syncUrl = true) {
+        if (!calResultsEl) return;
+        const qNorm = normText(calSearch ? calSearch.value.trim() : '');
+        const tokens = qNorm ? qNorm.split(/\s+/) : [];
+        const yr = calYearFilter ? calYearFilter.value : '';
+        const reg = calRegFilter ? calRegFilter.value : 'current';
+        const mo = calMonthFilter ? calMonthFilter.value : '';
+
+        const activeDropdownCount = [yr, reg !== 'current' ? reg : '', mo].filter(Boolean).length;
+        if (calMobileFiltersLabel) {
+          calMobileFiltersLabel.textContent = activeDropdownCount > 0 ? `Filtri (${activeDropdownCount})` : 'Filtri';
+        }
+        if (calUpcomingChip) calUpcomingChip.setAttribute('aria-pressed', calUpcomingOnly ? 'true' : 'false');
+        if (calPinnedChip) calPinnedChip.setAttribute('aria-pressed', calPinnedOnly ? 'true' : 'false');
+        calViewBtns.forEach((b) => b.setAttribute('aria-pressed', b.dataset.calView === calViewMode ? 'true' : 'false'));
+
+        const hasNonDefault = Boolean(qNorm || yr || reg !== 'current' || mo || !calUpcomingOnly || calPinnedOnly);
+        if (calResetBtn) calResetBtn.hidden = !hasNonDefault;
+
+        const entries = Array.isArray(CAL_DATA.entries) ? CAL_DATA.entries : [];
+
+        const matchesEntryMeta = (e) => {
+          if (yr && e.yearGroup !== yr) return false;
+          if (reg === 'current' && e.regolamento === 'Vecchio Regolamento') return false;
+          if (reg !== 'current' && reg !== 'all' && e.regolamento !== reg) return false;
+          if (calPinnedOnly && !pinnedCourses.has(e.repoCourse || e.course)) return false;
+          if (tokens.length > 0) {
+            const datesText = (e.dates || [])
+              .map((d) => `${d.display} ${d.weekLabel} ${CAL_MONTH_NAMES_IT[d.month] || ''} ${d.year}`)
+              .join(' ');
+            const blob = normText(`${e.course} ${e.repoCourse || ''} ${e.aliases || ''} ${e.prof} ${e.channel} ${e.yearGroup} ${e.regolamento} ${e.note || ''} ${datesText}`);
+            for (const tk of tokens) {
+              if (!blob.includes(tk)) return false;
+            }
+          }
+          return true;
+        };
+
+        const filterDatesForEntry = (e, requireUpcoming) => {
+          return (e.dates || []).filter((d) => {
+            if (requireUpcoming && d.iso < todayIso) return false;
+            if (mo && d.monthKey !== mo) return false;
+            return true;
+          });
+        };
+
+        const filteredEntries = entries.filter((e) => {
+          if (!matchesEntryMeta(e)) return false;
+          const visibleDates = filterDatesForEntry(e, calUpcomingOnly);
+          if (calViewMode === 'timeline') {
+            return visibleDates.length > 0;
+          }
+          if (mo) return visibleDates.length > 0;
+          if (calUpcomingOnly) {
+            // In "Prossimi" mostra i canali con appelli futuri oppure con note informative (es. CLA, Magistrale, senza date)
+            return visibleDates.length > 0 || (e.dates || []).length === 0;
+          }
+          return true;
+        });
+
+        let totalVisibleDates = 0;
+        filteredEntries.forEach((e) => {
+          totalVisibleDates += filterDatesForEntry(e, calUpcomingOnly).length;
+        });
+
+        if (calResultsCount) {
+          calResultsCount.textContent = calViewMode === 'timeline'
+            ? `${totalVisibleDates} ${totalVisibleDates === 1 ? 'appello' : 'appelli'} in calendario`
+            : `${filteredEntries.length} ${filteredEntries.length === 1 ? 'canale trovato' : 'canali trovati'} • ${totalVisibleDates} appelli`;
+        }
+
+        calResultsEl.innerHTML = '';
+
+        if (filteredEntries.length === 0) {
+          const pastAvailable = calUpcomingOnly && entries.some((e) => matchesEntryMeta(e) && filterDatesForEntry(e, false).length > 0);
+          calResultsEl.innerHTML = `
+            <div class="empty-state-card">
+              <h4>Nessun appello trovato con i filtri attuali</h4>
+              <p>${pastAvailable
+                ? 'Tutti gli appelli di questa ricerca si sono già svolti prima di oggi. Puoi includere anche gli appelli passati della sessione.'
+                : 'Prova a cercare con un\'altra sigla (es. ADE, APSD, BD), a cambiare regolamento (Nuovo/Vecchio) o ad azzerare i filtri.'
+              }</p>
+              <div class="empty-state-actions">
+                ${pastAvailable ? '<button type="button" class="btn btn-primary" id="cal-empty-show-past">Mostra anche appelli passati</button>' : ''}
+                <button type="button" class="btn" id="cal-empty-reset">Azzera filtri calendario</button>
+              </div>
+            </div>
+          `;
+          document.getElementById('cal-empty-show-past')?.addEventListener('click', () => {
+            calUpcomingOnly = false;
+            renderCalendar();
+          });
+          document.getElementById('cal-empty-reset')?.addEventListener('click', () => calResetBtn.click());
+          if (syncUrl) syncUrlState('tab-btn-calendar');
+          return;
+        }
+
+        if (calViewMode === 'timeline') {
+          const events = [];
+          filteredEntries.forEach((e) => {
+            filterDatesForEntry(e, calUpcomingOnly).forEach((d) => {
+              events.push({ entry: e, date: d });
+            });
+          });
+          events.sort((a, b) => a.date.iso.localeCompare(b.date.iso) || a.entry.course.localeCompare(b.entry.course, 'it'));
+
+          const byMonth = new Map();
+          events.forEach((ev) => {
+            const k = ev.date.monthKey;
+            if (!byMonth.has(k)) byMonth.set(k, []);
+            byMonth.get(k).push(ev);
+          });
+
+          const frag = document.createDocumentFragment();
+          for (const [mKey, list] of byMonth.entries()) {
+            const firstD = list[0].date;
+            const monthLabel = `${CAL_MONTH_NAMES_IT[firstD.month] || ''} ${firstD.year}`;
+            const sec = document.createElement('div');
+            sec.className = 'timeline-month-group';
+            sec.innerHTML = `
+              <div class="timeline-month-title">
+                <span>${escapeHtml(monthLabel)}</span>
+                <span class="meta-tag">${list.length} ${list.length === 1 ? 'appello' : 'appelli'}</span>
+              </div>
+              <div class="timeline-list"></div>
+            `;
+            const listEl = sec.querySelector('.timeline-list');
+            list.forEach(({ entry: e, date: d }) => {
+              const isPast = d.iso < todayIso;
+              const wd = getWeekdayShort(d.iso);
+              const cd = formatCountdown(d.iso);
+              const hasRepo = Boolean(e.repoCourse && courseByNameMap.has(e.repoCourse));
+              const row = document.createElement('div');
+              row.className = isPast ? 'timeline-row is-past' : 'timeline-row';
+              row.innerHTML = `
+                <div class="timeline-left">
+                  <div class="timeline-date-box">
+                    <span>${escapeHtml(wd)}</span>
+                    <strong>${String(d.day).padStart(2, '0')}</strong>
+                    <span>${escapeHtml(CAL_MONTH_SHORT_IT[d.month] || '')}</span>
+                  </div>
+                  <div class="timeline-info">
+                    <div class="timeline-course">
+                      <span>${escapeHtml(e.course)}</span>
+                      ${e.channel ? `<span class="channel-badge">${escapeHtml(e.channel)}</span>` : ''}
+                      ${e.regolamento === 'Vecchio Regolamento' ? '<span class="reg-badge">Vecchio Reg.</span>' : ''}
+                    </div>
+                    <div class="timeline-sub">
+                      ${[e.yearGroup, e.semester ? `${e.semester} sem` : '', e.prof || ''].filter(Boolean).map(escapeHtml).join(' • ')}
+                    </div>
+                  </div>
+                </div>
+                <div class="timeline-actions">
+                  <span class="${isPast ? 'meta-tag' : 'cal-countdown-tag'}">${escapeHtml(cd)}</span>
+                  ${hasRepo ? `<button type="button" class="btn" data-cal-jump="${escapeHtml(e.repoCourse)}">${SVG_ICONS.search} Materiale</button>` : ''}
+                </div>
+              `;
+              row.querySelector('[data-cal-jump]')?.addEventListener('click', () => jumpToCourseFiles(e.repoCourse));
+              listEl.appendChild(row);
+            });
+            frag.appendChild(sec);
+          }
+          calResultsEl.appendChild(frag);
+          if (syncUrl) syncUrlState('tab-btn-calendar');
+          return;
+        }
+
+        // Vista "courses" (Per Corso / Canale)
+        const grid = document.createElement('div');
+        grid.className = 'calendar-grid';
+        const frag = document.createDocumentFragment();
+
+        filteredEntries.forEach((e) => {
+          const card = document.createElement('article');
+          card.className = e.regolamento === 'Vecchio Regolamento' ? 'calendar-card is-old-reg' : 'calendar-card';
+          const futureDates = (e.dates || []).filter((d) => d.iso >= todayIso);
+          const nextDate = futureDates[0] || null;
+          const displayDates = (e.dates || []).filter((d) => {
+            if (mo && d.monthKey !== mo) return false;
+            if (calUpcomingOnly && d.iso < todayIso) return false;
+            return true;
+          });
+          const hasRepo = Boolean(e.repoCourse && courseByNameMap.has(e.repoCourse));
+
+          const datesHtml = displayDates.map((d) => {
+            const isPast = d.iso < todayIso;
+            const isNext = nextDate && d.iso === nextDate.iso;
+            const wd = getWeekdayShort(d.iso);
+            const cls = isNext ? 'exam-date-pill is-next' : (isPast ? 'exam-date-pill is-past' : 'exam-date-pill');
+            return `
+              <span class="${cls}" title="${isNext ? 'Prossimo appello disponibile' : (isPast ? 'Appello passato' : 'Appello programmato')}">
+                <strong>${escapeHtml(wd)} ${escapeHtml(d.display)}</strong>
+                <span class="exam-date-sub">${escapeHtml(CAL_MONTH_NAMES_IT[d.month] || '')} ${d.year}</span>
+              </span>
+            `;
+          }).join('');
+
+          card.innerHTML = `
+            <div>
+              <div class="calendar-card-head">
+                <h3 class="calendar-card-title">${escapeHtml(e.course)}</h3>
+                ${e.channel ? `<span class="channel-badge">${escapeHtml(e.channel)}</span>` : ''}
+              </div>
+              <div class="course-meta-row">
+                <span class="meta-tag">${escapeHtml(e.yearGroup)}${e.semester ? ` • ${escapeHtml(e.semester)} sem` : ''}</span>
+                ${e.regolamento === 'Vecchio Regolamento' ? '<span class="reg-badge">Vecchio Regolamento</span>' : ''}
+              </div>
+            </div>
+            ${(e.prof || e.email) ? `
+              <div class="calendar-prof-row">
+                <strong>${escapeHtml(e.prof || 'Docente da definire')}</strong>
+                ${e.email ? `<a class="calendar-prof-mail" href="mailto:${escapeHtml(e.email.split('/')[0].trim())}">${escapeHtml(e.email)}</a>` : ''}
+              </div>
+            ` : ''}
+            ${nextDate ? `
+              <div class="cal-next-banner">
+                <span>Prossimo appello: ${escapeHtml(getWeekdayShort(nextDate.iso))} ${escapeHtml(nextDate.display)}</span>
+                <span class="cal-countdown-tag">${escapeHtml(formatCountdown(nextDate.iso))}</span>
+              </div>
+            ` : ''}
+            ${displayDates.length > 0 ? `<div class="cal-dates-list">${datesHtml}</div>` : ''}
+            ${e.note ? `<div class="cal-note-box">${escapeHtml(e.note)}</div>` : ''}
+            ${(!e.note && (e.dates || []).length === 0) ? '<div class="cal-note-box">Nessuna data pubblicata al momento in questo calendario DIETI.</div>' : ''}
+            ${hasRepo ? `
+              <div class="calendar-card-footer">
+                <button type="button" class="btn" data-cal-jump="${escapeHtml(e.repoCourse)}">${SVG_ICONS.search} Materiale e tracce (${courseByNameMap.get(e.repoCourse).fileCount} file)</button>
+              </div>
+            ` : ''}
+          `;
+          card.querySelector('[data-cal-jump]')?.addEventListener('click', () => jumpToCourseFiles(e.repoCourse));
+          frag.appendChild(card);
+        });
+        grid.appendChild(frag);
+        calResultsEl.appendChild(grid);
+        if (syncUrl) syncUrlState('tab-btn-calendar');
+      }
+
+      let calSearchDebounce = null;
+      if (calSearch) {
+        calSearch.addEventListener('input', () => {
+          clearTimeout(calSearchDebounce);
+          calSearchDebounce = setTimeout(() => renderCalendar(), 120);
+        });
+      }
+      calYearFilter?.addEventListener('change', () => renderCalendar());
+      calRegFilter?.addEventListener('change', () => renderCalendar());
+      calMonthFilter?.addEventListener('change', () => renderCalendar());
+      calUpcomingChip?.addEventListener('click', () => {
+        calUpcomingOnly = !calUpcomingOnly;
+        renderCalendar();
+      });
+      calPinnedChip?.addEventListener('click', () => {
+        calPinnedOnly = !calPinnedOnly;
+        renderCalendar();
+      });
+      calViewBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          calViewMode = btn.dataset.calView;
+          renderCalendar();
+        });
+      });
+      calResetBtn?.addEventListener('click', () => {
+        if (calSearch) calSearch.value = '';
+        if (calYearFilter) calYearFilter.value = '';
+        if (calRegFilter) calRegFilter.value = 'current';
+        if (calMonthFilter) calMonthFilter.value = '';
+        calUpcomingOnly = true;
+        calPinnedOnly = false;
+        renderCalendar();
+      });
+      document.getElementById('copy-calendar-link-btn')?.addEventListener('click', () => {
+        syncUrlState('tab-btn-calendar');
+        copyText(location.href, 'Link al calendario filtrato copiato');
+      });
+
       // Hydrate filters from URL query string & hash on load / popstate
       const hydrateFromUrl = () => {
         const params = new URLSearchParams(location.search);
         const hasQueryFilters = ['q', 'year', 'course', 'prof', 'cat', 'sub', 'sort', 'group'].some((k) => params.has(k));
+        const hasCalFilters = ['cal_q', 'cal_year', 'cal_reg', 'cal_month', 'cal_past', 'cal_pins', 'cal_view'].some((k) => params.has(k));
+
         if (params.has('q')) searchInput.value = params.get('q');
         if (params.has('year')) filterYear.value = params.get('year');
         updateCourseOptions();
@@ -3586,8 +4420,18 @@
         }
         applyFileFilters(false);
 
+        if (calSearch) calSearch.value = params.get('cal_q') || '';
+        if (calYearFilter) calYearFilter.value = params.get('cal_year') || '';
+        if (calRegFilter) calRegFilter.value = params.get('cal_reg') || 'current';
+        if (calMonthFilter) calMonthFilter.value = params.get('cal_month') || '';
+        calUpcomingOnly = params.get('cal_past') !== '1';
+        calPinnedOnly = params.get('cal_pins') === '1';
+        calViewMode = params.get('cal_view') === 'timeline' ? 'timeline' : 'courses';
+        renderCalendar(false);
+
         const h = location.hash;
-        if (h === '#catalogo' || hasQueryFilters) openCatalog('tab-btn-files', false);
+        if (h === '#calendario' || hasCalFilters) openCatalog('tab-btn-calendar', false);
+        else if (h === '#catalogo' || hasQueryFilters) openCatalog('tab-btn-files', false);
         else if (h === '#corsi') openCatalog('tab-btn-courses', false);
         else if (h === '#mappe') openCatalog('tab-btn-hub', false);
         else openHome(false);
