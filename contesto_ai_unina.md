@@ -115,6 +115,8 @@ Il [README.md](./README.md) funge da hub centrale della community e include:
 - **Prova Intercorso Fisica Generale I (13/11/2026) & Allineamento Metadata (Novembre 2026):**
   - *Fisica Generale 1* (`Prof-GianfrancaDeRosa/esami/scritto/13-11-2026/`): integrata la `I Prova d'esonero – 13/11/2026 - A` (`Prova_Intercorso_13-11-2026_Traccia_A_1..3.png`) da Issue #32, con prospettiva raddrizzata, rimozione sfondi/EXIF, anonimizzazione dei dati manoscritti e compressione PNG8 (-90% peso LFS).
   - *Allineamento README & Ricerca*: aggiornato badge di copertura `Ingegneria del Software` (`🟡` → `🟢`) in `README.md`, riallineati i conteggi nei README di `APSD` (196), `Reti` (121) e `Fisica Generale 1` (82), e corretti gli alias `COURSE_ALIASES` in `info-generali/web/build_site.py`.
+- **Materiale Completo Analisi e Progettazione di Algoritmi — APA (Novembre 2026):**
+  - Integrati in entrambi i canali (`Prof-MassimoBenerecetti` e `Prof-FabioMogavero`): `contenuto-non-proprio/Dispense APA (20-07-2026) - Mattia Perna.pdf` (edizione completa da 54 pagine con programmazione dinamica e greedy + `crediti.txt`), `esercizi/Esercizi Equazioni di Ricorrenza.pdf`, i sorgenti C++20 puliti in `esercizi/Esercizi C++ - Programmazione Dinamica e Alberi/` (esclusi artefatti `x64/Debug/`), e 8 prove d'esame 2024 in `esami/scritto/` (`17-01-2024.jpg` .. `09-09-2024.jpg` + `Ottobre 2024 (Ordinamento).png` con EXIF rimossi); aggiornati i README di corso e portato il badge dashboard di APA da `🟡` a `🟢` (Issue #34).
 
 ---
 

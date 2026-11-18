@@ -1,0 +1,2 @@
+Il file 'Dispense APA (20-07-2026) - Mattia Perna.pdf' (edizione completa A.A. 2025/2026, 54 pagine con note sul corso, analisi asintotica, equazioni di ricorrenza, conversione ricorsivo-iterativo, algoritmi di ordinamento, programmazione dinamica e programmazione greedy) è stato redatto da Mattia Perna.
+Ringraziamo l'autore per il contributo e la condivisione con la comunità studentesca!
