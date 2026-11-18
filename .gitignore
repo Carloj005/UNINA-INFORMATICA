@@ -47,8 +47,11 @@ __pycache__/
 *.toc
 *.vrb
 
-# Build locale sito web statico
+# Build locale sito web statico e artefatti analisi/design
 _site/
+graphify-out/
+.graphify_*
+.taste-skill/
 
 # Documenti temporanei
 ~$*

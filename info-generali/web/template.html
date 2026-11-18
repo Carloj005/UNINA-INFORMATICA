@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-type="software" data-radius="soft" data-buttons="solid">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <script>try{document.querySelector('meta[name="color-scheme"]').content=localStorage.getItem("color-scheme")??"light dark";}catch{}</script>
-  <title>Unina Informatica — Portale ricerca materiale, corsi e codici Teams</title>
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <script>
+    document.documentElement.classList.add('m-enter');
+    try {
+      const savedScheme = localStorage.getItem("color-scheme") ?? "light dark";
+      document.querySelector('meta[name="color-scheme"]').content = savedScheme;
+      const isDark = (savedScheme === "dark" || savedScheme === "light")
+        ? (savedScheme === "dark")
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = isDark ? "dark" : "light";
+    } catch {}
+  </script>
+  <title>Unina Informatica — Archivio didattico ed esami Federico II</title>
   <link rel="icon" id="site-favicon" type="image/svg+xml" href="./favicon.svg">
   <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#0f4c81">
-  <meta name="description" content="Motore di ricerca istantaneo per slide, appunti, tracce d'esame, propedeuticità e codici Teams del corso di laurea triennale in Informatica — Università Federico II di Napoli.">
+  <meta name="theme-color" id="meta-theme-color" content="#0f4c81">
+  <meta name="description" content="Archivio didattico open-source con ricerca istantanea di slide, appunti, tracce d'esame, calendario appelli DIETI e codici Microsoft Teams per Informatica Federico II.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
-  <meta property="og:title" content="Unina Informatica — Archivio Didattico, Esami e Codici Teams">
-  <meta property="og:description" content="Cerca e scarica slide, appunti, prove scritte, progetti, codici Microsoft Teams e mappe per tutti gli insegnamenti di Informatica (Federico II).">
+  <meta property="og:title" content="Unina Informatica — Archivio didattico ed esami Federico II">
+  <meta property="og:description" content="Cerca e scarica slide, appunti, prove scritte, progetti, calendario esami e codici Microsoft Teams per Informatica (Università Federico II).">
   <meta property="og:url" content="https://carloj005.github.io/UNINA-INFORMATICA/">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Unina Informatica — Portale Studenti Federico II">
-  <meta name="twitter:description" content="Archivio open-source con ricerca istantanea di slide, tracce d'esame, appunti e codici Teams.">
+  <meta property="og:image" content="https://carloj005.github.io/UNINA-INFORMATICA/assets/MappaMSA.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Unina Informatica — Archivio didattico ed esami Federico II">
+  <meta name="twitter:description" content="Archivio open-source con ricerca istantanea di slide, tracce d'esame, appunti, calendario appelli e codici Teams.">
+  <meta name="twitter:image" content="https://carloj005.github.io/UNINA-INFORMATICA/assets/MappaMSA.png">
   <style>
     :root {
       color-scheme: light dark;
@@ -29,44 +43,94 @@
         color-scheme: light;
       }
 
-      /* Spacing scale: strictly multiples of 8px */
+      /* Tipografia espressiva e tecnica di sistema + scala fluida con clamp() */
+      --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-text: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+
+      --t-h1: clamp(2.125rem, 2.85vw + 1.4rem, 3.875rem);
+      --t-h2: clamp(1.75rem, 1.65vw + 1.25rem, 2.625rem);
+      --t-h3: clamp(1.125rem, 0.35vw + 1.02rem, 1.3125rem);
+      --t-lead: clamp(1.0625rem, 0.3vw + 0.98rem, 1.1875rem);
+      --t-body: 1rem;
+      --t-small: 0.875rem;
+      --t-caption: 0.8125rem;
+
+      /* Spaziatura e griglia layout */
       --sp-1: 8px;
       --sp-2: 16px;
       --sp-3: 24px;
       --sp-4: 32px;
       --sp-5: 40px;
       --sp-6: 48px;
+      --sp-8: 64px;
 
-      /* High-readability Slate + Federico II Academic Blue palette (zero gradients, zero glow) */
-      --bg-light: #f1f5f9;
-      --bg-dark: #0b1120;
+      --container: 1280px;
+      --gut: 80px;
+      --nav: 72px;
+      --bottom-nav-h: 64px;
+      --gap: 24px;
+
+      /* Raggi coerenti e moderni */
+      --r-xs: 6px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
+      --r-2xl: 26px;
+      --r-btn: 10px;
+      --r-pill: 999px;
+
+      /* Palette Federico II Academic Blue (#0f4c81) + Accento Azione Vivace */
+      /* Tema Chiaro: porcellana accademica luminosa e stratificata */
+      --bg-light: #f4f7fb;
       --surface-light: #ffffff;
-      --surface-dark: #111827;
-      --surface-2-light: #f8fafc;
-      --surface-2-dark: #1e293b;
-      --surface-3-light: #e2e8f0;
-      --surface-3-dark: #334155;
-      --border-light: #cbd5e1;
-      --border-dark: #334155;
-      --border-strong-light: #64748b;
-      --border-strong-dark: #94a3b8;
-      --text-light: #0f172a;
-      --text-dark: #f8fafc;
-      --muted-light: #334155;
-      --muted-dark: #cbd5e1;
+      --surface-2-light: #edf2f9;
+      --surface-3-light: #dfe9f5;
+      --surface-elevated-light: #ffffff;
+      --surface-glass-light: rgba(255, 255, 255, 0.92);
+      --border-light: #cfdbe9;
+      --border-strong-light: #7c97b6;
+      --text-light: #091526;
+      --muted-light: #3b506b;
       --primary-light: #0f4c81;
-      --primary-dark: #2563eb;
-      --primary-hover-light: #0a365c;
-      --primary-hover-dark: #1d4ed8;
-      --primary-soft-light: #e0f2fe;
-      --primary-soft-dark: #1e3a8a;
-      --primary-text-light: #0f4c81;
-      --primary-text-dark: #93c5fd;
+      --primary-hover-light: #0a3760;
+      --primary-soft-light: #dff0ff;
+      --primary-text-light: #0b4170;
+      --accent-vivid-light: #0284c7;
+      --success-soft-light: #dcfce7;
+      --success-text-light: #14532d;
+      --warn-soft-light: #fef3c7;
+      --warn-text-light: #78350f;
 
+      /* Tema Scuro: ossidiana notturna profonda progettata su misura (non semplice inversione) */
+      --bg-dark: #070d19;
+      --surface-dark: #0e182a;
+      --surface-2-dark: #15233b;
+      --surface-3-dark: #1f3252;
+      --surface-elevated-dark: #132036;
+      --surface-glass-dark: rgba(11, 20, 36, 0.92);
+      --border-dark: #223656;
+      --border-strong-dark: #4f709c;
+      --text-dark: #f0f6fe;
+      --muted-dark: #9eb3cf;
+      --primary-dark: #2563eb;
+      --primary-hover-dark: #1d4ed8;
+      --primary-soft-dark: #142c54;
+      --primary-text-dark: #7dd3fc;
+      --accent-vivid-dark: #38bdf8;
+      --success-soft-dark: #064e3b;
+      --success-text-dark: #6ee7b7;
+      --warn-soft-dark: #451a03;
+      --warn-text-dark: #fcd34d;
+
+      /* Token semantici reattivi */
       --bg: light-dark(var(--bg-light), var(--bg-dark));
       --surface: light-dark(var(--surface-light), var(--surface-dark));
       --surface-2: light-dark(var(--surface-2-light), var(--surface-2-dark));
       --surface-3: light-dark(var(--surface-3-light), var(--surface-3-dark));
+      --surface-elevated: light-dark(var(--surface-elevated-light), var(--surface-elevated-dark));
+      --surface-glass: light-dark(var(--surface-glass-light), var(--surface-glass-dark));
       --border: light-dark(var(--border-light), var(--border-dark));
       --border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
       --text: light-dark(var(--text-light), var(--text-dark));
@@ -75,8 +139,48 @@
       --primary-hover: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
       --primary-soft: light-dark(var(--primary-soft-light), var(--primary-soft-dark));
       --primary-text: light-dark(var(--primary-text-light), var(--primary-text-dark));
+      --accent-vivid: light-dark(var(--accent-vivid-light), var(--accent-vivid-dark));
+      --success-soft: light-dark(var(--success-soft-light), var(--success-soft-dark));
+      --success-text: light-dark(var(--success-text-light), var(--success-text-dark));
+      --warn-soft: light-dark(var(--warn-soft-light), var(--warn-soft-dark));
+      --warn-text: light-dark(var(--warn-text-light), var(--warn-text-dark));
       --brand-icon-fg: light-dark(#0f4c81, #ffffff);
-      --brand-icon-acc: light-dark(#0284c7, #93c5fd);
+      --brand-icon-acc: light-dark(#0284c7, #7dd3fc);
+
+      /* Ombre calibrate e mesh accademica sottile */
+      --shadow-sm: light-dark(
+        0 1px 2px rgba(9, 21, 38, 0.05),
+        0 1px 3px rgba(2, 6, 14, 0.45)
+      );
+      --shadow-md: light-dark(
+        0 6px 18px -4px rgba(15, 76, 129, 0.08),
+        0 10px 24px -6px rgba(2, 6, 14, 0.65)
+      );
+      --shadow-lg: light-dark(
+        0 18px 40px -10px rgba(15, 76, 129, 0.14),
+        0 20px 44px -10px rgba(0, 0, 0, 0.78)
+      );
+      --mesh-bg: light-dark(
+        radial-gradient(1100px 520px at 14% -6%, rgba(15, 76, 129, 0.08), transparent 62%),
+        radial-gradient(1100px 520px at 14% -6%, rgba(37, 99, 235, 0.16), transparent 62%)
+      );
+
+      /* Curva elastica e transizioni */
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @media (max-width: 1023px) {
+      :root {
+        --gut: 48px;
+      }
+    }
+    @media (max-width: 639px) {
+      :root {
+        --gut: 24px;
+        --nav: 56px;
+        --gap: 16px;
+      }
     }
 
     [hidden] {
@@ -2844,12 +2948,53 @@
   <script>
     (() => {
       const DATA = JSON.parse(document.getElementById('unina-catalog-data').textContent);
+      const normText = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      const courseAliasesMap = new Map(
+        (DATA.courses || []).map((c) => [c.name, normText(`${c.name} ${c.aliases || ''}`)])
+      );
+      if (DATA.filesCompact && (!DATA.files || !DATA.files.length)) {
+        const fc = DATA.filesCompact;
+        const encUri = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+        const aliasRaw = new Map((DATA.courses || []).map((c) => [c.name, c.aliases || '']));
+        DATA.files = fc.rows.map((r) => {
+          const name = r[0];
+          const size = r[1];
+          const yearGroup = fc.ygs[r[2]];
+          const course = fc.crs[r[3]];
+          const prof = fc.prs[r[4]];
+          const cat = fc.cts[r[5]];
+          const dir = fc.dirs[r[6]];
+          const subpath = r[7] || '';
+          const dateIso = r[8] || '';
+          const dateDisplay = r[9] || '';
+          const dotIdx = name.lastIndexOf('.');
+          const ext = dotIdx > 0 ? name.slice(dotIdx).toLowerCase() : '';
+          const urlPath = `${dir}/${encUri(name)}`;
+          const aliases = aliasRaw.get(course) || '';
+          const searchBlob = normText(`${name} ${course} ${aliases} ${prof} ${yearGroup} ${cat} ${subpath} ${dateDisplay}`);
+          return {
+            name,
+            ext,
+            size,
+            yearGroup,
+            course,
+            prof,
+            cat,
+            subpath,
+            dateIso,
+            dateDisplay,
+            urlPath,
+            searchBlob
+          };
+        });
+      }
       const REPO_URL = 'https://github.com/Carloj005/UNINA-INFORMATICA';
       const RAW_BASE = 'https://raw.githubusercontent.com/Carloj005/UNINA-INFORMATICA/master';
       const MEDIA_BASE = 'https://media.githubusercontent.com/media/Carloj005/UNINA-INFORMATICA/master';
 
-      // Consistent Lucide SVG line icons
+      // Set coerente di icone vettoriali inline (Lucide stroke 1.75)
       const SVG_ICONS = {
+        home: '<svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
         fileText: '<svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>',
         presentation: '<svg class="icon" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>',
         archive: '<svg class="icon" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>',
@@ -2870,7 +3015,13 @@
         starFilled: '<svg class="icon icon-filled" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
         chevLeft: '<svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>',
         chevRight: '<svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>',
-        calendar: '<svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>'
+        chevDown: '<svg class="icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>',
+        calendar: '<svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>',
+        sliders: '<svg class="icon" viewBox="0 0 24 24"><line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="2" x2="6" y1="14" y2="14"/><line x1="10" x2="14" y1="8" y2="8"/><line x1="18" x2="22" y1="16" y2="16"/></svg>',
+        close: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+        map: '<svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>',
+        terminal: '<svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>',
+        externalLink: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>'
       };
 
       const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
@@ -2890,15 +3041,20 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
 
-      document.getElementById('home-stat-files').textContent = DATA.files.length.toLocaleString('it-IT');
-      document.getElementById('home-stat-courses').textContent = DATA.courses.length;
-      document.getElementById('home-stat-teams').textContent = DATA.stats.teamsCount;
-      document.getElementById('home-stat-size').textContent = fmtBytes(DATA.stats.totalBytes);
-      document.getElementById('home-stat-updated').textContent = DATA.stats.generatedAt;
+      const setStatText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+      setStatText('home-stat-files', DATA.files.length.toLocaleString('it-IT'));
+      setStatText('home-stat-courses', DATA.courses.length);
+      setStatText('home-stat-teams', DATA.stats.teamsCount);
+      setStatText('home-stat-size', fmtBytes(DATA.stats.totalBytes));
+      setStatText('home-stat-updated', DATA.stats.generatedAt);
 
       const toastEl = document.getElementById('toast');
       let toastTimer = null;
       const showToast = (msg) => {
+        if (!toastEl) return;
         toastEl.textContent = msg;
         toastEl.classList.add('visible');
         clearTimeout(toastTimer);
@@ -2914,53 +3070,63 @@
         }
       };
 
-      // System-aware color-scheme toggle + dynamic SVG favicon sync
+      // Gestione tema Chiaro / Scuro / Sistema + sincronizzazione favicon e meta theme-color
       const metaScheme = document.querySelector('meta[name="color-scheme"]');
+      const metaThemeColor = document.getElementById('meta-theme-color');
       const faviconEl = document.getElementById('site-favicon');
       const syncFaviconTheme = () => {
-        if (!faviconEl) return;
         const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         let stored = null;
         try { stored = localStorage.getItem('color-scheme'); } catch {}
         const isDark = (stored === 'dark' || stored === 'light') ? (stored === 'dark') : sysDark;
-        const bg = isDark ? '%231e3a8a' : '%23e0f2fe';
+        document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+        if (metaThemeColor) {
+          metaThemeColor.content = isDark ? '#070d19' : '#0f4c81';
+        }
+        if (!faviconEl) return;
+        const bg = isDark ? '%23142c54' : '%23dff0ff';
         const bdr = isDark ? '%233b82f6' : '%230f4c81';
         const fg = isDark ? '%23ffffff' : '%230f4c81';
-        const acc = isDark ? '%2393c5fd' : '%230284c7';
+        const acc = isDark ? '%237dd3fc' : '%230284c7';
         faviconEl.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="60" height="60" rx="14" fill="${bg}" stroke="${bdr}" stroke-width="3"/><path d="M32 10L50 18L32 26L14 18L32 10Z" fill="${fg}"/><path d="M46 20V29" stroke="${acc}" stroke-width="3.5" stroke-linecap="round"/><circle cx="46" cy="30.5" r="2.2" fill="${acc}"/><path d="M23 34L14 42L23 50" stroke="${fg}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M41 34L50 42L41 50" stroke="${fg}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M35.5 32L28.5 52" stroke="${acc}" stroke-width="4.5" stroke-linecap="round"/></svg>`;
       };
       syncFaviconTheme();
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncFaviconTheme);
 
-      document.getElementById('theme-toggle').addEventListener('click', () => {
+      const applyThemeSwitch = () => {
         const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const sysScheme = sysDark ? 'dark' : 'light';
         let stored = null;
         try { stored = localStorage.getItem('color-scheme'); } catch {}
         const current = (stored === 'dark' || stored === 'light') ? stored : sysScheme;
         const target = current === 'dark' ? 'light' : 'dark';
-        if (target === sysScheme) {
-          try { localStorage.removeItem('color-scheme'); } catch {}
-          metaScheme.content = 'light dark';
-          showToast('Tema automatico di sistema');
+        const commitTheme = () => {
+          if (target === sysScheme) {
+            try { localStorage.removeItem('color-scheme'); } catch {}
+            metaScheme.content = 'light dark';
+            showToast('Tema automatico di sistema');
+          } else {
+            try { localStorage.setItem('color-scheme', target); } catch {}
+            metaScheme.content = target;
+            showToast(target === 'dark' ? 'Tema scuro attivato' : 'Tema chiaro attivato');
+          }
+          syncFaviconTheme();
+        };
+        if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.startViewTransition(commitTheme);
         } else {
-          try { localStorage.setItem('color-scheme', target); } catch {}
-          metaScheme.content = target;
-          showToast(target === 'dark' ? 'Tema scuro attivato' : 'Tema chiaro attivato');
+          commitTheme();
         }
-        syncFaviconTheme();
-      });
+      };
+
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) themeToggleBtn.addEventListener('click', applyThemeSwitch);
       window.addEventListener('storage', (e) => {
         if (e.key === 'color-scheme') {
           metaScheme.content = e.newValue ?? 'light dark';
           syncFaviconTheme();
         }
       });
-
-      const normText = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-      const courseAliasesMap = new Map(
-        DATA.courses.map((c) => [c.name, normText(`${c.name} ${c.aliases || ''}`)])
-      );
 
       // Modal history & focus restoration for mobile Back button support
       let lastDialogTrigger = null;

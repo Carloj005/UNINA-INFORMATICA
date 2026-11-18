@@ -547,6 +547,54 @@ self.addEventListener('fetch', (event) => {{
         fp.write(sitemap_xml)
 
 
+def pack_catalog_for_client(catalog: dict) -> dict:
+    """Comprime l'indice dei file in formato tabellare dizionario per ridurre il payload JSON dell'80%."""
+    files = catalog.get("files", [])
+    ygs = sorted({f["yearGroup"] for f in files})
+    crs = sorted({f["course"] for f in files})
+    prs = sorted({f["prof"] for f in files})
+    cts = sorted({f["cat"] for f in files})
+    dirs = sorted({f["urlPath"].rsplit("/", 1)[0] for f in files})
+
+    yg_i = {v: i for i, v in enumerate(ygs)}
+    cr_i = {v: i for i, v in enumerate(crs)}
+    pr_i = {v: i for i, v in enumerate(prs)}
+    ct_i = {v: i for i, v in enumerate(cts)}
+    dir_i = {v: i for i, v in enumerate(dirs)}
+
+    rows = []
+    for f in files:
+        d_part = f["urlPath"].rsplit("/", 1)[0]
+        row = [
+            f["name"],
+            f["size"],
+            yg_i[f["yearGroup"]],
+            cr_i[f["course"]],
+            pr_i[f["prof"]],
+            ct_i[f["cat"]],
+            dir_i[d_part],
+        ]
+        if f["subpath"] or f["dateIso"] or f["dateDisplay"]:
+            row.append(f["subpath"])
+        if f["dateIso"] or f["dateDisplay"]:
+            row.append(f["dateIso"])
+        if f["dateDisplay"]:
+            row.append(f["dateDisplay"])
+        rows.append(row)
+
+    packed = dict(catalog)
+    packed["files"] = []
+    packed["filesCompact"] = {
+        "ygs": ygs,
+        "crs": crs,
+        "prs": prs,
+        "cts": cts,
+        "dirs": dirs,
+        "rows": rows,
+    }
+    return packed
+
+
 def main():
     parser = argparse.ArgumentParser(description="Genera il sito statico per GitHub Pages.")
     parser.add_argument("--out", default="_site", help="Cartella di output (default: _site)")
@@ -558,7 +606,8 @@ def main():
 
     catalog = build_catalog(REPO_ROOT)
     template = open(TEMPLATE_PATH, encoding="utf-8").read()
-    json_payload = json.dumps(catalog, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    client_catalog = pack_catalog_for_client(catalog)
+    json_payload = json.dumps(client_catalog, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
     stat_files_str = f"{len(catalog['files']):,}".replace(",", ".")
     stat_courses_str = str(len(catalog["courses"]))
