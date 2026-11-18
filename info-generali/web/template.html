@@ -190,11 +190,14 @@
     html {
       accent-color: var(--primary);
       box-sizing: border-box;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+      font-family: var(--font-text);
       font-weight: 400;
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: var(--mesh-bg);
+      background-attachment: fixed;
       color: var(--text);
       line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
     }
 
     *, *::before, *::after {
@@ -202,18 +205,26 @@
     }
 
     h1, h2, h3, h4, strong, b, th {
+      font-family: var(--font-display);
       font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
     body {
       margin: 0;
-      padding: 0;
+      padding: var(--nav) 0 0;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
+      overflow-x: clip;
     }
     body:has(dialog[open]) {
       overflow: hidden;
+    }
+
+    .wrap {
+      width: min(100% - 2 * var(--gut), var(--container));
+      margin-inline: auto;
     }
 
     :focus-visible {
@@ -235,8 +246,8 @@
       top: -100px;
       background: var(--primary);
       color: #ffffff;
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
+      padding: 10px 16px;
+      border-radius: var(--r-btn);
       font-weight: 600;
       text-decoration: none;
       z-index: 100;
@@ -258,10 +269,10 @@
       font-weight: 600;
     }
 
-    /* Consistent line icons (Lucide) */
+    /* Set di icone vettoriali inline (Lucide) */
     .icon {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       stroke: currentColor;
       stroke-width: 1.75;
       stroke-linecap: round;
@@ -277,34 +288,45 @@
       fill: currentColor;
     }
 
-    /* Top Header */
+    /* ==========================================
+       APP SHELL HEADER (header.nav.topbar)
+       ========================================== */
     .topbar {
-      background: var(--surface);
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: var(--nav);
+      z-index: 40;
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       color: var(--text);
       border-bottom: 1px solid var(--border);
-      padding: var(--sp-2) var(--sp-3);
+      display: flex;
+      align-items: center;
+      padding: 0;
     }
     .topbar-inner {
-      max-width: 1320px;
-      margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: var(--sp-2);
+      height: 100%;
+      flex-wrap: nowrap;
     }
     .brand-title {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-2);
+      gap: 12px;
       text-decoration: none;
-      color: inherit;
+      color: var(--text);
       cursor: pointer;
+      min-height: 44px;
+      flex-shrink: 0;
     }
     .brand-badge {
-      width: var(--sp-5);
-      height: var(--sp-5);
-      border-radius: var(--sp-1);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r-btn);
       border: 1px solid var(--border);
       background: var(--primary-soft);
       color: var(--primary-text);
@@ -312,55 +334,120 @@
       place-items: center;
       flex-shrink: 0;
     }
-    .brand-title h1 {
-      margin: 0;
-      font-size: 1.125rem;
-      font-weight: 600;
+    .nav__brand-name {
+      font-family: var(--font-text);
+      font-size: 0.9375rem;
+      font-weight: 700;
       color: var(--text);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
     }
     .brand-sub {
-      font-size: 0.875rem;
-      color: var(--muted);
-      display: block;
-      font-weight: 400;
+      display: none;
     }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 40px;
+      padding: 0 12px;
+      border-radius: var(--r-btn);
+      font-family: var(--font-text);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s ease, background-color 0.15s ease;
+      white-space: nowrap;
+    }
+    .nav__link:hover {
+      color: var(--text);
+      background: var(--surface-2);
+    }
+    .nav__link.is-current,
+    .nav__link[aria-current="page"] {
+      color: var(--text);
+      font-weight: 600;
+    }
+
     .header-actions {
       display: flex;
       align-items: center;
-      gap: var(--sp-1);
-      flex-wrap: wrap;
+      gap: 8px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+    .nav__icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: var(--r-btn);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .nav__icon-btn:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-3);
     }
 
-    /* Buttons */
+    /* Sistema bottoni unificato (2 soli stili: primario e secondario, altezza uniforme 48px) */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: var(--sp-1);
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
+      justify-content: center;
+      gap: 8px;
+      height: 48px;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: var(--r-btn);
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
       text-decoration: none;
-      font-size: 0.875rem;
+      font-family: var(--font-text);
+      font-size: 0.9375rem;
       font-weight: 600;
       cursor: pointer;
-      line-height: 1.5;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
+      line-height: 1.2;
+      white-space: nowrap;
+      transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease;
     }
     .btn:hover {
       border-color: var(--border-strong);
       background: var(--surface-3);
     }
-    .btn-primary {
+    .btn:active {
+      transform: scale(0.985);
+    }
+    .btn-primary,
+    .btn--primary {
       background: var(--primary);
       color: #ffffff;
       border-color: var(--primary);
     }
-    .btn-primary:hover {
+    .btn-primary:hover,
+    .btn--primary:hover {
       background: var(--primary-hover);
       color: #ffffff;
       border-color: var(--primary-hover);
+    }
+    .btn--secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
     .btn-active {
       background: var(--primary-soft);
@@ -368,16 +455,103 @@
       border-color: var(--primary);
     }
     .btn-lg {
-      padding: var(--sp-2) var(--sp-3);
-      font-size: 1rem;
+      height: 48px;
+      min-height: 48px;
+      padding: 0 20px;
+      font-size: 0.9375rem;
+    }
+    .topbar .nav__cta {
+      height: 40px;
+      min-height: 40px;
+      padding: 0 16px;
+      font-size: 0.9375rem;
+    }
+
+    /* ==========================================
+       MOBILE BOTTOM NAVIGATION BAR (<= 1023px)
+       ========================================== */
+    .mobile-bottom-nav {
+      display: none;
+    }
+    @media (max-width: 1023px) {
+      .nav__links,
+      .topbar .nav__cta {
+        display: none;
+      }
+      body {
+        padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+      }
+      footer {
+        padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px) + 32px) !important;
+      }
+      .mobile-bottom-nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+        padding: 0 8px env(safe-area-inset-bottom, 0px);
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        z-index: 45;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: stretch;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+      }
+      .bottom-nav-item {
+        position: relative;
+        appearance: none;
+        border: none;
+        border-top: 2px solid transparent;
+        background: transparent;
+        color: var(--muted);
+        font-family: var(--font-text);
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        min-height: 52px;
+        min-width: 48px;
+        padding: 4px 2px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.15s ease;
+      }
+      .bottom-nav-item .icon {
+        width: 20px;
+        height: 20px;
+      }
+      .bottom-nav-item[aria-selected="true"] {
+        color: var(--primary-text);
+        border-top-color: var(--primary);
+      }
+      .bottom-nav-badge {
+        position: absolute;
+        top: 5px;
+        right: calc(50% - 20px);
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: var(--r-pill);
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        line-height: 16px;
+        text-align: center;
+      }
     }
 
     /* Main Container */
     main {
-      max-width: 1320px;
       width: 100%;
-      margin: var(--sp-4) auto var(--sp-6);
-      padding: 0 var(--sp-3);
+      margin: 0;
+      padding: 0;
       flex: 1;
     }
 
@@ -1792,75 +1966,8 @@
       .lbl-short {
         display: inline;
       }
-
-      .topbar {
-        padding: 10px 12px;
-      }
-      .topbar-inner {
-        position: relative;
-        gap: 8px;
-      }
-      .brand-title {
-        gap: 8px;
-        min-width: 0;
-        flex: 1 1 100%;
-        padding-right: 42px;
-      }
-      .topbar-inner:has(#header-back-home-btn:not([hidden])) .brand-title {
-        padding-right: 114px;
-      }
-      .brand-badge {
-        width: 34px;
-        height: 34px;
-      }
-      .brand-title h1 {
-        font-size: 1.05rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .brand-sub {
-        display: none;
-      }
-      .header-actions {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 6px;
-      }
-      .header-actions .btn {
-        width: 100%;
-        min-width: 0;
-        justify-content: center;
-        white-space: nowrap;
-        padding: 5px 6px;
-        font-size: 0.75rem;
-        min-height: 34px;
-        gap: 4px;
-      }
-      .header-actions #header-back-home-btn {
-        position: absolute;
-        top: 0;
-        right: 40px;
-        width: auto;
-        padding: 0 10px;
-        height: 34px;
-      }
-      .header-actions #theme-toggle {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 34px;
-        height: 34px;
-        padding: 0;
-      }
       .section-sub {
         display: none;
-      }
-
-      main {
-        margin: 12px auto 32px;
-        padding: 0 12px;
       }
 
       /* Home Hero Mobile */
@@ -2224,11 +2331,11 @@
       Per utilizzare la ricerca istantanea del portale attiva JavaScript, oppure esplora direttamente le cartelle dei corsi sul <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">Repository GitHub UNINA-INFORMATICA</a>.
     </div>
   </noscript>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand-title" href="./" id="brand-home-link" title="Torna alla pagina iniziale">
+  <header class="topbar nav">
+    <div class="wrap topbar-inner nav__bar">
+      <a class="brand-title nav__brand" href="./" id="brand-home-link" title="Torna alla pagina iniziale">
         <span class="brand-badge" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 64 64" fill="none">
+          <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
             <path d="M32 8L52 17L32 26L12 17L32 8Z" fill="var(--brand-icon-fg)"/>
             <path d="M47 19V29" stroke="var(--brand-icon-acc)" stroke-width="4" stroke-linecap="round"/>
             <circle cx="47" cy="31" r="2.5" fill="var(--brand-icon-acc)"/>
@@ -2237,36 +2344,29 @@
             <path d="M36 33L28 53" stroke="var(--brand-icon-acc)" stroke-width="5" stroke-linecap="round"/>
           </svg>
         </span>
-        <span>
-          <h1>Unina Informatica</h1>
-          <span class="brand-sub">Corso di laurea triennale in Informatica — Università degli Studi di Napoli Federico II</span>
-        </span>
+        <span class="nav__brand-name">Unina Informatica</span>
       </a>
-      <div class="header-actions">
+
+      <nav class="nav__links" aria-label="Navigazione principale">
+        <a href="#home-hero" class="nav__link is-current" data-header-nav="home" aria-current="page">Archivio</a>
+        <a href="#catalogo" class="nav__link" data-header-nav="tab-btn-files">Catalogo</a>
+        <a href="#corsi" class="nav__link" data-header-nav="tab-btn-courses">Corsi e Teams</a>
+        <a href="#calendario" class="nav__link" data-header-nav="tab-btn-calendar">Calendario</a>
+        <a href="#mappe" class="nav__link" data-header-nav="tab-btn-hub">Mappe e Git</a>
+      </nav>
+
+      <div class="header-actions nav__actions">
         <button type="button" class="btn" id="header-back-home-btn" hidden>
           <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Home
         </button>
-        <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-          <span class="lbl-full">Repository GitHub</span><span class="lbl-short">GitHub</span>
-        </a>
-        <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-          <span class="lbl-full">Segnala codice Teams</span><span class="lbl-short">Teams</span>
-        </a>
-        <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
-          <span class="lbl-full">Segnala bug</span><span class="lbl-short">Bug</span>
-        </a>
-        <a class="btn" href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-          <span class="lbl-full">Gruppi Telegram</span><span class="lbl-short">Telegram</span>
-        </a>
-        <button type="button" class="btn" id="theme-toggle" aria-label="Cambia tema chiaro o scuro" title="Cambia tema chiaro o scuro">
-          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          <span class="lbl-full">Tema</span>
+        <button type="button" class="nav__icon-btn" id="open-cmd-palette-btn" aria-label="Ricerca rapida e palette comandi (Ctrl+K)" title="Ricerca rapida (Ctrl+K)">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
+        <button type="button" class="nav__icon-btn" id="theme-toggle" aria-label="Cambia tema chiaro o scuro" title="Cambia tema chiaro o scuro">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        </button>
+        <a href="#catalogo" class="btn btn-primary nav__cta" id="header-open-catalog-btn">Esplora il catalogo</a>
       </div>
     </div>
   </header>
@@ -2640,6 +2740,10 @@
               <option value="Terzo Anno">Terzo anno (5)</option>
               <option value="Esami a Scelta">Esami a scelta (12)</option>
             </select>
+            <button type="button" class="chip" id="course-pinned-chip" aria-pressed="false" title="Mostra solo i corsi salvati nei preferiti">
+              <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Solo preferiti</span>
+            </button>
           </div>
         </div>
         <div id="courses-grid" class="courses-grid"></div>
@@ -2743,7 +2847,7 @@
               </h3>
               <p>Aule, edifici (Centri Comuni, Edificio 7) e servizi del campus di Monte Sant'Angelo.</p>
             </div>
-            <img src="./assets/MappaMSA.png" alt="Mappa del complesso universitario di Monte Sant'Angelo" class="map-thumb" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo" loading="lazy">
+            <img src="./assets/MappaMSA.png" width="1200" height="800" alt="Mappa del complesso universitario di Monte Sant'Angelo" class="map-thumb" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo" loading="lazy">
             <div>
               <button type="button" class="btn btn-primary" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo">
                 <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
@@ -2760,7 +2864,7 @@
               </h3>
               <p>Planimetria delle aule e strutture del complesso universitario di Via Claudio.</p>
             </div>
-            <img src="./assets/MappaViaClaudio.jpg" alt="Mappa del complesso universitario di Via Claudio" class="map-thumb" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio" loading="lazy">
+            <img src="./assets/MappaViaClaudio.jpg" width="1200" height="800" alt="Mappa del complesso universitario di Via Claudio" class="map-thumb" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio" loading="lazy">
             <div>
               <button type="button" class="btn btn-primary" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio">
                 <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
@@ -2907,13 +3011,13 @@
       </div>
       <div class="preview-toolbar">
         <div>
-          <a class="btn btn-primary" id="map-open-highres" href="" target="_blank" rel="noopener">
+          <a class="btn btn-primary" id="map-open-highres" href="./assets/MappaMSA.png" target="_blank" rel="noopener">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
             Apri mappa ad alta risoluzione (Zoom libero)
           </a>
         </div>
       </div>
-      <img id="map-modal-img" class="map-full" src="" alt="">
+      <img id="map-modal-img" class="map-full" src="./assets/MappaMSA.png" width="1200" height="800" alt="Mappa del campus universitario" loading="lazy">
     </div>
   </dialog>
 
@@ -2938,6 +3042,31 @@
   </dialog>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Mobile App-Like Bottom Navigation Bar (Home · Catalogo · Corsi · Calendario · Preferiti) -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" role="tablist" aria-label="Navigazione mobile">
+    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="home" aria-selected="true">
+      <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </button>
+    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="tab-btn-files" aria-selected="false">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <span>Catalogo</span>
+    </button>
+    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="tab-btn-courses" aria-selected="false">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+      <span>Corsi</span>
+    </button>
+    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="tab-btn-calendar" aria-selected="false">
+      <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+      <span>Calendario</span>
+    </button>
+    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="favorites" aria-selected="false">
+      <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>Preferiti</span>
+      <span class="bottom-nav-badge" id="bottom-nav-fav-count" hidden>0</span>
+    </button>
+  </nav>
 
   <footer>
     <div>Progetto open-source della community studenti <strong>Unina Informatica</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">Creative Commons 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a></div>
@@ -3173,6 +3302,15 @@
         try { localStorage.setItem(PIN_KEY, JSON.stringify([...pinnedCourses])); } catch {}
       };
 
+      let coursePinnedOnly = false;
+      const bottomNavFavBadge = document.getElementById('bottom-nav-fav-count');
+      const syncFavBadge = () => {
+        if (!bottomNavFavBadge) return;
+        const cnt = pinnedCourses.size;
+        bottomNavFavBadge.textContent = String(cnt);
+        bottomNavFavBadge.hidden = cnt === 0;
+      };
+
       const togglePinCourse = (courseName) => {
         if (pinnedCourses.has(courseName)) {
           pinnedCourses.delete(courseName);
@@ -3182,6 +3320,7 @@
           showToast(`"${courseName}" fissato in Home`);
         }
         savePins();
+        syncFavBadge();
         renderPinnedHome();
         renderCourses();
         if (typeof renderCalendar === 'function') renderCalendar(false);
@@ -3192,8 +3331,23 @@
       const catalogScreen = document.getElementById('catalog-screen');
       const headerBackHomeBtn = document.getElementById('header-back-home-btn');
       const catalogBackHomeBtn = document.getElementById('catalog-back-home-btn');
-      const tabs = document.querySelectorAll('[role="tab"]');
-      const panels = document.querySelectorAll('[role="tabpanel"]');
+      const tabs = document.querySelectorAll('#catalog-screen [role="tab"]');
+      const panels = document.querySelectorAll('#catalog-screen [role="tabpanel"]');
+      const headerNavLinks = document.querySelectorAll('[data-header-nav]');
+      const bottomNavItems = document.querySelectorAll('[data-bottom-nav]');
+
+      const syncShellNav = (key) => {
+        headerNavLinks.forEach((a) => {
+          const isCur = a.dataset.headerNav === key || (key === 'favorites' && a.dataset.headerNav === 'tab-btn-courses');
+          a.classList.toggle('is-current', isCur);
+          if (isCur) a.setAttribute('aria-current', 'page');
+          else a.removeAttribute('aria-current');
+        });
+        bottomNavItems.forEach((b) => {
+          const isSel = b.dataset.bottomNav === key || (key === 'tab-btn-hub' && b.dataset.bottomNav === 'home');
+          b.setAttribute('aria-selected', isSel ? 'true' : 'false');
+        });
+      };
 
       const activateCatalogTab = (tabId) => {
         tabs.forEach((t) => {
@@ -3204,6 +3358,7 @@
         panels.forEach((p) => {
           p.hidden = p.getAttribute('aria-labelledby') !== tabId;
         });
+        syncShellNav(tabId === 'tab-btn-courses' && coursePinnedOnly ? 'favorites' : tabId);
       };
 
       // Filter DOM references
@@ -3305,6 +3460,7 @@
         catalogScreen.hidden = true;
         homeScreen.hidden = false;
         headerBackHomeBtn.hidden = true;
+        syncShellNav('home');
         window.scrollTo({ top: 0, behavior: 'instant' });
         if (pushHistory && (location.hash || location.search)) {
           try { history.pushState({ view: 'home' }, '', location.pathname); } catch {}
@@ -3312,7 +3468,10 @@
       };
 
       tabs.forEach((t, idx) => {
-        t.addEventListener('click', () => openCatalog(t.id));
+        t.addEventListener('click', () => {
+          if (t.id === 'tab-btn-courses') coursePinnedOnly = false;
+          openCatalog(t.id);
+        });
         t.addEventListener('keydown', (e) => {
           if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
             e.preventDefault();
@@ -3322,6 +3481,55 @@
           }
         });
       });
+
+      headerNavLinks.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = link.dataset.headerNav;
+          if (target === 'home') {
+            openHome();
+          } else {
+            if (target === 'tab-btn-courses') coursePinnedOnly = false;
+            openCatalog(target);
+            if (target === 'tab-btn-courses') renderCourses();
+          }
+        });
+      });
+
+      bottomNavItems.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.bottomNav;
+          if (target === 'home') {
+            openHome();
+          } else if (target === 'favorites') {
+            coursePinnedOnly = pinnedCourses.size > 0;
+            openCatalog('tab-btn-courses');
+            renderCourses();
+            syncShellNav('favorites');
+            if (pinnedCourses.size === 0) {
+              showToast('Tocca la stellina su un corso per aggiungerlo ai Preferiti');
+            }
+          } else {
+            if (target === 'tab-btn-courses') coursePinnedOnly = false;
+            openCatalog(target);
+            if (target === 'tab-btn-courses') renderCourses();
+          }
+        });
+      });
+
+      document.getElementById('header-open-catalog-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCatalog('tab-btn-files');
+      });
+      document.getElementById('open-cmd-palette-btn')?.addEventListener('click', () => {
+        if (typeof openCommandPalette === 'function') {
+          openCommandPalette();
+        } else {
+          openCatalog('tab-btn-files');
+          searchInput.focus();
+        }
+      });
+
       headerBackHomeBtn.addEventListener('click', () => openHome());
       catalogBackHomeBtn.addEventListener('click', () => openHome());
       document.getElementById('brand-home-link').addEventListener('click', (e) => {
@@ -4102,15 +4310,41 @@
         openDialogWithHistory(courseModal);
       };
 
+      const coursePinnedChip = document.getElementById('course-pinned-chip');
       const renderCourses = () => {
         const q = normText(courseSearch.value.trim());
         const yr = courseYearFilter.value;
+        if (coursePinnedChip) {
+          coursePinnedChip.setAttribute('aria-pressed', coursePinnedOnly ? 'true' : 'false');
+        }
         coursesGrid.innerHTML = '';
         const list = DATA.courses.filter((c) => {
+          if (coursePinnedOnly && !pinnedCourses.has(c.name)) return false;
           if (yr && c.yearGroup !== yr) return false;
           if (q && !c.searchBlob.includes(q)) return false;
           return true;
         });
+
+        if (list.length === 0) {
+          coursesGrid.innerHTML = `
+            <div class="empty-state-card" style="grid-column: 1 / -1;">
+              <h4>${coursePinnedOnly ? 'Nessun corso salvato nei Preferiti' : 'Nessun insegnamento trovato'}</h4>
+              <p>${coursePinnedOnly
+                ? 'Tocca la stellina su qualsiasi insegnamento per salvarlo nei tuoi Preferiti e ritrovarlo rapidamente qui e in Home.'
+                : 'Prova a cercare con una sigla diversa (es. ADE, APSD, APA, BD) o azzera il filtro per anno.'}</p>
+              <div class="empty-state-actions">
+                <button type="button" class="btn btn-primary" id="courses-empty-reset">Mostra tutti i 31 corsi</button>
+              </div>
+            </div>
+          `;
+          document.getElementById('courses-empty-reset')?.addEventListener('click', () => {
+            coursePinnedOnly = false;
+            courseSearch.value = '';
+            courseYearFilter.value = '';
+            renderCourses();
+          });
+          return;
+        }
 
         list.forEach((c, idx) => {
           const card = document.createElement('article');
@@ -4177,6 +4411,12 @@
       };
       courseSearch.addEventListener('input', renderCourses);
       courseYearFilter.addEventListener('change', renderCourses);
+      coursePinnedChip?.addEventListener('click', () => {
+        coursePinnedOnly = !coursePinnedOnly;
+        renderCourses();
+        syncShellNav(coursePinnedOnly ? 'favorites' : 'tab-btn-courses');
+      });
+      syncFavBadge();
 
       // Selective Clone Generator in Tab 3
       const cloneSelect = document.getElementById('clone-course-select');
