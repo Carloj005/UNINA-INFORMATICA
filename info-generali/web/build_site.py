@@ -67,12 +67,12 @@ def fmt_bytes(b: int) -> str:
     if not b or b <= 0:
         return "—"
     if b >= 1073741824:
-        return f"{b / 1073741824:.2f} gb"
+        return f"{b / 1073741824:.2f} GB"
     if b >= 1048576:
-        return f"{b / 1048576:.1f} mb"
+        return f"{b / 1048576:.1f} MB"
     if b >= 1024:
-        return f"{round(b / 1024)} kb"
-    return f"{b} b"
+        return f"{round(b / 1024)} KB"
+    return f"{b} B"
 
 # Regex patterns for extracting exam/material dates
 RE_DMY = re.compile(r"(?<!\d)(0[1-9]|[12]\d|3[01])[-_.](0[1-9]|1[0-2])[-_.](20[12]\d)(?!\d)")
@@ -505,7 +505,11 @@ const PRECACHE_ASSETS = [
   './favicon.svg',
   './manifest.webmanifest',
   './assets/MappaMSA.png',
-  './assets/MappaViaClaudio.jpg'
+  './assets/MappaViaClaudio.jpg',
+  './assets/moments/moments.js',
+  './assets/moments/lib.js',
+  './assets/moments/cursor-spotlight/moment.js',
+  './assets/moments/cursor-spotlight/moment.css'
 ];
 
 self.addEventListener('install', (event) => {{
@@ -668,6 +672,10 @@ def main():
     fav_src = os.path.join(os.path.dirname(__file__), "favicon.svg")
     if os.path.exists(fav_src):
         shutil.copy2(fav_src, os.path.join(out_dir, "favicon.svg"))
+
+    web_assets_src = os.path.join(os.path.dirname(__file__), "assets")
+    if os.path.isdir(web_assets_src):
+        shutil.copytree(web_assets_src, assets_dir, dirs_exist_ok=True)
 
     for map_name in ("MappaMSA.png", "MappaViaClaudio.jpg"):
         src = os.path.join(REPO_ROOT, "info-generali", map_name)

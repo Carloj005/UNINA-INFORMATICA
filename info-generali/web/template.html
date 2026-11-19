@@ -288,20 +288,6 @@
     .pin-btn.just-pinned {
       animation: star-pop 320ms var(--ease-spring);
     }
-    @supports (animation-timeline: view()) {
-      @media (prefers-reduced-motion: no-preference) {
-        @keyframes card-rise {
-          from { transform: translateY(10px) scale(0.99); }
-          to { transform: translateY(0) scale(1); }
-        }
-        .year-card,
-        .bento-panel {
-          animation: card-rise linear both;
-          animation-timeline: view();
-          animation-range: entry 0% entry 28%;
-        }
-      }
-    }
 
     .skip-link {
       position: absolute;
@@ -646,6 +632,8 @@
     }
     .hero.home-section {
       padding-bottom: calc(32px + var(--bar-h, 0px));
+      --ink: var(--text);
+      --mo-light: light-dark(rgba(2, 132, 199, 0.14), rgba(56, 189, 248, 0.16));
       background-image:
         radial-gradient(640px 360px at 80% 24%, light-dark(rgba(2, 132, 199, 0.09), rgba(56, 189, 248, 0.14)), transparent 70%),
         linear-gradient(to right, light-dark(rgba(15, 76, 129, 0.035), rgba(148, 163, 184, 0.045)) 1px, transparent 1px),
@@ -1070,23 +1058,41 @@
     .home-pinned-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+      gap: 12px;
     }
     .recent-card,
     .pinned-card {
       background: var(--surface-2);
       border: 1px solid var(--border);
       border-radius: var(--r-md);
-      padding: 12px;
+      padding: 15px 16px;
+      min-height: 98px;
       min-width: 0;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 6px;
+      gap: 8px;
       text-align: left;
       cursor: pointer;
       color: var(--text);
       transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .bento-panel-foot {
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+    }
+    @media (max-width: 1023px) {
+      .recent-card,
+      .pinned-card {
+        padding: 12px;
+        min-height: 0;
+        gap: 6px;
+      }
+      .bento-panel-foot {
+        display: none;
+      }
     }
     .recent-card:hover,
     .pinned-card:hover {
@@ -1560,7 +1566,8 @@
     }
     .os-btn {
       padding: 6px 8px;
-      border-radius: var(--sp-1);
+      min-height: 42px;
+      border-radius: var(--r-sm);
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--muted);
@@ -1569,6 +1576,8 @@
       cursor: pointer;
       text-align: center;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .os-btn[aria-pressed="true"] {
       background: var(--primary);
@@ -3370,6 +3379,7 @@
         gap: 12px;
       }
       .hero-text.grid > .span-6,
+      .home-years-grid.grid > .span-6,
       .bento-updates-grid.grid > .span-6,
       .closing__call.grid > .span-6 {
         grid-column: 1 / -1;
@@ -3406,19 +3416,22 @@
         padding: 8px 10px;
         font-size: 0.78125rem;
       }
+      .home-years-grid {
+        gap: 6px;
+      }
       .year-card {
-        padding: 12px;
-        gap: 10px;
+        padding: 8px 10px;
+        gap: 5px;
         min-width: 0;
         overflow: hidden;
       }
       .year-card-head {
-        flex-wrap: wrap;
-        gap: 4px;
+        flex-wrap: nowrap;
+        gap: 6px;
       }
       .year-card h3 {
-        font-size: 0.875rem;
-        gap: 5px;
+        font-size: 0.9375rem;
+        gap: 6px;
       }
       .year-card h3 .icon-lg {
         width: 16px;
@@ -3426,24 +3439,35 @@
       }
       .year-count {
         font-size: 0.72rem;
-        padding: 1px 7px;
+        padding: 1px 8px;
       }
       .year-card__ui {
-        padding: 8px 10px;
+        padding: 5px 8px;
+        gap: 4px;
+        min-height: 0;
+      }
+      .year-course-pill {
+        font-size: 0.72rem;
+        padding: 1px 6px;
+      }
+      .year-course-pill:nth-child(n+5) {
+        display: none;
+      }
+      .year-progress-row {
+        display: none;
+      }
+      .year-card-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 8px;
-        min-height: 84px;
-      }
-      .year-course-pill:nth-child(n+4) {
-        display: none;
-      }
-      .year-card-actions [data-home-year-courses] {
-        display: none;
       }
       .year-card-actions .btn {
         width: 100%;
+        height: 44px;
+        min-height: 44px;
         min-width: 0;
         padding: 0 8px;
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
       }
       .bento-panel {
         padding: 12px;
@@ -3577,7 +3601,7 @@
          ========================================== -->
     <section id="home-screen" class="hero home-section" data-home-section data-enter aria-label="Presentazione archivio">
       <div class="wrap">
-        <div class="hero-text grid">
+        <div class="hero-text grid" data-moment="cursor-spotlight" data-moment-opts='{"rest":[0.74,0.34],"radius":420}'>
           <div class="hero-copy span-6">
             <p class="kicker" data-enter>CORSO DI LAUREA TRIENNALE IN INFORMATICA · FEDERICO II</p>
             <h1 data-enter>Archivio didattico ed esami di Informatica Federico II.</h1>
@@ -3663,7 +3687,7 @@
     <section id="home-bento" class="bento-section home-section" data-home-section aria-label="Insegnamenti per anno di corso">
       <div class="wrap">
         <h2>Insegnamenti per anno, <span data-hl>codici Teams</span> e materiale didattico.</h2>
-        <div class="home-years-grid grid">
+        <div class="home-years-grid grid" data-ui="years-bento-grid">
           <article class="year-card span-6">
             <div class="year-card-head">
               <h3>
@@ -3794,6 +3818,9 @@
               <span class="year-count">Git log</span>
             </div>
             <div id="home-recent-grid" class="recent-grid" data-ui="recent-updates-feed"></div>
+            <div class="bento-panel-foot">
+              <button type="button" class="btn btn--secondary" id="home-updates-open-files">Apri tutto l'archivio</button>
+            </div>
           </article>
 
           <article id="home-pinned-section" class="bento-panel span-6">
@@ -3805,6 +3832,9 @@
               <span class="year-count" id="home-pinned-badge">Preferiti</span>
             </div>
             <div id="home-pinned-grid" class="home-pinned-grid" data-ui="pinned-courses-feed"></div>
+            <div class="bento-panel-foot">
+              <button type="button" class="btn btn--secondary" id="home-updates-open-calendar">Apri calendario DIETI</button>
+            </div>
           </article>
         </div>
       </div>
@@ -3993,7 +4023,7 @@
               <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, sigla (ASD, ADE, BD), docente o propedeuticità..." aria-label="Cerca corso o docente">
             </div>
             <select id="course-year-filter" class="filter-select" style="max-width:240px" aria-label="Filtra corsi per anno">
-              <option value="">Tutti i 31 insegnamenti</option>
+              <option value="">Tutti i corsi (31)</option>
               <option value="Primo Anno">Primo anno (6)</option>
               <option value="Secondo Anno">Secondo anno (8)</option>
               <option value="Terzo Anno">Terzo anno (5)</option>
@@ -4046,6 +4076,7 @@
           </div>
           <div class="sheet-backdrop" id="cal-sheet-backdrop" aria-hidden="true"></div>
           <div class="filters-grid cal-filters-grid" id="cal-filters-grid-box">
+            <div class="sheet-drag-handle" id="cal-sheet-handle" aria-hidden="true"></div>
             <div class="cal-sheet-head">
               <strong style="font-size:0.9375rem;">Filtra calendario esami</strong>
               <button type="button" class="sheet-close-btn" id="cal-sheet-close" aria-label="Chiudi filtri calendario">
@@ -4155,7 +4186,7 @@
             </div>
             <div>
               <div class="os-switch-row" role="group" aria-label="Sistema operativo per i comandi Git">
-                <button type="button" class="os-btn" data-git-os="bash" aria-pressed="true"><span class="lbl-full">Linux / macOS / Git Bash</span><span class="lbl-short">Linux / macOS</span></button>
+                <button type="button" class="os-btn" data-git-os="bash" aria-pressed="true">Linux / macOS</button>
                 <button type="button" class="os-btn" data-git-os="ps" aria-pressed="false">PowerShell</button>
                 <button type="button" class="os-btn" data-git-os="cmd" aria-pressed="false">Windows CMD</button>
               </div>
@@ -4535,10 +4566,10 @@
 
       const fmtBytes = (b) => {
         if (!b || b <= 0) return '—';
-        if (b >= 1073741824) return (b / 1073741824).toFixed(2) + ' gb';
-        if (b >= 1048576) return (b / 1048576).toFixed(1) + ' mb';
-        if (b >= 1024) return Math.round(b / 1024) + ' kb';
-        return b + ' b';
+        if (b >= 1073741824) return (b / 1073741824).toFixed(2) + ' GB';
+        if (b >= 1048576) return (b / 1048576).toFixed(1) + ' MB';
+        if (b >= 1024) return Math.round(b / 1024) + ' KB';
+        return b + ' B';
       };
 
       const escapeHtml = (s) => String(s)
@@ -4603,7 +4634,10 @@
       const runViewTransition = (fn) => {
         if (document.startViewTransition && !prefersReducedMotion()) {
           try {
-            return document.startViewTransition(fn);
+            const vt = document.startViewTransition(fn);
+            vt.ready.catch(() => {});
+            vt.finished.catch(() => {});
+            return vt;
           } catch {}
         }
         fn();
@@ -4799,7 +4833,7 @@
           else a.removeAttribute('aria-current');
         });
         bottomNavItems.forEach((b) => {
-          const isSel = b.dataset.bottomNav === key || (key === 'tab-btn-hub' && b.dataset.bottomNav === 'home');
+          const isSel = b.dataset.bottomNav === key;
           b.setAttribute('aria-selected', isSel ? 'true' : 'false');
         });
       };
@@ -4985,7 +5019,7 @@
           homeSections.forEach((sec) => { sec.hidden = true; });
           catalogScreen.hidden = false;
           setCatalogInteractive(true);
-          headerBackHomeBtn.hidden = false;
+          headerBackHomeBtn.hidden = true;
           if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = true;
           activateCatalogTab(tabId);
           window.scrollTo({ top: 0, behavior: 'instant' });
@@ -5924,6 +5958,12 @@
       document.getElementById('home-open-catalog-btn')?.addEventListener('click', () => {
         openCatalog('tab-btn-files');
       });
+      document.getElementById('home-updates-open-files')?.addEventListener('click', () => {
+        openCatalog('tab-btn-files');
+      });
+      document.getElementById('home-updates-open-calendar')?.addEventListener('click', () => {
+        openCatalog('tab-btn-calendar');
+      });
       document.getElementById('footer-open-catalog-btn')?.addEventListener('click', (e) => {
         e.preventDefault();
         openCatalog('tab-btn-files');
@@ -6019,7 +6059,7 @@
           if (mExams.length) {
             addGroup('Calendario esami DIETI');
             mExams.forEach((e) => {
-              addItem(`${SVG_ICONS.calendar} ${escapeHtml(e.course)} ${e.channel ? '(' + escapeHtml(e.channel) + ')' : ''}`, e.prof || e.yearGroup, () => {
+              addItem(`${SVG_ICONS.calendar} ${escapeHtml(e.course)}${e.channel ? ' · ' + escapeHtml(e.channel) : ''}`, e.prof || e.yearGroup, () => {
                 openCatalog('tab-btn-calendar');
                 if (calSearch) calSearch.value = e.course;
                 if (typeof renderCalendar === 'function') renderCalendar();
@@ -6531,8 +6571,10 @@
         });
       }
 
+      const calSheetHandle = document.getElementById('cal-sheet-handle');
       const setCalSheetOpen = (open) => {
         if (!calFiltersGridBox || !calMobileFiltersToggle) return;
+        calFiltersGridBox.style.transform = '';
         calFiltersGridBox.classList.toggle('is-open', open);
         calSheetBackdrop?.classList.toggle('is-open', open);
         calMobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -6552,6 +6594,33 @@
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && calFiltersGridBox.classList.contains('is-open')) setCalSheetOpen(false);
         });
+        if (calSheetHandle) {
+          let dragStartY = 0;
+          let dragDeltaY = 0;
+          let dragging = false;
+          calSheetHandle.addEventListener('pointerdown', (e) => {
+            if (window.innerWidth > 768) return;
+            dragging = true;
+            dragStartY = e.clientY;
+            dragDeltaY = 0;
+            calFiltersGridBox.style.transition = 'none';
+            calSheetHandle.setPointerCapture?.(e.pointerId);
+          });
+          calSheetHandle.addEventListener('pointermove', (e) => {
+            if (!dragging) return;
+            dragDeltaY = Math.max(0, e.clientY - dragStartY);
+            calFiltersGridBox.style.transform = `translateY(${dragDeltaY}px)`;
+          });
+          const endCalDrag = () => {
+            if (!dragging) return;
+            dragging = false;
+            calFiltersGridBox.style.transition = '';
+            if (dragDeltaY > 75) setCalSheetOpen(false);
+            else calFiltersGridBox.style.transform = '';
+          };
+          calSheetHandle.addEventListener('pointerup', endCalDrag);
+          calSheetHandle.addEventListener('pointercancel', endCalDrag);
+        }
       }
 
       const courseByNameMap = new Map(DATA.courses.map((c) => [c.name, c]));
@@ -6611,6 +6680,28 @@
           }
           return true;
         };
+
+        // Update month pills live counts to match active Year / Regolamento / Upcoming / Pinned / Search filters
+        if (calMonthPillsEl) {
+          const liveMonthCounts = new Map();
+          let liveAllCount = 0;
+          entries.forEach((e) => {
+            if (!matchesEntryMeta(e)) return;
+            (e.dates || []).forEach((d) => {
+              if (calUpcomingOnly && d.iso < todayIso) return;
+              liveAllCount += 1;
+              liveMonthCounts.set(d.monthKey, (liveMonthCounts.get(d.monthKey) || 0) + 1);
+            });
+          });
+          calMonthPillsEl.querySelectorAll('[data-cal-month-pill]').forEach((p) => {
+            const k = p.dataset.calMonthPill;
+            const cnt = k ? (liveMonthCounts.get(k) || 0) : liveAllCount;
+            const cntEl = p.querySelector('.pill-cnt');
+            if (cntEl) cntEl.textContent = String(cnt);
+            p.hidden = Boolean(k && cnt === 0 && mo !== k);
+            p.setAttribute('aria-pressed', k === mo ? 'true' : 'false');
+          });
+        }
 
         const filterDatesForEntry = (e, requireUpcoming) => {
           return (e.dates || []).filter((d) => {
@@ -6974,5 +7065,6 @@
       }
     })();
   </script>
+  <script type="module" src="./assets/moments/moments.js"></script>
 </body>
 </html>
