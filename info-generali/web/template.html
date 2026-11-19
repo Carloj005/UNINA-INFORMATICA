@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="light dark">
   <meta name="page-type" content="software">
   <meta name="site-kind" content="software">
+  <meta name="theme-color" id="meta-theme-color" content="#f4f7fb">
   <script>
     document.documentElement.classList.add('m-enter');
     try {
@@ -15,13 +16,13 @@
         ? (savedScheme === "dark")
         : window.matchMedia("(prefers-color-scheme: dark)").matches;
       document.documentElement.dataset.theme = isDark ? "dark" : "light";
+      const mtc = document.getElementById("meta-theme-color");
+      if (mtc) mtc.content = isDark ? "#070d19" : "#f4f7fb";
     } catch {}
   </script>
   <title>Unina Informatica — Archivio didattico ed esami Federico II</title>
   <link rel="icon" id="site-favicon" type="image/svg+xml" href="./favicon.svg">
   <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" id="meta-theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#09101d" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Archivio didattico open-source con ricerca istantanea di slide, appunti, tracce d'esame, calendario appelli DIETI e codici Microsoft Teams per Informatica Federico II.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -673,7 +674,7 @@
         width: 20px;
         height: 20px;
       }
-      .bottom-nav-item[aria-selected="true"] {
+      .bottom-nav-item[aria-current="page"] {
         color: var(--primary-text);
         border-top-color: var(--primary);
       }
@@ -980,14 +981,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 34px;
-      padding: 4px 10px;
+      min-height: 40px;
+      padding: 6px 12px;
       border-radius: var(--r-sm);
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.78125rem;
       font-weight: 600;
       cursor: pointer;
       transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -1087,13 +1088,15 @@
     .year-course-pill {
       display: inline-flex;
       align-items: center;
+      gap: 6px;
+      min-height: 40px;
       font-family: var(--font-text);
-      font-size: 0.78125rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       color: var(--text);
       background: var(--surface);
       border: 1px solid var(--border);
-      padding: 4px 10px;
+      padding: 6px 11px;
       border-radius: var(--r-sm);
       cursor: pointer;
       transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
@@ -1102,6 +1105,15 @@
       border-color: var(--primary);
       background: var(--primary-soft);
       color: var(--primary-text);
+    }
+    .year-course-pill.is-empty {
+      border-style: dashed;
+      color: var(--muted);
+    }
+    .year-pill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--muted);
     }
     .year-card-actions {
       display: flex;
@@ -1354,17 +1366,25 @@
       padding-bottom: calc(var(--bottom-nav-h) + 48px);
       min-height: 100dvh;
     }
-    /* Tablist semantico nascosto visivamente (navigazione unificata in header desktop e bottom-bar mobile) */
-    .catalog-top-bar {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-      white-space: nowrap;
-      border: 0;
+    /* Intestazione semantica visibile della vista attiva (#catalog-screen) */
+    .catalog-page-head {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .catalog-view-title {
+      margin: 0;
+      font-size: clamp(1.375rem, 1.4vw + 1rem, 1.875rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+    .catalog-view-sub {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.45;
     }
     .modal-actions-grid {
       display: grid;
@@ -1378,35 +1398,6 @@
       min-height: 44px;
       padding: 0 12px;
       font-size: 0.84375rem;
-    }
-    .nav-tabs {
-      display: flex;
-      gap: var(--sp-1);
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      padding: var(--sp-1) var(--sp-2);
-      border-radius: var(--sp-1);
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--muted);
-      font-size: 0.9375rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: var(--sp-1);
-      transition: border-color 0.15s ease, background-color 0.15s ease;
-    }
-    .tab-btn:hover {
-      color: var(--text);
-      border-color: var(--border-strong);
-      background: var(--surface-3);
-    }
-    .tab-btn[aria-selected="true"] {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
     }
 
     /* ==========================================
@@ -1635,6 +1626,7 @@
       align-items: center;
       gap: var(--sp-2);
     }
+    .empty-state-card h2,
     .empty-state-card h4 {
       margin: 0;
       font-size: 1.0625rem;
@@ -1910,7 +1902,10 @@
     .crumb-btn {
       background: none;
       border: none;
-      padding: 0;
+      padding: 4px 2px;
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
       color: inherit;
       font: inherit;
       cursor: pointer;
@@ -1923,7 +1918,10 @@
     .cat-tag {
       background: var(--surface-2);
       border: 1px solid var(--border);
-      padding: 1px 8px;
+      padding: 4px 10px;
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
       border-radius: var(--r-pill);
       color: var(--primary-text);
       font-weight: 600;
@@ -2223,6 +2221,7 @@
     .hub-card > :last-child {
       margin-top: auto;
     }
+    .hub-card h2,
     .hub-card h3 {
       margin: 0 0 var(--sp-1);
       font-size: 1.0625rem;
@@ -2466,7 +2465,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      min-height: 38px;
+      min-height: 42px;
       padding: 0 14px;
       border-radius: var(--r-pill);
       border: 1px solid var(--border);
@@ -2517,6 +2516,11 @@
       box-shadow: var(--shadow-sm);
     }
     /* Pinned Exams Spotlight Banner */
+    .preview-pdf-fallback.is-warn {
+      background: var(--warn-soft);
+      border-color: var(--pin-border);
+      color: var(--warn-text);
+    }
     .cal-pinned-spotlight {
       background: var(--spotlight-bg);
       border: 1px solid var(--primary);
@@ -2722,8 +2726,13 @@
       color: #e0f2fe;
     }
     .exam-date-pill.is-past {
-      opacity: 0.55;
+      background: var(--past-bg);
+      border-color: var(--past-border);
+      color: var(--past-fg);
       text-decoration: line-through;
+    }
+    .exam-date-pill.is-past .exam-date-sub {
+      color: var(--past-fg);
     }
     .exam-date-pill.is-tentative {
       border-color: var(--pin-border);
@@ -2820,7 +2829,18 @@
       border-left: 4px solid var(--accent-vivid);
     }
     .timeline-row.is-past {
-      opacity: 0.62;
+      background: var(--past-bg);
+      border-color: var(--past-border);
+      color: var(--past-fg);
+    }
+    .timeline-row.is-past .timeline-course,
+    .timeline-row.is-past .timeline-sub {
+      color: var(--past-fg);
+    }
+    .timeline-row.is-past .timeline-date-box {
+      background: var(--surface-2);
+      border-color: var(--past-border);
+      color: var(--past-fg);
     }
     .timeline-left {
       display: flex;
@@ -3238,8 +3258,8 @@
       }
       .calendar-source-actions .btn {
         flex: 1 1 0%;
-        height: 38px;
-        min-height: 38px;
+        height: 42px;
+        min-height: 42px;
         font-size: 0.8125rem;
         justify-content: center;
       }
@@ -3314,6 +3334,10 @@
       .prof-link {
         flex: 1 1 0%;
         min-width: 0;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 0;
       }
       .year-card {
         padding: 14px;
@@ -3548,8 +3572,9 @@
         padding: 10px;
       }
       .year-course-pill {
-        font-size: 0.78125rem;
-        padding: 5px 10px;
+        font-size: 0.8125rem;
+        min-height: 40px;
+        padding: 6px 11px;
       }
       .year-card-actions {
         display: grid;
@@ -3711,7 +3736,7 @@
                   <span class="shortcut-icon-box">
                     <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
                   </span>
-                  <span>31 Corsi e Teams</span>
+                  <span>__STAT_COURSES__ Corsi e Teams</span>
                 </span>
                 <svg class="icon" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
               </button>
@@ -3743,17 +3768,10 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Primo anno
               </h3>
-              <span class="year-count" data-year-stat="Primo Anno" data-year-courses="6">6 corsi</span>
+              <span class="year-count" data-year-stat="Primo Anno">Primo anno</span>
             </div>
             <div class="year-card__ui" data-ui="year-1-pills">
-              <div class="year-pills-wrap">
-                <button type="button" class="year-course-pill" data-home-quick-q="ADE">ADE</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Analisi Matematica 1">Analisi 1</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Programmazione 1">Programmazione 1</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Algebra">Algebra</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="POO">POO</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Basi di Dati">Basi di Dati</button>
-              </div>
+              <div class="year-pills-wrap" data-year-pills="Primo Anno"></div>
             </div>
             <div class="year-card-actions">
               <button type="button" class="btn btn-primary" data-home-year-files="Primo Anno">Esplora file</button>
@@ -3767,17 +3785,10 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Secondo anno
               </h3>
-              <span class="year-count" data-year-stat="Secondo Anno" data-year-courses="8">8 corsi</span>
+              <span class="year-count" data-year-stat="Secondo Anno">Secondo anno</span>
             </div>
             <div class="year-card__ui" data-ui="year-2-pills">
-              <div class="year-pills-wrap">
-                <button type="button" class="year-course-pill" data-home-quick-q="APSD">APSD</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Informatica Teorica">Informatica Teorica</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Fisica Generale 1">Fisica 1</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Geometria">Geometria</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Sistemi Operativi">Sistemi Operativi</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="APA">Algoritmi (APA)</button>
-              </div>
+              <div class="year-pills-wrap" data-year-pills="Secondo Anno"></div>
             </div>
             <div class="year-card-actions">
               <button type="button" class="btn btn-primary" data-home-year-files="Secondo Anno">Esplora file</button>
@@ -3791,16 +3802,10 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Terzo anno
               </h3>
-              <span class="year-count" data-year-stat="Terzo Anno" data-year-courses="5">5 corsi</span>
+              <span class="year-count" data-year-stat="Terzo Anno">Terzo anno</span>
             </div>
             <div class="year-card__ui" data-ui="year-3-pills">
-              <div class="year-pills-wrap">
-                <button type="button" class="year-course-pill" data-home-quick-q="Reti">Reti</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="INGSW">Ingegneria del Software</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="TECWEB">Tecnologie Web</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="AI Technologies">AI Technologies</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="TPA">TPA</button>
-              </div>
+              <div class="year-pills-wrap" data-year-pills="Terzo Anno"></div>
             </div>
             <div class="year-card-actions">
               <button type="button" class="btn btn-primary" data-home-year-files="Terzo Anno">Esplora file</button>
@@ -3814,17 +3819,10 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Esami a scelta
               </h3>
-              <span class="year-count" data-year-stat="Esami a Scelta" data-year-courses="12">12 corsi</span>
+              <span class="year-count" data-year-stat="Esami a Scelta">Esami a scelta</span>
             </div>
             <div class="year-card__ui" data-ui="year-4-pills">
-              <div class="year-pills-wrap">
-                <button type="button" class="year-course-pill" data-home-quick-q="Economia">Economia</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Multimedia">Multimedia</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Algorithm Design">Algorithm Design</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Ricerca Operativa">Ricerca Operativa</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Calcolo Numerico">Calcolo Numerico</button>
-                <button type="button" class="year-course-pill" data-home-quick-q="Forensics">Forensics</button>
-              </div>
+              <div class="year-pills-wrap" data-year-pills="Esami a Scelta"></div>
             </div>
             <div class="year-card-actions">
               <button type="button" class="btn btn-primary" data-home-year-files="Esami a Scelta">Esplora file</button>
@@ -3878,33 +3876,13 @@
          ========================================== -->
     <section id="catalog-screen" class="catalog-view" hidden aria-label="Catalogo completo del portale">
       <div class="wrap">
-        <div class="catalog-top-bar">
-          <nav class="nav-tabs" role="tablist" aria-label="Sezioni del catalogo">
-            <button type="button" role="tab" class="tab-btn" id="tab-btn-files" aria-controls="panel-files" aria-selected="true" aria-disabled="true">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <span class="lbl-full">Catalogo file ed esami</span><span class="lbl-short">File ed esami</span>
-            </button>
-            <button type="button" role="tab" class="tab-btn" id="tab-btn-courses" aria-controls="panel-courses" aria-selected="false" aria-disabled="true">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              <span class="lbl-full">Corsi, propedeuticità e Teams</span><span class="lbl-short">Corsi e Teams</span>
-            </button>
-            <button type="button" role="tab" class="tab-btn" id="tab-btn-calendar" aria-controls="panel-calendar" aria-selected="false" aria-disabled="true">
-              <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-              <span class="lbl-full">Calendario esami</span><span class="lbl-short">Calendario esami</span>
-            </button>
-            <button type="button" role="tab" class="tab-btn" id="tab-btn-hub" aria-controls="panel-hub" aria-selected="false" aria-disabled="true">
-              <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
-              <span class="lbl-full">Mappe, clone selettivo e guide</span><span class="lbl-short">Mappe e Git</span>
-            </button>
-          </nav>
-          <button type="button" class="btn" id="catalog-back-home-btn">
-            <svg class="icon" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
-            Torna alla Home
-          </button>
+        <div class="catalog-page-head">
+          <h1 id="catalog-view-title" class="catalog-view-title">Catalogo file ed esami</h1>
+          <p id="catalog-view-sub" class="catalog-view-sub">Slide, appunti, tracce d'esame e progetti filtrabili per anno, corso e docente.</p>
         </div>
 
         <!-- TAB 1: FILE SEARCH -->
-        <section id="panel-files" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-files">
+        <section id="panel-files" class="tab-panel" data-catalog-panel="tab-btn-files" aria-label="Catalogo file ed esami">
           <div class="catalog-layout">
             <div class="sheet-backdrop" id="catalog-sheet-backdrop" aria-hidden="true"></div>
             <aside class="catalog-sidebar" id="catalog-filters-sheet" aria-label="Filtri avanzati catalogo">
@@ -4048,7 +4026,7 @@
         </section>
 
       <!-- TAB 2: COURSES & TEAMS -->
-      <section id="panel-courses" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-courses" hidden>
+      <section id="panel-courses" class="tab-panel" data-catalog-panel="tab-btn-courses" aria-label="Insegnamenti e codici Teams" hidden>
         <div class="filter-card">
           <div class="search-row">
             <div class="search-input-wrap">
@@ -4056,11 +4034,11 @@
               <input type="search" id="course-search" class="search-input" placeholder="Filtra insegnamento, sigla (ASD, ADE, BD), docente o propedeuticità..." aria-label="Cerca corso o docente">
             </div>
             <select id="course-year-filter" class="filter-select" style="max-width:240px" aria-label="Filtra corsi per anno">
-              <option value="">Tutti i corsi (31)</option>
-              <option value="Primo Anno">Primo anno (6)</option>
-              <option value="Secondo Anno">Secondo anno (8)</option>
-              <option value="Terzo Anno">Terzo anno (5)</option>
-              <option value="Esami a Scelta">Esami a scelta (12)</option>
+              <option value="">Tutti i corsi</option>
+              <option value="Primo Anno">Primo anno</option>
+              <option value="Secondo Anno">Secondo anno</option>
+              <option value="Terzo Anno">Terzo anno</option>
+              <option value="Esami a Scelta">Esami a scelta</option>
             </select>
             <button type="button" class="chip" id="course-pinned-chip" aria-pressed="false" title="Mostra solo i corsi salvati nei preferiti">
               <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -4072,7 +4050,7 @@
       </section>
 
       <!-- TAB 3: EXAM CALENDAR (TRIENNALE DIETI AUTO-SYNC) -->
-      <section id="panel-calendar" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-calendar" hidden>
+      <section id="panel-calendar" class="tab-panel" data-catalog-panel="tab-btn-calendar" aria-label="Calendario esami DIETI" hidden>
         <div class="calendar-source-banner">
           <div class="calendar-source-info">
             <div class="calendar-source-title">
@@ -4084,7 +4062,7 @@
             </div>
           </div>
           <div class="calendar-source-actions">
-            <a class="btn btn-primary" id="cal-pdf-link" href="https://informatica.dieti.unina.it/images/calendario-esami/2026-27/triennale-1-26-27.pdf" target="_blank" rel="noopener">
+            <a class="btn btn-primary" id="cal-pdf-link" href="https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale" target="_blank" rel="noopener">
               <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
               <span class="lbl-full">Apri PDF ufficiale DIETI</span><span class="lbl-short">PDF DIETI</span>
             </a>
@@ -4173,14 +4151,14 @@
       </section>
 
       <!-- TAB 4: MAPS, SELECTIVE CLONE & FORMS -->
-      <section id="panel-hub" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-hub" hidden>
+      <section id="panel-hub" class="tab-panel" data-catalog-panel="tab-btn-hub" aria-label="Mappe campus e clone Git" hidden>
         <div class="hub-grid">
           <article class="hub-card">
             <div>
-              <h3>
+              <h2>
                 <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
                 Mappa complesso Monte Sant'Angelo
-              </h3>
+              </h2>
               <p>Aule, edifici (Centri Comuni, Edificio 7) e servizi del campus di Monte Sant'Angelo.</p>
             </div>
             <img src="./assets/MappaMSA.png" width="1200" height="800" alt="Mappa del complesso universitario di Monte Sant'Angelo" class="map-thumb" data-map-src="./assets/MappaMSA.png" data-map-title="Mappa complesso universitario di Monte Sant'Angelo" loading="lazy">
@@ -4194,10 +4172,10 @@
 
           <article class="hub-card">
             <div>
-              <h3>
+              <h2>
                 <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
                 Mappa complesso di Via Claudio
-              </h3>
+              </h2>
               <p>Planimetria delle aule e strutture del complesso universitario di Via Claudio.</p>
             </div>
             <img src="./assets/MappaViaClaudio.jpg" width="1200" height="800" alt="Mappa del complesso universitario di Via Claudio" class="map-thumb" data-map-src="./assets/MappaViaClaudio.jpg" data-map-title="Mappa complesso universitario di Via Claudio" loading="lazy">
@@ -4211,10 +4189,10 @@
 
           <article class="hub-card">
             <div>
-              <h3>
+              <h2>
                 <svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
                 Generatore comando clone selettivo
-              </h3>
+              </h2>
               <p>Scarica sul computer con Git <strong>solo un singolo corso</strong> senza clonare l'intero archivio.</p>
             </div>
             <div>
@@ -4236,10 +4214,10 @@
 
           <article class="hub-card">
             <div>
-              <h3>
+              <h2>
                 <svg class="icon" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
                 Moduli anonimi della community
-              </h3>
+              </h2>
               <p>Aiuta i prossimi studenti lasciando una valutazione anonima o condividendo le domande ricevute all'orale.</p>
             </div>
             <div class="stack-actions">
@@ -4260,11 +4238,11 @@
 
           <article class="hub-card">
             <div>
-              <h3>
+              <h2>
                 <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
                 Guide ufficiali e GitHub Student Pack
-              </h3>
-              <p>Orario lezioni, manifesto degli studi 2026/2027 e guida ai vantaggi gratuiti con mail istituzionale.</p>
+              </h2>
+              <p>Orario lezioni, manifesto degli studi e guida ai vantaggi gratuiti con mail istituzionale.</p>
             </div>
             <div class="stack-actions">
               <a class="btn btn-primary" href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/info-generali/guida-github-education.md" target="_blank" rel="noopener">
@@ -4273,21 +4251,21 @@
               </a>
               <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                Scarica orario lezioni 2026/2027
+                Scarica orario lezioni (<span data-academic-year>2026/2027</span>)
               </a>
               <a class="btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/GuidaTriennaleInformatica-26-27.pdf" target="_blank" rel="noopener">
                 <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                Scarica guida dello studente 2026/2027
+                Scarica guida dello studente (<span data-academic-year>2026/2027</span>)
               </a>
             </div>
           </article>
 
           <article class="hub-card">
             <div>
-              <h3>
+              <h2>
                 <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
                 Contribuisci e segnala
-              </h3>
+              </h2>
               <p>Manca una traccia scritta, una traccia di progetto, un codice Teams o hai trovato un bug?</p>
             </div>
             <div class="stack-actions">
@@ -4376,7 +4354,7 @@
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <button type="button" class="btn" id="map-zoom-toggle">
             <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/></svg>
-            Zoom 1.8x
+            <span class="btn-label">Zoom 1.8x</span>
           </button>
           <a class="btn btn-primary" id="map-open-highres" href="./assets/MappaMSA.png" target="_blank" rel="noopener">
             <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
@@ -4413,24 +4391,24 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <!-- Mobile App-Like Bottom Navigation Bar (Home · Catalogo · Corsi · Calendario · Preferiti) -->
-  <nav class="mobile-bottom-nav actionbar" id="mobile-bottom-nav" role="tablist" aria-label="Navigazione mobile">
-    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="home" aria-selected="true">
+  <nav class="mobile-bottom-nav actionbar" id="mobile-bottom-nav" aria-label="Navigazione mobile">
+    <button type="button" class="bottom-nav-item" data-bottom-nav="home" aria-current="page">
       <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span>Home</span>
     </button>
-    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="tab-btn-files" aria-selected="false">
+    <button type="button" class="bottom-nav-item" data-bottom-nav="tab-btn-files">
       <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <span>Catalogo</span>
     </button>
-    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="tab-btn-courses" aria-selected="false">
+    <button type="button" class="bottom-nav-item" data-bottom-nav="tab-btn-courses">
       <svg class="icon" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
       <span>Corsi</span>
     </button>
-    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="tab-btn-calendar" aria-selected="false">
+    <button type="button" class="bottom-nav-item" data-bottom-nav="tab-btn-calendar">
       <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
       <span>Calendario</span>
     </button>
-    <button type="button" role="tab" class="bottom-nav-item" data-bottom-nav="favorites" aria-selected="false">
+    <button type="button" class="bottom-nav-item" data-bottom-nav="favorites">
       <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       <span>Preferiti</span>
       <span class="bottom-nav-badge" id="bottom-nav-fav-count" hidden>0</span>
@@ -4534,7 +4512,11 @@
       };
 
       const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
-      const TEXT_EXTS = new Set(['.md', '.txt', '.c', '.h', '.java', '.py', '.sh', '.ps1', '.sql', '.js', '.ts', '.html', '.css', '.json', '.yml', '.yaml', '.tex']);
+      const TEXT_EXTS = new Set([
+        '.md', '.txt', '.c', '.h', '.cpp', '.hpp', '.cc', '.java', '.py', '.sh', '.ps1',
+        '.sql', '.js', '.ts', '.html', '.css', '.json', '.yml', '.yaml', '.tex',
+        '.lisp', '.lsp', '.cl', '.pro', '.pl', '.asm', '.s', '.xml', '.csv'
+      ]);
 
       const fmtBytes = (b) => {
         if (!b || b <= 0) return '—';
@@ -4590,7 +4572,7 @@
         const isDark = (stored === 'dark' || stored === 'light') ? (stored === 'dark') : sysDark;
         document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
         if (metaThemeColor) {
-          metaThemeColor.content = isDark ? '#070d19' : '#0f4c81';
+          metaThemeColor.content = isDark ? '#070d19' : '#f4f7fb';
         }
         if (!faviconEl) return;
         const bg = isDark ? '%23142c54' : '%23dff0ff';
@@ -4837,11 +4819,31 @@
       const homeScreen = document.getElementById('home-screen');
       const catalogScreen = document.getElementById('catalog-screen');
       const openHubHeaderBtn = document.getElementById('open-hub-header-btn');
-      const catalogBackHomeBtn = document.getElementById('catalog-back-home-btn');
-      const tabs = document.querySelectorAll('#catalog-screen [role="tab"]');
-      const panels = document.querySelectorAll('#catalog-screen [role="tabpanel"]');
+      const catalogViewTitle = document.getElementById('catalog-view-title');
+      const catalogViewSub = document.getElementById('catalog-view-sub');
+      const panels = document.querySelectorAll('#catalog-screen [data-catalog-panel]');
       const headerNavLinks = document.querySelectorAll('[data-header-nav]');
       const bottomNavItems = document.querySelectorAll('[data-bottom-nav]');
+      let activeCatalogTab = 'tab-btn-files';
+
+      const CATALOG_VIEW_META = {
+        'tab-btn-files': {
+          title: 'Catalogo file ed esami',
+          sub: 'Slide, appunti, tracce d\'esame e progetti filtrabili per anno, corso e docente.'
+        },
+        'tab-btn-courses': {
+          title: 'Insegnamenti e codici Teams',
+          sub: 'Schede didattiche, propedeuticità, canali docenti e codici Microsoft Teams.'
+        },
+        'tab-btn-calendar': {
+          title: 'Calendario esami DIETI',
+          sub: 'Appelli ufficiali della Laurea Triennale sincronizzati automaticamente dal portale DIETI.'
+        },
+        'tab-btn-hub': {
+          title: 'Mappe campus e clone Git',
+          sub: 'Planimetrie Monte Sant\'Angelo e Via Claudio, clone selettivo per corso e moduli community.'
+        }
+      };
 
       const syncShellNav = (key) => {
         headerNavLinks.forEach((a) => {
@@ -4851,35 +4853,32 @@
           else a.removeAttribute('aria-current');
         });
         bottomNavItems.forEach((b) => {
-          const isSel = b.dataset.bottomNav === key;
-          b.setAttribute('aria-selected', isSel ? 'true' : 'false');
+          const isCur = b.dataset.bottomNav === key;
+          if (isCur) b.setAttribute('aria-current', 'page');
+          else b.removeAttribute('aria-current');
         });
         openHubHeaderBtn?.classList.toggle('is-active', key === 'tab-btn-hub');
       };
 
       const activateCatalogTab = (tabId) => {
-        tabs.forEach((t) => {
-          const sel = t.id === tabId;
-          t.setAttribute('aria-selected', sel ? 'true' : 'false');
-          t.tabIndex = sel ? 0 : -1;
-          if (sel && window.innerWidth <= 768) {
-            t.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-          }
-        });
+        activeCatalogTab = CATALOG_VIEW_META[tabId] ? tabId : 'tab-btn-files';
+        const meta = CATALOG_VIEW_META[activeCatalogTab];
+        if (catalogViewTitle) catalogViewTitle.textContent = meta.title;
+        if (catalogViewSub) catalogViewSub.textContent = meta.sub;
         panels.forEach((p) => {
-          p.hidden = p.getAttribute('aria-labelledby') !== tabId;
+          p.hidden = p.dataset.catalogPanel !== activeCatalogTab;
         });
-        if (tabId === 'tab-btn-files' && !filesRendered && typeof applyFileFilters === 'function') {
+        if (activeCatalogTab === 'tab-btn-files' && !filesRendered && typeof applyFileFilters === 'function') {
           filesRendered = true;
           applyFileFilters(false);
-        } else if (tabId === 'tab-btn-courses' && !coursesRendered && typeof renderCourses === 'function') {
+        } else if (activeCatalogTab === 'tab-btn-courses' && !coursesRendered && typeof renderCourses === 'function') {
           coursesRendered = true;
           renderCourses();
-        } else if (tabId === 'tab-btn-calendar' && !calendarRendered && typeof renderCalendar === 'function') {
+        } else if (activeCatalogTab === 'tab-btn-calendar' && !calendarRendered && typeof renderCalendar === 'function') {
           calendarRendered = true;
           renderCalendar(false);
         }
-        syncShellNav(tabId === 'tab-btn-courses' && coursePinnedOnly ? 'favorites' : tabId);
+        syncShellNav(activeCatalogTab === 'tab-btn-courses' && coursePinnedOnly ? 'favorites' : activeCatalogTab);
       };
 
       // Filter DOM references
@@ -4928,13 +4927,39 @@
       const sheetResetFilters = document.getElementById('sheet-reset-filters');
       const sheetApplyFilters = document.getElementById('sheet-apply-filters');
 
+      // Focus trap helper for mobile bottom sheets via inert on background siblings
+      const inertAppliedEls = new Set();
+      const setBackgroundInert = (activeSheet, activeBackdrop, enable) => {
+        if (!enable) {
+          inertAppliedEls.forEach((el) => { el.inert = false; });
+          inertAppliedEls.clear();
+          return;
+        }
+        setBackgroundInert(null, null, false);
+        let cur = activeSheet;
+        while (cur && cur !== document.body) {
+          const parent = cur.parentElement;
+          if (!parent) break;
+          for (const sib of parent.children) {
+            if (sib === cur || sib === activeBackdrop || sib.id === 'toast') continue;
+            if (!sib.inert) {
+              sib.inert = true;
+              inertAppliedEls.add(sib);
+            }
+          }
+          cur = parent;
+        }
+      };
+
       const setCatalogSheetOpen = (open) => {
         if (!catalogFiltersSheet || !mobileFiltersToggle) return;
+        const isModalSheet = window.innerWidth <= 1023;
         catalogFiltersSheet.style.transform = '';
         catalogFiltersSheet.classList.toggle('is-open', open);
         filtersGridBox?.classList.toggle('is-open', open);
         catalogSheetBackdrop?.classList.toggle('is-open', open);
         mobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        setBackgroundInert(catalogFiltersSheet, catalogSheetBackdrop, open && isModalSheet);
         if (open) {
           filterYear?.focus({ preventScroll: true });
         } else if (document.activeElement && catalogFiltersSheet.contains(document.activeElement)) {
@@ -4996,7 +5021,7 @@
 
       // Sync current filters to URL query parameters for shareable deep links
       const syncUrlState = (tabId) => {
-        const currentTab = tabId || [...tabs].find((t) => t.getAttribute('aria-selected') === 'true')?.id || 'tab-btn-files';
+        const currentTab = tabId || activeCatalogTab || 'tab-btn-files';
         if (homeScreen && !homeScreen.hidden) return;
         const params = new URLSearchParams();
         if (currentTab === 'tab-btn-files') {
@@ -5024,7 +5049,7 @@
       };
 
       const homeSections = document.querySelectorAll('[data-home-section]');
-      const catalogExpandables = document.querySelectorAll('#catalog-screen [role="tab"], #mobile-filters-toggle, #cal-mobile-filters-toggle');
+      const catalogExpandables = document.querySelectorAll('#mobile-filters-toggle, #cal-mobile-filters-toggle');
       const setCatalogInteractive = (enabled) => {
         catalogExpandables.forEach((el) => {
           if (enabled) el.removeAttribute('aria-disabled');
@@ -5068,22 +5093,6 @@
           try { history.pushState({ view: 'home' }, '', location.pathname); } catch {}
         }
       };
-
-      tabs.forEach((t, idx) => {
-        t.addEventListener('click', () => {
-          if (catalogScreen.hidden) return;
-          if (t.id === 'tab-btn-courses') coursePinnedOnly = false;
-          openCatalog(t.id);
-        });
-        t.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            e.preventDefault();
-            const nextIdx = e.key === 'ArrowRight' ? (idx + 1) % tabs.length : (idx - 1 + tabs.length) % tabs.length;
-            tabs[nextIdx].focus();
-            openCatalog(tabs[nextIdx].id);
-          }
-        });
-      });
 
       headerNavLinks.forEach((link) => {
         link.addEventListener('click', (e) => {
@@ -5139,7 +5148,6 @@
         }
       });
 
-      catalogBackHomeBtn?.addEventListener('click', () => openHome());
       document.getElementById('brand-home-link').addEventListener('click', (e) => {
         e.preventDefault();
         openHome();
@@ -5197,7 +5205,7 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT') {
           e.preventDefault();
-          const activeTab = (!catalogScreen.hidden && [...tabs].find((t) => t.getAttribute('aria-selected') === 'true')?.id) || 'tab-btn-files';
+          const activeTab = (!catalogScreen.hidden && activeCatalogTab) || 'tab-btn-files';
           if (activeTab === 'tab-btn-calendar' && !catalogScreen.hidden && calSearch) {
             calSearch.focus();
           } else if (activeTab === 'tab-btn-courses' && !catalogScreen.hidden) {
@@ -5229,12 +5237,24 @@
         '.txt': SVG_ICONS.fileText,
         '.c': SVG_ICONS.code,
         '.h': SVG_ICONS.code,
+        '.cpp': SVG_ICONS.code,
+        '.hpp': SVG_ICONS.code,
+        '.cc': SVG_ICONS.code,
         '.java': SVG_ICONS.code,
         '.py': SVG_ICONS.code,
         '.sh': SVG_ICONS.code,
         '.ps1': SVG_ICONS.code,
         '.mdj': SVG_ICONS.code,
-        '.tex': SVG_ICONS.code
+        '.tex': SVG_ICONS.code,
+        '.lisp': SVG_ICONS.code,
+        '.lsp': SVG_ICONS.code,
+        '.cl': SVG_ICONS.code,
+        '.pro': SVG_ICONS.code,
+        '.pl': SVG_ICONS.code,
+        '.asm': SVG_ICONS.code,
+        '.s': SVG_ICONS.code,
+        '.xml': SVG_ICONS.code,
+        '.csv': SVG_ICONS.code
       };
 
       const CAT_LABELS = {
@@ -5265,10 +5285,25 @@
       const previewBody = document.getElementById('preview-modal-body');
       let currentPreviewList = [];
       let currentPreviewIdx = -1;
+      let previewAbortCtrl = null;
+      let previewPdfTimer = null;
+
+      const cancelPendingPreviewWork = () => {
+        if (previewAbortCtrl) {
+          try { previewAbortCtrl.abort(); } catch {}
+          previewAbortCtrl = null;
+        }
+        if (previewPdfTimer) {
+          clearTimeout(previewPdfTimer);
+          previewPdfTimer = null;
+        }
+      };
+      previewModal?.addEventListener('close', cancelPendingPreviewWork);
 
       const isPreviewable = (f) => IMAGE_EXTS.has(f.ext) || TEXT_EXTS.has(f.ext) || f.ext === '.pdf';
 
       const openFilePreview = async (f) => {
+        cancelPendingPreviewWork();
         const rawHref = `${RAW_BASE}/${f.urlPath}`;
         const mediaHref = `${MEDIA_BASE}/${f.urlPath}`;
         const dlHref = `${REPO_URL}/raw/master/${f.urlPath}`;
@@ -5346,12 +5381,34 @@
             </div>
           `;
           previewBody.innerHTML = `
-            <div class="preview-pdf-fallback">
-              <span>Visualizzatore PDF integrato. Su smartphone puoi aprire o scaricare direttamente il file originale.</span>
-              <a class="btn" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.externalLink} Apri PDF</a>
+            <div class="preview-pdf-fallback" id="preview-pdf-banner">
+              <span id="preview-pdf-status">Visualizzatore PDF integrato. Su smartphone puoi aprire o scaricare direttamente il file originale.</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="btn btn-primary" href="${dlHref}" target="_blank" rel="noopener">${SVG_ICONS.externalLink} Apri PDF diretto</a>
+                <a class="btn" href="${ghHref}" target="_blank" rel="noopener">Vedi su GitHub</a>
+              </div>
             </div>
-            <iframe class="preview-pdf" src="${gviewUrl}" title="Anteprima ${escapeHtml(f.name)}" loading="lazy"></iframe>
+            <iframe class="preview-pdf" id="preview-pdf-iframe" src="${gviewUrl}" title="Anteprima ${escapeHtml(f.name)}" loading="lazy"></iframe>
           `;
+          const pdfFrame = document.getElementById('preview-pdf-iframe');
+          const pdfBanner = document.getElementById('preview-pdf-banner');
+          const pdfStatus = document.getElementById('preview-pdf-status');
+          let pdfLoaded = false;
+          if (pdfFrame) {
+            pdfFrame.addEventListener('load', () => {
+              pdfLoaded = true;
+              if (previewPdfTimer) {
+                clearTimeout(previewPdfTimer);
+                previewPdfTimer = null;
+              }
+            });
+          }
+          previewPdfTimer = setTimeout(() => {
+            if (!pdfLoaded && pdfBanner && pdfStatus) {
+              pdfBanner.classList.add('is-warn');
+              pdfStatus.textContent = 'Il visualizzatore PDF esterno sta impiegando più tempo del previsto. Apri il PDF diretto o visualizzalo su GitHub.';
+            }
+          }, 6000);
           document.getElementById('preview-copy-link-btn').onclick = () => copyText(ghHref, 'Link al PDF copiato');
           bindNavButtons();
           openDialogWithHistory(previewModal);
@@ -5369,13 +5426,20 @@
         previewBody.innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;" aria-label="Caricamento anteprima"><div class="skeleton-card"></div><div class="skeleton-card" style="height:140px;"></div></div>';
         bindNavButtons();
         openDialogWithHistory(previewModal);
+        const ctrl = new AbortController();
+        previewAbortCtrl = ctrl;
         try {
-          const resp = await fetch(rawHref);
+          const resp = await fetch(rawHref, { signal: ctrl.signal });
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
           const text = await resp.text();
+          if (previewAbortCtrl !== ctrl) return;
           previewBody.innerHTML = `<pre class="preview-code">${escapeHtml(text)}</pre>`;
           document.getElementById('preview-copy-code-btn').onclick = () => copyText(text, 'Contenuto copiato negli appunti');
-        } catch {
-          previewBody.innerHTML = '<div class="preview-code">Impossibile caricare l\'anteprima diretta. Usa il pulsante "Apri su GitHub".</div>';
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+          previewBody.innerHTML = '<div class="preview-code">Impossibile caricare l\'anteprima diretta. Usa il pulsante "Apri su GitHub" o "Scarica".</div>';
+        } finally {
+          if (previewAbortCtrl === ctrl) previewAbortCtrl = null;
         }
       };
 
@@ -5445,7 +5509,7 @@
                 <path d="M63 61l8 8" stroke="var(--accent-vivid)" stroke-width="3.5" stroke-linecap="round"/>
                 <path d="M48 51h10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
               </svg>
-              <h4>Nessun documento trovato con questi filtri</h4>
+              <h2>Nessun documento trovato con questi filtri</h2>
               <p>Prova a rimuovere qualche filtro, cercare con una sigla diversa (es. ASD, ADE, BD) oppure richiedi o invia il materiale mancante alla community.</p>
               <div class="empty-state-actions">
                 <button type="button" class="btn btn-primary" id="empty-reset-btn">Azzera tutti i filtri</button>
@@ -6055,7 +6119,7 @@
           addGroup('Navigazione rapida');
           addItem(`${SVG_ICONS.search} Esplora catalogo completo (${DATA.files.length} file)`, 'Catalogo', () => openCatalog('tab-btn-files'));
           addItem(`${SVG_ICONS.calendar} Calendario appelli d'esame DIETI`, 'Calendario', () => openCatalog('tab-btn-calendar'));
-          addItem(`${SVG_ICONS.book} Insegnamenti, propedeuticità e codici Teams`, '31 corsi', () => openCatalog('tab-btn-courses'));
+          addItem(`${SVG_ICONS.book} Insegnamenti, propedeuticità e codici Teams`, `${DATA.courses.length} corsi`, () => openCatalog('tab-btn-courses'));
           addItem(`${SVG_ICONS.map} Mappe Monte Sant'Angelo, Via Claudio e Clone Git`, 'Mappe e Git', () => openCatalog('tab-btn-hub'));
           addItem(`${SVG_ICONS.star} Cambia tema Chiaro / Scuro`, 'Aspetto', () => applyThemeSwitch(), false);
         } else {
@@ -6141,17 +6205,63 @@
         }
       });
 
-      // Hydrate exact file counts per year in Home Section 2 Bento
+      // Hydrate exact course & file counts and dynamic course pills in Home Section 2 Bento
+      const HOME_SHORT_LABELS = {
+        'Architettura degli Elaboratori': 'ADE',
+        'Analisi Matematica 1': 'Analisi 1',
+        'Programmazione Object Oriented': 'POO',
+        'Analisi e Progettazione di Strutture Dati': 'APSD',
+        'Elementi di Informatica Teorica': 'Informatica Teorica',
+        'Fisica Generale 1': 'Fisica 1',
+        'Analisi e Progettazione di Algoritmi': 'Algoritmi (APA)',
+        'Linguaggi di Programmazione 1': 'Linguaggi Prog. 1 (LP1)',
+        'Metodi Statistici per l\'Informazione': 'Metodi Statistici (MSI)',
+        'Reti e Programmazione Distribuita': 'Reti (RPD)',
+        'Tecniche di Programmazione Avanzata': 'TPA',
+        'Economia e Organizzazione Aziendale': 'Economia',
+        'Multimedia Information Systems': 'Multimedia',
+        'Operating Systems for Mobile, Cloud and IoT': 'OSMCI',
+        'Parallel and Distributed Computing': 'PDC',
+        'Logics for Computer Science': 'Logics (LCS)',
+        'Istituzioni di Matematica II': 'Ist. Matematica II'
+      };
       const yearFileCounts = new Map();
+      const yearCourseLists = new Map();
       DATA.files.forEach((f) => {
         yearFileCounts.set(f.yearGroup, (yearFileCounts.get(f.yearGroup) || 0) + 1);
       });
+      DATA.courses.forEach((c) => {
+        if (!yearCourseLists.has(c.yearGroup)) yearCourseLists.set(c.yearGroup, []);
+        yearCourseLists.get(c.yearGroup).push(c);
+      });
       document.querySelectorAll('[data-year-stat]').forEach((el) => {
         const yg = el.dataset.yearStat;
-        const cnt = yearFileCounts.get(yg) || 0;
-        const coursesCnt = el.dataset.yearCourses;
-        el.textContent = coursesCnt ? `${coursesCnt} corsi · ${cnt} file` : `${cnt} file`;
+        const fCnt = yearFileCounts.get(yg) || 0;
+        const cCnt = (yearCourseLists.get(yg) || []).length;
+        el.textContent = `${cCnt} corsi · ${fCnt} file`;
       });
+      // Populate dynamic counts in #course-year-filter
+      const courseYearFilterInit = document.getElementById('course-year-filter');
+      if (courseYearFilterInit) {
+        const baseLabels = {
+          '': 'Tutti i corsi',
+          'Primo Anno': 'Primo anno',
+          'Secondo Anno': 'Secondo anno',
+          'Terzo Anno': 'Terzo anno',
+          'Esami a Scelta': 'Esami a scelta'
+        };
+        [...courseYearFilterInit.options].forEach((opt) => {
+          const cnt = opt.value ? (yearCourseLists.get(opt.value) || []).length : DATA.courses.length;
+          const lbl = baseLabels[opt.value] || opt.textContent;
+          opt.textContent = `${lbl} (${cnt})`;
+        });
+      }
+      // Populate dynamic academic year spans where available from examCalendar
+      if (DATA.examCalendar && DATA.examCalendar.academicYear) {
+        document.querySelectorAll('[data-academic-year]').forEach((el) => {
+          el.textContent = DATA.examCalendar.academicYear;
+        });
+      }
 
       // Multi-OS Git Selective Clone Command Builder (Bash/macOS/Linux, PowerShell, CMD)
       let currentGitOs = 'bash';
@@ -6242,6 +6352,43 @@
         openDialogWithHistory(courseModal);
       };
 
+      // Populate dynamic Home Bento course pills (opens filtered files when >0, or course modal directly when 0 to avoid dead ends)
+      document.querySelectorAll('[data-year-pills]').forEach((container) => {
+        const yg = container.dataset.yearPills;
+        const list = (yearCourseLists.get(yg) || []).slice().sort((a, b) => {
+          if ((b.fileCount > 0) !== (a.fileCount > 0)) return b.fileCount > 0 ? 1 : -1;
+          return a.name.localeCompare(b.name, 'it');
+        });
+        container.innerHTML = '';
+        list.forEach((c) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `year-course-pill${c.fileCount === 0 ? ' is-empty' : ''}`;
+          const shortLbl = HOME_SHORT_LABELS[c.name] || c.name;
+          btn.innerHTML = c.fileCount > 0
+            ? `<span>${escapeHtml(shortLbl)}</span>`
+            : `<span>${escapeHtml(shortLbl)}</span><span class="year-pill-tag">scheda</span>`;
+          btn.title = c.fileCount > 0
+            ? `${c.name} (${c.fileCount} file)`
+            : `${c.name} — Apri scheda corso, Teams e appelli`;
+          btn.addEventListener('click', () => {
+            if (c.fileCount > 0) {
+              openCatalog('tab-btn-files');
+              filterYear.value = c.yearGroup;
+              updateCourseOptions();
+              filterCourse.value = c.name;
+              updateProfOptions();
+              filterProf.value = '';
+              activeSubpath = '';
+              applyFileFilters();
+            } else {
+              openCourseModal(c);
+            }
+          });
+          container.appendChild(btn);
+        });
+      });
+
       const coursePinnedChip = document.getElementById('course-pinned-chip');
       const renderCourses = () => {
         const q = normText(courseSearch.value.trim());
@@ -6260,12 +6407,12 @@
         if (list.length === 0) {
           coursesGrid.innerHTML = `
             <div class="empty-state-card" style="grid-column: 1 / -1;">
-              <h4>${coursePinnedOnly ? 'Nessun corso salvato nei Preferiti' : 'Nessun insegnamento trovato'}</h4>
+              <h2>${coursePinnedOnly ? 'Nessun corso salvato nei Preferiti' : 'Nessun insegnamento trovato'}</h2>
               <p>${coursePinnedOnly
                 ? 'Tocca la stellina su qualsiasi insegnamento per salvarlo nei tuoi Preferiti e ritrovarlo rapidamente qui e in Home.'
                 : 'Prova a cercare con una sigla diversa (es. ADE, APSD, APA, BD) o azzera il filtro per anno.'}</p>
               <div class="empty-state-actions">
-                <button type="button" class="btn btn-primary" id="courses-empty-reset">Mostra tutti i 31 corsi</button>
+                <button type="button" class="btn btn-primary" id="courses-empty-reset">Mostra tutti i ${DATA.courses.length} corsi</button>
               </div>
             </div>
           `;
@@ -6303,7 +6450,7 @@
           card.innerHTML = `
             <div>
               <div class="course-head">
-                <h3 class="course-title"><a href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a></h3>
+                <h2 class="course-title"><a href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a></h2>
                 <div class="course-head-right">
                   <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
                   <button type="button" class="pin-btn" aria-pressed="${isPinned ? 'true' : 'false'}" aria-label="${isPinned ? 'Rimuovi ' + escapeHtml(c.name) + ' dai corsi fissati' : 'Fissa ' + escapeHtml(c.name) + ' in Home'}" title="${isPinned ? 'Rimuovi dai corsi fissati in Home' : 'Fissa questo corso in Home'}">
@@ -6400,7 +6547,9 @@
       const syncMapZoom = (zoomed) => {
         if (!mapModalImg) return;
         mapModalImg.classList.toggle('is-zoomed', zoomed);
-        if (mapZoomToggle) mapZoomToggle.textContent = zoomed ? 'Adatta 1x' : 'Zoom 1.8x';
+        const lbl = mapZoomToggle?.querySelector('.btn-label');
+        if (lbl) lbl.textContent = zoomed ? 'Adatta 1x' : 'Zoom 1.8x';
+        else if (mapZoomToggle) mapZoomToggle.textContent = zoomed ? 'Adatta 1x' : 'Zoom 1.8x';
       };
       mapZoomToggle?.addEventListener('click', () => syncMapZoom(!mapModalImg.classList.contains('is-zoomed')));
       mapModalImg?.addEventListener('click', () => syncMapZoom(!mapModalImg.classList.contains('is-zoomed')));
@@ -6508,14 +6657,22 @@
       const calSheetHandle = document.getElementById('cal-sheet-handle');
       const setCalSheetOpen = (open) => {
         if (!calFiltersGridBox || !calMobileFiltersToggle) return;
+        const isModalSheet = window.innerWidth <= 768;
         calFiltersGridBox.style.transform = '';
         calFiltersGridBox.classList.toggle('is-open', open);
         calSheetBackdrop?.classList.toggle('is-open', open);
         calMobileFiltersToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        if (!open && document.activeElement && calFiltersGridBox.contains(document.activeElement)) {
+        setBackgroundInert(calFiltersGridBox, calSheetBackdrop, open && isModalSheet);
+        if (open) {
+          calYearFilter?.focus({ preventScroll: true });
+        } else if (document.activeElement && calFiltersGridBox.contains(document.activeElement)) {
           calMobileFiltersToggle.focus({ preventScroll: true });
         }
       };
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 1023 && catalogFiltersSheet?.classList.contains('is-open')) setCatalogSheetOpen(false);
+        if (window.innerWidth > 768 && calFiltersGridBox?.classList.contains('is-open')) setCalSheetOpen(false);
+      });
 
       if (calMobileFiltersToggle && calFiltersGridBox) {
         calMobileFiltersToggle.addEventListener('click', () => {
@@ -6728,7 +6885,7 @@
           const pastAvailable = calUpcomingOnly && entries.some((e) => matchesEntryMeta(e) && filterDatesForEntry(e, false).length > 0);
           calResultsEl.innerHTML = `
             <div class="empty-state-card">
-              <h4>Nessun appello trovato con i filtri attuali</h4>
+              <h2>Nessun appello trovato con i filtri attuali</h2>
               <p>${pastAvailable
                 ? 'Tutti gli appelli di questa ricerca si sono già svolti prima di oggi. Puoi includere anche gli appelli passati della sessione.'
                 : 'Prova a cercare con un\'altra sigla (es. ADE, APSD, BD), a cambiare regolamento (Nuovo/Vecchio) o ad azzerare i filtri.'
@@ -6859,7 +7016,7 @@
           card.innerHTML = `
             <div>
               <div class="calendar-card-head">
-                <h3 class="calendar-card-title">${escapeHtml(e.course)}</h3>
+                <h2 class="calendar-card-title">${escapeHtml(e.course)}</h2>
                 ${e.channel ? `<span class="channel-badge">${escapeHtml(e.channel)}</span>` : ''}
               </div>
               <div class="course-meta-row">
