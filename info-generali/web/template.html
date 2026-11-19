@@ -430,7 +430,8 @@
     }
     .nav__link.is-current,
     .nav__link[aria-current="page"] {
-      color: var(--text);
+      color: var(--primary-text);
+      background: var(--primary-soft);
       font-weight: 600;
     }
 
@@ -441,12 +442,42 @@
       flex-wrap: nowrap;
       flex-shrink: 0;
     }
+    .nav__search-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 40px;
+      padding: 0 12px;
+      border-radius: var(--r-btn);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+      font-family: var(--font-text);
+      font-size: 0.84375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    }
+    .nav__search-btn:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-3);
+      color: var(--text);
+    }
+    .nav__search-kbd {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: var(--r-xs);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+    }
     .nav__icon-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       padding: 0;
       border-radius: var(--r-btn);
       border: 1px solid var(--border);
@@ -454,11 +485,19 @@
       color: var(--text);
       cursor: pointer;
       flex-shrink: 0;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
+      transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
     }
     .nav__icon-btn:hover {
       border-color: var(--border-strong);
       background: var(--surface-3);
+    }
+    .nav__icon-btn.is-active {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+    }
+    #open-hub-header-btn {
+      display: none;
     }
 
     /* Sistema bottoni unificato (2 soli stili: primario e secondario, altezza uniforme 48px) */
@@ -533,9 +572,22 @@
     }
     @media (max-width: 1023px) {
       .nav__links,
-      .topbar .nav__cta,
-      #header-back-home-btn {
+      .nav__search-label,
+      .nav__search-kbd,
+      .console-kbd-btn,
+      .kbd-hint {
         display: none !important;
+      }
+      #open-hub-header-btn {
+        display: inline-flex;
+      }
+      .nav__search-btn,
+      .nav__icon-btn {
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        justify-content: center;
+        color: var(--text);
       }
       body {
         padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
@@ -615,30 +667,22 @@
     }
 
     /* ==========================================
-       HOME SECTIONS, HERO & BENTO GRID
+       HOME SECTIONS, HERO & BENTO GRID (NATURAL FLOW)
        ========================================== */
-    .home-section,
-    footer.closing {
+    .home-section {
       position: relative;
       width: 100%;
-      height: calc(var(--h, 1) * 100svh);
-      min-height: calc(var(--h, 1) * 100svh);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: calc(var(--nav) + 28px);
-      padding-bottom: calc(var(--padb, 72px) + var(--bar-h, 0px));
-      overflow: clip;
+      padding: 48px 0;
+    }
+    .home-section + .home-section {
+      border-top: 1px solid var(--border);
     }
     .hero.home-section {
-      padding-bottom: calc(32px + var(--bar-h, 0px));
-      --ink: var(--text);
-      --mo-light: light-dark(rgba(2, 132, 199, 0.14), rgba(56, 189, 248, 0.16));
+      padding-top: calc(var(--nav) + 52px);
+      padding-bottom: 56px;
       background-image:
-        radial-gradient(640px 360px at 80% 24%, light-dark(rgba(2, 132, 199, 0.09), rgba(56, 189, 248, 0.14)), transparent 70%),
-        linear-gradient(to right, light-dark(rgba(15, 76, 129, 0.035), rgba(148, 163, 184, 0.045)) 1px, transparent 1px),
-        linear-gradient(to bottom, light-dark(rgba(15, 76, 129, 0.035), rgba(148, 163, 184, 0.045)) 1px, transparent 1px);
-      background-size: 100% 100%, 64px 64px, 64px 64px;
+        radial-gradient(900px 460px at 78% 18%, light-dark(rgba(2, 132, 199, 0.10), rgba(56, 189, 248, 0.13)), transparent 70%),
+        radial-gradient(600px 360px at 14% 68%, light-dark(rgba(15, 76, 129, 0.06), rgba(37, 99, 235, 0.10)), transparent 72%);
     }
     .home-section > .wrap,
     footer.closing > .wrap {
@@ -646,27 +690,46 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       gap: 24px;
     }
-    .bento-section > .wrap,
-    .updates-section > .wrap {
-      justify-content: center;
-      gap: 24px;
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
     }
-    .hero-canvas-wrap {
-      position: relative;
-      border-radius: var(--r-md);
+    .hero-stat-pill {
+      background: var(--surface);
       border: 1px solid var(--border);
-      background: var(--surface-2);
-      overflow: hidden;
-      height: 84px;
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      font-family: var(--font-text);
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.15s ease, transform 0.12s ease, background-color 0.15s ease;
     }
-    .hero-canvas {
-      display: block;
-      width: 100%;
-      height: 84px;
-      pointer-events: none;
+    .hero-stat-pill:hover {
+      border-color: var(--primary);
+      background: var(--surface-2);
+      transform: translateY(-1px);
+    }
+    .hero-stat-val {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-text);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.15;
+    }
+    .hero-stat-lbl {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
     }
 
     .grid {
@@ -675,6 +738,9 @@
       gap: var(--gap);
       align-items: start;
       width: 100%;
+    }
+    .hero-text.grid {
+      align-items: center;
     }
     .span-5 { grid-column: span 5; }
     .span-6 { grid-column: span 6; }
@@ -975,9 +1041,7 @@
     .year-card__ui {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 10px;
-      min-height: 92px;
+      gap: 8px;
       padding: 12px;
       border-radius: var(--r-md);
       background: var(--surface-2);
@@ -989,39 +1053,34 @@
       gap: 6px;
     }
     .year-course-pill {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-text);
       font-size: 0.78125rem;
       font-weight: 500;
-      color: var(--muted);
+      color: var(--text);
       background: var(--surface);
       border: 1px solid var(--border);
-      padding: 2px 8px;
-      border-radius: var(--r-xs);
+      padding: 4px 10px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
     }
-    .year-progress-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
-    .year-progress-track {
-      flex: 1;
-      height: 6px;
-      border-radius: var(--r-pill);
-      background: var(--surface-3);
-      overflow: hidden;
-    }
-    .year-progress-fill {
-      display: block;
-      height: 100%;
-      border-radius: var(--r-pill);
-      background: linear-gradient(90deg, var(--primary), var(--accent-vivid));
+    .year-course-pill:hover {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-text);
     }
     .year-card-actions {
       display: flex;
       gap: 10px;
       flex-wrap: nowrap;
+    }
+    .year-card-actions .btn {
+      flex: 1;
+      height: 44px;
+      min-height: 44px;
+      font-size: 0.875rem;
     }
 
     /* Section 3: Asymmetric Updates & Pinned Bento */
@@ -1090,8 +1149,8 @@
         min-height: 0;
         gap: 6px;
       }
-      .bento-panel-foot {
-        display: none;
+      .bento-panel-foot .btn {
+        width: 100%;
       }
     }
     .recent-card:hover,
@@ -1126,10 +1185,12 @@
       margin: 0;
       font-weight: 600;
       font-size: 0.875rem;
+      line-height: 1.35;
       color: var(--text);
-      white-space: nowrap;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
     .recent-sub,
     .pinned-meta {
@@ -1140,8 +1201,11 @@
       text-overflow: ellipsis;
     }
 
-    /* Closing Footer Section (footer.closing) */
+    /* Closing Footer Section (Compact & Grounded) */
     footer.closing {
+      position: relative;
+      width: 100%;
+      padding: 48px 0 36px;
       background: var(--surface);
       border-top: 1px solid var(--border);
       text-align: left;
@@ -1263,25 +1327,34 @@
        FULL PORTAL VIEW (#catalog-screen)
        ========================================== */
     .catalog-view {
-      padding-top: calc(var(--nav) + 24px);
+      padding-top: calc(var(--nav) + 20px);
       padding-bottom: calc(var(--bottom-nav-h) + 48px);
       min-height: 100dvh;
     }
+    /* Tablist semantico nascosto visivamente (navigazione unificata in header desktop e bottom-bar mobile) */
     .catalog-top-bar {
-      position: sticky;
-      top: calc(var(--nav) + 8px);
-      z-index: 30;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: var(--sp-2);
-      margin-bottom: var(--sp-2);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--sp-2);
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+      border: 0;
+    }
+    .modal-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .modal-actions-grid .btn {
+      width: 100%;
+      height: 44px;
+      min-height: 44px;
+      padding: 0 12px;
+      font-size: 0.84375rem;
     }
     .nav-tabs {
       display: flex;
@@ -1327,7 +1400,7 @@
     }
     .catalog-sidebar {
       position: sticky;
-      top: calc(var(--nav) + 84px);
+      top: calc(var(--nav) + 16px);
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
@@ -1670,7 +1743,7 @@
     }
     .folder-group-header {
       position: sticky;
-      top: calc(var(--nav) + 74px);
+      top: calc(var(--nav) + 10px);
       z-index: 15;
       background: var(--surface-glass);
       backdrop-filter: blur(10px);
@@ -2657,7 +2730,7 @@
     }
     .timeline-month-title {
       position: sticky;
-      top: calc(var(--nav) + 74px);
+      top: calc(var(--nav) + 10px);
       z-index: 14;
       background: var(--surface-glass);
       backdrop-filter: blur(10px);
@@ -2977,39 +3050,6 @@
         min-width: 0;
       }
 
-      /* Compact 1-Row Horizontal Tab Strip on Mobile */
-      .catalog-top-bar {
-        position: static;
-        padding: 6px;
-        margin-bottom: 10px;
-        gap: 6px;
-        border-radius: var(--r-md);
-      }
-      .nav-tabs {
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        gap: 6px;
-      }
-      .nav-tabs::-webkit-scrollbar {
-        display: none;
-      }
-      .tab-btn {
-        flex: 0 0 auto;
-        justify-content: center;
-        white-space: nowrap;
-        padding: 6px 12px;
-        font-size: 0.8125rem;
-        min-height: 40px;
-        gap: 6px;
-      }
-      #catalog-back-home-btn {
-        display: none;
-      }
-
       /* Filters (collapsible 2x2 grid on mobile) & Quick Chips Grid */
       .filter-card {
         padding: 12px;
@@ -3141,13 +3181,24 @@
         max-width: 100%;
       }
       .calendar-source-banner {
-        padding: 12px;
+        padding: 10px 12px;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .calendar-source-title {
+        font-size: 0.875rem;
+      }
+      .calendar-source-sub {
+        font-size: 0.75rem;
       }
       .calendar-source-actions {
         width: 100%;
       }
       .calendar-source-actions .btn {
         flex: 1 1 0%;
+        height: 38px;
+        min-height: 38px;
+        font-size: 0.8125rem;
         justify-content: center;
       }
       .cal-view-switch {
@@ -3287,7 +3338,7 @@
 
       /* Folder Group Header Mobile */
       .folder-group-header {
-        top: calc(var(--nav) + 56px);
+        top: calc(var(--nav) + 8px);
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
@@ -3365,96 +3416,101 @@
       }
     }
 
-    @media (max-width: 639px) {
-      .home-section,
-      footer.closing {
-        padding-top: calc(var(--nav) + 12px);
-        padding-bottom: calc(var(--padb, 48px) + var(--bar-h, 0px));
-      }
-      .hero.home-section {
-        padding-bottom: calc(26px + var(--bar-h, 0px));
-      }
-      .home-section > .wrap,
-      footer.closing > .wrap {
-        gap: 12px;
-      }
+    @media (max-width: 1023px) {
       .hero-text.grid > .span-6,
-      .home-years-grid.grid > .span-6,
       .bento-updates-grid.grid > .span-6,
       .closing__call.grid > .span-6 {
         grid-column: 1 / -1;
       }
+      .hero.home-section {
+        padding-top: calc(var(--nav) + 28px);
+        padding-bottom: 36px;
+      }
+      .home-section {
+        padding: 36px 0;
+      }
+      footer.closing {
+        padding: 36px 0 calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px) + 28px);
+      }
+    }
+
+    @media (max-width: 639px) {
+      .hero.home-section {
+        padding-top: calc(var(--nav) + 20px);
+        padding-bottom: 28px;
+      }
+      .home-section {
+        padding: 28px 0;
+      }
+      .home-section > .wrap,
+      footer.closing > .wrap {
+        gap: 16px;
+      }
+      .home-years-grid.grid > .span-6 {
+        grid-column: 1 / -1;
+      }
       .kicker {
-        margin-bottom: 4px;
+        margin-bottom: 6px;
         font-size: 0.6875rem;
       }
       .hero h1 {
         font-size: 1.75rem;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
       .home-section h2,
       footer.closing h2 {
-        font-size: 1.4375rem;
+        font-size: 1.375rem;
       }
       .lead {
-        font-size: 0.875rem;
-        line-height: 1.4;
-        margin-bottom: 10px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+      .hero-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .hero-stat-pill {
+        padding: 10px 12px;
+      }
+      .hero-stat-val {
+        font-size: 1.125rem;
       }
       .hero-console {
-        padding: 12px;
-        gap: 8px;
+        padding: 14px;
+        gap: 12px;
       }
       .console-topbar {
-        padding-bottom: 6px;
-      }
-      .quick-acronym-chip:nth-child(n+6) {
-        display: none;
+        padding-bottom: 8px;
       }
       .console-nav-card {
-        min-height: 44px;
+        min-height: 46px;
         padding: 8px 10px;
-        font-size: 0.78125rem;
+        font-size: 0.8125rem;
       }
       .home-years-grid {
-        gap: 6px;
+        gap: 12px;
       }
       .year-card {
-        padding: 8px 10px;
-        gap: 5px;
+        padding: 14px;
+        gap: 10px;
         min-width: 0;
-        overflow: hidden;
-      }
-      .year-card-head {
-        flex-wrap: nowrap;
-        gap: 6px;
       }
       .year-card h3 {
-        font-size: 0.9375rem;
+        font-size: 1rem;
         gap: 6px;
       }
       .year-card h3 .icon-lg {
-        width: 16px;
-        height: 16px;
-      }
-      .year-count {
-        font-size: 0.72rem;
-        padding: 1px 8px;
+        width: 18px;
+        height: 18px;
       }
       .year-card__ui {
-        padding: 5px 8px;
-        gap: 4px;
-        min-height: 0;
+        padding: 10px;
       }
       .year-course-pill {
-        font-size: 0.72rem;
-        padding: 1px 6px;
-      }
-      .year-course-pill:nth-child(n+5) {
-        display: none;
-      }
-      .year-progress-row {
-        display: none;
+        font-size: 0.78125rem;
+        padding: 5px 10px;
       }
       .year-card-actions {
         display: grid;
@@ -3467,84 +3523,41 @@
         min-height: 44px;
         min-width: 0;
         padding: 0 8px;
-        font-size: 0.8125rem;
+        font-size: 0.84375rem;
       }
       .bento-panel {
-        padding: 12px;
-        gap: 10px;
+        padding: 14px;
+        gap: 12px;
       }
       .bento-panel h3 {
-        font-size: 0.9375rem;
+        font-size: 1rem;
       }
       .recent-grid,
       .home-pinned-grid {
         grid-template-columns: 1fr;
         gap: 8px;
       }
-      .recent-card:nth-child(n+3),
-      .pinned-card:nth-child(n+3) {
-        display: none;
-      }
-      .home-shortcuts-grid {
-        padding: 10px;
-        gap: 8px;
-      }
-      .shortcut-card {
-        padding: 8px 10px;
-        min-height: 44px;
-        font-size: 0.78125rem;
-      }
-      .closing__legal {
-        padding-top: 10px;
-        font-size: 0.75rem;
-        gap: 6px;
-      }
-    }
-
-    @media (max-width: 900px) and (min-height: 920px) {
-      .hero-text.grid > .span-6,
-      .bento-updates-grid.grid > .span-6,
-      .closing__call.grid > .span-6 {
-        grid-column: 1 / -1;
-      }
-      .home-section > .wrap,
-      footer.closing > .wrap {
-        gap: 20px;
-      }
-      .year-card {
-        padding: 20px;
-        gap: 14px;
-      }
-      .year-card__ui {
-        min-height: 100px;
-      }
-      .bento-panel {
-        padding: 16px;
-        gap: 12px;
-      }
       .recent-card:nth-child(n+5),
       .pinned-card:nth-child(n+5) {
         display: none;
       }
       .home-shortcuts-grid {
-        padding: 18px;
-        gap: 12px;
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 8px;
       }
       .shortcut-card {
-        min-height: 58px;
-        padding: 12px 14px;
+        padding: 10px 12px;
+        min-height: 48px;
+        font-size: 0.84375rem;
       }
-    }
-
-    @media (max-height: 750px) {
-      .home-section,
-      footer.closing {
-        height: auto;
-        min-height: 100svh;
+      .closing__legal {
+        padding-top: 14px;
+        font-size: 0.78125rem;
+        gap: 8px;
       }
-      .bento-section > .wrap,
-      .updates-section > .wrap {
-        max-height: none;
+      .modal-actions-grid {
+        grid-template-columns: 1fr 1fr;
       }
     }
   </style>
@@ -3573,24 +3586,25 @@
       </a>
 
       <nav class="nav__links" aria-label="Navigazione principale">
-        <a href="#home-screen" class="nav__link is-current" data-header-nav="home" aria-current="page">Archivio</a>
+        <a href="#home-screen" class="nav__link is-current" data-header-nav="home" aria-current="page">Home</a>
         <a href="#panel-files" class="nav__link" data-header-nav="tab-btn-files">Catalogo</a>
         <a href="#panel-courses" class="nav__link" data-header-nav="tab-btn-courses">Corsi</a>
         <a href="#panel-calendar" class="nav__link" data-header-nav="tab-btn-calendar">Calendario</a>
+        <a href="#panel-hub" class="nav__link" data-header-nav="tab-btn-hub">Mappe e Git</a>
       </nav>
 
       <div class="header-actions nav__actions">
-        <button type="button" class="btn" id="header-back-home-btn" hidden>
-          <svg class="icon" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          Home
+        <button type="button" class="nav__icon-btn" id="open-hub-header-btn" aria-label="Mappe campus e clone selettivo Git" title="Mappe e clone Git">
+          <svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
         </button>
-        <button type="button" class="nav__icon-btn" id="open-cmd-palette-btn" aria-label="Ricerca rapida e palette comandi (Ctrl+K)" title="Ricerca rapida (Ctrl+K)">
+        <button type="button" class="nav__search-btn" id="open-cmd-palette-btn" aria-label="Ricerca rapida e palette comandi (Ctrl+K)" title="Ricerca rapida (Ctrl+K)">
           <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="nav__search-label">Cerca…</span>
+          <span class="nav__search-kbd" aria-hidden="true">Ctrl+K</span>
         </button>
         <button type="button" class="nav__icon-btn" id="theme-toggle" aria-label="Cambia tema chiaro o scuro" title="Cambia tema chiaro o scuro">
           <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
         </button>
-        <a href="#panel-files" class="btn btn-primary nav__cta" id="header-open-catalog-btn">Esplora il catalogo</a>
       </div>
     </div>
   </header>
@@ -3601,20 +3615,35 @@
          ========================================== -->
     <section id="home-screen" class="hero home-section" data-home-section data-enter aria-label="Presentazione archivio">
       <div class="wrap">
-        <div class="hero-text grid" data-moment="cursor-spotlight" data-moment-opts='{"rest":[0.74,0.34],"radius":420}'>
+        <div class="hero-text grid">
           <div class="hero-copy span-6">
             <p class="kicker" data-enter>CORSO DI LAUREA TRIENNALE IN INFORMATICA · FEDERICO II</p>
             <h1 data-enter>Archivio didattico ed esami di Informatica Federico II.</h1>
             <p class="lead" data-enter>
-              Consulta <strong id="home-stat-files">__STAT_FILES__</strong> documenti verificati,
-              <strong id="home-stat-courses">__STAT_COURSES__</strong> insegnamenti,
-              <strong id="home-stat-teams">__STAT_TEAMS__</strong> codici Teams e
-              <strong id="home-stat-exams">__STAT_EXAMS__</strong> appelli ufficiali DIETI
-              (<strong id="home-stat-size">__STAT_SIZE__</strong> totali, aggiornato il <strong id="home-stat-updated">__STAT_UPDATED__</strong>).
+              Slide, appunti, tracce scritte, codici Microsoft Teams e calendario ufficiale degli appelli DIETI in un unico portale open-source
+              (<strong id="home-stat-size">__STAT_SIZE__</strong> indicizzati, aggiornato il <strong id="home-stat-updated">__STAT_UPDATED__</strong>).
             </p>
             <div class="btn-row" data-enter>
               <button type="button" class="btn btn-primary" id="home-open-catalog-btn">Esplora il catalogo</button>
               <button type="button" class="btn btn--secondary" id="home-open-calendar-btn">Calendario esami</button>
+            </div>
+            <div class="hero-stats-grid" aria-label="Statistiche archivio">
+              <button type="button" class="hero-stat-pill" data-stat-jump="tab-btn-files">
+                <span class="hero-stat-val" id="home-stat-files">__STAT_FILES__</span>
+                <span class="hero-stat-lbl">Documenti</span>
+              </button>
+              <button type="button" class="hero-stat-pill" data-stat-jump="tab-btn-courses">
+                <span class="hero-stat-val" id="home-stat-courses">__STAT_COURSES__</span>
+                <span class="hero-stat-lbl">Insegnamenti</span>
+              </button>
+              <button type="button" class="hero-stat-pill" data-stat-jump="tab-btn-courses">
+                <span class="hero-stat-val" id="home-stat-teams">__STAT_TEAMS__</span>
+                <span class="hero-stat-lbl">Codici Teams</span>
+              </button>
+              <button type="button" class="hero-stat-pill" data-stat-jump="tab-btn-calendar">
+                <span class="hero-stat-val" id="home-stat-exams">__STAT_EXAMS__</span>
+                <span class="hero-stat-lbl">Appelli DIETI</span>
+              </button>
             </div>
           </div>
 
@@ -3622,16 +3651,12 @@
             <div class="console-topbar">
               <span class="console-status">
                 <span class="status-dot" aria-hidden="true"></span>
-                <span>Motore di ricerca istantaneo • Indice locale</span>
+                <span>Ricerca istantanea locale</span>
               </span>
               <button type="button" class="console-kbd-btn" data-open-cmd title="Apri palette comandi (Ctrl+K)">
                 <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <span>Ctrl+K</span>
               </button>
-            </div>
-
-            <div class="hero-canvas-wrap" aria-hidden="true">
-              <canvas id="hero-canvas" class="hero-canvas" width="520" height="84"></canvas>
             </div>
 
             <div class="home-search-bar" id="home-search-form" role="search">
@@ -3694,20 +3719,16 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Primo anno
               </h3>
-              <span class="year-count">6 corsi</span>
+              <span class="year-count" data-year-stat="Primo Anno" data-year-courses="6">6 corsi</span>
             </div>
             <div class="year-card__ui" data-ui="year-1-pills">
               <div class="year-pills-wrap">
-                <span class="year-course-pill">ADE</span>
-                <span class="year-course-pill">Analisi 1</span>
-                <span class="year-course-pill">Programmazione 1</span>
-                <span class="year-course-pill">Algebra</span>
-                <span class="year-course-pill">POO</span>
-                <span class="year-course-pill">Basi di Dati</span>
-              </div>
-              <div class="year-progress-row">
-                <span class="year-progress-track"><span class="year-progress-fill" style="width:92%"></span></span>
-                <span data-year-stat="Primo Anno">Archivio completo</span>
+                <button type="button" class="year-course-pill" data-home-quick-q="ADE">ADE</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Analisi Matematica 1">Analisi 1</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Programmazione 1">Programmazione 1</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Algebra">Algebra</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="POO">POO</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Basi di Dati">Basi di Dati</button>
               </div>
             </div>
             <div class="year-card-actions">
@@ -3722,20 +3743,16 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Secondo anno
               </h3>
-              <span class="year-count">8 corsi</span>
+              <span class="year-count" data-year-stat="Secondo Anno" data-year-courses="8">8 corsi</span>
             </div>
             <div class="year-card__ui" data-ui="year-2-pills">
               <div class="year-pills-wrap">
-                <span class="year-course-pill">APSD</span>
-                <span class="year-course-pill">Informatica Teorica</span>
-                <span class="year-course-pill">Fisica 1</span>
-                <span class="year-course-pill">Geometria</span>
-                <span class="year-course-pill">Sistemi Operativi</span>
-                <span class="year-course-pill">Algoritmi (APA)</span>
-              </div>
-              <div class="year-progress-row">
-                <span class="year-progress-track"><span class="year-progress-fill" style="width:88%"></span></span>
-                <span data-year-stat="Secondo Anno">Tracce e dispense</span>
+                <button type="button" class="year-course-pill" data-home-quick-q="APSD">APSD</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Informatica Teorica">Informatica Teorica</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Fisica Generale 1">Fisica 1</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Geometria">Geometria</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Sistemi Operativi">Sistemi Operativi</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="APA">Algoritmi (APA)</button>
               </div>
             </div>
             <div class="year-card-actions">
@@ -3750,19 +3767,15 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Terzo anno
               </h3>
-              <span class="year-count">5 corsi</span>
+              <span class="year-count" data-year-stat="Terzo Anno" data-year-courses="5">5 corsi</span>
             </div>
             <div class="year-card__ui" data-ui="year-3-pills">
               <div class="year-pills-wrap">
-                <span class="year-course-pill">Reti</span>
-                <span class="year-course-pill">Ingegneria del Software</span>
-                <span class="year-course-pill">Tecnologie Web</span>
-                <span class="year-course-pill">AI Technologies</span>
-                <span class="year-course-pill">TPA</span>
-              </div>
-              <div class="year-progress-row">
-                <span class="year-progress-track"><span class="year-progress-fill" style="width:84%"></span></span>
-                <span data-year-stat="Terzo Anno">Progetti ed esami</span>
+                <button type="button" class="year-course-pill" data-home-quick-q="Reti">Reti</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="INGSW">Ingegneria del Software</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="TECWEB">Tecnologie Web</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="AI Technologies">AI Technologies</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="TPA">TPA</button>
               </div>
             </div>
             <div class="year-card-actions">
@@ -3777,20 +3790,16 @@
                 <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
                 Esami a scelta
               </h3>
-              <span class="year-count">12 corsi</span>
+              <span class="year-count" data-year-stat="Esami a Scelta" data-year-courses="12">12 corsi</span>
             </div>
             <div class="year-card__ui" data-ui="year-4-pills">
               <div class="year-pills-wrap">
-                <span class="year-course-pill">Economia</span>
-                <span class="year-course-pill">Multimedia</span>
-                <span class="year-course-pill">Algorithm Design</span>
-                <span class="year-course-pill">Ricerca Operativa</span>
-                <span class="year-course-pill">Calcolo Numerico</span>
-                <span class="year-course-pill">Forensics</span>
-              </div>
-              <div class="year-progress-row">
-                <span class="year-progress-track"><span class="year-progress-fill" style="width:74%"></span></span>
-                <span data-year-stat="Esami a Scelta">12 insegnamenti</span>
+                <button type="button" class="year-course-pill" data-home-quick-q="Economia">Economia</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Multimedia">Multimedia</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Algorithm Design">Algorithm Design</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Ricerca Operativa">Ricerca Operativa</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Calcolo Numerico">Calcolo Numerico</button>
+                <button type="button" class="year-course-pill" data-home-quick-q="Forensics">Forensics</button>
               </div>
             </div>
             <div class="year-card-actions">
@@ -4818,7 +4827,7 @@
       // View Switching: Standalone Home (#home-screen) <-> Full Catalog (#catalog-screen)
       const homeScreen = document.getElementById('home-screen');
       const catalogScreen = document.getElementById('catalog-screen');
-      const headerBackHomeBtn = document.getElementById('header-back-home-btn');
+      const openHubHeaderBtn = document.getElementById('open-hub-header-btn');
       const catalogBackHomeBtn = document.getElementById('catalog-back-home-btn');
       const tabs = document.querySelectorAll('#catalog-screen [role="tab"]');
       const panels = document.querySelectorAll('#catalog-screen [role="tabpanel"]');
@@ -4836,6 +4845,7 @@
           const isSel = b.dataset.bottomNav === key;
           b.setAttribute('aria-selected', isSel ? 'true' : 'false');
         });
+        openHubHeaderBtn?.classList.toggle('is-active', key === 'tab-btn-hub');
       };
 
       const activateCatalogTab = (tabId) => {
@@ -5013,14 +5023,11 @@
         });
       };
 
-      const headerOpenCatalogBtn = document.getElementById('header-open-catalog-btn');
       const openCatalog = (tabId = 'tab-btn-files', pushHistory = true) => {
         const applyOpen = () => {
           homeSections.forEach((sec) => { sec.hidden = true; });
           catalogScreen.hidden = false;
           setCatalogInteractive(true);
-          headerBackHomeBtn.hidden = true;
-          if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = true;
           activateCatalogTab(tabId);
           window.scrollTo({ top: 0, behavior: 'instant' });
         };
@@ -5038,8 +5045,6 @@
           catalogScreen.hidden = true;
           setCatalogInteractive(false);
           homeSections.forEach((sec) => { sec.hidden = false; });
-          headerBackHomeBtn.hidden = true;
-          if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = false;
           syncShellNav('home');
           window.scrollTo({ top: 0, behavior: 'instant' });
         };
@@ -5101,9 +5106,15 @@
         });
       });
 
-      document.getElementById('header-open-catalog-btn')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        openCatalog('tab-btn-files');
+      openHubHeaderBtn?.addEventListener('click', () => {
+        openCatalog('tab-btn-hub');
+      });
+      document.querySelectorAll('[data-stat-jump]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const tabId = btn.dataset.statJump;
+          if (tabId === 'tab-btn-courses') coursePinnedOnly = false;
+          openCatalog(tabId);
+        });
       });
       document.getElementById('open-cmd-palette-btn')?.addEventListener('click', () => {
         if (typeof openCommandPalette === 'function') {
@@ -5114,8 +5125,7 @@
         }
       });
 
-      headerBackHomeBtn.addEventListener('click', () => openHome());
-      catalogBackHomeBtn.addEventListener('click', () => openHome());
+      catalogBackHomeBtn?.addEventListener('click', () => openHome());
       document.getElementById('brand-home-link').addEventListener('click', (e) => {
         e.preventDefault();
         openHome();
@@ -5819,14 +5829,13 @@
           btn.className = 'recent-card';
           const catLbl = CAT_LABELS[u.cat] || u.cat;
           const shortDate = String(u.date || '').replace(/^(\d{2}\/\d{2})\/20(\d{2})$/, '$1/$2');
-          const trunc = (s, n) => (String(s || '').length > n ? String(s).slice(0, n - 1).trim() + '…' : String(s || ''));
           btn.innerHTML = `
             <div class="recent-top">
               <span class="cat-tag">${escapeHtml(catLbl)}</span>
               <span>${escapeHtml(shortDate)}</span>
             </div>
-            <div class="recent-title" title="${escapeHtml(u.label)}">${escapeHtml(trunc(u.label, 24))}</div>
-            <div class="recent-sub" title="${escapeHtml(u.course + ' • ' + u.prof)}">${escapeHtml(trunc(u.course, 24))}</div>
+            <div class="recent-title" title="${escapeHtml(u.label)}">${escapeHtml(u.label)}</div>
+            <div class="recent-sub" title="${escapeHtml(u.course + ' • ' + u.prof)}">${escapeHtml(u.course)}${u.prof ? ' • ' + escapeHtml(u.prof) : ''}</div>
           `;
           btn.addEventListener('click', () => {
             openCatalog('tab-btn-files');
@@ -6126,98 +6135,12 @@
       DATA.files.forEach((f) => {
         yearFileCounts.set(f.yearGroup, (yearFileCounts.get(f.yearGroup) || 0) + 1);
       });
-      const maxYearFiles = Math.max(1, ...yearFileCounts.values());
       document.querySelectorAll('[data-year-stat]').forEach((el) => {
         const yg = el.dataset.yearStat;
         const cnt = yearFileCounts.get(yg) || 0;
-        el.textContent = `${cnt} documenti`;
-        const fill = el.parentElement?.querySelector('.year-progress-fill');
-        if (fill) fill.style.width = `${Math.max(18, Math.round((cnt / maxYearFiles) * 100))}%`;
+        const coursesCnt = el.dataset.yearCourses;
+        el.textContent = coursesCnt ? `${coursesCnt} corsi · ${cnt} file` : `${cnt} file`;
       });
-
-      // Lightweight Hero 2D Canvas Academic Graph (renders crisp prerequisite network inside console, respects reduced-motion)
-      const heroCanvas = document.getElementById('hero-canvas');
-      const drawHeroConstellation = () => {
-        if (!heroCanvas || !heroCanvas.getContext) return;
-        const ctx2d = heroCanvas.getContext('2d');
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const w = heroCanvas.clientWidth || 480;
-        const h = heroCanvas.clientHeight || 84;
-        if (!w || !h) return;
-        heroCanvas.width = Math.round(w * dpr);
-        heroCanvas.height = Math.round(h * dpr);
-        ctx2d.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const isDark = document.documentElement.dataset.theme === 'dark';
-
-        // Rich subtle gradient backdrop
-        const bgGrad = ctx2d.createLinearGradient(0, 0, w, h);
-        bgGrad.addColorStop(0, isDark ? '#0e1726' : '#eaf2fb');
-        bgGrad.addColorStop(0.55, isDark ? '#122238' : '#e0eefb');
-        bgGrad.addColorStop(1, isDark ? '#0c1d33' : '#dbeafe');
-        ctx2d.fillStyle = bgGrad;
-        ctx2d.fillRect(0, 0, w, h);
-
-        // Fine coordinate grid
-        ctx2d.strokeStyle = isDark ? 'rgba(125, 211, 252, 0.10)' : 'rgba(15, 76, 129, 0.08)';
-        ctx2d.lineWidth = 1;
-        for (let x = 28; x < w; x += 28) {
-          ctx2d.beginPath();
-          ctx2d.moveTo(x, 0);
-          ctx2d.lineTo(x, h);
-          ctx2d.stroke();
-        }
-        for (let y = 28; y < h; y += 28) {
-          ctx2d.beginPath();
-          ctx2d.moveTo(0, y);
-          ctx2d.lineTo(w, y);
-          ctx2d.stroke();
-        }
-
-        // Academic curriculum prerequisite graph nodes
-        const nodes = [
-          { x: w * 0.12, y: h * 0.58, label: '1° Anno', r: 5 },
-          { x: w * 0.30, y: h * 0.34, label: 'APSD', r: 5 },
-          { x: w * 0.50, y: h * 0.64, label: 'APA', r: 5.5 },
-          { x: w * 0.70, y: h * 0.34, label: '3° Anno', r: 5 },
-          { x: w * 0.88, y: h * 0.54, label: 'DIETI', r: 6 }
-        ];
-        const edges = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [2, 4], [3, 4]];
-
-        ctx2d.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.42)' : 'rgba(15, 76, 129, 0.34)';
-        ctx2d.lineWidth = 1.6;
-        edges.forEach(([a, b]) => {
-          const n1 = nodes[a], n2 = nodes[b];
-          ctx2d.beginPath();
-          ctx2d.moveTo(n1.x, n1.y);
-          ctx2d.quadraticCurveTo((n1.x + n2.x) * 0.5, (n1.y + n2.y) * 0.5 - 10, n2.x, n2.y);
-          ctx2d.stroke();
-        });
-
-        ctx2d.font = '600 11px ui-monospace, SFMono-Regular, Menlo, monospace';
-        ctx2d.textAlign = 'center';
-        nodes.forEach((n, idx) => {
-          const halo = ctx2d.createRadialGradient(n.x, n.y, 1, n.x, n.y, n.r * 3.4);
-          halo.addColorStop(0, isDark ? 'rgba(56, 189, 248, 0.38)' : 'rgba(2, 132, 199, 0.26)');
-          halo.addColorStop(1, 'rgba(0, 0, 0, 0)');
-          ctx2d.fillStyle = halo;
-          ctx2d.beginPath();
-          ctx2d.arc(n.x, n.y, n.r * 3.4, 0, Math.PI * 2);
-          ctx2d.fill();
-
-          ctx2d.fillStyle = idx === nodes.length - 1
-            ? (isDark ? '#38bdf8' : '#0284c7')
-            : (isDark ? '#7dd3fc' : '#0f4c81');
-          ctx2d.beginPath();
-          ctx2d.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-          ctx2d.fill();
-
-          ctx2d.fillStyle = isDark ? '#e2e8f0' : '#0f2540';
-          ctx2d.fillText(n.label, n.x, n.y > h * 0.5 ? n.y - 12 : n.y + 18);
-        });
-      };
-      drawHeroConstellation();
-      window.addEventListener('resize', drawHeroConstellation, { passive: true });
-      new MutationObserver(drawHeroConstellation).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
       // Multi-OS Git Selective Clone Command Builder (Bash/macOS/Linux, PowerShell, CMD)
       let currentGitOs = 'bash';
@@ -6275,11 +6198,11 @@
             <button type="button" class="os-btn" data-modal-git-os="cmd" aria-pressed="${currentGitOs === 'cmd' ? 'true' : 'false'}">Windows CMD</button>
           </div>
           <div class="code-box" id="modal-clone-box"></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-            <button type="button" class="btn btn-primary" id="modal-copy-clone">${SVG_ICONS.copy} Copia comandi Git</button>
-            <button type="button" class="btn" id="modal-filter-files">${SVG_ICONS.search} Materiale (${c.fileCount} file)</button>
+          <div class="modal-actions-grid">
+            <button type="button" class="btn btn-primary" id="modal-copy-clone">${SVG_ICONS.copy} Copia comandi</button>
+            <a class="btn" href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${SVG_ICONS.folder} Apri GitHub</a>
+            <button type="button" class="btn" id="modal-filter-files">${SVG_ICONS.search} File (${c.fileCount})</button>
             <button type="button" class="btn" id="modal-jump-calendar">${SVG_ICONS.calendar} Appelli esame</button>
-            <a class="btn" href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${SVG_ICONS.folder} GitHub</a>
           </div>
         `;
         document.querySelectorAll('[data-modal-git-os]').forEach((btn) => {
@@ -7065,6 +6988,5 @@
       }
     })();
   </script>
-  <script type="module" src="./assets/moments/moments.js"></script>
 </body>
 </html>

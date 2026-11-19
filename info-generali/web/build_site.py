@@ -505,11 +505,7 @@ const PRECACHE_ASSETS = [
   './favicon.svg',
   './manifest.webmanifest',
   './assets/MappaMSA.png',
-  './assets/MappaViaClaudio.jpg',
-  './assets/moments/moments.js',
-  './assets/moments/lib.js',
-  './assets/moments/cursor-spotlight/moment.js',
-  './assets/moments/cursor-spotlight/moment.css'
+  './assets/MappaViaClaudio.jpg'
 ];
 
 self.addEventListener('install', (event) => {{
