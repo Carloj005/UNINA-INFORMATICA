@@ -8,29 +8,24 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Genera Indice Ricercabile
+  sync-calendar:
+    name: Sincronizza Calendario DIETI
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout leggero (senza scaricare i 2.3 GB di LFS)
+      - name: Checkout leggero (0 MB LFS)
         uses: actions/checkout@v4
         with:
           lfs: false
-          fetch-depth: 0
-
-      - name: Scarica via LFS solo le 2 mappe dei plessi (~1.1 MB)
-        run: |
-          git lfs install
-          git lfs pull --include="info-generali/Mappa*"
+          fetch-depth: 1
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -55,6 +50,27 @@ jobs:
             git push origin HEAD:master
           fi
 
+  build:
+    name: Genera Indice Ricercabile
+    needs: sync-calendar
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout cronologia completa (0 MB LFS)
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          lfs: false
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Build statica Portale Web
         run: python3 info-generali/web/build_site.py --out _site
 
@@ -70,6 +86,9 @@ jobs:
     name: Pubblica su GitHub Pages
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

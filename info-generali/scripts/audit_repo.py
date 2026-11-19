@@ -210,9 +210,26 @@ def main() -> int:
                     errors.append(f"[Link Rotto] In '{gf}' -> '{target}' (non trovato su disco)")
 
     # Verifica attributi LFS e puntatori reali nell'indice Git per tutti i file binari
+    # Eccezione controllata: asset web leggeri in info-generali/web/assets/ (mappe ottimizzate e icone PWA <= 256 KB)
+    WEB_ASSETS_PREFIX = "info-generali/web/assets/"
+    WEB_ASSET_MAX_BYTES = 262144
+    web_asset_binaries = [
+        gf for gf in git_files
+        if gf.startswith(WEB_ASSETS_PREFIX)
+        and (os.path.splitext(gf)[1].lower() in BINARY_LFS_EXTS or gf.lower().endswith(".tar.gz"))
+    ]
+    for wab in web_asset_binaries:
+        wfull = os.path.join(REPO_ROOT, wab)
+        if os.path.exists(wfull) and os.path.getsize(wfull) > WEB_ASSET_MAX_BYTES:
+            errors.append(
+                f"[Web Asset Troppo Pesante] '{wab}' supera {WEB_ASSET_MAX_BYTES // 1024} KB "
+                f"({os.path.getsize(wfull) // 1024} KB): ottimizza l'immagine per evitare bloat Git."
+            )
+
     binary_candidates = [
         gf for gf in git_files
-        if os.path.splitext(gf)[1].lower() in BINARY_LFS_EXTS or gf.lower().endswith(".tar.gz")
+        if not gf.startswith(WEB_ASSETS_PREFIX)
+        and (os.path.splitext(gf)[1].lower() in BINARY_LFS_EXTS or gf.lower().endswith(".tar.gz"))
     ]
     if binary_candidates:
         proc = subprocess.run(

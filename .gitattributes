@@ -23,3 +23,6 @@
 *.[rR][aA][rR] filter=lfs diff=lfs merge=lfs -text
 *.[7][zZ] filter=lfs diff=lfs merge=lfs -text
 *.[tT][aA][rR].[gG][zZ] filter=lfs diff=lfs merge=lfs -text
+
+# Asset web leggeri del Portale (mappe ottimizzate < 250 KB e icone PWA) esclusi da LFS per azzerare il consumo di banda in CI
+info-generali/web/assets/* -filter -diff -merge

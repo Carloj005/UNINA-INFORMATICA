@@ -14,12 +14,18 @@ import hashlib
 import argparse
 import subprocess
 import unicodedata
+from collections import Counter
 from datetime import datetime, timezone
 from urllib.parse import quote
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template.html")
-EXAM_CALENDAR_PATH = os.path.join(os.path.dirname(__file__), "exam_calendar.json")
+WEB_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.join(WEB_DIR, "src")
+TEMPLATE_PATH = os.path.join(WEB_DIR, "template.html")
+STYLES_SRC_PATH = os.path.join(SRC_DIR, "styles.css")
+APP_SRC_PATH = os.path.join(SRC_DIR, "app.js")
+THEME_INIT_SRC_PATH = os.path.join(SRC_DIR, "theme-init.js")
+EXAM_CALENDAR_PATH = os.path.join(WEB_DIR, "exam_calendar.json")
 
 LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
 LFS_SIZE_RE = re.compile(rb"^size\s+(\d+)", re.MULTILINE)
@@ -495,7 +501,85 @@ def build_catalog(repo: str):
     }
 
 
-def write_pwa_and_seo_files(out_dir: str, generated_at: str, version_tag: str = ""):
+def content_hash8(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()[:8]
+
+
+def optimize_html(html: str) -> str:
+    """Deduplica le icone SVG inline ripetute e compatta gli spazi HTML in sicurezza."""
+    pat = re.compile(r'<svg class="([^"]+)" viewBox="0 0 24 24">(.*?)</svg>', re.S)
+    counts = Counter(m.group(2) for m in pat.finditer(html))
+    sym_map = {}
+    symbols = []
+    for body, cnt in counts.items():
+        if cnt >= 2:
+            sid = f"i{len(symbols)}"
+            sym_map[body] = sid
+            symbols.append(f'<symbol id="{sid}" viewBox="0 0 24 24">{body}</symbol>')
+    if symbols:
+        html = pat.sub(
+            lambda m: f'<svg class="{m.group(1)}" aria-hidden="true"><use href="#{sym_map[m.group(2)]}"/></svg>'
+            if m.group(2) in sym_map
+            else m.group(0),
+            html,
+        )
+        html = html.replace("<body>", f'<body><svg hidden aria-hidden="true"><defs>{"".join(symbols)}</defs></svg>', 1)
+
+    html = re.sub(
+        r'(<script type="application/ld\+json">)(.*?)(</script>)',
+        lambda m: m.group(1) + re.sub(r"\s+", " ", m.group(2)).strip() + m.group(3),
+        html,
+        flags=re.S,
+    )
+    html = re.sub(r"<!--.*?-->", "", html, flags=re.S)
+    html = "\n".join(line.strip() for line in html.splitlines() if line.strip())
+    html = re.sub(r">\n<", "><", html)
+    return html
+
+
+def write_404_page(out_dir: str, styles_file: str, theme_init_file: str):
+    page_404 = f"""<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" id="meta-theme-color" content="#f4f7fb">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self';">
+  <title>Pagina non trovata — Unina Informatica</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <script src="./{theme_init_file}"></script>
+  <link rel="stylesheet" href="./{styles_file}">
+</head>
+<body>
+  <main style="flex:1;display:grid;place-items:center;padding:32px 16px;">
+    <section class="empty-state-card" style="max-width:520px;width:100%;">
+      <p class="kicker" style="margin-bottom:4px;">ERRORE 404</p>
+      <h1 style="margin:0;font-size:1.75rem;color:var(--text);">Pagina non trovata</h1>
+      <p>Il percorso richiesto non esiste oppure il materiale è stato spostato nell'archivio didattico di Informatica Federico II.</p>
+      <div class="empty-state-actions">
+        <a class="btn btn-primary" href="./">Torna alla Home</a>
+        <a class="btn" href="./#catalogo">Apri il Catalogo</a>
+        <a class="btn" href="./#calendario">Calendario esami</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+"""
+    with open(os.path.join(out_dir, "404.html"), "w", encoding="utf-8") as fp:
+        fp.write(page_404)
+
+
+def write_pwa_and_seo_files(
+    out_dir: str,
+    generated_at: str,
+    version_tag: str,
+    styles_file: str,
+    theme_init_file: str,
+    app_file: str,
+):
     manifest = {
         "id": "./",
         "name": "Unina Informatica — Archivio Didattico Federico II",
@@ -504,7 +588,7 @@ def write_pwa_and_seo_files(out_dir: str, generated_at: str, version_tag: str = 
         "start_url": "./",
         "scope": "./",
         "display": "standalone",
-        "background_color": "#09101d",
+        "background_color": "#070d19",
         "theme_color": "#0f4c81",
         "lang": "it",
         "categories": ["education", "utilities"],
@@ -513,8 +597,26 @@ def write_pwa_and_seo_files(out_dir: str, generated_at: str, version_tag: str = 
                 "src": "./favicon.svg",
                 "sizes": "any",
                 "type": "image/svg+xml",
-                "purpose": "any maskable",
-            }
+                "purpose": "any",
+            },
+            {
+                "src": "./assets/icon-192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "any",
+            },
+            {
+                "src": "./assets/icon-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "any",
+            },
+            {
+                "src": "./assets/icon-maskable-512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "maskable",
+            },
         ],
         "shortcuts": [
             {
@@ -541,17 +643,17 @@ def write_pwa_and_seo_files(out_dir: str, generated_at: str, version_tag: str = 
         json.dump(manifest, fp, ensure_ascii=False, indent=2)
 
     cache_suffix = f"{generated_at.replace('/', '')}{('-' + version_tag) if version_tag else ''}"
-    sw_code = f"""// Service Worker PWA per consultazione offline di shell, catalogo, codici Teams e mappe campus
-// Strategia Network-first con no-cache per la shell HTML: garantisce l'aggiornamento giornaliero del calendario DIETI
-const CACHE_NAME = 'unina-info-v2-{cache_suffix}';
+    sw_code = f"""// Service Worker PWA per consultazione offline della shell leggera, dei dati con content-hash e delle mappe on-demand
+const CACHE_NAME = 'unina-info-v3-{cache_suffix}';
 const PRECACHE_ASSETS = [
   './',
-  './index.html',
+  './{styles_file}',
+  './{theme_init_file}',
+  './{app_file}',
   './favicon.svg',
-  './manifest.webmanifest',
-  './assets/MappaMSA.png',
-  './assets/MappaViaClaudio.jpg'
+  './manifest.webmanifest'
 ];
+const HASHED_ASSET_RE = /\\.[a-f0-9]{{8}}\\.(css|js|json)$/i;
 
 self.addEventListener('install', (event) => {{
   event.waitUntil(
@@ -572,8 +674,13 @@ self.addEventListener('fetch', (event) => {{
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Cache-first per asset statici (mappe campus e icone)
-  if (url.pathname.includes('/assets/') || url.pathname.endsWith('/favicon.svg')) {{
+  // Cache-first per asset immutabili con content-hash (CSS, JS, JSON) e caching lazy on-demand per mappe/icone in /assets/
+  if (
+    HASHED_ASSET_RE.test(url.pathname) ||
+    url.pathname.includes('/assets/') ||
+    url.pathname.endsWith('/favicon.svg') ||
+    url.pathname.endsWith('/apple-touch-icon.png')
+  ) {{
     event.respondWith(
       caches.match(event.request).then((cached) => cached || fetch(event.request).then((resp) => {{
         if (resp && resp.ok) {{
@@ -586,7 +693,7 @@ self.addEventListener('fetch', (event) => {{
     return;
   }}
 
-  // Network-first (bypass HTTP cache) per shell HTML e manifest così gli aggiornamenti giornalieri arrivano subito
+  // Network-first (bypass HTTP cache) per la shell HTML e manifest così gli aggiornamenti giornalieri arrivano subito
   event.respondWith(
     fetch(new Request(event.request, {{ cache: 'no-cache' }}))
       .then((resp) => {{
@@ -596,7 +703,7 @@ self.addEventListener('fetch', (event) => {{
         }}
         return resp;
       }})
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./')))
   );
 }});
 """
@@ -623,7 +730,7 @@ self.addEventListener('fetch', (event) => {{
 
 
 def pack_catalog_for_client(catalog: dict) -> dict:
-    """Comprime l'indice dei file in formato tabellare dizionario per ridurre il payload JSON dell'80%."""
+    """Comprime l'indice dei file in formato tabellare dizionario e rimuove campi ricostruibili client-side."""
     files = catalog.get("files", [])
     ygs = sorted({f["yearGroup"] for f in files})
     crs = sorted({f["course"] for f in files})
@@ -657,17 +764,24 @@ def pack_catalog_for_client(catalog: dict) -> dict:
             row.append(f["dateDisplay"])
         rows.append(row)
 
-    packed = dict(catalog)
-    packed["files"] = []
-    packed["filesCompact"] = {
-        "ygs": ygs,
-        "crs": crs,
-        "prs": prs,
-        "cts": cts,
-        "dirs": dirs,
-        "rows": rows,
+    slim_courses = [
+        {k: v for k, v in c.items() if k != "searchBlob"}
+        for c in catalog.get("courses", [])
+    ]
+
+    return {
+        "stats": catalog.get("stats", {}),
+        "recentUpdates": catalog.get("recentUpdates", []),
+        "courses": slim_courses,
+        "filesCompact": {
+            "ygs": ygs,
+            "crs": crs,
+            "prs": prs,
+            "cts": cts,
+            "dirs": dirs,
+            "rows": rows,
+        },
     }
-    return packed
 
 
 def main():
@@ -677,22 +791,69 @@ def main():
 
     out_dir = os.path.abspath(args.out)
     assets_dir = os.path.join(out_dir, "assets")
+    data_dir = os.path.join(out_dir, "data")
     os.makedirs(assets_dir, exist_ok=True)
+    os.makedirs(data_dir, exist_ok=True)
+
+    # Pulisci eventuali vecchi file con hash da build precedenti nella stessa cartella
+    for stale_name in os.listdir(out_dir):
+        if re.fullmatch(r"(?:styles|app|theme-init)\.[a-f0-9]{8}\.(?:css|js)", stale_name):
+            try:
+                os.unlink(os.path.join(out_dir, stale_name))
+            except OSError:
+                pass
+    for stale_name in os.listdir(data_dir):
+        if re.fullmatch(r"(?:catalog|calendar)\.[a-f0-9]{8}\.json", stale_name):
+            try:
+                os.unlink(os.path.join(data_dir, stale_name))
+            except OSError:
+                pass
 
     catalog = build_catalog(REPO_ROOT)
     template = open(TEMPLATE_PATH, encoding="utf-8").read()
+
+    # Emetti CSS e JS esterni con content-hash
+    styles_bytes = open(STYLES_SRC_PATH, "rb").read()
+    styles_file = f"styles.{content_hash8(styles_bytes)}.css"
+    with open(os.path.join(out_dir, styles_file), "wb") as fp:
+        fp.write(styles_bytes)
+
+    theme_init_bytes = open(THEME_INIT_SRC_PATH, "rb").read()
+    theme_init_file = f"theme-init.{content_hash8(theme_init_bytes)}.js"
+    with open(os.path.join(out_dir, theme_init_file), "wb") as fp:
+        fp.write(theme_init_bytes)
+
+    app_bytes = open(APP_SRC_PATH, "rb").read()
+    app_file = f"app.{content_hash8(app_bytes)}.js"
+    with open(os.path.join(out_dir, app_file), "wb") as fp:
+        fp.write(app_bytes)
+
+    # Emetti catalog.<hash>.json e calendar.<hash>.json separati per invalidazione cache indipendente
     client_catalog = pack_catalog_for_client(catalog)
-    json_payload = json.dumps(client_catalog, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    catalog_json_bytes = json.dumps(client_catalog, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    catalog_json_rel = f"data/catalog.{content_hash8(catalog_json_bytes)}.json"
+    with open(os.path.join(out_dir, catalog_json_rel), "wb") as fp:
+        fp.write(catalog_json_bytes)
+
+    calendar_payload = catalog.get("examCalendar", {})
+    calendar_json_bytes = json.dumps(calendar_payload, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+    calendar_json_rel = f"data/calendar.{content_hash8(calendar_json_bytes)}.json"
+    with open(os.path.join(out_dir, calendar_json_rel), "wb") as fp:
+        fp.write(calendar_json_bytes)
 
     stat_files_str = f"{len(catalog['files']):,}".replace(",", ".")
     stat_courses_str = str(len(catalog["courses"]))
     stat_teams_str = str(catalog["stats"]["teamsCount"])
     stat_size_str = fmt_bytes(catalog["stats"]["totalBytes"])
     stat_updated_str = catalog["stats"]["generatedAt"]
-    stat_exams_str = str(catalog.get("examCalendar", {}).get("totalDates", 0))
+    stat_exams_str = str(calendar_payload.get("totalDates", 0))
 
     html = (
-        template.replace("__UNINA_JSON_PAYLOAD__", json_payload)
+        template.replace("__STYLES_CSS__", styles_file)
+        .replace("__THEME_INIT_JS__", theme_init_file)
+        .replace("__APP_JS__", app_file)
+        .replace("__CATALOG_JSON__", catalog_json_rel)
+        .replace("__CALENDAR_JSON__", calendar_json_rel)
         .replace("__STAT_FILES__", stat_files_str)
         .replace("__STAT_COURSES__", stat_courses_str)
         .replace("__STAT_TEAMS__", stat_teams_str)
@@ -700,6 +861,7 @@ def main():
         .replace("__STAT_UPDATED__", stat_updated_str)
         .replace("__STAT_EXAMS__", stat_exams_str)
     )
+    html = optimize_html(html)
 
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as fp:
         fp.write(html)
@@ -707,28 +869,36 @@ def main():
     with open(os.path.join(out_dir, ".nojekyll"), "w", encoding="utf-8"):
         pass
 
-    version_tag = hashlib.sha1(html.encode("utf-8")).hexdigest()[:8]
-    write_pwa_and_seo_files(out_dir, stat_updated_str, version_tag)
+    write_404_page(out_dir, styles_file, theme_init_file)
 
-    fav_src = os.path.join(os.path.dirname(__file__), "favicon.svg")
+    version_tag = hashlib.sha1(html.encode("utf-8")).hexdigest()[:8]
+    write_pwa_and_seo_files(
+        out_dir,
+        stat_updated_str,
+        version_tag,
+        styles_file=styles_file,
+        theme_init_file=theme_init_file,
+        app_file=app_file,
+    )
+
+    fav_src = os.path.join(WEB_DIR, "favicon.svg")
     if os.path.exists(fav_src):
         shutil.copy2(fav_src, os.path.join(out_dir, "favicon.svg"))
 
-    web_assets_src = os.path.join(os.path.dirname(__file__), "assets")
+    web_assets_src = os.path.join(WEB_DIR, "assets")
     if os.path.isdir(web_assets_src):
         shutil.copytree(web_assets_src, assets_dir, dirs_exist_ok=True)
+        apple_src = os.path.join(web_assets_src, "apple-touch-icon.png")
+        if os.path.exists(apple_src):
+            shutil.copy2(apple_src, os.path.join(out_dir, "apple-touch-icon.png"))
 
-    for map_name in ("MappaMSA.png", "MappaViaClaudio.jpg"):
-        src = os.path.join(REPO_ROOT, "info-generali", map_name)
-        if os.path.exists(src):
-            shutil.copy2(src, os.path.join(assets_dir, map_name))
-
+    html_kb = len(html.encode("utf-8")) / 1024
     print(
         f"✅ Portale Web generato in '{out_dir}': "
         f"{len(catalog['courses'])} corsi, {len(catalog['files'])} file indicizzati, "
         f"{catalog['stats']['teamsCount']} codici Teams, "
         f"{len(catalog['recentUpdates'])} aggiornamenti recenti, "
-        f"{stat_exams_str} appelli d'esame."
+        f"{stat_exams_str} appelli d'esame (index.html {html_kb:.1f} KB)."
     )
 
 
