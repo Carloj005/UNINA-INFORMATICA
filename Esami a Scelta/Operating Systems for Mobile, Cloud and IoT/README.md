@@ -20,3 +20,4 @@ Il corso si pone come obiettivo principale quello di analizzare in modo approfon
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof. Porfirio Tramontana](./Prof-PorfirioTramontana) *(vuoto)*
+- [Prof. Silvio Barra](./Prof-SilvioBarra)

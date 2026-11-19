@@ -20,3 +20,4 @@ Il corso intende fornire un'introduzione alle tecniche avanzate di progettazione
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof. Massimo Benerecetti](./Prof-MassimoBenerecetti) *(vuoto)*
+- [Prof. Fabio Mogavero](./Prof-FabioMogavero)

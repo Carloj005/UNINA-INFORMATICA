@@ -20,3 +20,4 @@ Il corso rappresenta una introduzione ai concetti fondamentali della matematica 
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof.ssa Luisa D'Amore](./Prof-LuisaDAmore) *(vuoto)*
+- [Prof. Salvatore Cuomo](./Prof-SalvatoreCuomo)

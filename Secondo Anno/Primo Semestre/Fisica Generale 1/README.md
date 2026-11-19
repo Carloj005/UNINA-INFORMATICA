@@ -22,3 +22,4 @@ Il contenuto del corso di Fisica è stato concepito con lo scopo di fornire allo
 - [Prof. Giampiero Esposito](./Prof-GiampieroEsposito) *(vuoto)*
 - [Prof.ssa Gianfranca De Rosa](./Prof-GianfrancaDeRosa) *(82 file)*
 - [Prof. Goffredo Chirco](./Prof-GoffredoChirco) *(vuoto)*
+- [Prof. Antonia Di Crescenzo](./Prof-AntoniaDiCrescenzo)

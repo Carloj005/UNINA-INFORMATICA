@@ -19,6 +19,6 @@ Conoscere e applicare le principali codifiche digitali dei dati. Saper interpret
 
 ## 👨‍🏫 Canali e Docenti
 
-- [Canale Da Definire](./Prof-DaDefinire) *(vuoto)*
 - [Prof. Luigi Sauro](./Prof-LuigiSauro) *(23 file)*
 - [Prof.ssa Silvia Rossi](./Prof-SilviaRossi) *(6 file)*
+- [Prof.ssa Alessandra Somma](./Prof-AlessandraSomma) *(vuoto)*

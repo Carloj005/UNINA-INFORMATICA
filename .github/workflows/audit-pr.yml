@@ -12,18 +12,27 @@ permissions:
 
 jobs:
   audit:
-    name: Verifica Standard Repository
+    name: Verifica Standard Repository & Build Portale
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout leggero (senza consumare banda Git LFS)
+      - name: Checkout leggero con cronologia (0 MB banda Git LFS)
         uses: actions/checkout@v4
         with:
           lfs: false
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
+      - name: Setup Node.js (controllo sintassi JS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Esegui Suite di Audit UNINA-INFORMATICA
         run: python3 info-generali/scripts/audit_repo.py
+
+      - name: Verifica Build Portale Web, JSON, CSS, JS e Calendario
+        run: python3 info-generali/scripts/verify_portal_build.py --out /tmp/_site_check

@@ -56,7 +56,7 @@ BINARY_LFS_EXTS = {
     ".zip", ".rar", ".7z",
 }
 
-FORBIDDEN_EXTS = {".class", ".jar", ".exe", ".dll", ".so", ".dylib", ".o"}
+FORBIDDEN_EXTS = {".class", ".jar", ".exe", ".dll", ".so", ".dylib", ".o", ".aux"}
 
 
 def discover_courses(repo: str):

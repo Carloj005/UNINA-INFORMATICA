@@ -61,6 +61,14 @@ COURSE_ALIASES = {
     "Operating Systems for Mobile, Cloud and IoT": "osmci iot",
     "Parallel and Distributed Computing": "pdc",
     "Scientific Computing": "sc",
+    "Diritto dell'Informatica": "diritto",
+    "Istituzioni di Matematica II": "im2 istituzioni matematica 2",
+}
+
+# Artefatti temporanei di compilazione e fixture di test grezze da escludere dall'indice di ricerca
+IGNORED_INDEX_EXTS = {
+    ".aux", ".log", ".out", ".toc",
+    ".out_copia", ".in_rif", ".in_out_copia", ".in_copia", ".in_out_rif", ".out_rif",
 }
 
 
@@ -391,6 +399,9 @@ def build_catalog(repo: str):
                 for fn in sorted(f2):
                     if fn in (".gitkeep", "README.md", ".gitignore"):
                         continue
+                    ext = os.path.splitext(fn)[1].lower()
+                    if ext in IGNORED_INDEX_EXTS:
+                        continue
                     fp_full = os.path.join(r2, fn)
                     rel_f = os.path.relpath(fp_full, repo).replace(os.sep, "/")
                     rel_inside_prof = os.path.relpath(fp_full, pp).replace(os.sep, "/")
@@ -406,7 +417,6 @@ def build_catalog(repo: str):
                     total_bytes += fsize
                     p_file_count += 1
                     course_file_count += 1
-                    ext = os.path.splitext(fn)[1].lower()
                     date_iso, date_disp = extract_date_info(fn, subpath)
                     search_blob = norm_search_text(
                         f"{fn} {cname} {aliases} {doc_disp} {year_group} {cat} {subpath} {date_disp}"

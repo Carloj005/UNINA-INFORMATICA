@@ -21,3 +21,4 @@ Si dovranno acquisire gli strumenti di base dell’algebra lineare e della geome
 
 - [Prof.ssa Francesca Cioffi](./Prof-FrancescaCioffi) *(5 file)*
 - [Prof. Marco Trombetti](./Prof-MarcoTrombetti) *(vuoto)*
+- [Prof. Roberto Pirisi](./Prof-RobertoPirisi)

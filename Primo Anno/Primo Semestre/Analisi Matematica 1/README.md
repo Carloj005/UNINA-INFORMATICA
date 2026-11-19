@@ -24,3 +24,4 @@ Il corso si prefigge lo scopo di introdurre gli studenti ai problemi di approssi
 - [Prof. Daniele Castorina](./Prof-DanieleCastorina) *(vuoto)*
 - [Prof. Francesco Oliva](./Prof-FrancescoOliva) *(vuoto)*
 - [Prof. Roberto Alicandro](./Prof-RobertoAlicandro) *(78 file)*
+- [Prof. Raffaele Scandone](./Prof-RaffaeleScandone)

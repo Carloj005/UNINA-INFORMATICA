@@ -19,4 +19,4 @@ Il corso si prefigge lo scopo di introdurre gli studenti ai problemi di approssi
 
 ## 👨‍🏫 Canali e Docenti
 
-- [Canale Da Definire](./Prof-DaDefinire) *(vuoto)*
+- [Prof. Carlo Maria Mantegazza](./Prof-CarloMariaMantegazza) *(vuoto)*

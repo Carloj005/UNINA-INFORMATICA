@@ -20,3 +20,4 @@ Il corso si pone l’obiettivo di far acquisire agli studenti le competenze di b
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof. Lorenzo Laurato](./Prof-LorenzoLaurato) *(vuoto)*
+- [Prof. Marco Alfè](./Prof-MarcoAlfe)

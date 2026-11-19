@@ -20,3 +20,4 @@ Approfondimento delle problematiche legate allo sviluppo, implementazione ed ana
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof.ssa Eleonora Messina](./Prof-EleonoraMessina) *(vuoto)*
+- [Prof. Salvatore Cuomo](./Prof-SalvatoreCuomo)
