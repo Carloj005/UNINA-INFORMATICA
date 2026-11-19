@@ -592,9 +592,6 @@
       body {
         padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
       }
-      footer {
-        padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px) + 32px) !important;
-      }
       .mobile-bottom-nav {
         position: fixed;
         left: 0;
@@ -684,8 +681,7 @@
         radial-gradient(900px 460px at 78% 18%, light-dark(rgba(2, 132, 199, 0.10), rgba(56, 189, 248, 0.13)), transparent 70%),
         radial-gradient(600px 360px at 14% 68%, light-dark(rgba(15, 76, 129, 0.06), rgba(37, 99, 235, 0.10)), transparent 72%);
     }
-    .home-section > .wrap,
-    footer.closing > .wrap {
+    .home-section > .wrap {
       position: relative;
       z-index: 1;
       display: flex;
@@ -764,8 +760,7 @@
       color: var(--text);
       text-wrap: balance;
     }
-    .home-section h2,
-    footer.closing h2 {
+    .home-section h2 {
       margin: 0;
       font-size: var(--t-h2);
       line-height: 1.12;
@@ -1201,49 +1196,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Closing Footer Section (Compact & Grounded) */
-    footer.closing {
-      position: relative;
-      width: 100%;
-      padding: 48px 0 36px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      text-align: left;
-    }
-    .closing__call {
-      align-items: start;
-    }
-    .home-shortcuts-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      padding: 16px;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-    }
-    .shortcut-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 12px 14px;
-      min-height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.875rem;
-      cursor: pointer;
-      transition: border-color 0.15s ease, background-color 0.15s ease;
-    }
-    .shortcut-card:hover {
-      border-color: var(--primary);
-      background: var(--primary-soft);
-      color: var(--primary-text);
-    }
+    /* Icon helpers shared by hero quick-nav cards */
     .shortcut-left {
       display: inline-flex;
       align-items: center;
@@ -1259,21 +1212,54 @@
       place-items: center;
       flex-shrink: 0;
     }
-    .closing__legal {
-      padding-top: 20px;
+
+    /* Minimal Global Footer */
+    footer.closing {
+      position: relative;
+      width: 100%;
+      margin-top: auto;
+      padding: 20px 0;
+      background: var(--surface);
       border-top: 1px solid var(--border);
+      text-align: left;
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-top-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      font-size: 0.8125rem;
-      color: var(--muted);
+      gap: 8px 20px;
     }
-    .closing__legal a {
-      color: var(--primary-text);
+    .footer-top-row strong {
+      color: var(--text);
       font-weight: 600;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 18px;
+    }
+    footer.closing a {
+      color: var(--muted);
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    footer.closing a:hover {
+      color: var(--primary-text);
       text-decoration: underline;
+    }
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--muted);
     }
 
     /* Command Palette Dialog (#cmd-modal) */
@@ -2843,10 +2829,6 @@
     .cal-sheet-footer {
       display: none;
     }
-      gap: 8px;
-      flex-wrap: wrap;
-      flex-shrink: 0;
-    }
 
     /* Toast feedback */
     .toast {
@@ -2861,8 +2843,9 @@
       font-size: 0.875rem;
       font-weight: 600;
       display: none;
-      z-index: 60;
+      z-index: 80;
       box-shadow: var(--shadow-md);
+      pointer-events: none;
     }
     .toast.visible {
       display: block;
@@ -3418,8 +3401,7 @@
 
     @media (max-width: 1023px) {
       .hero-text.grid > .span-6,
-      .bento-updates-grid.grid > .span-6,
-      .closing__call.grid > .span-6 {
+      .bento-updates-grid.grid > .span-6 {
         grid-column: 1 / -1;
       }
       .hero.home-section {
@@ -3430,7 +3412,7 @@
         padding: 36px 0;
       }
       footer.closing {
-        padding: 36px 0 calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px) + 28px);
+        padding: 16px 0;
       }
     }
 
@@ -3442,8 +3424,7 @@
       .home-section {
         padding: 28px 0;
       }
-      .home-section > .wrap,
-      footer.closing > .wrap {
+      .home-section > .wrap {
         gap: 16px;
       }
       .home-years-grid.grid > .span-6 {
@@ -3457,8 +3438,7 @@
         font-size: 1.75rem;
         margin-bottom: 10px;
       }
-      .home-section h2,
-      footer.closing h2 {
+      .home-section h2 {
         font-size: 1.375rem;
       }
       .lead {
@@ -3540,21 +3520,6 @@
       .recent-card:nth-child(n+5),
       .pinned-card:nth-child(n+5) {
         display: none;
-      }
-      .home-shortcuts-grid {
-        grid-template-columns: 1fr;
-        padding: 12px;
-        gap: 8px;
-      }
-      .shortcut-card {
-        padding: 10px 12px;
-        min-height: 48px;
-        font-size: 0.84375rem;
-      }
-      .closing__legal {
-        padding-top: 14px;
-        font-size: 0.78125rem;
-        gap: 8px;
       }
       .modal-actions-grid {
         grid-template-columns: 1fr 1fr;
@@ -4414,79 +4379,18 @@
   </nav>
 
   <footer class="footer closing">
-    <div class="wrap">
-      <div class="closing__call grid">
-        <div class="span-6">
-          <p class="kicker">COMMUNITY STUDENTI INFORMATICA FEDERICO II</p>
-          <h2>Contribuisci all'archivio didattico di Informatica Federico II.</h2>
-          <p class="lead">Condividi appunti, tracce scritte, progetti o codici Microsoft Teams per mantenere aggiornato il portale.</p>
-          <div class="btn-row">
-            <a href="#panel-files" class="btn btn-primary" id="footer-open-catalog-btn">Esplora il catalogo</a>
-            <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener" class="btn btn--secondary">Repository GitHub</a>
-          </div>
-        </div>
-        <div class="home-shortcuts-grid span-6" data-ui="closing-shortcuts">
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box">
-                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-              </span>
-              <span>Orario lezioni 26/27</span>
-            </span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-              </span>
-              <span>Invia appunti o tracce</span>
-            </span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </span>
-              <span>Invia traccia progetto</span>
-            </span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box">
-                <svg class="icon" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></svg>
-              </span>
-              <span>Invia codice Teams</span>
-            </span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
-              </span>
-              <span>Calendario DIETI</span>
-            </span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box">
-                <svg class="icon" viewBox="0 0 24 24"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
-              </span>
-              <span>Segnala bug o errore</span>
-            </span>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
+    <div class="wrap footer-inner">
+      <div class="footer-top-row">
+        <div><strong>Unina Informatica</strong> · Open-source <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">CC 4.0</a></div>
+        <div class="footer-links">
+          <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">Telegram</a>
+          <a href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">Orario 26/27</a>
+          <a href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">Invia materiale</a>
+          <a href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">Segnala bug</a>
         </div>
       </div>
-
-      <div class="closing__legal">
-        <div>Progetto open-source <strong>Unina Informatica</strong> • Licenza <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">Creative Commons 4.0</a> • <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a> • <a href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">Gruppi Telegram</a></div>
-        <div>Materiale condiviso a solo scopo di studio non commerciale. Per modifiche o rimozioni: <a href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">apri una segnalazione</a>.</div>
-      </div>
+      <div class="footer-note">Materiale condiviso a solo scopo di studio non commerciale.</div>
     </div>
   </footer>
 
@@ -5972,10 +5876,6 @@
       });
       document.getElementById('home-updates-open-calendar')?.addEventListener('click', () => {
         openCatalog('tab-btn-calendar');
-      });
-      document.getElementById('footer-open-catalog-btn')?.addEventListener('click', (e) => {
-        e.preventDefault();
-        openCatalog('tab-btn-files');
       });
       document.getElementById('home-open-courses-btn')?.addEventListener('click', () => {
         openCatalog('tab-btn-courses');
