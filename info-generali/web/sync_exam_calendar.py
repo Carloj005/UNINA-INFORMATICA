@@ -109,7 +109,7 @@ REPO_COURSE_MAP = {
     "reti di calcolatori": ("Reti e Programmazione Distribuita", "rc reti calcolatori rpd"),
     "tecniche di programmazione avanzata": ("Tecniche di Programmazione Avanzata", "tpa"),
     "ai technologies": ("AI Technologies", "ait ai intelligenza artificiale"),
-    "istituzioni di matematica ii": ("", "im2 istituzioni matematica 2"),
+    "istituzioni di matematica ii": ("Istituzioni di Matematica II", "im2 istituzioni matematica 2"),
     "parallel and distributed computing": ("Parallel and Distributed Computing", "pdc"),
     "scientific computing": ("Scientific Computing", "sc"),
     "calcolo numerico": ("Calcolo Numerico", "cn"),
@@ -370,6 +370,47 @@ def should_ignore_footer_row(row_text: str) -> bool:
     )
 
 
+def detect_year_group(text: str) -> str:
+    """Ricava l'anno accademico dalle intestazioni testuali del PDF invece che dall'indice di pagina."""
+    low = norm_key(text)
+    if "insegnamenti a scelta" in low or "scelta libera" in low:
+        return "Esami a Scelta"
+    if re.search(r"\biii\s+anno\b|\b3[°o]?\s+anno\b", low):
+        return "Terzo Anno"
+    if re.search(r"\bii\s+anno\b|\b2[°o]?\s+anno\b", low):
+        return "Secondo Anno"
+    if re.search(r"\bi\s+anno\b|\b1[°o]?\s+anno\b", low):
+        return "Primo Anno"
+    return ""
+
+
+def email_matches_prof(email: str, prof: str) -> bool:
+    """Verifica che la parte locale dell'email contenga almeno il cognome normalizzato del docente."""
+    if not email or "@" not in email or not prof:
+        return True
+    local = re.sub(r"[^a-z]", "", norm_key(email.split("@", 1)[0]))
+    if not local:
+        return False
+    ignore = {"prof", "di", "de", "del", "della", "dello", "da", "la", "le", "lo", "al"}
+    tokens = [
+        re.sub(r"[^a-z]", "", t)
+        for t in norm_key(prof).split()
+        if len(re.sub(r"[^a-z]", "", t)) >= 3 and re.sub(r"[^a-z]", "", t) not in ignore
+    ]
+    if not tokens:
+        return True
+    # Verifica cognome (ultimo token) oppure nome+cognome per casi tipo "Starace Luigi Libero Lucio"
+    if tokens[-1] in local:
+        return True
+    if tokens[0] in local and len(tokens) >= 2 and any(t in local for t in tokens[1:]):
+        return True
+    # Cognomi composti (es. "de rosa" -> "derosa", "di martino" -> "dimartino")
+    raw_parts = [re.sub(r"[^a-z]", "", t) for t in norm_key(prof).split() if re.sub(r"[^a-z]", "", t)]
+    if len(raw_parts) >= 2 and (raw_parts[-2] + raw_parts[-1]) in local:
+        return True
+    return False
+
+
 def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
     xml_out = subprocess.check_output(["pdftotext", "-bbox", pdf_path, "-"], text=True, errors="replace")
     root = ET.fromstring(xml_out)
@@ -377,7 +418,7 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
     pages = root.findall(".//x:page", ns)
     y_start, y_end = academic_years
 
-    year_by_page = {
+    year_by_page_fallback = {
         1: "Primo Anno",
         2: "Secondo Anno",
         3: "Terzo Anno",
@@ -385,9 +426,9 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
     }
 
     all_entries = []
+    last_detected_year = ""
 
     for p_idx, page in enumerate(pages, 1):
-        year_group = year_by_page.get(p_idx, "Esami a Scelta")
         words = []
         for w in page.findall(".//x:word", ns):
             txt = (w.text or "").strip()
@@ -410,7 +451,18 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
             else:
                 rows[-1].append(w)
 
-        regolamento = "Esami a Scelta" if p_idx == 4 else "Nuovo Regolamento"
+        # Rileva l'anno della pagina direttamente dalle intestazioni testuali (fallback su indice pagina solo se assenti)
+        page_year = ""
+        for r_probe in rows[:12]:
+            r_probe_sorted = sorted(r_probe, key=lambda w: w["xMin"])
+            yg_cand = detect_year_group(clean_row_spacing(r_probe_sorted))
+            if yg_cand:
+                page_year = yg_cand
+                break
+        year_group = page_year or last_detected_year or year_by_page_fallback.get(p_idx, "Esami a Scelta")
+        last_detected_year = year_group
+
+        regolamento = "Esami a Scelta" if year_group == "Esami a Scelta" else "Nuovo Regolamento"
         cur_sem = "1°"
         cur_cols = []
         x_doc = 61.0
@@ -426,6 +478,8 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
             r.sort(key=lambda w: w["xMin"])
             full_text = clean_row_spacing(r)
             low_text = full_text.lower()
+            row_ymin = min(w["yMin"] for w in r)
+            row_ymax = max(w["yMax"] for w in r)
 
             if should_ignore_footer_row(full_text):
                 continue
@@ -438,6 +492,8 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                 cur_sem = "1° / 2°"
                 continue
             if low_text == "insegnamenti a scelta libera":
+                year_group = "Esami a Scelta"
+                last_detected_year = year_group
                 regolamento = "Esami a Scelta"
                 continue
 
@@ -452,6 +508,13 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                     cur_cols = cols_cand
                     x_week0 = cur_cols[0]["xMin"] - 3.0
                 left_words = [w for w in r if w["xMin"] < x_doc]
+                left_txt = clean_row_spacing(left_words)
+                yg_hdr = detect_year_group(left_txt)
+                if yg_hdr:
+                    year_group = yg_hdr
+                    last_detected_year = yg_hdr
+                    if yg_hdr == "Esami a Scelta":
+                        regolamento = "Esami a Scelta"
                 if any(w["text"].lower() == "semestre" for w in left_words):
                     cur_sem = split_course_and_semester_header(left_words)
 
@@ -522,7 +585,11 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                         if matched:
                             mo = matched["month"]
                             yr = y_start if mo >= 9 else y_end
-                            dates.append({
+                            try:
+                                dt_obj = datetime(yr, mo, day)
+                            except ValueError:
+                                continue
+                            date_item = {
                                 "iso": f"{yr:04d}-{mo:02d}-{day:02d}",
                                 "display": f"{day:02d}/{mo:02d}/{yr:04d}",
                                 "day": day,
@@ -530,7 +597,11 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                                 "year": yr,
                                 "monthKey": f"{yr:04d}-{mo:02d}",
                                 "weekLabel": matched["col"]["label"],
-                            })
+                            }
+                            if dt_obj.weekday() >= 5:
+                                date_item["isTentative"] = True
+                                date_item["warning"] = "Verificare sul PDF DIETI (data nel weekend)"
+                            dates.append(date_item)
                             continue
                 note_words.append(w["text"])
 
@@ -584,6 +655,9 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                 "note": doc_str if is_note_in_doc_col else note_str,
                 "_is_doc_note_row": is_note_in_doc_col,
                 "_expecting_note_cont": False,
+                "_yMin": row_ymin,
+                "_yMax": row_ymax,
+                "_pending_codocs": [],
             }
             page_rows.append(row_obj)
 
@@ -596,28 +670,62 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                 prev["note"] = f"{prev['note']} {r['note']}".strip()
                 if r["course"]:
                     prev["course"] = r["course"]
+                prev["_yMax"] = max(prev["_yMax"], r["_yMax"])
                 continue
             merged.append(r)
 
-        # 2) Unisci co-docenti sulla riga successiva (nessun corso, nessun canale, nessuna email uguale già accorpata, nessuna data)
+        # 2) Unisci co-docenti orfani associandoli alla riga adiacente (sopra o sotto) con distanza verticale minore
         consolidated = []
-        for r in merged:
-            if (
+        for idx, r in enumerate(merged):
+            if r["_pending_codocs"]:
+                for co_prof, co_mail in r["_pending_codocs"]:
+                    if co_prof and co_prof not in r["prof"]:
+                        r["prof"] = f"{r['prof']} / {co_prof}".strip(" /")
+                    if co_mail and co_mail not in r["email"]:
+                        r["email"] = f"{r['email']} / {co_mail}".strip(" /")
+                r["_pending_codocs"] = []
+
+            is_orphan_codoc = (
                 not r["course"]
                 and not r["channel"]
                 and not r["dates"]
                 and not r["note"]
-                and r["prof"]
-                and consolidated
-                and consolidated[-1]["dates"]
-                and consolidated[-1]["course"]
-            ):
-                prev = consolidated[-1]
-                if r["prof"] not in prev["prof"]:
-                    prev["prof"] = f"{prev['prof']} / {r['prof']}".strip(" /")
-                if r["email"] and r["email"] not in prev["email"]:
-                    prev["email"] = f"{prev['email']} / {r['email']}".strip(" /")
-                continue
+                and bool(r["prof"])
+            )
+            if is_orphan_codoc:
+                prev_cand = (
+                    consolidated[-1]
+                    if (
+                        consolidated
+                        and consolidated[-1]["dates"]
+                        and consolidated[-1]["course"]
+                        and consolidated[-1]["regolamento"] == r["regolamento"]
+                    )
+                    else None
+                )
+                next_cand = (
+                    merged[idx + 1]
+                    if (
+                        idx + 1 < len(merged)
+                        and merged[idx + 1]["dates"]
+                        and merged[idx + 1]["course"]
+                        and merged[idx + 1]["regolamento"] == r["regolamento"]
+                    )
+                    else None
+                )
+                gap_up = (r["_yMin"] - prev_cand["_yMax"]) if prev_cand else 1e9
+                gap_dn = (next_cand["_yMin"] - r["_yMax"]) if next_cand else 1e9
+
+                if next_cand is not None and (prev_cand is None or gap_dn < gap_up):
+                    next_cand["_pending_codocs"].append((r["prof"], r["email"]))
+                    continue
+                if prev_cand is not None:
+                    if r["prof"] not in prev_cand["prof"]:
+                        prev_cand["prof"] = f"{prev_cand['prof']} / {r['prof']}".strip(" /")
+                    if r["email"] and r["email"] not in prev_cand["email"]:
+                        prev_cand["email"] = f"{prev_cand['email']} / {r['email']}".strip(" /")
+                    continue
+
             consolidated.append(r)
 
         # 3) Risolvi celle Insegnamento unite verticalmente su 2 o 3 righe (Vecchio Regolamento Pagine 1 e 3)
@@ -632,6 +740,16 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
                 r["course"] = consolidated[i - 1]["course"]
 
         all_entries.extend(consolidated)
+
+    # Costruisci lookup di email verificate per correggere eventuali scambi nel PDF DIETI
+    verified_email_by_prof = {norm_key(v): k for k, v in EMAIL_PROF_OVERRIDES.items()}
+    for raw in all_entries:
+        p_parts = [p.strip() for p in raw["prof"].split("/") if p.strip()]
+        e_parts = [e.strip().lower() for e in raw["email"].split("/") if "@" in e]
+        if len(p_parts) == len(e_parts):
+            for pp, ee in zip(p_parts, e_parts):
+                if email_matches_prof(ee, pp):
+                    verified_email_by_prof.setdefault(norm_key(pp), ee)
 
     # Normalizzazione finale e associazione a repoCourse + aliases
     cleaned_entries = []
@@ -653,6 +771,35 @@ def parse_pdf_calendar(pdf_path: str, academic_years: tuple[int, int]) -> list:
             prof = derived if derived else prof
             if not dates and not note:
                 note = "Consultare il calendario di Laurea Magistrale"
+
+        # Validazione coerenza email <-> docente (corregge scambi noti/rilevati nel PDF DIETI)
+        if prof and email:
+            p_parts = [p.strip() for p in prof.split("/") if p.strip()]
+            e_parts = [e.strip() for e in email.split("/") if e.strip()]
+            fixed_emails = []
+            unresolved_mismatch = False
+            for idx_e, em in enumerate(e_parts):
+                p_ref = p_parts[idx_e] if idx_e < len(p_parts) else prof
+                if email_matches_prof(em, p_ref):
+                    fixed_emails.append(em)
+                else:
+                    # Prova a risolvere tramite lookup email verificate dello stesso PDF / overrides
+                    cand = verified_email_by_prof.get(norm_key(p_ref), "")
+                    if not cand:
+                        p_surname = norm_key(p_ref).split()[-1] if norm_key(p_ref).split() else ""
+                        if len(p_surname) >= 4:
+                            for vk, ve in verified_email_by_prof.items():
+                                if vk.endswith(p_surname) and email_matches_prof(ve, p_ref):
+                                    cand = ve
+                                    break
+                    if cand:
+                        fixed_emails.append(cand)
+                    else:
+                        unresolved_mismatch = True
+            email = " / ".join(fixed_emails)
+            if unresolved_mismatch:
+                warn_msg = "Verificare email docente sul PDF ufficiale DIETI"
+                note = f"{note} · {warn_msg}".strip(" ·") if note else warn_msg
 
         # Righe vuote come Inglese
         if norm_key(course_name) == "inglese" and not dates and not prof and not note:
@@ -722,7 +869,7 @@ def build_calendar_payload(pdf_url: str, session_title: str, pdf_meta: dict, ent
     }
 
 
-def sync_calendar(out_path: str = DEFAULT_OUT_JSON, local_pdf: str = "") -> dict:
+def sync_calendar(out_path: str = DEFAULT_OUT_JSON, local_pdf: str = "", force: bool = False) -> dict:
     if local_pdf:
         pdf_meta = parse_pdf_info(local_pdf)
         ac_years = infer_academic_years(local_pdf, pdf_meta.get("title", ""), pdf_meta.get("modDisplay", ""))
@@ -772,9 +919,33 @@ def sync_calendar(out_path: str = DEFAULT_OUT_JSON, local_pdf: str = "") -> dict
         if len(pdfs) > 1:
             payload["extraPdfUrls"] = [p["url"] for p in pdfs[1:]]
 
+    # Guardrail anti-corruzione: non sovrascrivere exam_calendar.json se il parse fallisce o crolla > 30%
+    if payload["totalEntries"] == 0 or payload["totalDates"] == 0:
+        raise RuntimeError(
+            f"Guardrail calendario: parse sospetto ({payload['totalEntries']} canali, {payload['totalDates']} date). "
+            "Sovrascrittura bloccata."
+        )
+
     new_json = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
     if os.path.exists(out_path):
         old_json = open(out_path, encoding="utf-8").read()
+        if not force:
+            try:
+                old_data = json.loads(old_json)
+                old_entries = int(old_data.get("totalEntries", 0) or 0)
+                old_dates = int(old_data.get("totalDates", 0) or 0)
+                if old_entries > 0 and payload["totalEntries"] < old_entries * 0.70:
+                    raise RuntimeError(
+                        f"Guardrail calendario: calo canali >30% ({old_entries} -> {payload['totalEntries']}). "
+                        "Usa --force per confermare."
+                    )
+                if old_dates > 0 and payload["totalDates"] < old_dates * 0.70:
+                    raise RuntimeError(
+                        f"Guardrail calendario: calo appelli >30% ({old_dates} -> {payload['totalDates']}). "
+                        "Usa --force per confermare."
+                    )
+            except json.JSONDecodeError:
+                pass
         if hashlib.sha256(old_json.encode("utf-8")).hexdigest() == hashlib.sha256(new_json.encode("utf-8")).hexdigest():
             print(f"ℹ️ Calendario esami già aggiornato ({payload['totalEntries']} canali, {payload['totalDates']} appelli).")
             return payload
@@ -789,8 +960,9 @@ def main():
     parser = argparse.ArgumentParser(description="Sincronizza il calendario esami Triennale dal sito DIETI.")
     parser.add_argument("--out", default=DEFAULT_OUT_JSON, help="Percorso file JSON di output")
     parser.add_argument("--pdf", default="", help="Percorso opzionale PDF locale (salta download HTTP)")
+    parser.add_argument("--force", action="store_true", help="Forza la sovrascrittura ignorando il guardrail calo >30%%")
     args = parser.parse_args()
-    sync_calendar(out_path=args.out, local_pdf=args.pdf)
+    sync_calendar(out_path=args.out, local_pdf=args.pdf, force=args.force)
 
 
 if __name__ == "__main__":

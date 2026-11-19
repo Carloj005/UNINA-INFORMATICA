@@ -46,6 +46,8 @@ ALLOWED_PROF_TOP = {
 
 PROF_NAME_RE = re.compile(r"^Prof-[A-Z][A-Za-z0-9]+$")
 MD_LINK_RE = re.compile(r"!?\[([^\]]*)\]\(([^)]+)\)")
+TEAMS_LINE_RE = re.compile(r"Codice Teams[^:\n]*:[ \t]*(.*)", re.IGNORECASE)
+TEAMS_CODE_RE = re.compile(r"^[A-Za-z0-9]{6,12}$")
 
 BINARY_LFS_EXTS = {
     ".pdf", ".pptx", ".ppt", ".docx", ".doc", ".xlsx", ".xls",
@@ -109,6 +111,26 @@ def main() -> int:
                 p_items = set(os.listdir(ep))
                 if "README.md" not in p_items:
                     errors.append(f"[Docente] README.md mancante in: {rel_p}")
+                else:
+                    preadme_txt = open(os.path.join(ep, "README.md"), encoding="utf-8", errors="replace").read()
+                    tm = TEAMS_LINE_RE.search(preadme_txt)
+                    if tm:
+                        raw_t = tm.group(1).strip()
+                        if raw_t and raw_t.lower() not in ("n/a", "-", "da definire", "nessuno"):
+                            url_m = re.search(r"\((https?://[^)\s]+)\)", raw_t)
+                            if url_m:
+                                if not url_m.group(1).startswith("https://"):
+                                    errors.append(f"[Teams] Link Teams non HTTPS in '{rel_p}/README.md': {url_m.group(1)}")
+                            elif raw_t.startswith(("http://", "https://")):
+                                if not raw_t.startswith("https://"):
+                                    errors.append(f"[Teams] Link Teams non HTTPS in '{rel_p}/README.md': {raw_t}")
+                            else:
+                                cleaned_t = raw_t.strip("`*_ ")
+                                if not TEAMS_CODE_RE.fullmatch(cleaned_t):
+                                    errors.append(
+                                        f"[Teams] Codice Teams malformato in '{rel_p}/README.md': {raw_t!r} "
+                                        "(atteso codice alfanumerico 6-12 caratteri oppure URL https://)."
+                                    )
                 extra = p_items - ALLOWED_PROF_TOP
                 if extra:
                     errors.append(f"[Struttura] Elementi fuori standard in '{rel_p}': {sorted(extra)}")

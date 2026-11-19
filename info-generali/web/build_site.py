@@ -134,28 +134,63 @@ def extract_md_field(text: str, label: str, default: str = "") -> str:
     return val.strip("` ")
 
 
+TEAMS_CODE_RE = re.compile(r"^[A-Za-z0-9]{6,12}$")
+
+
 def parse_teams_info(prof_readme_text: str):
-    m = re.search(r"Codice Teams[^:\n]*:\s*(.*)", prof_readme_text, re.IGNORECASE)
+    m = re.search(r"Codice Teams[^:\n]*:[ \t]*(.*)", prof_readme_text, re.IGNORECASE)
     if not m:
         return "", ""
     raw = m.group(1).strip()
     if not raw or raw.lower() in ("n/a", "-", "da definire", "nessuno"):
         return "", ""
-    url_m = re.search(r"\((https?://[^)]+)\)", raw)
+    url_m = re.search(r"\((https://[^)\s]+)\)", raw)
     if url_m:
         return "", url_m.group(1)
-    if raw.startswith("http://") or raw.startswith("https://"):
-        return "", raw
-    return raw.strip("`*_ "), ""
+    if raw.startswith("https://"):
+        return "", raw.split()[0]
+    cleaned = raw.strip("`*_ ")
+    if TEAMS_CODE_RE.fullmatch(cleaned):
+        return cleaned, ""
+    return "", ""
 
 
 def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
     """Estrae gli ultimi aggiornamenti didattici reali dalla cronologia Git."""
     updates = []
     seen_keys = set()
+    per_course_counts = {}
+    root_commits = set()
+    try:
+        roots_out = subprocess.check_output(
+            ["git", "rev-list", "--max-parents=0", "HEAD"],
+            cwd=repo,
+            text=True,
+            errors="replace",
+        )
+        root_commits = {h.strip() for h in roots_out.splitlines() if h.strip()}
+    except Exception:
+        pass
+
     try:
         out = subprocess.check_output(
-            ["git", "-c", "core.quotePath=false", "log", "-n", "15", "--date=format:%d/%m/%Y", "--pretty=format:COMMIT|%ad|%s", "--name-status"],
+            [
+                "git",
+                "-c",
+                "core.quotePath=false",
+                "log",
+                "-n",
+                "80",
+                "--no-merges",
+                "--date=format:%d/%m/%Y",
+                "--pretty=format:COMMIT|%H|%ad|%s",
+                "--name-status",
+                "--",
+                "Primo Anno",
+                "Secondo Anno",
+                "Terzo Anno",
+                "Esami a Scelta",
+            ],
             cwd=repo,
             text=True,
             errors="replace",
@@ -163,16 +198,23 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
     except Exception:
         return updates
 
+    cur_hash = ""
     cur_date = ""
     cur_subj = ""
+    skip_commit = False
     for line in out.splitlines():
         line = line.strip()
         if not line:
             continue
         if line.startswith("COMMIT|"):
-            parts = line.split("|", 2)
-            cur_date = parts[1] if len(parts) > 1 else ""
-            cur_subj = (parts[2] if len(parts) > 2 else "").lower()
+            parts = line.split("|", 3)
+            cur_hash = parts[1].strip() if len(parts) > 1 else ""
+            cur_date = parts[2].strip() if len(parts) > 2 else ""
+            cur_subj = (parts[3] if len(parts) > 3 else "").lower()
+            skip_commit = cur_hash in root_commits
+            continue
+
+        if skip_commit:
             continue
 
         cols = line.split("\t")
@@ -223,10 +265,13 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
         top_sub = sub_segs[0] if sub_segs else ""
         fname = rest[-1]
         label = top_sub if top_sub else fname
-        dedup_key = (course, prof_folder, cat, top_sub if top_sub else fname[:18])
+        dedup_key = (course, prof_folder, cat, top_sub)
         if dedup_key in seen_keys:
             continue
+        if per_course_counts.get(course, 0) >= 2:
+            continue
         seen_keys.add(dedup_key)
+        per_course_counts[course] = per_course_counts.get(course, 0) + 1
 
         prof_disp = prof_display_map.get(f"{course}/{prof_folder}", prof_folder.replace("Prof-", "Prof. "))
         updates.append({

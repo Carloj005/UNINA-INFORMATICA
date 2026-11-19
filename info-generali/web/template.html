@@ -35,14 +35,7 @@
   <meta name="twitter:image" content="https://carloj005.github.io/UNINA-INFORMATICA/assets/MappaMSA.png">
   <style>
     :root {
-      color-scheme: light dark;
-
-      &:has(> head > meta[name="color-scheme"][content="dark"]) {
-        color-scheme: dark;
-      }
-      &:has(> head > meta[name="color-scheme"][content="light"]) {
-        color-scheme: light;
-      }
+      color-scheme: light;
 
       /* Tipografia espressiva e tecnica di sistema + scala fluida con clamp() */
       --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -82,93 +75,139 @@
       --r-btn: 10px;
       --r-pill: 999px;
 
-      /* Palette Federico II Academic Blue (#0f4c81) + Accento Azione Vivace */
-      /* Tema Chiaro: porcellana accademica luminosa e stratificata */
-      --bg-light: #f4f7fb;
-      --surface-light: #ffffff;
-      --surface-2-light: #edf2f9;
-      --surface-3-light: #dfe9f5;
-      --surface-elevated-light: #ffffff;
-      --surface-glass-light: rgba(255, 255, 255, 0.92);
-      --border-light: #cfdbe9;
-      --border-strong-light: #7c97b6;
-      --text-light: #091526;
-      --muted-light: #3b506b;
-      --primary-light: #0f4c81;
-      --primary-hover-light: #0a3760;
-      --primary-soft-light: #dff0ff;
-      --primary-text-light: #0b4170;
-      --accent-vivid-light: #0284c7;
-      --success-soft-light: #dcfce7;
-      --success-text-light: #14532d;
-      --warn-soft-light: #fef3c7;
-      --warn-text-light: #78350f;
+      /* Tema Chiaro (default): porcellana accademica luminosa e stratificata */
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --surface-2: #edf2f9;
+      --surface-3: #dfe9f5;
+      --surface-elevated: #ffffff;
+      --surface-glass: rgba(255, 255, 255, 0.92);
+      --border: #cfdbe9;
+      --border-strong: #7c97b6;
+      --text: #091526;
+      --muted: #3b506b;
+      --primary: #0f4c81;
+      --primary-hover: #0a3760;
+      --primary-soft: #dff0ff;
+      --primary-text: #0b4170;
+      --accent-vivid: #0284c7;
+      --success-soft: #dcfce7;
+      --success-text: #14532d;
+      --warn-soft: #fef3c7;
+      --warn-text: #78350f;
+      --brand-icon-fg: #0f4c81;
+      --brand-icon-acc: #0284c7;
 
-      /* Tema Scuro: ossidiana notturna profonda progettata su misura (non semplice inversione) */
-      --bg-dark: #070d19;
-      --surface-dark: #0e182a;
-      --surface-2-dark: #15233b;
-      --surface-3-dark: #1f3252;
-      --surface-elevated-dark: #132036;
-      --surface-glass-dark: rgba(11, 20, 36, 0.92);
-      --border-dark: #223656;
-      --border-strong-dark: #4f709c;
-      --text-dark: #f0f6fe;
-      --muted-dark: #9eb3cf;
-      --primary-dark: #2563eb;
-      --primary-hover-dark: #1d4ed8;
-      --primary-soft-dark: #142c54;
-      --primary-text-dark: #7dd3fc;
-      --accent-vivid-dark: #38bdf8;
-      --success-soft-dark: #064e3b;
-      --success-text-dark: #6ee7b7;
-      --warn-soft-dark: #451a03;
-      --warn-text-dark: #fcd34d;
+      /* Token componenti & badge (Chiaro) */
+      --type-pdf-bg: #fef2f2;
+      --type-pdf-fg: #b91c1c;
+      --type-pdf-border: #fecaca;
+      --type-slides-bg: #fffbeb;
+      --type-slides-fg: #b45309;
+      --type-slides-border: #fde68a;
+      --type-archive-bg: #f5f3ff;
+      --type-archive-fg: #6d28d9;
+      --type-archive-border: #ddd6fe;
+      --type-image-bg: #ecfdf5;
+      --type-image-fg: #047857;
+      --type-image-border: #a7f3d0;
+      --type-code-bg: #ecfeff;
+      --type-code-fg: #0369a1;
+      --type-code-border: #bae6fd;
+      --pin-bg: #fef3c7;
+      --pin-border: #f59e0b;
+      --pin-badge-border: #fde68a;
+      --pin-fg: #92400e;
+      --spotlight-bg: rgba(15, 76, 129, 0.05);
+      --accent-border-soft: rgba(2, 132, 199, 0.35);
+      --primary-tint-border: rgba(15, 76, 129, 0.2);
+      --countdown-urgent-bg: #b91c1c;
+      --countdown-urgent-fg: #ffffff;
+      --countdown-soon-bg: #b45309;
+      --countdown-soon-fg: #ffffff;
+      --past-bg: #eef2f7;
+      --past-border: #cbd5e1;
+      --past-fg: #475569;
 
-      /* Token semantici reattivi */
-      --bg: light-dark(var(--bg-light), var(--bg-dark));
-      --surface: light-dark(var(--surface-light), var(--surface-dark));
-      --surface-2: light-dark(var(--surface-2-light), var(--surface-2-dark));
-      --surface-3: light-dark(var(--surface-3-light), var(--surface-3-dark));
-      --surface-elevated: light-dark(var(--surface-elevated-light), var(--surface-elevated-dark));
-      --surface-glass: light-dark(var(--surface-glass-light), var(--surface-glass-dark));
-      --border: light-dark(var(--border-light), var(--border-dark));
-      --border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
-      --text: light-dark(var(--text-light), var(--text-dark));
-      --muted: light-dark(var(--muted-light), var(--muted-dark));
-      --primary: light-dark(var(--primary-light), var(--primary-dark));
-      --primary-hover: light-dark(var(--primary-hover-light), var(--primary-hover-dark));
-      --primary-soft: light-dark(var(--primary-soft-light), var(--primary-soft-dark));
-      --primary-text: light-dark(var(--primary-text-light), var(--primary-text-dark));
-      --accent-vivid: light-dark(var(--accent-vivid-light), var(--accent-vivid-dark));
-      --success-soft: light-dark(var(--success-soft-light), var(--success-soft-dark));
-      --success-text: light-dark(var(--success-text-light), var(--success-text-dark));
-      --warn-soft: light-dark(var(--warn-soft-light), var(--warn-soft-dark));
-      --warn-text: light-dark(var(--warn-text-light), var(--warn-text-dark));
-      --brand-icon-fg: light-dark(#0f4c81, #ffffff);
-      --brand-icon-acc: light-dark(#0284c7, #7dd3fc);
-
-      /* Ombre calibrate e mesh accademica sottile */
-      --shadow-sm: light-dark(
-        0 1px 2px rgba(9, 21, 38, 0.05),
-        0 1px 3px rgba(2, 6, 14, 0.45)
-      );
-      --shadow-md: light-dark(
-        0 6px 18px -4px rgba(15, 76, 129, 0.08),
-        0 10px 24px -6px rgba(2, 6, 14, 0.65)
-      );
-      --shadow-lg: light-dark(
-        0 18px 40px -10px rgba(15, 76, 129, 0.14),
-        0 20px 44px -10px rgba(0, 0, 0, 0.78)
-      );
-      --mesh-bg: light-dark(
-        radial-gradient(1100px 520px at 14% -6%, rgba(15, 76, 129, 0.08), transparent 62%),
-        radial-gradient(1100px 520px at 14% -6%, rgba(37, 99, 235, 0.16), transparent 62%)
-      );
+      /* Ombre calibrate e mesh accademica sottile (Chiaro) */
+      --shadow-sm: 0 1px 2px rgba(9, 21, 38, 0.05);
+      --shadow-md: 0 6px 18px -4px rgba(15, 76, 129, 0.08);
+      --shadow-lg: 0 18px 40px -10px rgba(15, 76, 129, 0.14);
+      --mesh-bg: radial-gradient(1100px 520px at 14% -6%, rgba(15, 76, 129, 0.08), transparent 62%);
+      --hero-bg-radial:
+        radial-gradient(900px 460px at 78% 18%, rgba(2, 132, 199, 0.10), transparent 70%),
+        radial-gradient(600px 360px at 14% 68%, rgba(15, 76, 129, 0.06), transparent 72%);
 
       /* Curva elastica e transizioni */
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+
+      /* Tema Scuro: ossidiana notturna profonda progettata su misura */
+      --bg: #070d19;
+      --surface: #0e182a;
+      --surface-2: #15233b;
+      --surface-3: #1f3252;
+      --surface-elevated: #132036;
+      --surface-glass: rgba(11, 20, 36, 0.92);
+      --border: #223656;
+      --border-strong: #4f709c;
+      --text: #f0f6fe;
+      --muted: #9eb3cf;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #142c54;
+      --primary-text: #7dd3fc;
+      --accent-vivid: #38bdf8;
+      --success-soft: #064e3b;
+      --success-text: #6ee7b7;
+      --warn-soft: #451a03;
+      --warn-text: #fcd34d;
+      --brand-icon-fg: #ffffff;
+      --brand-icon-acc: #7dd3fc;
+
+      /* Token componenti & badge (Scuro) */
+      --type-pdf-bg: rgba(239, 68, 68, 0.14);
+      --type-pdf-fg: #fca5a5;
+      --type-pdf-border: rgba(239, 68, 68, 0.3);
+      --type-slides-bg: rgba(245, 158, 11, 0.14);
+      --type-slides-fg: #fcd34d;
+      --type-slides-border: rgba(245, 158, 11, 0.3);
+      --type-archive-bg: rgba(167, 139, 250, 0.14);
+      --type-archive-fg: #c4b5fd;
+      --type-archive-border: rgba(167, 139, 250, 0.3);
+      --type-image-bg: rgba(16, 185, 129, 0.14);
+      --type-image-fg: #6ee7b7;
+      --type-image-border: rgba(16, 185, 129, 0.3);
+      --type-code-bg: rgba(56, 189, 248, 0.14);
+      --type-code-fg: #7dd3fc;
+      --type-code-border: rgba(56, 189, 248, 0.3);
+      --pin-bg: rgba(245, 158, 11, 0.18);
+      --pin-border: #fbbf24;
+      --pin-badge-border: rgba(245, 158, 11, 0.35);
+      --pin-fg: #fcd34d;
+      --spotlight-bg: rgba(56, 189, 248, 0.08);
+      --accent-border-soft: rgba(56, 189, 248, 0.38);
+      --primary-tint-border: rgba(56, 189, 248, 0.25);
+      --countdown-urgent-bg: #dc2626;
+      --countdown-urgent-fg: #ffffff;
+      --countdown-soon-bg: #f59e0b;
+      --countdown-soon-fg: #091526;
+      --past-bg: #111c30;
+      --past-border: #243654;
+      --past-fg: #9eb3cf;
+
+      /* Ombre calibrate e mesh accademica sottile (Scuro) */
+      --shadow-sm: 0 1px 3px rgba(2, 6, 14, 0.45);
+      --shadow-md: 0 10px 24px -6px rgba(2, 6, 14, 0.65);
+      --shadow-lg: 0 20px 44px -10px rgba(0, 0, 0, 0.78);
+      --mesh-bg: radial-gradient(1100px 520px at 14% -6%, rgba(37, 99, 235, 0.16), transparent 62%);
+      --hero-bg-radial:
+        radial-gradient(900px 460px at 78% 18%, rgba(56, 189, 248, 0.13), transparent 70%),
+        radial-gradient(600px 360px at 14% 68%, rgba(37, 99, 235, 0.10), transparent 72%);
     }
 
     @media (max-width: 1180px) and (min-width: 1024px) {
@@ -677,9 +716,7 @@
     .hero.home-section {
       padding-top: calc(var(--nav) + 52px);
       padding-bottom: 56px;
-      background-image:
-        radial-gradient(900px 460px at 78% 18%, light-dark(rgba(2, 132, 199, 0.10), rgba(56, 189, 248, 0.13)), transparent 70%),
-        radial-gradient(600px 360px at 14% 68%, light-dark(rgba(15, 76, 129, 0.06), rgba(37, 99, 235, 0.10)), transparent 72%);
+      background-image: var(--hero-bg-radial);
     }
     .home-section > .wrap {
       position: relative;
@@ -1806,29 +1843,29 @@
       line-height: 1;
     }
     .file-icon.type-pdf {
-      background: light-dark(#fef2f2, rgba(239, 68, 68, 0.14));
-      color: light-dark(#b91c1c, #fca5a5);
-      border-color: light-dark(#fecaca, rgba(239, 68, 68, 0.3));
+      background: var(--type-pdf-bg);
+      color: var(--type-pdf-fg);
+      border-color: var(--type-pdf-border);
     }
     .file-icon.type-slides {
-      background: light-dark(#fffbeb, rgba(245, 158, 11, 0.14));
-      color: light-dark(#b45309, #fcd34d);
-      border-color: light-dark(#fde68a, rgba(245, 158, 11, 0.3));
+      background: var(--type-slides-bg);
+      color: var(--type-slides-fg);
+      border-color: var(--type-slides-border);
     }
     .file-icon.type-archive {
-      background: light-dark(#f5f3ff, rgba(167, 139, 250, 0.14));
-      color: light-dark(#6d28d9, #c4b5fd);
-      border-color: light-dark(#ddd6fe, rgba(167, 139, 250, 0.3));
+      background: var(--type-archive-bg);
+      color: var(--type-archive-fg);
+      border-color: var(--type-archive-border);
     }
     .file-icon.type-image {
-      background: light-dark(#ecfdf5, rgba(16, 185, 129, 0.14));
-      color: light-dark(#047857, #6ee7b7);
-      border-color: light-dark(#a7f3d0, rgba(16, 185, 129, 0.3));
+      background: var(--type-image-bg);
+      color: var(--type-image-fg);
+      border-color: var(--type-image-border);
     }
     .file-icon.type-code {
-      background: light-dark(#ecfeff, rgba(56, 189, 248, 0.14));
-      color: light-dark(#0369a1, #7dd3fc);
-      border-color: light-dark(#bae6fd, rgba(56, 189, 248, 0.3));
+      background: var(--type-code-bg);
+      color: var(--type-code-fg);
+      border-color: var(--type-code-border);
     }
     .file-body {
       min-width: 0;
@@ -2025,9 +2062,9 @@
       transform: scale(0.92);
     }
     .pin-btn[aria-pressed="true"] {
-      background: light-dark(#fef3c7, rgba(245, 158, 11, 0.18));
-      border-color: light-dark(#f59e0b, #fbbf24);
-      color: light-dark(#b45309, #fcd34d);
+      background: var(--pin-bg);
+      border-color: var(--pin-border);
+      color: var(--pin-fg);
     }
     .course-status {
       display: inline-flex;
@@ -2481,7 +2518,7 @@
     }
     /* Pinned Exams Spotlight Banner */
     .cal-pinned-spotlight {
-      background: light-dark(rgba(15, 76, 129, 0.05), rgba(56, 189, 248, 0.08));
+      background: var(--spotlight-bg);
       border: 1px solid var(--primary);
       border-radius: var(--r-lg);
       padding: 14px 16px;
@@ -2551,7 +2588,7 @@
     }
     .calendar-card.is-pinned-exam {
       border-top-color: var(--accent-vivid);
-      border-color: light-dark(rgba(2, 132, 199, 0.35), rgba(56, 189, 248, 0.38));
+      border-color: var(--accent-border-soft);
     }
     .calendar-card.is-old-reg {
       border-top-color: var(--border-strong);
@@ -2582,9 +2619,9 @@
       flex-shrink: 0;
     }
     .pinned-exam-badge {
-      background: light-dark(#fef3c7, rgba(245, 158, 11, 0.18));
-      color: light-dark(#b45309, #fcd34d);
-      border: 1px solid light-dark(#fde68a, rgba(245, 158, 11, 0.35));
+      background: var(--pin-bg);
+      color: var(--pin-fg);
+      border: 1px solid var(--pin-badge-border);
       padding: 2px 8px;
       border-radius: var(--r-pill);
       font-size: 0.72rem;
@@ -2624,7 +2661,7 @@
     }
     .cal-next-banner {
       background: var(--primary-soft);
-      border: 1px solid light-dark(rgba(15, 76, 129, 0.2), rgba(56, 189, 248, 0.25));
+      border: 1px solid var(--primary-tint-border);
       border-radius: var(--r-md);
       padding: 8px 12px;
       font-size: 0.84375rem;
@@ -2648,12 +2685,12 @@
       font-variant-numeric: tabular-nums;
     }
     .cal-countdown-tag.is-urgent {
-      background: light-dark(#dc2626, #ef4444);
-      color: #ffffff;
+      background: var(--countdown-urgent-bg);
+      color: var(--countdown-urgent-fg);
     }
     .cal-countdown-tag.is-soon {
-      background: light-dark(#d97706, #f59e0b);
-      color: light-dark(#ffffff, #091526);
+      background: var(--countdown-soon-bg);
+      color: var(--countdown-soon-fg);
     }
     .cal-dates-list {
       display: flex;
@@ -2687,6 +2724,28 @@
     .exam-date-pill.is-past {
       opacity: 0.55;
       text-decoration: line-through;
+    }
+    .exam-date-pill.is-tentative {
+      border-color: var(--pin-border);
+      background: var(--warn-soft);
+      color: var(--warn-text);
+    }
+    .exam-date-pill.is-tentative .exam-date-sub {
+      color: var(--warn-text);
+      font-weight: 600;
+    }
+    .exam-tentative-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: var(--r-pill);
+      background: var(--warn-soft);
+      color: var(--warn-text);
+      border: 1px solid var(--pin-border);
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
     }
     .cal-note-box {
       background: var(--surface-2);
@@ -2774,7 +2833,7 @@
       min-width: 62px;
       padding: 8px 8px;
       border-radius: var(--r-md);
-      border: 1px solid light-dark(rgba(15, 76, 129, 0.2), rgba(56, 189, 248, 0.25));
+      border: 1px solid var(--primary-tint-border);
       background: var(--primary-soft);
       color: var(--primary-text);
       text-align: center;
@@ -4611,15 +4670,45 @@
       // Modal history, scroll preservation, mobile swipe-down-to-close & focus restoration
       let lastDialogTrigger = null;
       let savedDialogScrollY = 0;
-      const openDialogWithHistory = (dialog) => {
-        if (!dialog) return;
-        if (!dialog.open) {
-          lastDialogTrigger = document.activeElement;
-          savedDialogScrollY = window.scrollY;
-          dialog.style.transform = '';
-          dialog.showModal();
-          try { history.pushState({ modal: dialog.id }, '', location.href); } catch {}
+      let ignoreModalBackPopstate = 0;
+      let replacingModalHistory = false;
+      const dialogStateMap = new WeakMap();
+
+      const getDialogState = (dialog) => {
+        let st = dialogStateMap.get(dialog);
+        if (!st) {
+          st = { historyPushed: false, closedViaPopstate: false, skipCloseRestore: false };
+          dialogStateMap.set(dialog, st);
         }
+        return st;
+      };
+
+      const openDialogWithHistory = (dialog) => {
+        if (!dialog || dialog.open) return;
+        const st = getDialogState(dialog);
+        st.historyPushed = false;
+        st.closedViaPopstate = false;
+        st.skipCloseRestore = false;
+        lastDialogTrigger = document.activeElement;
+        savedDialogScrollY = window.scrollY;
+        dialog.style.transform = '';
+        dialog.showModal();
+        try {
+          history.pushState({ modal: dialog.id }, '', location.href);
+          st.historyPushed = true;
+        } catch {}
+      };
+
+      const closeDialogForNavigation = (dialog) => {
+        if (!dialog || !dialog.open) return;
+        const st = getDialogState(dialog);
+        st.skipCloseRestore = true;
+        if (st.historyPushed && history.state && history.state.modal === dialog.id) {
+          replacingModalHistory = true;
+          try { history.replaceState(null, '', location.href); } catch {}
+        }
+        st.historyPushed = false;
+        dialog.close();
       };
 
       // Inject swipe-down drag handle into every modal dialog for mobile sheet ergonomics
@@ -4676,14 +4765,30 @@
       }
       for (const dialog of document.querySelectorAll('dialog')) {
         dialog.addEventListener('close', () => {
+          const st = getDialogState(dialog);
           dialog.returnValue = '';
           dialog.style.transform = '';
-          if (lastDialogTrigger && typeof lastDialogTrigger.focus === 'function') {
-            try { lastDialogTrigger.focus({ preventScroll: true }); } catch {}
+          const shouldRestore = !st.skipCloseRestore;
+          const shouldPopHistory = st.historyPushed && !st.closedViaPopstate && !st.skipCloseRestore;
+          st.historyPushed = false;
+          st.closedViaPopstate = false;
+          st.skipCloseRestore = false;
+
+          if (shouldRestore) {
+            if (lastDialogTrigger && typeof lastDialogTrigger.focus === 'function') {
+              try { lastDialogTrigger.focus({ preventScroll: true }); } catch {}
+              lastDialogTrigger = null;
+            }
+            if (Math.abs(window.scrollY - savedDialogScrollY) > 10) {
+              window.scrollTo({ top: savedDialogScrollY, behavior: 'instant' });
+            }
+          } else {
             lastDialogTrigger = null;
           }
-          if (Math.abs(window.scrollY - savedDialogScrollY) > 10) {
-            window.scrollTo({ top: savedDialogScrollY, behavior: 'instant' });
+
+          if (shouldPopHistory && history.state && history.state.modal === dialog.id) {
+            ignoreModalBackPopstate += 1;
+            try { history.back(); } catch { ignoreModalBackPopstate = Math.max(0, ignoreModalBackPopstate - 1); }
           }
         });
       }
@@ -4939,7 +5044,12 @@
         else applyOpen();
         if (pushHistory) {
           const hash = tabToHash(tabId);
-          try { history.pushState({ view: 'catalog', tabId }, '', `${location.pathname}${hash}`); } catch {}
+          if (replacingModalHistory) {
+            replacingModalHistory = false;
+            try { history.replaceState({ view: 'catalog', tabId }, '', `${location.pathname}${hash}`); } catch {}
+          } else {
+            try { history.pushState({ view: 'catalog', tabId }, '', `${location.pathname}${hash}`); } catch {}
+          }
           syncUrlState(tabId);
         }
       };
@@ -5918,7 +6028,7 @@
           g.textContent = label;
           cmdResultsList.appendChild(g);
         };
-        const addItem = (titleHtml, metaText, onSelect) => {
+        const addItem = (titleHtml, metaText, onSelect, navigates = true) => {
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'cmd-item';
@@ -5926,7 +6036,8 @@
           btn.innerHTML = `<span>${titleHtml}</span><span class="sugg-meta">${escapeHtml(metaText)}</span>`;
           btn.addEventListener('click', () => {
             if (raw) saveRecentSearch(raw);
-            cmdModal?.close();
+            if (navigates) closeDialogForNavigation(cmdModal);
+            else cmdModal?.close();
             onSelect();
           });
           cmdResultsList.appendChild(btn);
@@ -5946,7 +6057,7 @@
           addItem(`${SVG_ICONS.calendar} Calendario appelli d'esame DIETI`, 'Calendario', () => openCatalog('tab-btn-calendar'));
           addItem(`${SVG_ICONS.book} Insegnamenti, propedeuticità e codici Teams`, '31 corsi', () => openCatalog('tab-btn-courses'));
           addItem(`${SVG_ICONS.map} Mappe Monte Sant'Angelo, Via Claudio e Clone Git`, 'Mappe e Git', () => openCatalog('tab-btn-hub'));
-          addItem(`${SVG_ICONS.star} Cambia tema Chiaro / Scuro`, 'Aspetto', () => applyThemeSwitch());
+          addItem(`${SVG_ICONS.star} Cambia tema Chiaro / Scuro`, 'Aspetto', () => applyThemeSwitch(), false);
         } else {
           const mCourses = DATA.courses.filter((c) => c.searchBlob.includes(q)).slice(0, 4);
           if (mCourses.length) {
@@ -6114,7 +6225,7 @@
         });
         renderModalClone();
         document.getElementById('modal-filter-files').onclick = () => {
-          courseModal.close();
+          closeDialogForNavigation(courseModal);
           openCatalog('tab-btn-files');
           filterYear.value = c.yearGroup;
           updateCourseOptions();
@@ -6123,7 +6234,7 @@
           applyFileFilters();
         };
         document.getElementById('modal-jump-calendar').onclick = () => {
-          courseModal.close();
+          closeDialogForNavigation(courseModal);
           openCatalog('tab-btn-calendar');
           if (calSearch) calSearch.value = c.name;
           if (typeof renderCalendar === 'function') renderCalendar();
@@ -6688,6 +6799,7 @@
                       ${isPinnedEx ? `<span class="pinned-exam-badge">${SVG_ICONS.starFilled} Fissato</span>` : ''}
                       ${e.channel ? `<span class="channel-badge">${escapeHtml(e.channel)}</span>` : ''}
                       ${e.regolamento === 'Vecchio Regolamento' ? '<span class="reg-badge">Vecchio Reg.</span>' : ''}
+                      ${d.isTentative ? `<span class="exam-tentative-badge" title="${escapeHtml(d.warning || 'Verificare sul PDF DIETI')}">Verificare sul PDF DIETI</span>` : ''}
                     </div>
                     <div class="timeline-sub">
                       ${[e.yearGroup, e.semester ? `${e.semester} sem` : '', e.prof || ''].filter(Boolean).map(escapeHtml).join(' • ')}
@@ -6731,11 +6843,15 @@
             const isPast = d.iso < todayIso;
             const isNext = nextDate && d.iso === nextDate.iso;
             const wd = getWeekdayShort(d.iso);
-            const cls = isNext ? 'exam-date-pill is-next' : (isPast ? 'exam-date-pill is-past' : 'exam-date-pill');
+            const tentativeCls = d.isTentative ? ' is-tentative' : '';
+            const cls = (isNext ? 'exam-date-pill is-next' : (isPast ? 'exam-date-pill is-past' : 'exam-date-pill')) + tentativeCls;
+            const titleTxt = d.isTentative
+              ? (d.warning || 'Verificare sul PDF DIETI')
+              : (isNext ? 'Prossimo appello disponibile' : (isPast ? 'Appello passato' : 'Appello programmato'));
             return `
-              <span class="${cls}" title="${isNext ? 'Prossimo appello disponibile' : (isPast ? 'Appello passato' : 'Appello programmato')}">
-                <strong>${escapeHtml(wd)} ${escapeHtml(d.display)}</strong>
-                <span class="exam-date-sub">${escapeHtml(CAL_MONTH_NAMES_IT[d.month] || '')} ${d.year}</span>
+              <span class="${cls}" title="${escapeHtml(titleTxt)}">
+                <strong>${escapeHtml(wd)} ${escapeHtml(d.display)}${d.isTentative ? ' ⚠' : ''}</strong>
+                <span class="exam-date-sub">${d.isTentative ? 'Verificare sul PDF DIETI' : `${escapeHtml(CAL_MONTH_NAMES_IT[d.month] || '')} ${d.year}`}</span>
               </span>
             `;
           }).join('');
@@ -6868,8 +6984,14 @@
       };
 
       window.addEventListener('popstate', () => {
+        if (ignoreModalBackPopstate > 0) {
+          ignoreModalBackPopstate -= 1;
+          return;
+        }
         const openDlg = document.querySelector('dialog[open]');
         if (openDlg) {
+          const st = getDialogState(openDlg);
+          st.closedViaPopstate = true;
           openDlg.close();
           return;
         }

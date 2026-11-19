@@ -316,8 +316,8 @@
       "course": "Programmazione",
       "repoCourse": "Programmazione 1",
       "aliases": "prog 1 prog1 pr1 programmazione",
-      "prof": "Roberto Prevete / Daniel Riccio",
-      "email": "roberto.prevete@unina.it / daniel.riccio@unina.it",
+      "prof": "Roberto Prevete",
+      "email": "roberto.prevete@unina.it",
       "channel": "FG1 (A-DE)",
       "dates": [
         {
@@ -358,8 +358,8 @@
       "course": "Programmazione",
       "repoCourse": "Programmazione 1",
       "aliases": "prog 1 prog1 pr1 programmazione",
-      "prof": "Luigi Sauro",
-      "email": "luigi.sauro@unina.it",
+      "prof": "Luigi Sauro / Daniel Riccio",
+      "email": "luigi.sauro@unina.it / daniel.riccio@unina.it",
       "channel": "FG2 (DF-M)",
       "dates": [
         {
@@ -1184,7 +1184,7 @@
       "repoCourse": "Architettura degli Elaboratori",
       "aliases": "ade ade1 architettura elaboratori",
       "prof": "Luigi Sauro",
-      "email": "silvia.rossi@unina.it",
+      "email": "luigi.sauro@unina.it",
       "channel": "",
       "dates": [],
       "note": ""
@@ -1198,7 +1198,7 @@
       "repoCourse": "Architettura degli Elaboratori",
       "aliases": "ade ade1 architettura elaboratori",
       "prof": "Silvia Rossi",
-      "email": "luigi.sauro@unina.it",
+      "email": "silvia.rossi@unina.it",
       "channel": "",
       "dates": [],
       "note": ""
@@ -1668,7 +1668,7 @@
       "repoCourse": "Sistemi Operativi",
       "aliases": "so os kernel",
       "prof": "Alberto Finzi",
-      "email": "walter.balzano@unina.it",
+      "email": "alberto.finzi@unina.it",
       "channel": "FG1",
       "dates": [],
       "note": ""
@@ -1682,7 +1682,7 @@
       "repoCourse": "Sistemi Operativi",
       "aliases": "so os kernel",
       "prof": "Walter Balzano",
-      "email": "alberto.finzi@unina.it",
+      "email": "walter.balzano@unina.it",
       "channel": "FG2",
       "dates": [],
       "note": ""
@@ -2667,7 +2667,7 @@
       "semester": "1°",
       "regolamento": "Esami a Scelta",
       "course": "Istituzioni di Matematica II",
-      "repoCourse": "",
+      "repoCourse": "Istituzioni di Matematica II",
       "aliases": "im2 istituzioni matematica 2",
       "prof": "Carlo Maria Mantegazza",
       "email": "carlomaria.mantegazza@unina.it",
@@ -2759,7 +2759,9 @@
           "month": 2,
           "year": 2027,
           "monthKey": "2027-02",
-          "weekLabel": "22-26 feb."
+          "weekLabel": "22-26 feb.",
+          "isTentative": true,
+          "warning": "Verificare sul PDF DIETI (data nel weekend)"
         },
         {
           "iso": "2027-03-15",
