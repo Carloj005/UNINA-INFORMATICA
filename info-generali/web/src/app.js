@@ -2070,15 +2070,13 @@
         <div>
           <div class="course-head">
             <h2 class="course-title"><a href="${REPO_URL}/tree/master/${c.urlPath}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a></h2>
-            <div class="course-head-right">
-              <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
-              <button type="button" class="pin-btn" aria-pressed="${isPinned ? 'true' : 'false'}" aria-label="${isPinned ? 'Rimuovi ' + escapeHtml(c.name) + ' dai corsi fissati' : 'Fissa ' + escapeHtml(c.name) + ' in Home'}" title="${isPinned ? 'Rimuovi dai corsi fissati in Home' : 'Fissa questo corso in Home'}">
-                ${isPinned ? SVG_ICONS.starFilled : SVG_ICONS.star}
-              </button>
-            </div>
+            <button type="button" class="pin-btn" aria-pressed="${isPinned ? 'true' : 'false'}" aria-label="${isPinned ? 'Rimuovi ' + escapeHtml(c.name) + ' dai corsi fissati' : 'Fissa ' + escapeHtml(c.name) + ' in Home'}" title="${isPinned ? 'Rimuovi dai corsi fissati in Home' : 'Fissa questo corso in Home'}">
+              ${isPinned ? SVG_ICONS.starFilled : SVG_ICONS.star}
+            </button>
           </div>
           <div class="course-meta-row">
             <span class="meta-tag is-year">${escapeHtml(c.yearGroup)} • ${escapeHtml(c.semester)} sem</span>
+            <span class="course-status" title="Copertura materiale">${getStatusSvg(c)}</span>
             <span class="meta-tag">${escapeHtml(c.cfu)} CFU</span>
             <span class="meta-tag">${escapeHtml(c.ssd.toLowerCase())}</span>
             <span class="meta-tag">${c.fileCount} file</span>
