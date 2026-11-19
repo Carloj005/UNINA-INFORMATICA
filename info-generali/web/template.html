@@ -20,7 +20,8 @@
   <title>Unina Informatica — Archivio didattico ed esami Federico II</title>
   <link rel="icon" id="site-favicon" type="image/svg+xml" href="./favicon.svg">
   <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" id="meta-theme-color" content="#0f4c81">
+  <meta name="theme-color" id="meta-theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09101d" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Archivio didattico open-source con ricerca istantanea di slide, appunti, tracce d'esame, calendario appelli DIETI e codici Microsoft Teams per Informatica Federico II.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
@@ -262,6 +263,43 @@
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+      }
+    }
+
+    /* View Transitions API (Circular theme switch + crisp cross-fade between Home/Catalog views) */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 240ms;
+      animation-timing-function: var(--ease-out);
+    }
+    html.vt-theme::view-transition-old(root),
+    html.vt-theme::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+    html.vt-theme::view-transition-new(root) {
+      z-index: 9999;
+    }
+    @keyframes star-pop {
+      0% { transform: scale(1); }
+      45% { transform: scale(1.24); }
+      100% { transform: scale(1); }
+    }
+    .pin-btn.just-pinned {
+      animation: star-pop 320ms var(--ease-spring);
+    }
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        @keyframes card-rise {
+          from { transform: translateY(10px) scale(0.99); }
+          to { transform: translateY(0) scale(1); }
+        }
+        .year-card,
+        .bento-panel {
+          animation: card-rise linear both;
+          animation-timeline: view();
+          animation-range: entry 0% entry 28%;
+        }
       }
     }
 
@@ -4561,7 +4599,18 @@
       syncFaviconTheme();
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncFaviconTheme);
 
-      const applyThemeSwitch = () => {
+      const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const runViewTransition = (fn) => {
+        if (document.startViewTransition && !prefersReducedMotion()) {
+          try {
+            return document.startViewTransition(fn);
+          } catch {}
+        }
+        fn();
+        return null;
+      };
+
+      const applyThemeSwitch = (ev) => {
         const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const sysScheme = sysDark ? 'dark' : 'light';
         let stored = null;
@@ -4580,8 +4629,24 @@
           }
           syncFaviconTheme();
         };
-        if (document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          document.startViewTransition(commitTheme);
+        if (document.startViewTransition && !prefersReducedMotion()) {
+          const btnRect = themeToggleBtn?.getBoundingClientRect();
+          const x = (ev && typeof ev.clientX === 'number' && ev.clientX > 0)
+            ? ev.clientX
+            : (btnRect ? btnRect.left + btnRect.width / 2 : window.innerWidth - 40);
+          const y = (ev && typeof ev.clientY === 'number' && ev.clientY > 0)
+            ? ev.clientY
+            : (btnRect ? btnRect.top + btnRect.height / 2 : 32);
+          const maxR = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+          document.documentElement.classList.add('vt-theme');
+          const vt = document.startViewTransition(commitTheme);
+          vt.ready.then(() => {
+            document.documentElement.animate(
+              { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxR}px at ${x}px ${y}px)`] },
+              { duration: 380, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', pseudoElement: '::view-transition-new(root)' }
+            );
+          }).catch(() => {});
+          vt.finished.finally(() => document.documentElement.classList.remove('vt-theme'));
         } else {
           commitTheme();
         }
@@ -4916,13 +4981,17 @@
 
       const headerOpenCatalogBtn = document.getElementById('header-open-catalog-btn');
       const openCatalog = (tabId = 'tab-btn-files', pushHistory = true) => {
-        homeSections.forEach((sec) => { sec.hidden = true; });
-        catalogScreen.hidden = false;
-        setCatalogInteractive(true);
-        headerBackHomeBtn.hidden = false;
-        if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = true;
-        activateCatalogTab(tabId);
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        const applyOpen = () => {
+          homeSections.forEach((sec) => { sec.hidden = true; });
+          catalogScreen.hidden = false;
+          setCatalogInteractive(true);
+          headerBackHomeBtn.hidden = false;
+          if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = true;
+          activateCatalogTab(tabId);
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        };
+        if (pushHistory && catalogScreen.hidden) runViewTransition(applyOpen);
+        else applyOpen();
         if (pushHistory) {
           const hash = tabToHash(tabId);
           try { history.pushState({ view: 'catalog', tabId }, '', `${location.pathname}${hash}`); } catch {}
@@ -4931,13 +5000,17 @@
       };
 
       const openHome = (pushHistory = true) => {
-        catalogScreen.hidden = true;
-        setCatalogInteractive(false);
-        homeSections.forEach((sec) => { sec.hidden = false; });
-        headerBackHomeBtn.hidden = true;
-        if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = false;
-        syncShellNav('home');
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        const applyHome = () => {
+          catalogScreen.hidden = true;
+          setCatalogInteractive(false);
+          homeSections.forEach((sec) => { sec.hidden = false; });
+          headerBackHomeBtn.hidden = true;
+          if (headerOpenCatalogBtn) headerOpenCatalogBtn.hidden = false;
+          syncShellNav('home');
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        };
+        if (pushHistory && !catalogScreen.hidden) runViewTransition(applyHome);
+        else applyHome();
         if (pushHistory && (location.hash || location.search)) {
           try { history.pushState({ view: 'home' }, '', location.pathname); } catch {}
         }
@@ -6279,7 +6352,11 @@
               <button type="button" class="btn" data-open-course="${idx}">${SVG_ICONS.book} Scheda</button>
             </div>
           `;
-          card.querySelector('.pin-btn').addEventListener('click', () => togglePinCourse(c.name));
+          card.querySelector('.pin-btn').addEventListener('click', (ev) => {
+            const btn = ev.currentTarget;
+            btn.classList.add('just-pinned');
+            togglePinCourse(c.name);
+          });
           card.querySelector('[data-open-course]').addEventListener('click', () => openCourseModal(c));
           card.querySelector('[data-jump-files]').addEventListener('click', () => {
             openCatalog('tab-btn-files');

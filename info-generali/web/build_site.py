@@ -10,6 +10,7 @@ import os
 import re
 import json
 import shutil
+import hashlib
 import argparse
 import subprocess
 import unicodedata
@@ -449,31 +450,55 @@ def build_catalog(repo: str):
     }
 
 
-def write_pwa_and_seo_files(out_dir: str, generated_at: str):
+def write_pwa_and_seo_files(out_dir: str, generated_at: str, version_tag: str = ""):
     manifest = {
+        "id": "./",
         "name": "Unina Informatica — Archivio Didattico Federico II",
         "short_name": "Unina Info",
-        "description": "Catalogo ricercabile di slide, appunti, tracce d'esame, codici Teams e mappe per Informatica (Federico II).",
+        "description": "Catalogo ricercabile di slide, appunti, tracce d'esame, codici Teams, calendario appelli DIETI e mappe per Informatica (Federico II).",
         "start_url": "./",
         "scope": "./",
         "display": "standalone",
-        "background_color": "#0f172a",
+        "background_color": "#09101d",
         "theme_color": "#0f4c81",
         "lang": "it",
+        "categories": ["education", "utilities"],
         "icons": [
             {
                 "src": "./favicon.svg",
                 "sizes": "any",
                 "type": "image/svg+xml",
-                "purpose": "any",
+                "purpose": "any maskable",
             }
+        ],
+        "shortcuts": [
+            {
+                "name": "Catalogo file ed esami",
+                "short_name": "Catalogo",
+                "url": "./#catalogo",
+                "description": "Cerca slide, appunti e tracce d'esame",
+            },
+            {
+                "name": "Calendario appelli DIETI",
+                "short_name": "Calendario",
+                "url": "./#calendario",
+                "description": "Consulta date e countdown degli appelli",
+            },
+            {
+                "name": "Corsi e codici Teams",
+                "short_name": "Corsi",
+                "url": "./#corsi",
+                "description": "Insegnamenti, propedeuticità e codici Microsoft Teams",
+            },
         ],
     }
     with open(os.path.join(out_dir, "manifest.webmanifest"), "w", encoding="utf-8") as fp:
         json.dump(manifest, fp, ensure_ascii=False, indent=2)
 
-    sw_code = f"""// Service Worker leggero per consultazione offline di indice, codici Teams e mappe campus
-const CACHE_NAME = 'unina-info-v1-{generated_at.replace("/", "")}';
+    cache_suffix = f"{generated_at.replace('/', '')}{('-' + version_tag) if version_tag else ''}"
+    sw_code = f"""// Service Worker PWA per consultazione offline di shell, catalogo, codici Teams e mappe campus
+// Strategia Network-first con no-cache per la shell HTML: garantisce l'aggiornamento giornaliero del calendario DIETI
+const CACHE_NAME = 'unina-info-v2-{cache_suffix}';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -502,23 +527,28 @@ self.addEventListener('fetch', (event) => {{
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Cache-first per le mappe dei campus, Network-first con fallback offline per la shell HTML
-  if (url.pathname.includes('/assets/')) {{
+  // Cache-first per asset statici (mappe campus e icone)
+  if (url.pathname.includes('/assets/') || url.pathname.endsWith('/favicon.svg')) {{
     event.respondWith(
       caches.match(event.request).then((cached) => cached || fetch(event.request).then((resp) => {{
-        const clone = resp.clone();
-        caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+        if (resp && resp.ok) {{
+          const clone = resp.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+        }}
         return resp;
       }}))
     );
     return;
   }}
 
+  // Network-first (bypass HTTP cache) per shell HTML e manifest così gli aggiornamenti giornalieri arrivano subito
   event.respondWith(
-    fetch(event.request)
+    fetch(new Request(event.request, {{ cache: 'no-cache' }}))
       .then((resp) => {{
-        const clone = resp.clone();
-        caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+        if (resp && resp.ok) {{
+          const clone = resp.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(event.request, clone));
+        }}
         return resp;
       }})
       .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
@@ -632,7 +662,8 @@ def main():
     with open(os.path.join(out_dir, ".nojekyll"), "w", encoding="utf-8"):
         pass
 
-    write_pwa_and_seo_files(out_dir, stat_updated_str)
+    version_tag = hashlib.sha1(html.encode("utf-8")).hexdigest()[:8]
+    write_pwa_and_seo_files(out_dir, stat_updated_str, version_tag)
 
     fav_src = os.path.join(os.path.dirname(__file__), "favicon.svg")
     if os.path.exists(fav_src):
