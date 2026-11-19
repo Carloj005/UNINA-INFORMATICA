@@ -578,6 +578,7 @@ html.vt-theme::view-transition-new(root) {
 }
 @media (max-width: 1023px) {
   .nav__links,
+  .nav__desktop-only,
   .nav__search-label,
   .nav__search-kbd,
   .console-kbd-btn,
@@ -1128,6 +1129,8 @@ main {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  flex: 1;
+  align-content: start;
 }
 .recent-card,
 .pinned-card {
@@ -1210,12 +1213,120 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.recent-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.recent-card .cat-tag {
+  min-height: 22px;
+  padding: 2px 7px;
+  font-size: 0.6875rem;
+}
+.pinned-card.is-course-pin {
+  cursor: default;
+}
+.pinned-card.is-course-pin > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pinned-unpin-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--pin-border);
+  background: var(--pin-bg);
+  color: var(--pin-fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.pinned-unpin-btn:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.pinned-unpin-btn .icon {
+  width: 14px;
+  height: 14px;
+}
+.pinned-card-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 2px;
+}
+.pinned-card-actions .btn {
+  min-height: 36px;
+  height: 36px;
+  padding: 0 8px;
+  font-size: 0.78125rem;
+  width: 100%;
+}
 
-/* Icon helpers shared by hero quick-nav cards */
+/* Home Section 4: Compact Shortcuts & Contribute Strip (Home Only) */
+.shortcuts-section.home-section {
+  padding: 36px 0;
+}
+.shortcuts-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.shortcuts-head h2 {
+  font-size: clamp(1.25rem, 1.4vw + 0.9rem, 1.625rem);
+}
+.shortcuts-sub {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.home-shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.shortcut-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 10px 14px;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.shortcut-card:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary-text);
+}
+.shortcut-arrow {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.shortcut-card:hover .shortcut-arrow {
+  color: var(--primary-text);
+}
+
+/* Icon helpers shared by hero quick-nav & shortcut cards */
 .shortcut-left {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 .shortcut-icon-box {
   width: 32px;
@@ -1552,6 +1663,15 @@ select.filter-select:focus {
   background: var(--primary);
   color: #ffffff;
   border-color: var(--primary);
+}
+.chip-action {
+  text-decoration: none;
+  white-space: nowrap;
+}
+.chip-action:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary-text);
 }
 
 /* Active Removable Filter Pills */
@@ -3297,15 +3417,20 @@ dialog::backdrop {
   }
   #panel-courses .search-row {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
-  #panel-courses .search-input-wrap {
+  #panel-courses .search-input-wrap,
+  #panel-courses #course-year-filter {
     grid-column: 1 / -1;
   }
-  #panel-courses #course-pinned-chip {
+  #panel-courses #course-pinned-chip,
+  #panel-courses #course-report-teams-btn {
+    width: 100%;
+    justify-content: center;
     min-height: 44px;
-    padding: 0 12px;
+    padding: 0 10px;
+    font-size: 0.8125rem;
   }
   .course-meta-row {
     gap: 5px;
@@ -3505,6 +3630,9 @@ dialog::backdrop {
   .home-section {
     padding: 36px 0;
   }
+  .home-shortcuts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   footer.closing {
     padding: 16px 0;
   }
@@ -3515,8 +3643,18 @@ dialog::backdrop {
     padding-top: calc(var(--nav) + 20px);
     padding-bottom: 28px;
   }
-  .home-section {
+  .home-section,
+  .shortcuts-section.home-section {
     padding: 28px 0;
+  }
+  .home-shortcuts-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .shortcut-card {
+    min-height: 48px;
+    padding: 9px 12px;
+    font-size: 0.84375rem;
   }
   .home-section > .wrap {
     gap: 16px;

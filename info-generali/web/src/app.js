@@ -122,7 +122,9 @@
     close: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
     map: '<svg class="icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>',
     terminal: '<svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>',
-    externalLink: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>'
+    externalLink: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>',
+    github: '<svg class="icon" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>',
+    send: '<svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>'
   };
 
   const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
@@ -1457,18 +1459,24 @@
       if (homePinnedTitle) homePinnedTitle.textContent = 'I miei corsi fissati';
       if (homePinnedBadge) homePinnedBadge.textContent = `${list.length} ${list.length === 1 ? 'salvato' : 'salvati'}`;
       list.slice(0, 6).forEach((c) => {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'pinned-card';
+        const card = document.createElement('article');
+        card.className = 'pinned-card is-course-pin';
         card.innerHTML = `
-          <div class="pinned-card-head">
-            <span class="action-badge is-new">${escapeHtml(c.yearGroup)}</span>
-            <span>${c.fileCount} file</span>
+          <div>
+            <div class="pinned-card-head">
+              <span class="action-badge is-new">${escapeHtml(c.yearGroup)}</span>
+              <button type="button" class="pinned-unpin-btn" aria-label="Rimuovi ${escapeHtml(c.name)} dai corsi fissati" title="Rimuovi dai corsi fissati">${SVG_ICONS.starFilled}</button>
+            </div>
+            <h4>${escapeHtml(c.name)}</h4>
+            <div class="pinned-meta">${escapeHtml(c.semester)} sem • ${escapeHtml(c.cfu)} CFU • ${c.fileCount} file</div>
           </div>
-          <h4>${escapeHtml(c.name)}</h4>
-          <div class="pinned-meta">${escapeHtml(c.semester)} sem • ${escapeHtml(c.cfu)} CFU</div>
+          <div class="pinned-card-actions">
+            <button type="button" class="btn btn-primary" data-pin-files>File (${c.fileCount})</button>
+            <button type="button" class="btn" data-pin-info>Scheda</button>
+          </div>
         `;
-        card.addEventListener('click', () => {
+        card.querySelector('.pinned-unpin-btn').addEventListener('click', () => togglePinCourse(c.name));
+        card.querySelector('[data-pin-files]').addEventListener('click', () => {
           openCatalog('tab-btn-files');
           filterYear.value = c.yearGroup;
           updateCourseOptions();
@@ -1476,6 +1484,7 @@
           updateProfOptions();
           applyFileFilters();
         });
+        card.querySelector('[data-pin-info]').addEventListener('click', () => openCourseModal(c));
         homePinnedGrid.appendChild(card);
       });
       return;
@@ -1525,10 +1534,14 @@
       btn.type = 'button';
       btn.className = 'recent-card';
       const catLbl = CAT_LABELS[u.cat] || u.cat;
+      const actLbl = u.action || '';
       const shortDate = String(u.date || '').replace(/^(\d{2}\/\d{2})\/20(\d{2})$/, '$1/$2');
       btn.innerHTML = `
         <div class="recent-top">
-          <span class="cat-tag">${escapeHtml(catLbl)}</span>
+          <span class="recent-badges">
+            ${actLbl ? `<span class="action-badge ${actLbl === 'Nuovo' ? 'is-new' : ''}">${escapeHtml(actLbl)}</span>` : ''}
+            <span class="cat-tag">${escapeHtml(catLbl)}</span>
+          </span>
           <span>${escapeHtml(shortDate)}</span>
         </div>
         <div class="recent-title" title="${escapeHtml(u.label)}">${escapeHtml(u.label)}</div>
@@ -1698,12 +1711,75 @@
   const cmdResultsList = document.getElementById('cmd-results-list');
   let cmdActiveIdx = 0;
 
+  const getCommunityActions = () => {
+    const acYr = (DATA.examCalendar && DATA.examCalendar.academicYear) || '2026/2027';
+    return [
+      {
+        title: 'Segnala o invia codice Teams',
+        meta: 'GitHub Issue',
+        icon: SVG_ICONS.plus,
+        href: `${REPO_URL}/issues/new?template=codice_teams.yml`,
+        keywords: 'teams codice segnala invia canale microsoft',
+        featured: true
+      },
+      {
+        title: 'Invia o richiedi appunti / traccia',
+        meta: 'Contribuisci',
+        icon: SVG_ICONS.fileText,
+        href: `${REPO_URL}/issues/new?template=richiesta_o_materiale.yml`,
+        keywords: 'invia richiedi appunti traccia materiale esame',
+        featured: true
+      },
+      {
+        title: 'Invia traccia progetto',
+        meta: 'Contribuisci',
+        icon: SVG_ICONS.code,
+        href: `${REPO_URL}/issues/new?template=traccia_progetto.yml`,
+        keywords: 'traccia progetto invia consegna',
+        featured: false
+      },
+      {
+        title: 'Segnala bug o errore',
+        meta: 'Segnalazione',
+        icon: SVG_ICONS.externalLink,
+        href: `${REPO_URL}/issues/new?template=segnalazione_errore.yml`,
+        keywords: 'bug errore segnala problema link rotto',
+        featured: true
+      },
+      {
+        title: `Scarica orario lezioni (${acYr})`,
+        meta: 'PDF ufficiale',
+        icon: SVG_ICONS.calendar,
+        href: `${REPO_URL}/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf`,
+        keywords: 'orario lezioni pdf aule semestre',
+        featured: false
+      },
+      {
+        title: 'Gruppi Telegram studenti',
+        meta: 'Community',
+        icon: SVG_ICONS.send,
+        href: 'https://t.me/+7HOZaOMbgSphNGM0',
+        keywords: 'telegram gruppi chat studenti community',
+        featured: true
+      },
+      {
+        title: 'Repository GitHub UNINA-INFORMATICA',
+        meta: 'GitHub',
+        icon: SVG_ICONS.github,
+        href: REPO_URL,
+        keywords: 'github repository repo sorgente codice',
+        featured: false
+      }
+    ];
+  };
+
   const renderCmdResults = () => {
     if (!cmdResultsList) return;
     const raw = cmdSearchInput ? cmdSearchInput.value.trim() : '';
     const q = normText(raw);
     cmdResultsList.innerHTML = '';
     const items = [];
+    const communityActions = getCommunityActions();
 
     const addGroup = (label) => {
       const g = document.createElement('div');
@@ -1741,6 +1817,10 @@
       addItem(`${SVG_ICONS.book} Insegnamenti, propedeuticità e codici Teams`, `${DATA.courses.length} corsi`, () => openCatalog('tab-btn-courses'));
       addItem(`${SVG_ICONS.map} Mappe Monte Sant'Angelo, Via Claudio e Clone Git`, 'Mappe e Git', () => openCatalog('tab-btn-hub'));
       addItem(`${SVG_ICONS.star} Cambia tema Chiaro / Scuro`, 'Aspetto', () => applyThemeSwitch(), false);
+      addGroup('Contribuisci e community');
+      communityActions.filter((a) => a.featured).forEach((a) => {
+        addItem(`${a.icon} ${escapeHtml(a.title)}`, a.meta, () => window.open(a.href, '_blank', 'noopener,noreferrer'), false);
+      });
     } else {
       const mCourses = DATA.courses.filter((c) => c.searchBlob.includes(q)).slice(0, 4);
       if (mCourses.length) {
@@ -1778,6 +1858,13 @@
             searchInput.value = f.name;
             applyFileFilters();
           });
+        });
+      }
+      const mActions = communityActions.filter((a) => normText(`${a.title} ${a.keywords}`).includes(q)).slice(0, 4);
+      if (mActions.length) {
+        addGroup('Azioni e community');
+        mActions.forEach((a) => {
+          addItem(`${a.icon} ${escapeHtml(a.title)}`, a.meta, () => window.open(a.href, '_blank', 'noopener,noreferrer'), false);
         });
       }
     }
@@ -2209,24 +2296,26 @@
       </article>
       <article class="hub-card">
         <div>
-          <h2>${SVG_ICONS.fileText} Moduli anonimi della community</h2>
-          <p>Aiuta i prossimi studenti lasciando una valutazione anonima o condividendo le domande ricevute all'orale.</p>
+          <h2>${SVG_ICONS.fileText} Moduli anonimi e community</h2>
+          <p>Aiuta i prossimi studenti lasciando una valutazione anonima, condividendo domande orali o unendoti ai gruppi Telegram.</p>
         </div>
         <div class="stack-actions">
           <a class="btn btn-primary" href="https://forms.gle/seGUyzc2HiRxmpDs9" target="_blank" rel="noopener">${chartIcon} Valutazione corsi e docenti</a>
           <a class="btn" href="https://forms.gle/KFHXPqoKNj1LyCk67" target="_blank" rel="noopener">${penIcon} Valutazione qualità materiale</a>
           <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfvGQmwT_MQWKN01Ru08KnlvdL-S65TlTPMx-NLvd9kYmX_Xg/viewform" target="_blank" rel="noopener">${chatIcon} Raccolta domande esami orali</a>
+          <a class="btn" href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">${SVG_ICONS.send} Gruppi Telegram studenti</a>
         </div>
       </article>
       <article class="hub-card">
         <div>
           <h2>${SVG_ICONS.book} Guide ufficiali e GitHub Student Pack</h2>
-          <p>Orario lezioni, manifesto degli studi e guida ai vantaggi gratuiti con mail istituzionale.</p>
+          <p>Orario lezioni, manifesto degli studi, vantaggi gratuiti con mail istituzionale e repository sorgente.</p>
         </div>
         <div class="stack-actions">
           <a class="btn btn-primary" href="${REPO_URL}/blob/master/info-generali/guida-github-education.md" target="_blank" rel="noopener">${SVG_ICONS.code} Guida GitHub Education (Copilot e JetBrains)</a>
           <a class="btn" href="${REPO_URL}/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica orario lezioni (${acYr})</a>
           <a class="btn" href="${REPO_URL}/raw/master/info-generali/GuidaTriennaleInformatica-26-27.pdf" target="_blank" rel="noopener">${SVG_ICONS.download} Scarica guida dello studente (${acYr})</a>
+          <a class="btn" href="${REPO_URL}" target="_blank" rel="noopener">${SVG_ICONS.github} Repository GitHub UNINA-INFORMATICA</a>
         </div>
       </article>
       <article class="hub-card">
@@ -2236,6 +2325,7 @@
         </div>
         <div class="stack-actions">
           <a class="btn btn-primary" href="${REPO_URL}/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">${uploadIcon} Invia o richiedi una traccia o appunti</a>
+          <a class="btn" href="${REPO_URL}/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">${SVG_ICONS.plus} Invia o segnala codice Teams</a>
           <a class="btn" href="${REPO_URL}/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">${SVG_ICONS.code} Invia traccia progetto</a>
           <a class="btn" href="${REPO_URL}/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">${bugIcon} Segnala bug o errore</a>
           <a class="btn" href="${REPO_URL}/discussions" target="_blank" rel="noopener">${chatIcon} Apri discussioni su GitHub</a>
