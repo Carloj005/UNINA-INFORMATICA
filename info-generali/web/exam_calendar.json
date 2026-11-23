@@ -3,39 +3,39 @@
   "sourcePageUrl": "https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale",
   "pdfUrl": "https://informatica.dieti.unina.it/images/calendario-esami/2026-27/triennale-1-26-27.pdf",
   "sessionTitle": "Calendario Esami Laurea Triennale - Sessione Invernale 2026-27",
-  "pdfModifiedAt": "16/11/2026",
-  "totalEntries": 90,
-  "totalDates": 182,
+  "pdfModifiedAt": "23/11/2026",
+  "totalEntries": 95,
+  "totalDates": 229,
   "months": [
     {
       "key": "2026-11",
       "label": "Novembre 2026",
       "shortLabel": "Nov 2026",
-      "count": 14
+      "count": 16
     },
     {
       "key": "2026-12",
       "label": "Dicembre 2026",
       "shortLabel": "Dic 2026",
-      "count": 8
+      "count": 10
     },
     {
       "key": "2027-01",
       "label": "Gennaio 2027",
       "shortLabel": "Gen 2027",
-      "count": 50
+      "count": 65
     },
     {
       "key": "2027-02",
       "label": "Febbraio 2027",
       "shortLabel": "Feb 2027",
-      "count": 50
+      "count": 65
     },
     {
       "key": "2027-03",
       "label": "Marzo 2027",
       "shortLabel": "Mar 2027",
-      "count": 50
+      "count": 62
     },
     {
       "key": "2027-04",
@@ -47,7 +47,7 @@
       "key": "2027-05",
       "label": "Maggio 2027",
       "shortLabel": "Mag 2027",
-      "count": 7
+      "count": 8
     },
     {
       "key": "2027-06",
@@ -921,7 +921,35 @@
       "prof": "Andrea Calì",
       "email": "andrea.cali@unina.it",
       "channel": "FG3 (N-Z)",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-04",
+          "display": "04/02/2027",
+          "day": 4,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-04",
+          "display": "04/03/2027",
+          "day": 4,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
       "note": ""
     },
     {
@@ -934,7 +962,7 @@
       "aliases": "analisi 1 am1 analisi1",
       "prof": "Roberto Alicandro",
       "email": "roberto.alicandro@unina.it",
-      "channel": "",
+      "channel": "FG1 (A-DE)",
       "dates": [],
       "note": ""
     },
@@ -948,7 +976,7 @@
       "aliases": "analisi 1 am1 analisi1",
       "prof": "Daniele Castorina",
       "email": "daniele.castorina@unina.it",
-      "channel": "",
+      "channel": "FG2 (DF-M)",
       "dates": [],
       "note": ""
     },
@@ -962,7 +990,7 @@
       "aliases": "analisi 1 am1 analisi1",
       "prof": "Annamaria Barbagallo",
       "email": "annamaria.barbagallo@unina.it",
-      "channel": "",
+      "channel": "FG3 (N-Z)",
       "dates": [
         {
           "iso": "2027-01-13",
@@ -999,12 +1027,12 @@
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Algebra",
-      "repoCourse": "Algebra",
-      "aliases": "alg",
+      "course": "Algebra (9 cfu)",
+      "repoCourse": "",
+      "aliases": "",
       "prof": "Maria Rosaria Celentani",
       "email": "mariarosaria.celentani@unina.it",
-      "channel": "",
+      "channel": "FG1 (A-DE)",
       "dates": [
         {
           "iso": "2026-11-03",
@@ -1032,15 +1060,6 @@
           "year": 2027,
           "monthKey": "2027-02",
           "weekLabel": "1-5 feb."
-        },
-        {
-          "iso": "2027-03-02",
-          "display": "02/03/2027",
-          "day": 2,
-          "month": 3,
-          "year": 2027,
-          "monthKey": "2027-03",
-          "weekLabel": "1-5 mar."
         }
       ],
       "note": ""
@@ -1050,12 +1069,12 @@
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Algebra",
-      "repoCourse": "Algebra",
-      "aliases": "alg",
+      "course": "Algebra (9 cfu)",
+      "repoCourse": "",
+      "aliases": "",
       "prof": "Giovanni Cutolo",
       "email": "giovanni.cutolo@unina.it",
-      "channel": "",
+      "channel": "FG2 (DF-M)",
       "dates": [
         {
           "iso": "2026-11-03",
@@ -1083,15 +1102,6 @@
           "year": 2027,
           "monthKey": "2027-02",
           "weekLabel": "1-5 feb."
-        },
-        {
-          "iso": "2027-03-02",
-          "display": "02/03/2027",
-          "day": 2,
-          "month": 3,
-          "year": 2027,
-          "monthKey": "2027-03",
-          "weekLabel": "1-5 mar."
         }
       ],
       "note": ""
@@ -1101,12 +1111,12 @@
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Algebra",
-      "repoCourse": "Algebra",
-      "aliases": "alg",
-      "prof": "Mattia Brescia",
+      "course": "Algebra (9 cfu)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "Mattia Brescia / Ulderico Dardano",
       "email": "mattia.brescia@unina.it",
-      "channel": "",
+      "channel": "FG3 (N-Z)",
       "dates": [
         {
           "iso": "2026-11-03",
@@ -1134,15 +1144,6 @@
           "year": 2027,
           "monthKey": "2027-02",
           "weekLabel": "1-5 feb."
-        },
-        {
-          "iso": "2027-03-02",
-          "display": "02/03/2027",
-          "day": 2,
-          "month": 3,
-          "year": 2027,
-          "monthKey": "2027-03",
-          "weekLabel": "1-5 mar."
         }
       ],
       "note": ""
@@ -1155,25 +1156,25 @@
       "course": "Programmazione",
       "repoCourse": "Programmazione 1",
       "aliases": "prog 1 prog1 pr1 programmazione",
-      "prof": "",
+      "prof": "(vedi tabella precedente)",
       "email": "",
       "channel": "",
       "dates": [],
-      "note": "Mutua docenti e date da Programmazione nuovo regolamento"
+      "note": ""
     },
     {
       "id": "cal-27",
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Inglese",
-      "repoCourse": "",
-      "aliases": "",
+      "course": "Architettura degli elaboratori I",
+      "repoCourse": "Architettura degli Elaboratori",
+      "aliases": "ade ade1 architettura elaboratori",
       "prof": "",
-      "email": "",
-      "channel": "",
+      "email": "luigi.sauro@unina.it",
+      "channel": "FG1 (A-DE)",
       "dates": [],
-      "note": "Prove gestite dal Centro Linguistico di Ateneo (CLA)"
+      "note": ""
     },
     {
       "id": "cal-28",
@@ -1183,9 +1184,9 @@
       "course": "Architettura degli elaboratori I",
       "repoCourse": "Architettura degli Elaboratori",
       "aliases": "ade ade1 architettura elaboratori",
-      "prof": "Luigi Sauro",
-      "email": "luigi.sauro@unina.it",
-      "channel": "",
+      "prof": "",
+      "email": "silvia.rossi@unina.it",
+      "channel": "FG2 (DF-M)",
       "dates": [],
       "note": ""
     },
@@ -1197,9 +1198,9 @@
       "course": "Architettura degli elaboratori I",
       "repoCourse": "Architettura degli Elaboratori",
       "aliases": "ade ade1 architettura elaboratori",
-      "prof": "Silvia Rossi",
-      "email": "silvia.rossi@unina.it",
-      "channel": "",
+      "prof": "",
+      "email": "roberto.prevete@unina.it",
+      "channel": "FG3 (N-Z)",
       "dates": [],
       "note": ""
     },
@@ -1208,12 +1209,12 @@
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Architettura degli elaboratori I",
-      "repoCourse": "Architettura degli Elaboratori",
-      "aliases": "ade ade1 architettura elaboratori",
-      "prof": "Roberto Prevete",
-      "email": "roberto.prevete@unina.it",
-      "channel": "",
+      "course": "Geometria",
+      "repoCourse": "Geometria",
+      "aliases": "geom",
+      "prof": "",
+      "email": "marco.trombetti@unina.it",
+      "channel": "FG1 (A-DE)",
       "dates": [],
       "note": ""
     },
@@ -1225,9 +1226,9 @@
       "course": "Geometria",
       "repoCourse": "Geometria",
       "aliases": "geom",
-      "prof": "Marco Trombetti",
-      "email": "marco.trombetti@unina.it",
-      "channel": "FG1 (A-DE)",
+      "prof": "",
+      "email": "francesca.cioffi@unina.it",
+      "channel": "FG2 (DF-M)",
       "dates": [],
       "note": ""
     },
@@ -1239,28 +1240,14 @@
       "course": "Geometria",
       "repoCourse": "Geometria",
       "aliases": "geom",
-      "prof": "Francesca Cioffi",
-      "email": "francesca.cioffi@unina.it",
-      "channel": "FG2 (DF-M)",
-      "dates": [],
-      "note": ""
-    },
-    {
-      "id": "cal-33",
-      "yearGroup": "Primo Anno",
-      "semester": "1° / 2°",
-      "regolamento": "Vecchio Regolamento",
-      "course": "Geometria",
-      "repoCourse": "Geometria",
-      "aliases": "geom",
-      "prof": "Roberto Pirisi",
+      "prof": "",
       "email": "roberto.pirisi@unina.it",
       "channel": "FG3 (N-Z)",
       "dates": [],
       "note": ""
     },
     {
-      "id": "cal-34",
+      "id": "cal-33",
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
@@ -1271,19 +1258,33 @@
       "email": "",
       "channel": "",
       "dates": [],
-      "note": "Insegnamento disattivato. Serve nomina nuova commissione"
+      "note": "Serve nomina nuova commissione"
+    },
+    {
+      "id": "cal-34",
+      "yearGroup": "Primo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di programmazione (Bozzelli)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "",
+      "email": "",
+      "channel": "FG1 (A-DE)",
+      "dates": [],
+      "note": ""
     },
     {
       "id": "cal-35",
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Laboratorio di programmazione",
-      "repoCourse": "Programmazione 1",
-      "aliases": "lab prog laboratorio programmazione lp",
-      "prof": "Gruppo 1 (Bozzelli)",
+      "course": "Laboratorio di programmazione (Origlia)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "Serve nomina nuova commissione",
       "email": "",
-      "channel": "",
+      "channel": "FG2 (DF-M)",
       "dates": [],
       "note": ""
     },
@@ -1292,31 +1293,17 @@
       "yearGroup": "Primo Anno",
       "semester": "1° / 2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Laboratorio di programmazione",
-      "repoCourse": "Programmazione 1",
-      "aliases": "lab prog laboratorio programmazione lp",
-      "prof": "Gruppo 2 (Origlia)",
+      "course": "Laboratorio di programmazione (Apicella)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "",
       "email": "",
-      "channel": "",
+      "channel": "FG3 (N-Z)",
       "dates": [],
       "note": ""
     },
     {
       "id": "cal-37",
-      "yearGroup": "Primo Anno",
-      "semester": "1° / 2°",
-      "regolamento": "Vecchio Regolamento",
-      "course": "Laboratorio di programmazione",
-      "repoCourse": "Programmazione 1",
-      "aliases": "lab prog laboratorio programmazione lp",
-      "prof": "Gruppo 3 (Apicella)",
-      "email": "",
-      "channel": "",
-      "dates": [],
-      "note": ""
-    },
-    {
-      "id": "cal-38",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1367,7 +1354,7 @@
       "note": ""
     },
     {
-      "id": "cal-39",
+      "id": "cal-38",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1418,7 +1405,7 @@
       "note": ""
     },
     {
-      "id": "cal-40",
+      "id": "cal-39",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1478,7 +1465,7 @@
       "note": ""
     },
     {
-      "id": "cal-41",
+      "id": "cal-40",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1520,7 +1507,7 @@
       "note": ""
     },
     {
-      "id": "cal-42",
+      "id": "cal-41",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1562,7 +1549,7 @@
       "note": ""
     },
     {
-      "id": "cal-43",
+      "id": "cal-42",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1572,11 +1559,39 @@
       "prof": "Roberto Pirisi",
       "email": "roberto.pirisi@unina.it",
       "channel": "FG2",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-19",
+          "display": "19/01/2027",
+          "day": 19,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-09",
+          "display": "09/02/2027",
+          "day": 9,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-09",
+          "display": "09/03/2027",
+          "day": 9,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
       "note": ""
     },
     {
-      "id": "cal-44",
+      "id": "cal-43",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1618,7 +1633,7 @@
       "note": ""
     },
     {
-      "id": "cal-45",
+      "id": "cal-44",
       "yearGroup": "Secondo Anno",
       "semester": "1°",
       "regolamento": "Nuovo Regolamento",
@@ -1660,7 +1675,7 @@
       "note": ""
     },
     {
-      "id": "cal-46",
+      "id": "cal-45",
       "yearGroup": "Secondo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
@@ -1670,11 +1685,39 @@
       "prof": "Alberto Finzi",
       "email": "alberto.finzi@unina.it",
       "channel": "FG1",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-12",
+          "display": "12/02/2027",
+          "day": 12,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-03",
+          "display": "03/03/2027",
+          "day": 3,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
       "note": ""
     },
     {
-      "id": "cal-47",
+      "id": "cal-46",
       "yearGroup": "Secondo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
@@ -1684,11 +1727,39 @@
       "prof": "Walter Balzano",
       "email": "walter.balzano@unina.it",
       "channel": "FG2",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-18",
+          "display": "18/03/2027",
+          "day": 18,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
       "note": ""
     },
     {
-      "id": "cal-48",
+      "id": "cal-47",
       "yearGroup": "Secondo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
@@ -1730,7 +1801,7 @@
       "note": ""
     },
     {
-      "id": "cal-49",
+      "id": "cal-48",
       "yearGroup": "Secondo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
@@ -1772,15 +1843,75 @@
       "note": ""
     },
     {
+      "id": "cal-49",
+      "yearGroup": "Secondo Anno",
+      "semester": "2°",
+      "regolamento": "Nuovo Regolamento",
+      "course": "Metodi Statistici per l'informazione (AA 25-26)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "Marco Lops",
+      "email": "marco.lops@unina.it",
+      "channel": "FG1",
+      "dates": [
+        {
+          "iso": "2026-11-12",
+          "display": "12/11/2026",
+          "day": 12,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        },
+        {
+          "iso": "2026-12-22",
+          "display": "22/12/2026",
+          "day": 22,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "21-23 dic."
+        },
+        {
+          "iso": "2027-01-14",
+          "display": "14/01/2027",
+          "day": 14,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
       "id": "cal-50",
       "yearGroup": "Secondo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
-      "course": "Metodi Statistici per l'informazione",
-      "repoCourse": "Metodi Statistici per l'Informazione",
-      "aliases": "msi eps statistica probabilita",
-      "prof": "Marco Lops",
-      "email": "marco.lops@unina.it",
+      "course": "Metodi Statistici per l'informazione (parte dal 2027)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "Giovanni Poggi",
+      "email": "giovanni.poggi@unina.it",
       "channel": "FG1",
       "dates": [],
       "note": ""
@@ -1983,7 +2114,7 @@
       "email": "anna.corazza@unina.it",
       "channel": "FG2",
       "dates": [],
-      "note": ""
+      "note": "contattare il docente"
     },
     {
       "id": "cal-56",
@@ -2294,7 +2425,35 @@
       "prof": "Alberto Finzi",
       "email": "alberto.finzi@unina.it",
       "channel": "FG1",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-12",
+          "display": "12/02/2027",
+          "day": 12,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-03",
+          "display": "03/03/2027",
+          "day": 3,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
       "note": ""
     },
     {
@@ -2308,7 +2467,35 @@
       "prof": "Andrea Calì",
       "email": "andrea.cali@unina.it",
       "channel": "FG2",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-04",
+          "display": "04/02/2027",
+          "day": 4,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-04",
+          "display": "04/03/2027",
+          "day": 4,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
       "note": ""
     },
     {
@@ -2316,9 +2503,9 @@
       "yearGroup": "Terzo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
-      "course": "Tecniche di programmazione Avanzata",
-      "repoCourse": "Tecniche di Programmazione Avanzata",
-      "aliases": "tpa",
+      "course": "Tecniche di programmazione Avanzata (parte dal 2027)",
+      "repoCourse": "",
+      "aliases": "",
       "prof": "Marco Faella",
       "email": "marco.faella@unina.it",
       "channel": "FG1",
@@ -2330,9 +2517,9 @@
       "yearGroup": "Terzo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
-      "course": "Tecniche di programmazione Avanzata",
-      "repoCourse": "Tecniche di Programmazione Avanzata",
-      "aliases": "tpa",
+      "course": "Tecniche di programmazione Avanzata (parte dal 2027)",
+      "repoCourse": "",
+      "aliases": "",
       "prof": "TBD",
       "email": "",
       "channel": "FG2",
@@ -2386,9 +2573,9 @@
       "yearGroup": "Terzo Anno",
       "semester": "2°",
       "regolamento": "Nuovo Regolamento",
-      "course": "AI Technologies",
-      "repoCourse": "AI Technologies",
-      "aliases": "ait ai intelligenza artificiale",
+      "course": "AI Technologies (canale parte dal 2027)",
+      "repoCourse": "",
+      "aliases": "",
       "prof": "Silvia Rossi",
       "email": "silvia.rossi@unina.it",
       "channel": "FG2",
@@ -2403,14 +2590,84 @@
       "course": "Laboratorio di Sistemi Operativi",
       "repoCourse": "Sistemi Operativi",
       "aliases": "lso lab so sistemi operativi",
-      "prof": "Alberto Finzi",
-      "email": "alberto.finzi@unina.it",
+      "prof": "Alessandra Rossi",
+      "email": "alessandra.rossi@unina.it",
       "channel": "FG1",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-08",
+          "display": "08/02/2027",
+          "day": 8,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-11",
+          "display": "11/03/2027",
+          "day": 11,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
       "note": ""
     },
     {
       "id": "cal-71",
+      "yearGroup": "Terzo Anno",
+      "semester": "1°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Laboratorio di Sistemi Operativi",
+      "repoCourse": "Sistemi Operativi",
+      "aliases": "lso lab so sistemi operativi",
+      "prof": "Alberto Finzi",
+      "email": "alberto.finzi@unina.it",
+      "channel": "FG2",
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-12",
+          "display": "12/02/2027",
+          "day": 12,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-03",
+          "display": "03/03/2027",
+          "day": 3,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-72",
       "yearGroup": "Terzo Anno",
       "semester": "1°",
       "regolamento": "Vecchio Regolamento",
@@ -2429,12 +2686,39 @@
           "year": 2026,
           "monthKey": "2026-11",
           "weekLabel": "2-6 nov."
+        },
+        {
+          "iso": "2027-01-22",
+          "display": "22/01/2027",
+          "day": 22,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-23",
+          "display": "23/02/2027",
+          "day": 23,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-19",
+          "display": "19/03/2027",
+          "day": 19,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
         }
       ],
       "note": ""
     },
     {
-      "id": "cal-72",
+      "id": "cal-73",
       "yearGroup": "Terzo Anno",
       "semester": "1°",
       "regolamento": "Vecchio Regolamento",
@@ -2444,11 +2728,39 @@
       "prof": "Andrea Calì",
       "email": "andrea.cali@unina.it",
       "channel": "FG2",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2027-01-08",
+          "display": "08/01/2027",
+          "day": 8,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "4-8 gen."
+        },
+        {
+          "iso": "2027-02-04",
+          "display": "04/02/2027",
+          "day": 4,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "1-5 feb."
+        },
+        {
+          "iso": "2027-03-04",
+          "display": "04/03/2027",
+          "day": 4,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "1-5 mar."
+        }
+      ],
       "note": ""
     },
     {
-      "id": "cal-73",
+      "id": "cal-74",
       "yearGroup": "Terzo Anno",
       "semester": "1°",
       "regolamento": "Vecchio Regolamento",
@@ -2490,7 +2802,7 @@
       "note": ""
     },
     {
-      "id": "cal-74",
+      "id": "cal-75",
       "yearGroup": "Terzo Anno",
       "semester": "1°",
       "regolamento": "Vecchio Regolamento",
@@ -2532,7 +2844,7 @@
       "note": ""
     },
     {
-      "id": "cal-75",
+      "id": "cal-76",
       "yearGroup": "Terzo Anno",
       "semester": "1°",
       "regolamento": "Vecchio Regolamento",
@@ -2592,7 +2904,7 @@
       "note": ""
     },
     {
-      "id": "cal-76",
+      "id": "cal-77",
       "yearGroup": "Terzo Anno",
       "semester": "1°",
       "regolamento": "Vecchio Regolamento",
@@ -2602,11 +2914,57 @@
       "prof": "Bernardo Breve",
       "email": "bernardo.breve@unina.it",
       "channel": "FG2",
-      "dates": [],
+      "dates": [
+        {
+          "iso": "2026-12-17",
+          "display": "17/12/2026",
+          "day": 17,
+          "month": 12,
+          "year": 2026,
+          "monthKey": "2026-12",
+          "weekLabel": "14-18 dic."
+        },
+        {
+          "iso": "2027-01-18",
+          "display": "18/01/2027",
+          "day": 18,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "18-22 gen."
+        },
+        {
+          "iso": "2027-02-22",
+          "display": "22/02/2027",
+          "day": 22,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "22-26 feb."
+        },
+        {
+          "iso": "2027-03-15",
+          "display": "15/03/2027",
+          "day": 15,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        },
+        {
+          "iso": "2027-05-03",
+          "display": "03/05/2027",
+          "day": 3,
+          "month": 5,
+          "year": 2027,
+          "monthKey": "2027-05",
+          "weekLabel": "3-7 mag."
+        }
+      ],
       "note": ""
     },
     {
-      "id": "cal-77",
+      "id": "cal-78",
       "yearGroup": "Terzo Anno",
       "semester": "2°",
       "regolamento": "Vecchio Regolamento",
@@ -2648,21 +3006,59 @@
       "note": ""
     },
     {
-      "id": "cal-78",
+      "id": "cal-79",
       "yearGroup": "Terzo Anno",
       "semester": "2°",
       "regolamento": "Vecchio Regolamento",
-      "course": "Tecnologie Web (2025-2026)",
-      "repoCourse": "Tecnologie Web",
-      "aliases": "tecweb tw web",
-      "prof": "Starace Luigi Libero Lucio",
-      "email": "luigiliberolucio.starace@unina.it",
+      "course": "Calcolo delle Probabilità e Statistica",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "Davide Mattera",
+      "email": "davide.mattera@unina.it",
       "channel": "A-Z",
       "dates": [],
       "note": ""
     },
     {
-      "id": "cal-79",
+      "id": "cal-80",
+      "yearGroup": "Terzo Anno",
+      "semester": "2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Tecnologie Web",
+      "repoCourse": "Tecnologie Web",
+      "aliases": "tecweb tw web",
+      "prof": "Luigi Libero Lucio Starace",
+      "email": "luigiliberolucio.starace@unina.it",
+      "channel": "A-Z",
+      "dates": [],
+      "note": "FARE RIFERIMENTO ALLE DATE DI TECNOLOGIE WEB (NUOVO REGOLAMENTO)"
+    },
+    {
+      "id": "cal-81",
+      "yearGroup": "Terzo Anno",
+      "semester": "1° / 2°",
+      "regolamento": "Vecchio Regolamento",
+      "course": "Tecnologie Web",
+      "repoCourse": "Tecnologie Web",
+      "aliases": "tecweb tw web",
+      "prof": "",
+      "email": "",
+      "channel": "",
+      "dates": [
+        {
+          "iso": "2026-11-13",
+          "display": "13/11/2026",
+          "day": 13,
+          "month": 11,
+          "year": 2026,
+          "monthKey": "2026-11",
+          "weekLabel": "9-13 nov."
+        }
+      ],
+      "note": "nov. limite esami"
+    },
+    {
+      "id": "cal-82",
       "yearGroup": "Esami a Scelta",
       "semester": "1°",
       "regolamento": "Esami a Scelta",
@@ -2704,7 +3100,7 @@
       "note": ""
     },
     {
-      "id": "cal-80",
+      "id": "cal-83",
       "yearGroup": "Esami a Scelta",
       "semester": "1°",
       "regolamento": "Esami a Scelta",
@@ -2718,7 +3114,7 @@
       "note": "Consultare il calendario di Laurea Magistrale"
     },
     {
-      "id": "cal-81",
+      "id": "cal-84",
       "yearGroup": "Esami a Scelta",
       "semester": "1°",
       "regolamento": "Esami a Scelta",
@@ -2732,7 +3128,7 @@
       "note": "Consultare il calendario di Laurea Magistrale"
     },
     {
-      "id": "cal-82",
+      "id": "cal-85",
       "yearGroup": "Esami a Scelta",
       "semester": "1°",
       "regolamento": "Esami a Scelta",
@@ -2753,15 +3149,13 @@
           "weekLabel": "18-22 gen."
         },
         {
-          "iso": "2027-02-21",
-          "display": "21/02/2027",
-          "day": 21,
+          "iso": "2027-02-22",
+          "display": "22/02/2027",
+          "day": 22,
           "month": 2,
           "year": 2027,
           "monthKey": "2027-02",
-          "weekLabel": "22-26 feb.",
-          "isTentative": true,
-          "warning": "Verificare sul PDF DIETI (data nel weekend)"
+          "weekLabel": "22-26 feb."
         },
         {
           "iso": "2027-03-15",
@@ -2776,7 +3170,7 @@
       "note": ""
     },
     {
-      "id": "cal-83",
+      "id": "cal-86",
       "yearGroup": "Esami a Scelta",
       "semester": "1°",
       "regolamento": "Esami a Scelta",
@@ -2790,7 +3184,7 @@
       "note": "Consultare il calendario di Laurea Magistrale"
     },
     {
-      "id": "cal-84",
+      "id": "cal-87",
       "yearGroup": "Esami a Scelta",
       "semester": "1° / 2°",
       "regolamento": "Esami a Scelta",
@@ -2804,7 +3198,7 @@
       "note": "Consultare il calendario di Laurea Magistrale"
     },
     {
-      "id": "cal-85",
+      "id": "cal-88",
       "yearGroup": "Esami a Scelta",
       "semester": "2°",
       "regolamento": "Esami a Scelta",
@@ -2846,7 +3240,7 @@
       "note": ""
     },
     {
-      "id": "cal-86",
+      "id": "cal-89",
       "yearGroup": "Esami a Scelta",
       "semester": "2°",
       "regolamento": "Esami a Scelta",
@@ -2888,7 +3282,7 @@
       "note": ""
     },
     {
-      "id": "cal-87",
+      "id": "cal-90",
       "yearGroup": "Esami a Scelta",
       "semester": "2°",
       "regolamento": "Esami a Scelta",
@@ -2898,11 +3292,39 @@
       "prof": "Marco Alfè",
       "email": "marco.alfe@unina.it",
       "channel": "FG A-Z",
-      "dates": [],
-      "note": "Consultare il calendario di Laurea Magistrale"
+      "dates": [
+        {
+          "iso": "2027-01-14",
+          "display": "14/01/2027",
+          "day": 14,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-18",
+          "display": "18/03/2027",
+          "day": 18,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
     },
     {
-      "id": "cal-88",
+      "id": "cal-91",
       "yearGroup": "Esami a Scelta",
       "semester": "2°",
       "regolamento": "Esami a Scelta",
@@ -2944,7 +3366,7 @@
       "note": ""
     },
     {
-      "id": "cal-89",
+      "id": "cal-92",
       "yearGroup": "Esami a Scelta",
       "semester": "2°",
       "regolamento": "Esami a Scelta",
@@ -2995,7 +3417,7 @@
       "note": ""
     },
     {
-      "id": "cal-90",
+      "id": "cal-93",
       "yearGroup": "Esami a Scelta",
       "semester": "2°",
       "regolamento": "Esami a Scelta",
@@ -3005,8 +3427,92 @@
       "prof": "Walter Balzano",
       "email": "walter.balzano@unina.it",
       "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-15",
+          "display": "15/01/2027",
+          "day": 15,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-18",
+          "display": "18/02/2027",
+          "day": 18,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "15-19 feb."
+        },
+        {
+          "iso": "2027-03-18",
+          "display": "18/03/2027",
+          "day": 18,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "15-19 mar."
+        }
+      ],
+      "note": ""
+    },
+    {
+      "id": "cal-94",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "AI Technologies",
+      "repoCourse": "AI Technologies",
+      "aliases": "ait ai intelligenza artificiale",
+      "prof": "VEDI CALENDARIO III anno",
+      "email": "",
+      "channel": "FG A-Z",
       "dates": [],
-      "note": "Consultare il calendario di Laurea Magistrale"
+      "note": "Verificare email docente sul PDF ufficiale DIETI"
+    },
+    {
+      "id": "cal-95",
+      "yearGroup": "Esami a Scelta",
+      "semester": "2°",
+      "regolamento": "Esami a Scelta",
+      "course": "Tecnologie Web (6 cfu)",
+      "repoCourse": "",
+      "aliases": "",
+      "prof": "VEDI CALENDARIO III anno",
+      "email": "",
+      "channel": "FG A-Z",
+      "dates": [
+        {
+          "iso": "2027-01-11",
+          "display": "11/01/2027",
+          "day": 11,
+          "month": 1,
+          "year": 2027,
+          "monthKey": "2027-01",
+          "weekLabel": "11-15 gen."
+        },
+        {
+          "iso": "2027-02-11",
+          "display": "11/02/2027",
+          "day": 11,
+          "month": 2,
+          "year": 2027,
+          "monthKey": "2027-02",
+          "weekLabel": "8-12 feb."
+        },
+        {
+          "iso": "2027-03-08",
+          "display": "08/03/2027",
+          "day": 8,
+          "month": 3,
+          "year": 2027,
+          "monthKey": "2027-03",
+          "weekLabel": "8-12 mar."
+        }
+      ],
+      "note": "Verificare email docente sul PDF ufficiale DIETI"
     }
   ]
 }
