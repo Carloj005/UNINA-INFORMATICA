@@ -10,4 +10,4 @@
 Codice Teams 2026/2027: 
 
 ## Risorse Digitalizzate
-- **Raccolta domande orale (OCR AI locale):** [`appunti/domande ade.md`](./appunti/domande%20ade.md) e [`appunti/domande ade.pdf`](./appunti/domande%20ade.pdf) (versione pulita e ricercabile).
+- **Raccolta domande orale (OCR AI locale):** [`esami/orale/domande ade.md`](./esami/orale/domande%20ade.md) e [`esami/orale/domande ade.pdf`](./esami/orale/domande%20ade.pdf) (versione pulita e ricercabile).
