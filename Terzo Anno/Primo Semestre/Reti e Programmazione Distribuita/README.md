@@ -10,7 +10,7 @@
 - **Settore Scientifico-Disciplinare (SSD):** `INFO-01/A`
 - **Propedeuticità:** [Algebra](../../../Primo%20Anno/Secondo%20Semestre/Algebra), [Sistemi Operativi](../../../Secondo%20Anno/Secondo%20Semestre/Sistemi%20Operativi)
 - **Modalità d'Esame:** Verifica scritta e orale.
-- **Copertura Materiale:** 🟢 Ricco (121 file)
+- **Copertura Materiale:** 🟢 Ricco (123 file)
 - **Stato Esame (Tracker Autore):** ⏳ In Corso / Da Sostenere
 
 ## 🎯 Obiettivi Formativi
@@ -19,5 +19,5 @@ L'obiettivo del Corso è quello di introdurre i concetti fondamentali delle mode
 
 ## 👨‍🏫 Canali e Docenti
 
-- [Prof. Alberto Finzi](./Prof-AlbertoFinzi) *(121 file)*
+- [Prof. Alberto Finzi](./Prof-AlbertoFinzi) *(123 file)*
 - [Prof. Andrea Calì](./Prof-AndreaCali) *(vuoto)*

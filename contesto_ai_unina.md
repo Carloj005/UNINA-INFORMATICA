@@ -142,6 +142,8 @@ Il [README.md](./README.md) funge da hub centrale della community e include:
     - `Prof-SilviaRossi/esami/orale/`: spostata da `appunti/` e sostituita la scansione `domande ade.pdf` (`1,63 MB`, `0/10` testo) con `domande ade.md` (`4,2 KB`) e `domande ade.pdf` (`0,20 MB`, 4 pagine ricercabili).
     - `Prof-LuigiSauro/esercizi/`: rimosso il duplicato identico byte-per-byte `ESERCIZI ADE.pdf` (`35,55 MB`, SHA-256 identico a `contenuto-non-proprio/Esercizi by Edoardo Capasso.pdf`, preservando l'originale con `crediti.txt`).
     - Aggiornato `info-generali/web/build_site.py` per escludere le cartelle asset `images/` affiancate a dispense `.md` dall'indice file/recentUpdates del Portale Web.
+- **Aggiornamento Slide 2026/2027 & Guida Kurose-Ross — Reti e Programmazione Distribuita (Novembre 2026):**
+  - *Reti e Programmazione Distribuita* (`Prof-AlbertoFinzi`): aggiunta `libri/Guida_Studio_Libro_Kurose_Ross.md/.pdf`, sostituite le vecchie slide 2024–2025 (Lezioni 13–15 EN + traduzioni IT) con le nuove lezioni 2026/2027 (`Lezione 17` TCP Connection Management, `Lezione 19` Flow & Congestion Control, `Lezione 20` The Network Layer — sia in `slides/` che tradotte in `slides/italiano/`), e rinominate con prefisso `(2024-2025)` le slide precedenti Lezioni 17/18/20 ancora in attesa di aggiornamento (`123 file` totali).
 
 ---
 
