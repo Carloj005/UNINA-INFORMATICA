@@ -277,6 +277,8 @@ def extract_recent_updates(repo: str, prof_display_map: dict) -> list:
             sub_segs = rest[1:-1]
 
         top_sub = sub_segs[0] if sub_segs else ""
+        if "images" in sub_segs and not cat.startswith("esami/"):
+            continue
         fname = rest[-1]
         label = top_sub if top_sub else fname
         dedup_key = (course, prof_folder, cat, top_sub)
@@ -396,6 +398,12 @@ def build_catalog(repo: str):
 
             p_file_count = 0
             for r2, _, f2 in sorted(os.walk(pp)):
+                rel_dir = os.path.relpath(r2, pp).replace(os.sep, "/")
+                dir_parts = rel_dir.split("/")
+                # Escludi cartelle asset `images/` associate a dispense Markdown (es. appunti/images/)
+                # per non intasare il catalogo del portale con centinaia di ritagli di figure inline.
+                if not rel_dir.startswith("esami") and "images" in dir_parts:
+                    continue
                 for fn in sorted(f2):
                     if fn in (".gitkeep", "README.md", ".gitignore"):
                         continue
