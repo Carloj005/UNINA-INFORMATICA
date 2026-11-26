@@ -232,6 +232,7 @@ Hai vecchie tracce, un **Codice Teams 2026/2027** mancante, appunti ben scritti 
 - [**Segnala un Codice Teams 2026/2027**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml)
 - [**Invia una Traccia di Progetto**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml) *(specificando insegnamento, sessione/A.A., PDF/template della traccia ed eventuali note)*
 - [**Richiedi o condividi tracce/materiale**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml)
+- [**Segnala un problema sul Calendario Esami**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=problema_calendario.yml) *(appelli mancanti, date errate, docenti o canali scambiati rispetto al PDF DIETI)*
 - [**Segnala un errore o bug**](https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml)
 - [**Partecipa alle GitHub Discussions**](https://github.com/Carloj005/UNINA-INFORMATICA/discussions) per domande generali sui corsi o confronto tra colleghi!
 

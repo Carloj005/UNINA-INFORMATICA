@@ -71,8 +71,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Controlla stato sito DIETI (snapshot fallback)
+        run: |
+          python3 info-generali/web/check_dieti_status.py \
+            --out /tmp/dieti_status.json \
+            --prev-url "https://raw.githubusercontent.com/${{ github.repository }}/status-data/dieti_status.json" \
+            || echo "Avviso: controllo stato DIETI non riuscito in fase di build."
+
       - name: Build statica Portale Web
-        run: python3 info-generali/web/build_site.py --out _site
+        run: python3 info-generali/web/build_site.py --out _site --status-file /tmp/dieti_status.json
 
       - name: Configura GitHub Pages
         uses: actions/configure-pages@v5

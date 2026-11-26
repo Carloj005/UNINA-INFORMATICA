@@ -829,6 +829,88 @@ main {
   border-radius: 50%;
   background: #10b981;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  flex-shrink: 0;
+  display: inline-block;
+}
+.dieti-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  max-width: 100%;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.dieti-status-pill:hover {
+  border-color: var(--primary);
+}
+.dieti-status-pill.is-compact {
+  min-height: 26px;
+  padding: 2px 9px;
+  font-size: 0.75rem;
+  gap: 6px;
+}
+.dieti-status-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dieti-status-pill.is-online,
+.status-pill-tag.is-online {
+  background: var(--type-image-bg);
+  color: var(--type-image-fg);
+  border-color: var(--type-image-border);
+}
+.dieti-status-pill.is-degraded,
+.status-pill-tag.is-degraded {
+  background: var(--type-slides-bg);
+  color: var(--type-slides-fg);
+  border-color: var(--type-slides-border);
+}
+.dieti-status-pill.is-maintenance,
+.status-pill-tag.is-maintenance {
+  background: var(--type-archive-bg);
+  color: var(--type-archive-fg);
+  border-color: var(--type-archive-border);
+}
+.dieti-status-pill.is-down,
+.status-pill-tag.is-down {
+  background: var(--type-pdf-bg);
+  color: var(--type-pdf-fg);
+  border-color: var(--type-pdf-border);
+}
+.is-online .status-dot,
+.status-dot.is-online {
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.22);
+}
+.is-degraded .status-dot,
+.status-dot.is-degraded {
+  background: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22);
+}
+.is-maintenance .status-dot,
+.status-dot.is-maintenance {
+  background: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.22);
+}
+.is-down .status-dot,
+.status-dot.is-down {
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+.is-loading .status-dot,
+.status-dot.is-loading {
+  background: var(--muted);
+  box-shadow: none;
 }
 .console-kbd-btn {
   display: inline-flex;
@@ -1366,6 +1448,210 @@ footer.closing {
 .footer-top-row strong {
   color: var(--text);
   font-weight: 600;
+}
+.footer-brand-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.footer-status-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 10px;
+  min-height: 28px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.footer-status-btn:hover {
+  border-color: var(--primary);
+}
+.footer-status-btn .status-dot {
+  width: 7px;
+  height: 7px;
+  box-shadow: none;
+}
+
+/* DIETI Status Details Dialog (#status-modal) */
+dialog.status-dialog {
+  max-width: min(580px, 94vw);
+}
+.status-hero {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.status-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.status-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.status-checked-time {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.status-hero-summary {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+.status-stale-note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--warn-text);
+}
+.status-offline-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: var(--r-md);
+  background: var(--primary-soft);
+  border: 1px solid var(--accent-border-soft);
+  color: var(--text);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+.status-offline-tip .icon {
+  color: var(--primary-text);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.status-services {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.status-service-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.status-service-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.status-service-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+.status-service-name:hover {
+  color: var(--primary-text);
+  text-decoration: underline;
+}
+.status-service-detail {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.status-history {
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  margin-bottom: 16px;
+}
+.status-history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78125rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.status-history-head strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.status-history-bar {
+  display: flex;
+  gap: 3px;
+  height: 22px;
+  align-items: stretch;
+}
+.status-history-seg {
+  flex: 1 1 0%;
+  border-radius: 3px;
+  background: var(--border);
+  min-width: 4px;
+}
+.status-history-seg.is-online { background: #10b981; }
+.status-history-seg.is-degraded { background: #f59e0b; }
+.status-history-seg.is-maintenance { background: #8b5cf6; }
+.status-history-seg.is-down { background: #ef4444; }
+.status-history-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.status-history-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-history-legend .status-dot {
+  width: 7px;
+  height: 7px;
+  box-shadow: none;
+}
+.status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.status-actions .btn {
+  flex: 1 1 auto;
+  min-height: 44px;
+  height: auto;
+  padding: 8px 12px;
+  font-size: 0.84375rem;
+  white-space: normal;
+  text-align: center;
 }
 .footer-links {
   display: flex;
@@ -3371,13 +3657,20 @@ dialog::backdrop {
   }
   .calendar-source-actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
   .calendar-source-actions .btn {
-    flex: 1 1 0%;
+    width: 100%;
     height: 42px;
     min-height: 42px;
+    padding: 0 10px;
     font-size: 0.8125rem;
     justify-content: center;
+  }
+  .calendar-source-actions #cal-report-btn {
+    grid-column: 1 / -1;
   }
   .cal-view-switch {
     width: 100%;

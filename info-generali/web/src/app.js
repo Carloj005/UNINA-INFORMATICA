@@ -124,7 +124,9 @@
     terminal: '<svg class="icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>',
     externalLink: '<svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>',
     github: '<svg class="icon" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>',
-    send: '<svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>'
+    send: '<svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>',
+    refresh: '<svg class="icon" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>',
+    alertCircle: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>'
   };
 
   const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
@@ -1739,6 +1741,22 @@
         featured: false
       },
       {
+        title: 'Segnala problema calendario esami',
+        meta: 'Calendario DIETI',
+        icon: SVG_ICONS.calendar,
+        href: `${REPO_URL}/issues/new?template=problema_calendario.yml`,
+        keywords: 'calendario appello appelli data date dieti mancante errato canale',
+        featured: true
+      },
+      {
+        title: 'Stato sito CdL DIETI (Online / Manutenzione / Down)',
+        meta: 'Monitor live',
+        icon: SVG_ICONS.alertCircle,
+        onRun: () => openStatusModal(),
+        keywords: 'stato status dieti sito online down manutenzione lento server',
+        featured: false
+      },
+      {
         title: 'Segnala bug o errore',
         meta: 'Segnalazione',
         icon: SVG_ICONS.externalLink,
@@ -1819,7 +1837,8 @@
       addItem(`${SVG_ICONS.star} Cambia tema Chiaro / Scuro`, 'Aspetto', () => applyThemeSwitch(), false);
       addGroup('Contribuisci e community');
       communityActions.filter((a) => a.featured).forEach((a) => {
-        addItem(`${a.icon} ${escapeHtml(a.title)}`, a.meta, () => window.open(a.href, '_blank', 'noopener,noreferrer'), false);
+        const runAction = a.onRun || (() => window.open(a.href, '_blank', 'noopener,noreferrer'));
+        addItem(`${a.icon} ${escapeHtml(a.title)}`, a.meta, runAction, Boolean(a.onRun));
       });
     } else {
       const mCourses = DATA.courses.filter((c) => c.searchBlob.includes(q)).slice(0, 4);
@@ -1860,11 +1879,16 @@
           });
         });
       }
-      const mActions = communityActions.filter((a) => normText(`${a.title} ${a.keywords}`).includes(q)).slice(0, 4);
+      const qTokens = q.split(/\s+/).filter(Boolean);
+      const mActions = communityActions.filter((a) => {
+        const hay = normText(`${a.title} ${a.keywords}`);
+        return qTokens.every((tk) => hay.includes(tk));
+      }).slice(0, 4);
       if (mActions.length) {
         addGroup('Azioni e community');
         mActions.forEach((a) => {
-          addItem(`${a.icon} ${escapeHtml(a.title)}`, a.meta, () => window.open(a.href, '_blank', 'noopener,noreferrer'), false);
+          const runAction = a.onRun || (() => window.open(a.href, '_blank', 'noopener,noreferrer'));
+          addItem(`${a.icon} ${escapeHtml(a.title)}`, a.meta, runAction, Boolean(a.onRun));
         });
       }
     }
@@ -2327,6 +2351,7 @@
           <a class="btn btn-primary" href="${REPO_URL}/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">${uploadIcon} Invia o richiedi una traccia o appunti</a>
           <a class="btn" href="${REPO_URL}/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">${SVG_ICONS.plus} Invia o segnala codice Teams</a>
           <a class="btn" href="${REPO_URL}/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">${SVG_ICONS.code} Invia traccia progetto</a>
+          <a class="btn" href="${REPO_URL}/issues/new?template=problema_calendario.yml" target="_blank" rel="noopener">${SVG_ICONS.calendar} Segnala problema calendario esami</a>
           <a class="btn" href="${REPO_URL}/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">${bugIcon} Segnala bug o errore</a>
           <a class="btn" href="${REPO_URL}/discussions" target="_blank" rel="noopener">${chatIcon} Apri discussioni su GitHub</a>
         </div>
@@ -2689,16 +2714,19 @@
 
     if (filteredEntries.length === 0) {
       const pastAvailable = calUpcomingOnly && entries.some((e) => matchesEntryMeta(e) && filterDatesForEntry(e, false).length > 0);
+      const qRaw = calSearch ? calSearch.value.trim() : '';
+      const calIssueHref = `${REPO_URL}/issues/new?template=problema_calendario.yml${qRaw ? `&title=${encodeURIComponent('[Calendario] ' + qRaw)}` : ''}`;
       calResultsEl.innerHTML = `
         <div class="empty-state-card">
           <h2>Nessun appello trovato con i filtri attuali</h2>
           <p>${pastAvailable
             ? 'Tutti gli appelli di questa ricerca si sono già svolti prima di oggi. Puoi includere anche gli appelli passati della sessione.'
-            : 'Prova a cercare con un\'altra sigla (es. ADE, APSD, BD), a cambiare regolamento (Nuovo/Vecchio) o ad azzerare i filtri.'
+            : 'Prova a cercare con un\'altra sigla (es. ADE, APSD, BD), a cambiare regolamento (Nuovo/Vecchio) oppure segnala un appello mancante.'
           }</p>
           <div class="empty-state-actions">
             ${pastAvailable ? '<button type="button" class="btn btn-primary" id="cal-empty-show-past">Mostra anche appelli passati</button>' : ''}
             <button type="button" class="btn" id="cal-empty-reset">Azzera filtri calendario</button>
+            <a class="btn" href="${calIssueHref}" target="_blank" rel="noopener">${SVG_ICONS.alertCircle} Segnala appello mancante</a>
           </div>
         </div>
       `;
@@ -2961,9 +2989,249 @@
     hydrateFromUrl();
   });
 
+  // DIETI Official Course Site Status Monitor (Issue #36: Online / Lento / Manutenzione / Down)
+  const DIETI_SITE_URL = 'https://informatica.dieti.unina.it/index.php/it/';
+  const DIETI_STATUS_LIVE_URL = 'https://raw.githubusercontent.com/Carloj005/UNINA-INFORMATICA/status-data/dieti_status.json';
+  const DIETI_STATUS_LOCAL_URL = './data/dieti_status.json';
+  const statusModal = document.getElementById('status-modal');
+  const statusModalBody = document.getElementById('status-modal-body');
+  const statusTriggers = [...document.querySelectorAll('[data-open-status]')];
+
+  const DIETI_STATUS_META = {
+    online: { cls: 'is-online', label: 'Online', defaultSummary: 'Il sito del Corso di Laurea DIETI è raggiungibile e risponde regolarmente.' },
+    degraded: { cls: 'is-degraded', label: 'Lento', defaultSummary: 'Il sito DIETI risponde lentamente oppure la pagina calendario presenta problemi.' },
+    maintenance: { cls: 'is-maintenance', label: 'Manutenzione', defaultSummary: 'Il sito DIETI risulta temporaneamente in manutenzione o offline.' },
+    down: { cls: 'is-down', label: 'Down', defaultSummary: 'Il sito DIETI non è al momento raggiungibile.' },
+    unknown: { cls: 'is-loading', label: 'Non verificato', defaultSummary: 'In attesa del primo controllo automatico del sito DIETI.' }
+  };
+
+  let dietiStatusData = null;
+  let dietiStatusLoading = false;
+
+  const formatRelativeTimeIt = (isoStr) => {
+    if (!isoStr) return '';
+    const dt = new Date(isoStr);
+    if (Number.isNaN(dt.getTime())) return '';
+    const diffSec = Math.max(0, Math.round((Date.now() - dt.getTime()) / 1000));
+    if (diffSec < 60) return 'pochi secondi fa';
+    const diffMin = Math.round(diffSec / 60);
+    if (diffMin < 60) return `${diffMin} min fa`;
+    const diffH = Math.round(diffMin / 60);
+    if (diffH < 24) return `${diffH} ${diffH === 1 ? 'ora' : 'ore'} fa`;
+    const diffD = Math.round(diffH / 24);
+    return `${diffD} ${diffD === 1 ? 'giorno' : 'giorni'} fa`;
+  };
+
+  const formatLocalDateTimeIt = (isoStr) => {
+    if (!isoStr) return '—';
+    const dt = new Date(isoStr);
+    if (Number.isNaN(dt.getTime())) return isoStr;
+    return dt.toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+  };
+
+  const isStatusStale = (isoStr) => {
+    if (!isoStr) return false;
+    const dt = new Date(isoStr);
+    return !Number.isNaN(dt.getTime()) && (Date.now() - dt.getTime()) > 2 * 60 * 60 * 1000;
+  };
+
+  const renderStatusBadges = () => {
+    const data = dietiStatusData;
+    const stKey = (data && DIETI_STATUS_META[data.status]) ? data.status : 'unknown';
+    const meta = DIETI_STATUS_META[stKey];
+    const displayLabel = (data && data.label) ? data.label : meta.label;
+    const rel = data ? formatRelativeTimeIt(data.checkedAt) : '';
+    const latencyStr = (data && data.latencyMs > 0 && stKey !== 'down') ? `${data.latencyMs} ms` : '';
+    const tooltipParts = [
+      `Stato sito DIETI: ${displayLabel}`,
+      latencyStr,
+      rel ? `aggiornato ${rel}` : ''
+    ].filter(Boolean);
+
+    statusTriggers.forEach((btn) => {
+      btn.classList.remove('is-online', 'is-degraded', 'is-maintenance', 'is-down', 'is-loading');
+      btn.classList.add(meta.cls);
+      const lblEl = btn.querySelector('.dieti-status-label');
+      if (lblEl) {
+        lblEl.textContent = `Sito DIETI: ${displayLabel}`;
+      }
+      btn.title = `${tooltipParts.join(' · ')} — Clicca per i dettagli`;
+      btn.setAttribute('aria-label', `${tooltipParts.join(', ')}. Apri dettagli stato sito DIETI.`);
+    });
+  };
+
+  const renderStatusModal = () => {
+    if (!statusModalBody) return;
+    const data = dietiStatusData;
+    const stKey = (data && DIETI_STATUS_META[data.status]) ? data.status : 'unknown';
+    const meta = DIETI_STATUS_META[stKey];
+    const displayLabel = (data && data.label) ? data.label : meta.label;
+    const summary = (data && data.summary) ? data.summary : meta.defaultSummary;
+    const rel = data ? formatRelativeTimeIt(data.checkedAt) : '';
+    const exact = data ? formatLocalDateTimeIt(data.checkedAt) : '—';
+    const stale = data ? isStatusStale(data.checkedAt) : false;
+    const services = (data && Array.isArray(data.services)) ? data.services : [];
+    const history = (data && Array.isArray(data.history)) ? data.history : [];
+    const uptimeStr = (data && typeof data.uptimePct === 'number') ? `${data.uptimePct}% uptime` : '';
+
+    const servicesHtml = services.length > 0
+      ? `
+        <div class="status-services">
+          ${services.map((svc) => {
+            const sMeta = DIETI_STATUS_META[svc.status] || DIETI_STATUS_META.unknown;
+            const sLbl = svc.status === 'online' ? 'Online'
+              : (svc.status === 'maintenance' ? 'Manutenzione'
+                : (svc.status === 'degraded' ? 'Lento' : (svc.status === 'down' ? 'Down' : 'N/D')));
+            const safeUrl = isSafeHttpsUrl(svc.url) ? svc.url : DIETI_SITE_URL;
+            return `
+              <div class="status-service-row">
+                <div class="status-service-info">
+                  <a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener" class="status-service-name">${escapeHtml(svc.name || 'Servizio DIETI')}</a>
+                  <span class="status-service-detail">${escapeHtml(svc.detail || '')}</span>
+                </div>
+                <span class="status-pill-tag ${sMeta.cls}"><span class="status-dot" aria-hidden="true"></span>${escapeHtml(sLbl)}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `
+      : '';
+
+    const historyHtml = history.length > 0
+      ? `
+        <div class="status-history">
+          <div class="status-history-head">
+            <span>${history.length === 1 ? 'Ultimo controllo automatico' : `Ultimi ${history.length} controlli automatici`}</span>
+            ${uptimeStr ? `<strong>${escapeHtml(uptimeStr)}</strong>` : ''}
+          </div>
+          <div class="status-history-bar" role="img" aria-label="Storico ultimi ${history.length} controlli stato DIETI${uptimeStr ? `, ${uptimeStr}` : ''}">
+            ${history.map((h) => {
+              const hMeta = DIETI_STATUS_META[h.s] || DIETI_STATUS_META.unknown;
+              const hTip = `${formatLocalDateTimeIt(h.t)} • ${hMeta.label}${h.ms ? ` (${h.ms} ms)` : ''}`;
+              return `<span class="status-history-seg ${hMeta.cls}" title="${escapeHtml(hTip)}"></span>`;
+            }).join('')}
+          </div>
+          <div class="status-history-legend">
+            <span><i class="status-dot is-online"></i>Online</span>
+            <span><i class="status-dot is-degraded"></i>Lento</span>
+            <span><i class="status-dot is-maintenance"></i>Manutenzione</span>
+            <span><i class="status-dot is-down"></i>Down</span>
+          </div>
+        </div>
+      `
+      : '';
+
+    const offlineTipHtml = (stKey === 'maintenance' || stKey === 'down')
+      ? `<div class="status-offline-tip">${SVG_ICONS.checkCircle} <span>Anche se il sito DIETI è offline o in manutenzione, <strong>catalogo file, appunti, codici Teams e copia sincronizzata del calendario esami</strong> qui sul portale restano sempre consultabili.</span></div>`
+      : '';
+
+    statusModalBody.innerHTML = `
+      <div class="status-hero ${meta.cls}">
+        <div class="status-hero-top">
+          <span class="status-pill-tag ${meta.cls}"><span class="status-dot" aria-hidden="true"></span>${escapeHtml(displayLabel)}</span>
+          <span class="status-checked-time">${rel ? `Controllato ${escapeHtml(rel)} (${escapeHtml(exact)})` : 'In attesa di controllo'}</span>
+        </div>
+        <p class="status-hero-summary">${escapeHtml(summary)}</p>
+        ${stale ? '<p class="status-stale-note">Nota: l\'ultimo snapshot ha più di 2 ore; clicca "Aggiorna stato" o verifica direttamente sul sito DIETI.</p>' : ''}
+      </div>
+      ${offlineTipHtml}
+      ${servicesHtml}
+      ${historyHtml}
+      <div class="status-actions">
+        <button type="button" class="btn" id="status-refresh-btn" ${dietiStatusLoading ? 'disabled' : ''}>${SVG_ICONS.refresh} ${dietiStatusLoading ? 'Aggiornamento…' : 'Aggiorna stato'}</button>
+        <a class="btn btn-primary" href="${DIETI_SITE_URL}" target="_blank" rel="noopener">${SVG_ICONS.externalLink} Apri sito DIETI</a>
+        <a class="btn" href="${REPO_URL}/issues/new?template=problema_calendario.yml" target="_blank" rel="noopener">${SVG_ICONS.calendar} Segnala problema calendario</a>
+      </div>
+    `;
+    document.getElementById('status-refresh-btn')?.addEventListener('click', () => {
+      fetchDietiStatus(true);
+    });
+  };
+
+  async function fetchDietiStatus(forceFresh = false) {
+    if (dietiStatusLoading) return;
+    dietiStatusLoading = true;
+    if (statusModal?.open) renderStatusModal();
+
+    const cacheBust = forceFresh ? Date.now() : Math.floor(Date.now() / 300000);
+    const urls = [
+      `${DIETI_STATUS_LIVE_URL}?t=${cacheBust}`,
+      `${DIETI_STATUS_LOCAL_URL}?t=${cacheBust}`
+    ];
+
+    let loaded = null;
+    for (const u of urls) {
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 5000);
+        const resp = await fetch(u, { signal: ctrl.signal, cache: forceFresh ? 'no-store' : 'default' });
+        clearTimeout(timer);
+        if (!resp.ok) continue;
+        const parsed = await resp.json();
+        if (parsed && typeof parsed === 'object' && parsed.status) {
+          loaded = parsed;
+          if (parsed.status !== 'unknown' || u === urls[urls.length - 1]) break;
+        }
+      } catch {}
+    }
+
+    dietiStatusLoading = false;
+    if (loaded) {
+      dietiStatusData = loaded;
+    } else if (!dietiStatusData) {
+      dietiStatusData = { status: 'unknown', label: 'Non verificato', checkedAt: '', services: [], history: [] };
+    }
+    renderStatusBadges();
+    if (statusModal?.open) renderStatusModal();
+    if (forceFresh) {
+      const lbl = (dietiStatusData && dietiStatusData.label) || 'aggiornato';
+      showToast(`Stato sito DIETI: ${lbl}`);
+    }
+  }
+
+  function openStatusModal() {
+    if (!statusModal) return;
+    renderStatusModal();
+    openDialogWithHistory(statusModal);
+    if (!dietiStatusData || dietiStatusData.status === 'unknown') {
+      fetchDietiStatus(true);
+    }
+  }
+
+  statusTriggers.forEach((btn) => {
+    btn.addEventListener('click', openStatusModal);
+  });
+
+  // Render Home Section 4: Scorciatoie e contributi rapidi (mantiene index.html leggero < 40 KB)
+  const renderHomeShortcuts = () => {
+    const grid = document.getElementById('home-shortcuts-grid');
+    if (!grid) return;
+    const acYr = (DATA.examCalendar && DATA.examCalendar.academicYear) || '2026/2027';
+    const uploadSvg = '<svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>';
+    const shortcuts = [
+      { label: 'Segnala codice Teams', href: `${REPO_URL}/issues/new?template=codice_teams.yml`, icon: SVG_ICONS.plus },
+      { label: 'Invia appunti o tracce', href: `${REPO_URL}/issues/new?template=richiesta_o_materiale.yml`, icon: uploadSvg },
+      { label: 'Invia traccia progetto', href: `${REPO_URL}/issues/new?template=traccia_progetto.yml`, icon: SVG_ICONS.code },
+      { label: 'Segnala problema calendario', href: `${REPO_URL}/issues/new?template=problema_calendario.yml`, icon: SVG_ICONS.calendar },
+      { label: `Orario lezioni ${acYr}`, href: `${REPO_URL}/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf`, icon: SVG_ICONS.download },
+      { label: 'Gruppi Telegram studenti', href: 'https://t.me/+7HOZaOMbgSphNGM0', icon: SVG_ICONS.send }
+    ];
+    grid.innerHTML = shortcuts.map((s) => `
+      <a class="shortcut-card" href="${escapeHtml(s.href)}" target="_blank" rel="noopener">
+        <span class="shortcut-left">
+          <span class="shortcut-icon-box" aria-hidden="true">${s.icon}</span>
+          <span>${escapeHtml(s.label)}</span>
+        </span>
+        <span class="shortcut-arrow" aria-hidden="true">${SVG_ICONS.chevRight}</span>
+      </a>
+    `).join('');
+  };
+
   syncFavBadge();
   renderPinnedHome();
+  renderHomeShortcuts();
   hydrateFromUrl();
+  fetchDietiStatus(false);
 
   // Register Service Worker for offline shell & cached catalog/maps
   const registerSW = () => {

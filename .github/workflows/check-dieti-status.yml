@@ -1,0 +1,50 @@
+name: Monitor Stato Sito DIETI
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "dieti-status-monitor"
+  cancel-in-progress: true
+
+jobs:
+  check-status:
+    name: Verifica Sito CdL Informatica DIETI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout leggero (0 MB LFS)
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Controlla stato informatica.dieti.unina.it
+        run: |
+          python3 info-generali/web/check_dieti_status.py \
+            --out /tmp/dieti_status.json \
+            --prev-url "https://raw.githubusercontent.com/${{ github.repository }}/status-data/dieti_status.json"
+
+      - name: Pubblica snapshot su branch orfano status-data (0 commit su master)
+        run: |
+          WORK_DIR="/tmp/status-branch"
+          rm -rf "$WORK_DIR"
+          mkdir -p "$WORK_DIR"
+          cp /tmp/dieti_status.json "$WORK_DIR/dieti_status.json"
+          cd "$WORK_DIR"
+          git init -b status-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dieti_status.json
+          git commit -m "chore(status): aggiorna stato sito DIETI [skip ci]"
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git push --force origin status-data

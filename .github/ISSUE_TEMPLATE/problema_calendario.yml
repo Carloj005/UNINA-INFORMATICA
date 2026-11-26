@@ -1,0 +1,61 @@
+name: "📅 Segnala Problema Calendario Esami"
+description: "Segnala appelli mancanti, date o mesi errati, docenti/canali sbagliati o discrepanze rispetto al PDF ufficiale DIETI."
+title: "[Calendario] "
+labels: ["bug", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Grazie per aiutarci a mantenere preciso il **Calendario Esami Triennale**! 📅
+        Puoi confrontare le date con la [pagina ufficiale del Calendario Esami DIETI](https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale).
+  - type: dropdown
+    id: tipo_problema
+    attributes:
+      label: Tipo di problema riscontrato
+      description: "Seleziona la categoria che descrive meglio l'anomalia nel calendario."
+      options:
+        - "Appello mancante (presente sul PDF DIETI o comunicato dal docente)"
+        - "Data, giorno o mese errato (es. data nel weekend o giorno sbagliato)"
+        - "Docente, email o canale (FG1 / FG2 / A-DE) errato o scambiato"
+        - "Corso non collegato correttamente al catalogo del portale"
+        - "Nuovo PDF o nuova sessione DIETI non ancora sincronizzata"
+        - "Altro problema sul calendario"
+    validations:
+      required: true
+  - type: dropdown
+    id: anno
+    attributes:
+      label: Anno di riferimento
+      options:
+        - Primo Anno
+        - Secondo Anno
+        - Terzo Anno
+        - Esami a Scelta
+        - Vecchio Regolamento
+        - Intero calendario / più corsi
+    validations:
+      required: true
+  - type: input
+    id: corso_canale
+    attributes:
+      label: Insegnamento e Canale / Docente
+      description: "Indica il nome del corso e, se presente, il canale o il docente interessato."
+      placeholder: "Es. Programmazione 1 — FG2 (Prof. Luigi Sauro)"
+    validations:
+      required: true
+  - type: input
+    id: data_attesa
+    attributes:
+      label: Data mostrata vs data corretta (opzionale)
+      description: "Se il problema riguarda una o più date specifiche, indica cosa appare ora e quale dovrebbe essere la data corretta."
+      placeholder: "Es. Mostra 21/02/2027 (domenica) invece di 22/02/2027"
+    validations:
+      required: false
+  - type: textarea
+    id: dettagli
+    attributes:
+      label: Dettagli e fonte della verifica
+      description: "Spiega chiaramente il problema, incolla eventuale link/screenshot del PDF DIETI o dell'avviso del docente (Teams / Docenti Unina)."
+      placeholder: "Descrivi l'errore o l'appello mancante..."
+    validations:
+      required: true

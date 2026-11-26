@@ -140,10 +140,10 @@
 
           <div class="hero-console span-6" data-ui="hero-search-console">
             <div class="console-topbar">
-              <span class="console-status">
+              <button type="button" class="dieti-status-pill is-loading" data-open-status aria-label="Stato del sito CdL DIETI — apri dettagli" title="Controlla stato del sito ufficiale informatica.dieti.unina.it">
                 <span class="status-dot" aria-hidden="true"></span>
-                <span>Ricerca istantanea locale</span>
-              </span>
+                <span class="dieti-status-label">Sito DIETI: verifica…</span>
+              </button>
               <button type="button" class="console-kbd-btn" data-open-cmd title="Apri palette comandi (Ctrl+K)">
                 <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <span>Ctrl+K</span>
@@ -322,62 +322,7 @@
           <h2>Scorciatoie e contributi rapidi</h2>
           <p class="shortcuts-sub">Segnala codici Teams, invia appunti o tracce, apri l'orario lezioni o unisciti ai gruppi studenti.</p>
         </div>
-        <div class="home-shortcuts-grid">
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=codice_teams.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-              </span>
-              <span>Segnala codice Teams</span>
-            </span>
-            <svg class="icon shortcut-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=richiesta_o_materiale.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
-              </span>
-              <span>Invia appunti o tracce</span>
-            </span>
-            <svg class="icon shortcut-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=traccia_progetto.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </span>
-              <span>Invia traccia progetto</span>
-            </span>
-            <svg class="icon shortcut-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=segnalazione_errore.yml" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
-              </span>
-              <span>Segnala bug o errore</span>
-            </span>
-            <svg class="icon shortcut-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://github.com/Carloj005/UNINA-INFORMATICA/raw/master/info-generali/Orario%20Lezioni%202026-2027.pdf" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
-              </span>
-              <span>Orario lezioni <span data-academic-year>2026/2027</span></span>
-            </span>
-            <svg class="icon shortcut-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-          <a class="shortcut-card" href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">
-            <span class="shortcut-left">
-              <span class="shortcut-icon-box" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
-              </span>
-              <span>Gruppi Telegram studenti</span>
-            </span>
-            <svg class="icon shortcut-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-        </div>
+        <div id="home-shortcuts-grid" class="home-shortcuts-grid"></div>
       </div>
     </section>
 
@@ -573,6 +518,10 @@
             </div>
             <div class="calendar-source-sub">
               <span id="cal-source-meta">Fonte ufficiale DIETI • Sincronizzazione automatica attiva (__STAT_EXAMS__ appelli)</span>
+              <button type="button" class="dieti-status-pill is-compact is-loading" data-open-status aria-label="Stato sito CdL DIETI — apri dettagli" title="Apri monitor stato sito DIETI">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span class="dieti-status-label">Sito DIETI: verifica…</span>
+              </button>
             </div>
           </div>
           <div class="calendar-source-actions">
@@ -583,6 +532,10 @@
             <a class="btn" id="cal-page-link" href="https://informatica.dieti.unina.it/index.php/it/servizi-per-gli-studenti/calendario-esami/calendario-esami-laurea-triennale" target="_blank" rel="noopener">
               <svg class="icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
               <span class="lbl-full">Pagina sito DIETI</span><span class="lbl-short">Sito DIETI</span>
+            </a>
+            <a class="btn" id="cal-report-btn" href="https://github.com/Carloj005/UNINA-INFORMATICA/issues/new?template=problema_calendario.yml" target="_blank" rel="noopener" title="Segnala appelli mancanti, date errate o docenti scambiati">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+              <span class="lbl-full">Segnala errore</span><span class="lbl-short">Segnala errore calendario</span>
             </a>
           </div>
         </div>
@@ -767,6 +720,25 @@
     </div>
   </dialog>
 
+  <!-- Native Modal Dialog for DIETI Official Course Site Status -->
+  <dialog id="status-modal" class="status-dialog" aria-labelledby="status-modal-title" closedby="any">
+    <div class="dialog-inner">
+      <div class="dialog-header">
+        <div>
+          <h2 id="status-modal-title">Stato sito CdL DIETI</h2>
+          <span id="status-modal-sub" style="font-size:0.8125rem;color:var(--muted);">informatica.dieti.unina.it • Monitoraggio automatico ogni 30 min</span>
+        </div>
+        <form method="dialog">
+          <button type="submit" class="btn" value="close" autofocus>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            Chiudi
+          </button>
+        </form>
+      </div>
+      <div id="status-modal-body"></div>
+    </div>
+  </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <!-- Mobile App-Like Bottom Navigation Bar (Home · Catalogo · Corsi · Calendario · Preferiti) -->
@@ -797,7 +769,13 @@
   <footer class="footer closing">
     <div class="wrap footer-inner">
       <div class="footer-top-row">
-        <div><strong>Unina Informatica</strong> · Open-source <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">CC 4.0</a></div>
+        <div class="footer-brand-row">
+          <span><strong>Unina Informatica</strong> · Open-source <a href="https://github.com/Carloj005/UNINA-INFORMATICA/blob/master/LICENSE" target="_blank" rel="noopener">CC 4.0</a></span>
+          <button type="button" class="footer-status-btn is-loading" data-open-status aria-label="Stato sito CdL DIETI" title="Apri monitor stato informatica.dieti.unina.it">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="dieti-status-label">Sito DIETI: verifica…</span>
+          </button>
+        </div>
         <div class="footer-links">
           <a href="https://github.com/Carloj005/UNINA-INFORMATICA" target="_blank" rel="noopener">GitHub</a>
           <a href="https://t.me/+7HOZaOMbgSphNGM0" target="_blank" rel="noopener">Telegram</a>

@@ -223,6 +223,24 @@ def main() -> int:
         except Exception as exc:
             errors.append(f"[JSON] Errore lettura calendar.*.json: {exc}")
 
+    # 7. Controlla data/dieti_status.json e sintassi check_dieti_status.py
+    status_json_path = os.path.join(out_dir, "data", "dieti_status.json")
+    if not os.path.exists(status_json_path):
+        errors.append("[Status] data/dieti_status.json non generato")
+    else:
+        try:
+            st_obj = json.load(open(status_json_path, encoding="utf-8"))
+            if st_obj.get("status") not in ("online", "degraded", "maintenance", "down", "unknown"):
+                errors.append(f"[Status] Stato DIETI non valido in dieti_status.json: {st_obj.get('status')!r}")
+        except Exception as exc:
+            errors.append(f"[Status] Errore lettura dieti_status.json: {exc}")
+
+    status_script = os.path.join(REPO_ROOT, "info-generali", "web", "check_dieti_status.py")
+    if os.path.exists(status_script):
+        py_chk = subprocess.run([sys.executable, "-m", "py_compile", status_script], capture_output=True, text=True)
+        if py_chk.returncode != 0:
+            errors.append(f"[Status] Errore sintassi in check_dieti_status.py: {py_chk.stderr.strip()}")
+
     if errors:
         print(f"\n❌ VERIFICA PORTALE FALLITA con {len(errors)} errori:")
         for err in errors:

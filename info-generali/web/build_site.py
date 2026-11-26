@@ -525,7 +525,7 @@ def content_hash8(data: bytes) -> str:
 
 def optimize_html(html: str) -> str:
     """Deduplica le icone SVG inline ripetute e compatta gli spazi HTML in sicurezza."""
-    pat = re.compile(r'<svg class="([^"]+)" viewBox="0 0 24 24">(.*?)</svg>', re.S)
+    pat = re.compile(r'<svg class="([^"]+)" viewBox="0 0 24 24"(?: aria-hidden="true")?>(.*?)</svg>', re.S)
     counts = Counter(m.group(2) for m in pat.finditer(html))
     sym_map = {}
     symbols = []
@@ -805,6 +805,7 @@ def pack_catalog_for_client(catalog: dict) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Genera il sito statico per GitHub Pages.")
     parser.add_argument("--out", default="_site", help="Cartella di output (default: _site)")
+    parser.add_argument("--status-file", default="", help="Percorso opzionale a dieti_status.json da includere come fallback")
     args = parser.parse_args()
 
     out_dir = os.path.abspath(args.out)
@@ -858,6 +859,27 @@ def main():
     calendar_json_rel = f"data/calendar.{content_hash8(calendar_json_bytes)}.json"
     with open(os.path.join(out_dir, calendar_json_rel), "wb") as fp:
         fp.write(calendar_json_bytes)
+
+    # Includi snapshot fallback dello stato sito DIETI (il client preferisce sempre il feed live su status-data)
+    status_dest = os.path.join(data_dir, "dieti_status.json")
+    status_src = args.status_file or os.path.join(WEB_DIR, "dieti_status.json")
+    if status_src and os.path.isfile(status_src):
+        shutil.copy2(status_src, status_dest)
+    else:
+        fallback_status = {
+            "status": "unknown",
+            "label": "Non verificato",
+            "summary": "Controllo automatico dello stato del sito DIETI attivo ogni 30 minuti.",
+            "checkedAt": "",
+            "url": "https://informatica.dieti.unina.it/index.php/it/",
+            "httpStatus": 0,
+            "latencyMs": 0,
+            "uptimePct": None,
+            "services": [],
+            "history": [],
+        }
+        with open(status_dest, "w", encoding="utf-8") as fp:
+            json.dump(fallback_status, fp, ensure_ascii=False, separators=(",", ":"))
 
     stat_files_str = f"{len(catalog['files']):,}".replace(",", ".")
     stat_courses_str = str(len(catalog["courses"]))
