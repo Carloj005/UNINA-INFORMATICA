@@ -1530,6 +1530,12 @@ dialog.status-dialog {
   font-size: 0.75rem;
   color: var(--warn-text);
 }
+.status-server-meta {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
 .status-offline-tip {
   display: flex;
   align-items: flex-start;

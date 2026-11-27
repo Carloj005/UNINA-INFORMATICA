@@ -3029,10 +3029,133 @@
     return dt.toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
   };
 
-  const isStatusStale = (isoStr) => {
-    if (!isoStr) return false;
+  const isStatusStale = (isoStr, maxMinutes = 120) => {
+    if (!isoStr) return true;
     const dt = new Date(isoStr);
-    return !Number.isNaN(dt.getTime()) && (Date.now() - dt.getTime()) > 2 * 60 * 60 * 1000;
+    return Number.isNaN(dt.getTime()) || (Date.now() - dt.getTime()) > maxMinutes * 60 * 1000;
+  };
+
+  const probeDietiLiveFromBrowser = async () => {
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) return null;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      const t0 = performance.now();
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 8000);
+      try {
+        await fetch(`${DIETI_SITE_URL}?_ping=${Date.now()}`, {
+          mode: 'no-cors',
+          cache: 'no-store',
+          signal: ctrl.signal
+        });
+        clearTimeout(timer);
+        const latencyMs = Math.max(1, Math.round(performance.now() - t0));
+        return {
+          reachable: true,
+          status: latencyMs >= 4000 ? 'degraded' : 'online',
+          latencyMs,
+          checkedAt: new Date().toISOString()
+        };
+      } catch (err) {
+        clearTimeout(timer);
+        const latencyMs = Math.max(1, Math.round(performance.now() - t0));
+        if (typeof navigator !== 'undefined' && navigator.onLine === false) return null;
+        if (attempt === 0) {
+          await new Promise((r) => setTimeout(r, 900));
+          continue;
+        }
+        return {
+          reachable: false,
+          status: 'down',
+          latencyMs,
+          checkedAt: new Date().toISOString(),
+          detail: (err && err.name === 'AbortError') ? 'Timeout (> 8s)' : 'Server non raggiungibile'
+        };
+      }
+    }
+    return null;
+  };
+
+  const mergeServerAndLiveProbe = (snapshot, probe) => {
+    const base = snapshot && typeof snapshot === 'object'
+      ? {
+          ...snapshot,
+          services: Array.isArray(snapshot.services) ? snapshot.services.map((s) => ({ ...s })) : [],
+          history: Array.isArray(snapshot.history) ? snapshot.history.slice() : []
+        }
+      : {
+          status: 'unknown',
+          label: 'Non verificato',
+          summary: '',
+          checkedAt: '',
+          url: DIETI_SITE_URL,
+          httpStatus: 0,
+          latencyMs: 0,
+          uptimePct: null,
+          services: [],
+          history: []
+        };
+    if (!probe) return base;
+
+    const serverCheckedAt = base.serverCheckedAt || base.checkedAt || '';
+    const serverWasRecentMaint = base.status === 'maintenance' && !isStatusStale(serverCheckedAt, 45);
+    base.serverCheckedAt = serverCheckedAt;
+    base.liveVerified = true;
+
+    if (!probe.reachable) {
+      base.status = 'down';
+      base.label = 'Down';
+      base.latencyMs = probe.latencyMs;
+      base.checkedAt = probe.checkedAt;
+      base.summary = `Il sito del Corso di Laurea DIETI non risponde alla verifica live dal browser (${probe.detail}).`;
+      if (base.services.length > 0) {
+        base.services[0].status = 'down';
+        base.services[0].latencyMs = probe.latencyMs;
+        base.services[0].detail = `Verifica live browser • ${probe.detail}`;
+      } else {
+        base.services = [{
+          id: 'portal',
+          name: 'Sito CdL Informatica DIETI',
+          url: DIETI_SITE_URL,
+          status: 'down',
+          httpStatus: 0,
+          latencyMs: probe.latencyMs,
+          detail: `Verifica live browser • ${probe.detail}`
+        }];
+      }
+      return base;
+    }
+
+    if (serverWasRecentMaint) {
+      // Mantiene Manutenzione se il server ha appena rilevato HTTP 503/Joomla offline (no-cors non legge lo status code)
+      base.latencyMs = probe.latencyMs;
+      return base;
+    }
+
+    const liveStatus = probe.status;
+    base.status = liveStatus;
+    base.label = liveStatus === 'degraded' ? 'Lento' : 'Online';
+    base.latencyMs = probe.latencyMs;
+    base.checkedAt = probe.checkedAt;
+    base.summary = liveStatus === 'degraded'
+      ? `Il sito del Corso di Laurea DIETI risponde lentamente alla verifica live dal browser (${probe.latencyMs} ms).`
+      : `Il sito del Corso di Laurea DIETI è raggiungibile in tempo reale dal browser (${probe.latencyMs} ms).`;
+
+    if (base.services.length > 0) {
+      base.services[0].status = liveStatus;
+      base.services[0].latencyMs = probe.latencyMs;
+      base.services[0].detail = `Verifica live browser • ${probe.latencyMs} ms`;
+    } else {
+      base.services = [{
+        id: 'portal',
+        name: 'Sito CdL Informatica DIETI',
+        url: DIETI_SITE_URL,
+        status: liveStatus,
+        httpStatus: 0,
+        latencyMs: probe.latencyMs,
+        detail: `Verifica live browser • ${probe.latencyMs} ms`
+      }];
+    }
+    return base;
   };
 
   const renderStatusBadges = () => {
@@ -3045,7 +3168,7 @@
     const tooltipParts = [
       `Stato sito DIETI: ${displayLabel}`,
       latencyStr,
-      rel ? `aggiornato ${rel}` : ''
+      rel ? `verificato ${rel}` : ''
     ].filter(Boolean);
 
     statusTriggers.forEach((btn) => {
@@ -3069,7 +3192,10 @@
     const summary = (data && data.summary) ? data.summary : meta.defaultSummary;
     const rel = data ? formatRelativeTimeIt(data.checkedAt) : '';
     const exact = data ? formatLocalDateTimeIt(data.checkedAt) : '—';
-    const stale = data ? isStatusStale(data.checkedAt) : false;
+    const stale = Boolean(data && !data.liveVerified && isStatusStale(data.checkedAt, 120));
+    const serverMetaStr = (data && data.liveVerified && data.serverCheckedAt)
+      ? `Ultimo controllo server (HTTP/manutenzione): ${formatLocalDateTimeIt(data.serverCheckedAt)}`
+      : '';
     const services = (data && Array.isArray(data.services)) ? data.services : [];
     const history = (data && Array.isArray(data.history)) ? data.history : [];
     const uptimeStr = (data && typeof data.uptimePct === 'number') ? `${data.uptimePct}% uptime` : '';
@@ -3101,7 +3227,7 @@
       ? `
         <div class="status-history">
           <div class="status-history-head">
-            <span>${history.length === 1 ? 'Ultimo controllo automatico' : `Ultimi ${history.length} controlli automatici`}</span>
+            <span>${history.length === 1 ? 'Ultimo controllo server' : `Ultimi ${history.length} controlli server`}</span>
             ${uptimeStr ? `<strong>${escapeHtml(uptimeStr)}</strong>` : ''}
           </div>
           <div class="status-history-bar" role="img" aria-label="Storico ultimi ${history.length} controlli stato DIETI${uptimeStr ? `, ${uptimeStr}` : ''}">
@@ -3129,16 +3255,17 @@
       <div class="status-hero ${meta.cls}">
         <div class="status-hero-top">
           <span class="status-pill-tag ${meta.cls}"><span class="status-dot" aria-hidden="true"></span>${escapeHtml(displayLabel)}</span>
-          <span class="status-checked-time">${rel ? `Controllato ${escapeHtml(rel)} (${escapeHtml(exact)})` : 'In attesa di controllo'}</span>
+          <span class="status-checked-time">${rel ? `${data && data.liveVerified ? 'Verifica live' : 'Controllato'} ${escapeHtml(rel)} (${escapeHtml(exact)})` : 'In attesa di controllo'}</span>
         </div>
         <p class="status-hero-summary">${escapeHtml(summary)}</p>
-        ${stale ? '<p class="status-stale-note">Nota: l\'ultimo snapshot ha più di 2 ore; clicca "Aggiorna stato" o verifica direttamente sul sito DIETI.</p>' : ''}
+        ${serverMetaStr ? `<p class="status-server-meta">${escapeHtml(serverMetaStr)}</p>` : ''}
+        ${stale ? '<p class="status-stale-note">Nota: l\'ultimo snapshot ha più di 2 ore; clicca "Aggiorna stato" per una verifica live immediata.</p>' : ''}
       </div>
       ${offlineTipHtml}
       ${servicesHtml}
       ${historyHtml}
       <div class="status-actions">
-        <button type="button" class="btn" id="status-refresh-btn" ${dietiStatusLoading ? 'disabled' : ''}>${SVG_ICONS.refresh} ${dietiStatusLoading ? 'Aggiornamento…' : 'Aggiorna stato'}</button>
+        <button type="button" class="btn" id="status-refresh-btn" ${dietiStatusLoading ? 'disabled' : ''}>${SVG_ICONS.refresh} ${dietiStatusLoading ? 'Verifica live…' : 'Aggiorna stato'}</button>
         <a class="btn btn-primary" href="${DIETI_SITE_URL}" target="_blank" rel="noopener">${SVG_ICONS.externalLink} Apri sito DIETI</a>
         <a class="btn" href="${REPO_URL}/issues/new?template=problema_calendario.yml" target="_blank" rel="noopener">${SVG_ICONS.calendar} Segnala problema calendario</a>
       </div>
@@ -3175,17 +3302,27 @@
       } catch {}
     }
 
-    dietiStatusLoading = false;
-    if (loaded) {
-      dietiStatusData = loaded;
-    } else if (!dietiStatusData) {
-      dietiStatusData = { status: 'unknown', label: 'Non verificato', checkedAt: '', services: [], history: [] };
+    const baseSnapshot = loaded || dietiStatusData || { status: 'unknown', label: 'Non verificato', checkedAt: '', services: [], history: [] };
+    // Mostra subito lo snapshot server mentre parte l'eventuale verifica live dal browser
+    dietiStatusData = baseSnapshot;
+    renderStatusBadges();
+    if (statusModal?.open) renderStatusModal();
+
+    const needsLiveProbe = forceFresh || !baseSnapshot.checkedAt || baseSnapshot.status === 'unknown' || isStatusStale(baseSnapshot.checkedAt, 30);
+    if (needsLiveProbe) {
+      const probe = await probeDietiLiveFromBrowser();
+      if (probe) {
+        dietiStatusData = mergeServerAndLiveProbe(baseSnapshot, probe);
+      }
     }
+
+    dietiStatusLoading = false;
     renderStatusBadges();
     if (statusModal?.open) renderStatusModal();
     if (forceFresh) {
       const lbl = (dietiStatusData && dietiStatusData.label) || 'aggiornato';
-      showToast(`Stato sito DIETI: ${lbl}`);
+      const msTxt = (dietiStatusData && dietiStatusData.latencyMs > 0 && dietiStatusData.status !== 'down') ? ` (${dietiStatusData.latencyMs} ms)` : '';
+      showToast(`Stato sito DIETI: ${lbl}${msTxt}`);
     }
   }
 

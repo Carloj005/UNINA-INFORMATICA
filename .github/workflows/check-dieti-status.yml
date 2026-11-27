@@ -2,7 +2,8 @@ name: Monitor Stato Sito DIETI
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    # Minuti sfalsati fuori picco (:17 e :47) per evitare i drop di GitHub Actions ai minuti :00/:30
+    - cron: "17,47 * * * *"
   workflow_dispatch:
 
 permissions:
