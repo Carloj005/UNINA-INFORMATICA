@@ -10,7 +10,7 @@
 - **Settore Scientifico-Disciplinare (SSD):** `MATH-02/A`
 - **Propedeuticità:** Nessuna
 - **Modalità d'Esame:** L’esame si articola in prova: Scritta e orale. La prova scritta prevede sia risposta multipla che risposta libera.
-- **Copertura Materiale:** 🟡 Parziale (8 file)
+- **Copertura Materiale:** 🟡 Parziale (12 file)
 - **Stato Esame (Tracker Autore):** ⏳ In Corso / Da Sostenere
 
 ## 🎯 Obiettivi Formativi
@@ -19,6 +19,6 @@ Obiettivo del corso è quello di fornire allo studente la capacità di utilizzar
 
 ## 👨‍🏫 Canali e Docenti
 
-- [Prof. Giovanni Cutolo](./Prof-GiovanniCutolo) *(vuoto)*
+- [Prof. Giovanni Cutolo](./Prof-GiovanniCutolo) *(4 file — inclusi appunti corso registrato Cutolo, lezioni Vecchio Ordinamento A.A. 2019/2020 Prof.ssa Leone e riassunti)*
 - [Prof.ssa Maria Rosaria Celentani](./Prof-MariaRosariaCelentani) *(8 file)*
 - [Prof. Mattia Brescia](./Prof-MattiaBrescia) *(vuoto)*
