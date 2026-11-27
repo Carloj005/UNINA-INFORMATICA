@@ -31,7 +31,6 @@ body:
         - esercizi (Esercitazioni / Laboratorio)
         - progetti (Prove pratiche / Progetti)
         - libri (Libri di testo / Riferimenti bibliografici)
-        - contenuto-non-proprio (Materiale condiviso da altri studenti)
     validations:
       required: true
   - type: textarea
