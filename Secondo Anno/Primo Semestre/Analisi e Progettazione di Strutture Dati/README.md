@@ -10,7 +10,7 @@
 - **Settore Scientifico-Disciplinare (SSD):** `INFO-01/A`
 - **Propedeuticità:** [Programmazione 1](../../../Primo%20Anno/Primo%20Semestre/Programmazione%201)
 - **Modalità d'Esame:** L'esame si articola in prova: Scritta e orale In caso di prova scritta i quesiti sono: A risposta libera.
-- **Copertura Materiale:** 🟢 Ricco (196 file)
+- **Copertura Materiale:** 🟢 Ricco (198 file)
 - **Stato Esame (Tracker Autore):** ✅ Completato / Superato
 
 ## 🎯 Obiettivi Formativi
@@ -20,4 +20,4 @@ Il corso si propone di fornire le conoscenze di base per l'analisi e la progetta
 ## 👨‍🏫 Canali e Docenti
 
 - [Prof. Fabio Mogavero](./Prof-FabioMogavero) *(vuoto)*
-- [Prof. Massimo Benerecetti](./Prof-MassimoBenerecetti) *(196 file)*
+- [Prof. Massimo Benerecetti](./Prof-MassimoBenerecetti) *(198 file)*
