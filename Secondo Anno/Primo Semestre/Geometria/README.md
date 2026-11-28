@@ -10,7 +10,7 @@
 - **Settore Scientifico-Disciplinare (SSD):** `MATH-02/B`
 - **Propedeuticità:** Nessuna
 - **Modalità d'Esame:** L’esame si articola in prova: Scritta e orale. Per la prova scritta, i quesiti sono a risposta multipla, a risposta libera, e/o esercizi numerici.
-- **Copertura Materiale:** 🟢 Ricco (18 file)
+- **Copertura Materiale:** 🟢 Ricco (21 file)
 - **Stato Esame (Tracker Autore):** ⏳ In Corso / Da Sostenere
 
 ## 🎯 Obiettivi Formativi
@@ -19,6 +19,6 @@ Si dovranno acquisire gli strumenti di base dell’algebra lineare e della geome
 
 ## 👨‍🏫 Canali e Docenti
 
-- [Prof.ssa Francesca Cioffi](./Prof-FrancescaCioffi) *(18 file)*
+- [Prof.ssa Francesca Cioffi](./Prof-FrancescaCioffi) *(21 file)*
 - [Prof. Marco Trombetti](./Prof-MarcoTrombetti) *(vuoto)*
 - [Prof. Roberto Pirisi](./Prof-RobertoPirisi)
